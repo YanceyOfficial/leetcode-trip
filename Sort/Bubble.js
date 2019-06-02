@@ -3,8 +3,6 @@
 // <3>.针对所有的元素重复以上的步骤，除了最后一个；
 // <4>.重复步骤1~3，直到排序完成。
 
-const arr = [3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48];
-
 function bubbleSort(arr) {
   const len = arr.length;
   for (let i = 0; i < len; i += 1) {
@@ -13,20 +11,6 @@ function bubbleSort(arr) {
         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
       }
     }
-  }
-  return arr;
-}
-
-function bubbleSort2(arr) {
-  let i = arr.length - 1;
-  while (i > 0) {
-    let pos = 0;
-    for (let j = 0; j < i; j++)
-      if (arr[j] > arr[j + 1]) {
-        pos = j;
-        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-      }
-    i = pos;
   }
   return arr;
 }
@@ -51,6 +35,4 @@ function bubbleSort3(arr3) {
   return arr3;
 }
 
-console.log(bubbleSort3(arr));
-
-// 复杂度 o(n^2)
+// 复杂度 o(n^2) 稳定
