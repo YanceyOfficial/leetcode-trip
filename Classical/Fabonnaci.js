@@ -27,18 +27,6 @@ function fibonacci(n) {
   return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-function iterFib(n) {
-  let last = 1;
-  let nextLast = 1;
-  let result = 1;
-  for (let i = 2; i < n; ++i) {
-    result = last + nextLast;
-    nextLast = last;
-    last = result;
-  }
-  return result;
-}
-
 const factorial = memorize(n => {
   return n <= 1 ? 1 : n * factorial(n - 1);
 });
