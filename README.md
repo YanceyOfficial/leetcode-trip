@@ -1,7 +1,7 @@
 # leetcode trip
 
 这是 Yancey ~~刷 leetcode~~ 学习数据结构和算法的地方，项目在 `precommit` 阶段会走一遍 `jest` 嘻嘻。强烈推荐使用 vscode 的小伙伴安装 `leetcode` 这个插件，
-可以绑定你的 leetcode 账户，然后就可以在 vscode 里愉快的 ~~划水~~，哦不，学习了。你懂的 😼
+可以绑定你的 leetcode 账户，然后就可以在 vscode 里愉快的~~划水~~，哦不，学习了。你懂的 😼
 
 项目主要分三个部分：
 
