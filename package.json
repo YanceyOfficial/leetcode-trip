@@ -6,7 +6,8 @@
   "author": "YanceyOffical <yanceyofficial@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "precommit": "yarn test"
   },
   "devDependencies": {
     "husky": "^3.0.8",
