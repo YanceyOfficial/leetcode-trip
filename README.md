@@ -32,6 +32,8 @@
 
 ### `yarn test`
 
+用 jest 刷下单元测试嘻嘻。
+
 ## License
 
 leetcode trip is licensed under the terms of the [MIT licensed](https://opensource.org/licenses/MIT).
