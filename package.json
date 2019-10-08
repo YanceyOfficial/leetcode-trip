@@ -26,11 +26,6 @@
         "functions": 100,
         "lines": 100
       }
-    },
-    "husky": {
-      "hooks": {
-        "pre-commit": "yarn test"
-      }
     }
   }
 }
