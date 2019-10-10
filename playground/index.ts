@@ -1,5 +1,8 @@
 class Book {
-  constructor(name, isbn, pageNum) {
+  readonly name: string
+  readonly isbn: string
+  readonly pageNum: number
+  constructor(name: string, isbn: string, pageNum: number) {
     this.name = name
     this.isbn = isbn
     this.pageNum = pageNum
@@ -18,7 +21,11 @@ console.log(book.sayPageNum())
 console.log('---')
 
 class TechBook extends Book {
-  constructor(name, isbn, pageNum, technology) {
+  readonly name: string
+  readonly isbn: string
+  readonly pageNum: number
+  protected _technology: string
+  constructor(name: string, isbn: string, pageNum: number, technology: string) {
     super(name, isbn, pageNum)
     this._technology = technology
   }
