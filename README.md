@@ -7,8 +7,9 @@
 
 - 数据结构
 
-  - 栈
-  - 队列
+  - [栈](https://github.com/YanceyOfficial/leetcode-trip/tree/master/dataStructures/Stack)
+  - [队列](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/QueueAndDeque/Queue.ts)
+  - [双端队列](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/QueueAndDeque/Deque.ts)
   - 链表
   - 树
   - 图
