@@ -1,5 +1,5 @@
 export interface IArrayStack {
-  push(element: number | number[]): void // 添加一个(或多个)新元素到栈顶
+  push(elements: number | number[]): void // 添加一个(或多个)新元素到栈顶
   pop(): number // 移除栈顶的元素，同时返回被移除的元素
   peek(): number // 返回栈顶的元素，不对栈做任何修改
   isEmpty(): boolean // 判断栈是否为空

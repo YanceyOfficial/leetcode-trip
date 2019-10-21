@@ -1,8 +1,5 @@
 import { IObjectStack } from './types'
-
-interface IItem {
-  [key: string]: number
-}
+import { IItem } from '../types'
 
 export class Stack implements IObjectStack {
   private readonly items: IItem
