@@ -7,8 +7,6 @@
 
 本仓库亦为 《学习 JavaScript 数据结构与算法》和《漫画算法——小灰的算法之旅》学习笔记。
 
----
-
 ## 数据结构
 
 - [栈](https://github.com/YanceyOfficial/leetcode-trip/tree/master/dataStructures/Stack)
