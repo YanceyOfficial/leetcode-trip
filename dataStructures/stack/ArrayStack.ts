@@ -1,6 +1,6 @@
 import { IArrayStack } from './types'
 
-class Stack implements IArrayStack {
+export class Stack implements IArrayStack {
   private readonly items: number[]
 
   constructor() {
@@ -33,11 +33,3 @@ class Stack implements IArrayStack {
     return this.items.length
   }
 }
-
-const stack = new Stack()
-console.log(stack.size())
-console.log(stack.push(1, 2, 3))
-console.log(stack.peek())
-console.log(stack.pop())
-console.log(stack.isEmpty())
-console.log(stack.clear())

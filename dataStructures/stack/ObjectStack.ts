@@ -4,7 +4,7 @@ interface IItem {
   [key: string]: number
 }
 
-class Stack implements IObjectStack {
+export class Stack implements IObjectStack {
   private readonly items: IItem
   private count: number
 
@@ -56,9 +56,3 @@ class Stack implements IObjectStack {
     return objString
   }
 }
-
-const stack = new Stack()
-console.log(stack.isEmpty())
-stack.push(0)
-stack.push(1)
-console.log(stack.size())
