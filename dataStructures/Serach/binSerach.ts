@@ -6,21 +6,21 @@
 // c. 如果中点的元素大于查询的值，则将上边界设置为中点元素所在下标减 1。
 // d. 否则中点元素即为要查找的数据，可以进行返回。
 
-function binSearch(arr, el) {
-  let low = 0;
-  let high = arr.length - 1;
+function binSearch(arr: any[], el: any) {
+  let low = 0
+  let high = arr.length - 1
   while (low <= high) {
-    let mid = Math.floor((low + high) / 2);
+    let mid = Math.floor((low + high) / 2)
 
     if (arr[mid] < el) {
-      low = mid + 1;
+      low = mid + 1
     } else if (arr[mid] > el) {
-      high = mid - 1;
+      high = mid - 1
     } else {
-      return mid;
+      return mid
     }
   }
-  return -1;
+  return -1
 }
 
 // O(log2n)

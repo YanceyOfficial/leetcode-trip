@@ -5,63 +5,63 @@
 
 function quickSort(arr) {
   if (arr.length <= 1) {
-    return arr;
+    return arr
   }
-  let pivotIndex = Math.floor(arr.length / 2);
-  let pivot = arr.splice(pivotIndex, 1)[0];
-  const left = [];
-  const right = [];
+  let pivotIndex = Math.floor(arr.length / 2)
+  let pivot = arr.splice(pivotIndex, 1)[0]
+  const left = []
+  const right = []
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] < pivot) {
-      left.push(arr[i]);
+      left.push(arr[i])
     } else {
-      right.push(arr[i]);
+      right.push(arr[i])
     }
   }
-  return quickSort(left).concat([pivot], quickSort(right));
+  return quickSort(left).concat([pivot], quickSort(right))
 }
 
 function swap(items, leftIndex, rightIndex) {
-  var temp = items[leftIndex];
-  items[leftIndex] = items[rightIndex];
-  items[rightIndex] = temp;
+  var temp = items[leftIndex]
+  items[leftIndex] = items[rightIndex]
+  items[rightIndex] = temp
 }
 function partition(items, left, right) {
   var pivot = items[Math.floor((right + left) / 2)],
     i = left,
-    j = right;
+    j = right
   while (i <= j) {
     while (items[i] < pivot) {
-      i++;
+      i++
     }
     while (items[j] > pivot) {
-      j--;
+      j--
     }
     if (i <= j) {
-      swap(items, i, j);
-      i++;
-      j--;
+      swap(items, i, j)
+      i++
+      j--
     }
   }
-  return i;
+  return i
 }
 
-function quickSort(items, left, right) {
-  var index;
+function quickSort1(items, left, right) {
+  var index
   if (items.length > 1) {
-    index = partition(items, left, right);
+    index = partition(items, left, right)
     if (left < index - 1) {
-      quickSort(items, left, index - 1);
+      quickSort1(items, left, index - 1)
     }
     if (index < right) {
-      quickSort(items, index, right);
+      quickSort1(items, index, right)
     }
   }
-  return items;
+  return items
 }
 
-const arr = [5, 3, 7, 6, 2, 9];
+const arr = [5, 3, 7, 6, 2, 9]
 
-console.log(quickSort(arr, 0, arr.length - 1)); // [2, 3, 5, 6, 7, 9]
+console.log(quickSort1(arr, 0, arr.length - 1)) // [2, 3, 5, 6, 7, 9]
 
 // 复杂度 o(nlog(n)) 不稳定

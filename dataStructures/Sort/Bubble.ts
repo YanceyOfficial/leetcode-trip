@@ -4,35 +4,35 @@
 // <4>.重复步骤1~3，直到排序完成。
 
 function bubbleSort(arr) {
-  const len = arr.length;
+  const len = arr.length
   for (let i = 0; i < len; i += 1) {
     for (let j = 0; j < len - 1 - i; j += 1) {
       if (arr[j] > arr[j + 1]) {
-        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        ;[arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
       }
     }
   }
-  return arr;
+  return arr
 }
 
 // 写这个
-function bubbleSort3(arr3) {
-  let low = 0;
-  let high = arr.length - 1;
-  let i;
+function bubbleSort3(arr) {
+  let low = 0
+  let high = arr.length - 1
+  let i
   while (low < high) {
     for (i = low; i < high; ++i)
       if (arr[i] > arr[i + 1]) {
-        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+        ;[arr[i], arr[i + 1]] = [arr[i + 1], arr[i]]
       }
-    --high;
+    --high
     for (i = high; i > low; --i)
       if (arr[i] < arr[i - 1]) {
-        [arr[i], arr[i - 1]] = [arr[i - 1], arr[i]];
+        ;[arr[i], arr[i - 1]] = [arr[i - 1], arr[i]]
       }
-    ++low;
+    ++low
   }
-  return arr3;
+  return arr
 }
 
 // 复杂度 o(n^2) 稳定

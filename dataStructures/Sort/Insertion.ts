@@ -5,17 +5,17 @@
 // <5>.将新元素插入到该位置后；
 // <6>.重复步骤2~5。
 
-function insertionSort(array) {
+function insertionSort(array: any[]) {
   for (let i = 1; i < array.length; i++) {
-    let key = array[i];
-    let j = i - 1;
+    let key = array[i]
+    let j = i - 1
     while (j >= 0 && array[j] > key) {
-      array[j + 1] = array[j];
-      j--;
+      array[j + 1] = array[j]
+      j--
     }
-    array[j + 1] = key;
+    array[j + 1] = key
   }
-  return array;
+  return array
 }
 
 // 复杂度 o(n^2) 稳定
