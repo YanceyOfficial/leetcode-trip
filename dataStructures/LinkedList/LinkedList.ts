@@ -1,1 +1,5 @@
-console.log('ちょっと待って')
+import { Node } from './Node'
+
+export class LinkedList {
+  constructor() {}
+}

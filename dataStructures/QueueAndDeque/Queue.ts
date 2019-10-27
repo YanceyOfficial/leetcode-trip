@@ -1,5 +1,5 @@
 import { IQueue } from './types'
-import { IItem } from '../types'
+import { IItem } from '../../typings'
 
 export class Queue implements IQueue {
   private items: IItem

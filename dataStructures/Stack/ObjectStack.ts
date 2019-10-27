@@ -1,5 +1,5 @@
 import { IObjectStack } from './types'
-import { IItem } from '../types'
+import { IItem } from '../../typings'
 
 export class Stack implements IObjectStack {
   private readonly items: IItem

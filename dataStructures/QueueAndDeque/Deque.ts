@@ -1,5 +1,5 @@
 import { IDeque } from './types'
-import { IItem } from '../types'
+import { IItem } from '../../typings'
 
 export class Deque implements IDeque {
   private items: IItem
