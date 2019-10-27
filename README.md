@@ -27,9 +27,9 @@
 
 ## 其他经典算法
 
-- 洗牌算法
-- 斐波那契
-- 大数相加
+- [洗牌算法](https://github.com/YanceyOfficial/leetcode-trip/blob/master/others/Shuffle.ts)
+- [斐波那契](https://github.com/YanceyOfficial/leetcode-trip/blob/master/others/Fibonacci.ts)
+- [大数相加](https://github.com/YanceyOfficial/leetcode-trip/blob/master/others/BigNumAdd.ts)
 - ...
 
 ## License
