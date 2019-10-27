@@ -12,7 +12,7 @@ export class Queue implements IQueue {
     this.lowestCount = 0
   }
 
-  public enqueue(...elements: number[]) {
+  public enqueue(...elements: string[]) {
     for (let i = 0; i < elements.length; i += 1) {
       this.items[this.count] = elements[i]
       this.count++

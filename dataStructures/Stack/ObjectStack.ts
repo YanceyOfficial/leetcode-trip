@@ -10,7 +10,7 @@ export class Stack implements IObjectStack {
     this.count = 0
   }
 
-  public push(element: number) {
+  public push(element: string) {
     this.items[this.count] = element
     this.count++
   }

@@ -1,13 +1,13 @@
 import { IArrayStack } from './types'
 
 export class Stack implements IArrayStack {
-  private readonly items: number[]
+  private readonly items: string[]
 
   constructor() {
     this.items = []
   }
 
-  public push(...elements: number[]) {
+  public push(...elements: string[]) {
     for (let i = 0; i < elements.length; i += 1) {
       this.items.push(elements[i])
     }

@@ -1,7 +1,7 @@
 import { IDeque } from './types'
 import { IItem } from '../types'
 
-export class Queue implements IDeque {
+export class Deque implements IDeque {
   private items: IItem
   private count: number
   private lowestCount: number
@@ -12,15 +12,25 @@ export class Queue implements IDeque {
     this.lowestCount = 0
   }
 
-  public addFront(element: number) {
-    this.items[this.lowestCount - 1] = element
+  public addFront(element: string) {
+    if (this.isEmpty()) {
+      this.addBack(element)
+    } else if (this.lowestCount > 0) {
+      this.lowestCount--
+      this.items[this.lowestCount] = element
+    } else {
+      for (let i = this.count; i > 0; i--) {
+        this.items[i] = this.items[i - 1]
+      }
+      this.count++
+      this.lowestCount = 0
+      this.items[0] = element
+    }
   }
 
-  public addBack(...elements: number[]) {
-    for (let i = 0; i < elements.length; i += 1) {
-      this.items[this.count] = elements[i]
-      this.count++
-    }
+  public addBack(element: string) {
+    this.items[this.count] = element
+    this.count++
   }
 
   public removeFront() {

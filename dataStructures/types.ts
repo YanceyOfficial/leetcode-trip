@@ -1,3 +1,3 @@
 export interface IItem {
-  [key: string]: number
+  [key: string]: string
 }
