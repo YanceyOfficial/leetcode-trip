@@ -14,11 +14,11 @@ function addFn(a, b) {
   const arrA = a.split('').reverse()
   const arrB = b.split('').reverse()
   const arr = []
-  for (i = 0; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     arr.push(parseInt(arrA[i]) + parseInt(arrB[i]))
   }
 
-  for (i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     if (arr[i] >= 10) {
       arr[i] -= 10
       arr[i + 1] = parseInt(arr[i + 1]) + 1
