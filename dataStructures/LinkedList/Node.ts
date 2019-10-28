@@ -7,6 +7,6 @@ export class Node {
 
   constructor(element: any) {
     this.element = element
-    this.next = undefined
+    this.next = null
   }
 }
