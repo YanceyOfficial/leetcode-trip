@@ -3,7 +3,9 @@ import { IItem } from '../../typings'
 
 export class Queue implements IQueue {
   private items: IItem
+
   private count: number
+
   private lowestCount: number
 
   constructor() {

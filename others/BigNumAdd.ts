@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 function addFn(a, b) {
   const lenA = a.length
   const lenB = b.length

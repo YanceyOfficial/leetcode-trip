@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 function fibonacci(n) {
   let n1 = 1,
     n2 = 1,

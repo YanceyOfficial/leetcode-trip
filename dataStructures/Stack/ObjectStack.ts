@@ -3,6 +3,7 @@ import { IItem } from '../../typings'
 
 export class Stack implements IObjectStack {
   private readonly items: IItem
+
   private count: number
 
   constructor() {

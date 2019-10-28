@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const shuffle = (arr: any[]) => {
   let i = arr.length,
     j

@@ -3,7 +3,9 @@ import { IItem } from '../../typings'
 
 export class Deque implements IDeque {
   private items: IItem
+
   private count: number
+
   private lowestCount: number
 
   constructor() {
