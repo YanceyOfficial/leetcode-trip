@@ -15,6 +15,8 @@ export class LinkedList implements ILinkedList {
   public push(element: any) {
     const node = new Node(element)
     let current = null
+
+    // 如果链表为空，即 head 为 null，该节点将放置到链表头部
     if (!this.head) {
       this.head = node
     } else {
@@ -55,8 +57,21 @@ export class LinkedList implements ILinkedList {
 }
 
 const linkedList = new LinkedList()
+linkedList.push('first')
+// linkedList.push('second')
+// linkedList.push('third')
 console.log(linkedList)
-linkedList.push('第一个节点')
-console.log(linkedList)
-linkedList.push('第二个节点')
-console.log(linkedList)
+
+// {
+//   count: 3,
+//   head: {
+//     element: 'first',
+//     next: {
+//       element: 'second',
+//       next: {
+//         element: 'third',
+//         next: null
+//       }
+//     }
+//   }
+// }
