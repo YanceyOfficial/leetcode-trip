@@ -1,6 +1,6 @@
 # Leetcode Trip
 
-这是 Yancey ~~刷 leetcode~~ 学习数据结构和算法的仓库，项目在 `precommit` 阶段会走一遍 `jest` 嘻嘻，手贱加了 airbnb 的 eslint，一片红不忍直视 ==！，项目全面使用了 TypeScript，感觉并没有什么卵用...
+这是 Yancey ~~刷 leetcode~~ 学习数据结构和算法的仓库，项目在 `precommit` 阶段会走一遍 `jest` 嘻嘻，手贱加了 airbnb 的 eslint，一片红不忍直视 ==！
 
 强烈推荐使用 vscode 的小伙伴安装 `leetcode` 这个插件，炒鸡好用，它可以把题目介绍以及相关 js 文件拉到你本地的工程。
 
