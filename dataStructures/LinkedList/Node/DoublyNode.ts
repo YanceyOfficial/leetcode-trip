@@ -7,5 +7,8 @@ export class DoublyNode<T> extends Node<T> {
     public prev?: DoublyNode<T>,
   ) {
     super(element, next)
+    this.element = element
+    this.next = next
+    this.prev = prev
   }
 }
