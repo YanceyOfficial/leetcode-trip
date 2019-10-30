@@ -18,7 +18,8 @@
     "semi": "off",
     "import/prefer-default-export": "off",
     "no-plusplus": "off",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "no-extra-semi": "off"
   },
   "overrides": [
     {
