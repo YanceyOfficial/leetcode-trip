@@ -13,4 +13,19 @@
 
 ## ES6 的 Set / Weak Set
 
-javascript-apis
+```js
+// 并集
+new Set([...setA, ...setB]
+```
+
+```js
+// 交集
+new Set([...setA].filter(x => setB.has(x)))
+```
+
+```js
+// 差集
+new Set([...setA].filter(x => !setB.has(x)))
+```
+
+## 多重集或袋

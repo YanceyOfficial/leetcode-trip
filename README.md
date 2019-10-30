@@ -9,8 +9,10 @@
 ## 数据结构
 
 - [栈](https://github.com/YanceyOfficial/leetcode-trip/tree/master/dataStructures/Stack)
-- [队列和双端队列](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/QueueAndDeque)
-- 链表
+- [队列](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/Queue)
+- [链表](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/LinkedList)
+- [集合](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/Set)
+- [字典](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/Map)
 - 树
 - 图
 - ...
