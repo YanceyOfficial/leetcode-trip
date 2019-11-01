@@ -12,3 +12,9 @@ export interface IDictionary<T> {
   forEach(fn: (value: T, key: string) => void): void
   toString(): string
 }
+
+export interface IHashMap<T> {
+  put(key: string, value: T): void
+  remove(key: string): boolean
+  get(key: string): T | undefined
+}

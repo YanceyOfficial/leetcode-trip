@@ -1,4 +1,5 @@
 import { Dictionary } from '../dataStructures/Dictionary/Dictionary'
+import { HashMap } from '../dataStructures/Dictionary/LooseHashMap'
 
 describe('dictionaryChecker', () => {
   test('test Dictionary', () => {
@@ -27,5 +28,21 @@ describe('dictionaryChecker', () => {
     expect(dictionary.remove('Tyrion')).toBeTruthy()
     expect(dictionary.remove('bitch')).toBeFalsy()
     expect(dictionary.size()).toBe(2)
+  })
+})
+
+describe('looseHashMapChecker', () => {
+  test('test LooseHashMap', () => {
+    const looseHashMap = new HashMap()
+    looseHashMap.put('Gandalf', 'gandalf@email.com')
+    looseHashMap.put('John', 'johnsnow@email.com')
+    looseHashMap.put('Tyrion', 'tyrion@email.com')
+
+    expect(looseHashMap.getHashCode('Gandalf')).toBe(19)
+    expect(looseHashMap.getHashCode('John')).toBe(29)
+    expect(looseHashMap.getHashCode('Tyrion')).toBe(16)
+
+    expect(looseHashMap.get('John')).toBe('johnsnow@email.com')
+    expect(looseHashMap.get('bitch')).toBeUndefined()
   })
 })

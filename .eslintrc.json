@@ -20,7 +20,9 @@
     "no-plusplus": "off",
     "import/no-unresolved": "off",
     "no-extra-semi": "off",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "class-methods-use-this": "off",
+    "arrow-parens": "off"
   },
   "overrides": [
     {
