@@ -1,8 +1,8 @@
 import { IQueue } from './types'
-import { IItem } from '../../typings'
+import { StringIndexSignature } from '../../typings'
 
 export class Queue implements IQueue {
-  private items: IItem
+  private items: StringIndexSignature
 
   private count: number
 
