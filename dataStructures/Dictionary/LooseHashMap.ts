@@ -42,15 +42,3 @@ export class HashMap<T> implements IHashMap<T> {
     return this.table[hashKey]
   }
 }
-
-const hashMap = new HashMap()
-hashMap.put('Gandalf', 'gandalf@email.com')
-hashMap.put('John', 'johnsnow@email.com')
-hashMap.put('Tyrion', 'tyrion@email.com')
-
-console.log(`${hashMap.getHashCode('Gandalf')} - Gandalf`) // 19 - Gandalf
-console.log(`${hashMap.getHashCode('John')} - John`) // 29 - John
-console.log(`${hashMap.getHashCode('Tyrion')} - Tyrion`) // 16 - Tyrion
-
-console.log(hashMap.get('John')) // 'johnsnow@email.com'
-console.log(hashMap.get('bitch')) // undefined
