@@ -35,5 +35,8 @@
       "json",
       "node"
     ]
+  },
+  "dependencies": {
+    "yancey-js-util": "^1.1.1"
   }
 }

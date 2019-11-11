@@ -8,17 +8,17 @@
 
 ## 数据结构
 
-- [栈](https://github.com/YanceyOfficial/leetcode-trip/tree/master/dataStructures/Stack)
-- [队列](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/Queue)
+- [栈](./dataStructures/Stack)
+- [队列](./dataStructures/Queue)
   - 队列
   - 双端队列
-- [链表](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/LinkedList)
+- [链表](./dataStructures/LinkedList)
   - 单向链表
   - 双向链表
   - 循环链表
   - 有序链表
-- [集合](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/Set)
-- [字典](https://github.com/YanceyOfficial/leetcode-trip/blob/master/dataStructures/Dictionary)
+- [集合](./dataStructures/Set)
+- [字典](./dataStructures/Dictionary)
   - 字典
   - 散列表 (HashMap)
 - 递归
@@ -41,9 +41,9 @@
 
 ## 其他经典算法
 
-- [洗牌算法](https://github.com/YanceyOfficial/leetcode-trip/blob/master/others/Shuffle.ts)
-- [斐波那契](https://github.com/YanceyOfficial/leetcode-trip/blob/master/others/Fibonacci.ts)
-- [大数相加](https://github.com/YanceyOfficial/leetcode-trip/blob/master/others/BigNumAdd.ts)
+- [洗牌算法](./others/Shuffle.ts)
+- [斐波那契](./others/Fibonacci.ts)
+- [大数相加](./others/BigNumAdd.ts)
 - ...
 
 ## License
