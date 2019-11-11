@@ -1,7 +1,7 @@
-import { IDeque } from './types'
-import { StringIndexSignature } from '../../typings'
+import { IQueue } from './types'
+import { StringIndexSignature } from '../../../typings'
 
-export class Deque implements IDeque {
+export class Queue implements IQueue {
   private items: StringIndexSignature
 
   private count: number
@@ -14,28 +14,14 @@ export class Deque implements IDeque {
     this.lowestCount = 0
   }
 
-  public addFront(element: string) {
-    if (this.isEmpty()) {
-      this.addBack(element)
-    } else if (this.lowestCount > 0) {
-      this.lowestCount--
-      this.items[this.lowestCount] = element
-    } else {
-      for (let i = this.count; i > 0; i--) {
-        this.items[i] = this.items[i - 1]
-      }
+  public enqueue(...elements: string[]) {
+    for (let i = 0; i < elements.length; i += 1) {
+      this.items[this.count] = elements[i]
       this.count++
-      this.lowestCount = 0
-      this.items[0] = element
     }
   }
 
-  public addBack(element: string) {
-    this.items[this.count] = element
-    this.count++
-  }
-
-  public removeFront() {
+  public dequeue() {
     if (this.isEmpty()) return undefined
     const result = this.items[this.lowestCount]
     delete this.items[this.lowestCount]
@@ -43,20 +29,7 @@ export class Deque implements IDeque {
     return result
   }
 
-  public removeBack() {
-    if (this.isEmpty()) return undefined
-    this.count--
-    const poppedElm = this.items[this.count]
-    delete this.items[this.count]
-    return poppedElm
-  }
-
-  public peekFront() {
-    if (this.isEmpty()) return undefined
-    return this.items[this.count - 1]
-  }
-
-  public peekBack() {
+  public peek() {
     if (this.isEmpty()) return undefined
     return this.items[this.lowestCount]
   }

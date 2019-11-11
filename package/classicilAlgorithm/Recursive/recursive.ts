@@ -1,4 +1,4 @@
-function factorial(num: number) {
+export function factorial(num: number) {
   let total = 1
 
   for (let n = num; n > 1; n -= 1) {
@@ -9,7 +9,7 @@ function factorial(num: number) {
   return total
 }
 
-function factorial1(num: number) {
+export function factorial1(num: number) {
   if (num === 1 || num === 0) {
     // 基线条件
     return 1

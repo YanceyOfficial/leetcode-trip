@@ -1,5 +1,5 @@
 import { IObjectStack } from './types'
-import { StringIndexSignature } from '../../typings'
+import { StringIndexSignature } from '../../../typings'
 
 export class Stack implements IObjectStack {
   private readonly items: StringIndexSignature
