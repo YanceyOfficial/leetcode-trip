@@ -10,17 +10,9 @@
 
 - [栈](./package/dataStructures/Stack)
 - [队列](./package/dataStructures/Queue)
-  - 队列
-  - 双端队列
 - [链表](./package/dataStructures/LinkedList)
-  - 单向链表
-  - 双向链表
-  - 循环链表
-  - 有序链表
 - [集合](./package/dataStructures/Set)
 - [字典](./package/dataStructures/Dictionary)
-  - 字典
-  - 散列表 (HashMap)
 - [树](./package/dataStructures/Tree)
 - 堆
 - 图
