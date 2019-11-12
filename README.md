@@ -8,26 +8,33 @@
 
 ## 数据结构
 
-- [栈](./dataStructures/Stack)
-- [队列](./dataStructures/Queue)
+- [栈](./package/dataStructures/Stack)
+- [队列](./package/dataStructures/Queue)
   - 队列
   - 双端队列
-- [链表](./dataStructures/LinkedList)
+- [链表](./package/dataStructures/LinkedList)
   - 单向链表
   - 双向链表
   - 循环链表
   - 有序链表
-- [集合](./dataStructures/Set)
-- [字典](./dataStructures/Dictionary)
+- [集合](./package/dataStructures/Set)
+- [字典](./package/dataStructures/Dictionary)
   - 字典
   - 散列表 (HashMap)
-- 递归
-- 树
+- [树](./package/dataStructures/Tree)
 - 堆
 - 图
+- 算法复杂度
+- ...
+
+## 经典算法
+
+- [递归](./package/classicilAlgorithm/Recursive)
+- 动态规划
 - 排序算法
 - 查找算法
-- 算法复杂度
+- 洗牌算法
+- 大数相加
 - ...
 
 ## leetcode
@@ -39,12 +46,9 @@
   - 回文数
   - ...
 
-## 其他经典算法
+- 中级
 
-- [洗牌算法](./others/Shuffle.ts)
-- [斐波那契](./others/Fibonacci.ts)
-- [大数相加](./others/BigNumAdd.ts)
-- ...
+  - ...
 
 ## License
 
