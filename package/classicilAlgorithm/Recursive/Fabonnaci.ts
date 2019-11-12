@@ -1,9 +1,9 @@
 /* eslint-disable */
 
-function fibonacci(n) {
-  let n1 = 1,
-    n2 = 1,
-    sum = 1
+export function fibonacci(n: number) {
+  let n1 = 1
+  let n2 = 1
+  let sum = 1
   for (let i = 3; i <= n; i += 1) {
     sum = n1 + n2
     n1 = n2
@@ -24,11 +24,7 @@ function memorize(f) {
   }
 }
 
-function fibonacci1(n) {
-  if (n == 0 || n == 1) return n
+export function fibonacci1(n: number) {
+  if (n === 0 || n === 1) return n
   return fibonacci1(n - 1) + fibonacci1(n - 2)
 }
-
-const factorial = memorize(n => {
-  return n <= 1 ? 1 : n * fibonacci1(n - 1)
-})
