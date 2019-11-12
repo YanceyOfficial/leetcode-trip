@@ -1,8 +1,8 @@
 import { IDeque } from './types'
-import { StringIndexSignature } from '../../../typings'
+import { StringDictionary } from '../../../typings'
 
 export class Deque implements IDeque {
-  private items: StringIndexSignature
+  private items: StringDictionary
 
   private count: number
 

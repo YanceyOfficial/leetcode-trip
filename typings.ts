@@ -1,3 +1,3 @@
-export interface StringIndexSignature {
+export interface StringDictionary {
   [key: string]: string
 }

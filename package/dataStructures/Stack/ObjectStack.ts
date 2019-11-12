@@ -1,8 +1,8 @@
 import { IObjectStack } from './types'
-import { StringIndexSignature } from '../../../typings'
+import { StringDictionary } from '../../../typings'
 
 export class Stack implements IObjectStack {
-  private readonly items: StringIndexSignature
+  private readonly items: StringDictionary
 
   private count: number
 
