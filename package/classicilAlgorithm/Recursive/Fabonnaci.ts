@@ -28,3 +28,5 @@ export function fibonacci1(n: number) {
   if (n === 0 || n === 1) return n
   return fibonacci1(n - 1) + fibonacci1(n - 2)
 }
+
+console.log(fibonacci1(7))

@@ -22,7 +22,8 @@
     "no-extra-semi": "off",
     "implicit-arrow-linebreak": "off",
     "class-methods-use-this": "off",
-    "arrow-parens": "off"
+    "arrow-parens": "off",
+    "no-console": "off"
   },
   "overrides": [
     {
