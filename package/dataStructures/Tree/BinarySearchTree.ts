@@ -7,4 +7,6 @@ export class BinarySearchTree<T> implements IBinarySearchTree<T> {
   constructor() {
     this.root = null
   }
+
+  public insert(key: T) {}
 }
