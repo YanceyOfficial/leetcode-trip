@@ -1,3 +1,7 @@
-export interface StringDictionary {
-  [key: string]: string
+export interface StringMap<T> {
+  [key: string]: T
+}
+
+export interface NumberMap<T> {
+  [key: number]: T
 }

@@ -1,8 +1,8 @@
 import { IObjectStack } from './types'
-import { StringDictionary } from '../../../typings'
+import { StringMap } from '../../../typings'
 
 export class Stack implements IObjectStack {
-  private readonly items: StringDictionary
+  private readonly items: StringMap<any>
 
   private count: number
 

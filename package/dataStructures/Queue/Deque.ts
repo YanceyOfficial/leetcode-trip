@@ -1,8 +1,8 @@
 import { IDeque } from './types'
-import { StringDictionary } from '../../../typings'
+import { StringMap } from '../../../typings'
 
 export class Deque implements IDeque {
-  private items: StringDictionary
+  private items: StringMap<any>
 
   private count: number
 

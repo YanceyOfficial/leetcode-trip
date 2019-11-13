@@ -20,7 +20,7 @@ export class MySet<T> implements ISet<T> {
   public delete(element: T) {
     if (!this.has(element)) return false
 
-    // 复习：delete 不能删除原型链上的属性和方法
+    // 复习: delete 不能删除原型链上的属性和方法
     delete this.items[element]
     return true
   }
