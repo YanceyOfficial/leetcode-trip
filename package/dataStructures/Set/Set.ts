@@ -1,7 +1,7 @@
 import { ISet } from './types'
 
 // 使用对象创建集合一是效率要比数组高
-// 二是 JavaScript 的对象不允许一个键指向两个不同的属性，这就保证了集合里的元素都是唯一的
+// 二是 JavaScript 的对象不允许一个键指向两个不同的属性, 这就保证了集合里的元素都是唯一的
 
 export class MySet<T> implements ISet<T> {
   private items: any

@@ -24,14 +24,14 @@ const names = ['John', 'Jack', 'Camila', 'Ingrid', 'Carl']
 const result = hotPotato(names, 2)
 
 result.eliminated.forEach((name: string) => {
-  console.log(`${name} 在击鼓传花游戏中被淘汰。`)
+  console.log(`${name} 在击鼓传花游戏中被淘汰.`)
 })
 console.log(`胜利者: ${result.winner}`)
 
 /*
- * Camila 在击鼓传花游戏中被淘汰。
- * John 在击鼓传花游戏中被淘汰。
- * Carl 在击鼓传花游戏中被淘汰。
- * Jack 在击鼓传花游戏中被淘汰。
+ * Camila 在击鼓传花游戏中被淘汰.
+ * John 在击鼓传花游戏中被淘汰.
+ * Carl 在击鼓传花游戏中被淘汰.
+ * Jack 在击鼓传花游戏中被淘汰.
  * 胜利者: Ingrid
  */

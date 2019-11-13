@@ -15,7 +15,7 @@ export class LinkedList<T> implements ILinkedList {
     const node = new Node(element)
     let current = null
 
-    // 如果链表为空，即 head 为 null，该节点将放置到链表头部
+    // 如果链表为空, 即 head 为 null, 该节点将放置到链表头部
     if (this.isEmpty()) {
       this.head = node
     } else {
@@ -72,7 +72,7 @@ export class LinkedList<T> implements ILinkedList {
   }
 
   public getElementAt(index: number) {
-    // 如果索引越界，返回 undefined
+    // 如果索引越界, 返回 undefined
     if (index < 0 || index > this.count - 1) return undefined
 
     let current = this.head
