@@ -1,9 +1,9 @@
-export class Node {
-  private left: number | null
+export class Node<T> {
+  public left: Node<T> | null
 
-  private right: number | null
+  public right: Node<T> | null
 
-  constructor(private readonly key: number) {
+  constructor(public readonly key: T) {
     this.key = key
     this.left = null
     this.right = null
