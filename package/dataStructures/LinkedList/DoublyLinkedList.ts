@@ -1,5 +1,5 @@
 import { LinkedList } from './LinkedList'
-import { DoublyNode } from './Node/DoublyNode'
+import { DoublyNode } from './DoublyNode'
 
 export class DoublyLinkedList<T> extends LinkedList<T> {
   protected tail: DoublyNode<T> | undefined

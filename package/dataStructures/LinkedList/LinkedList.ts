@@ -1,4 +1,4 @@
-import { Node } from './Node/Node'
+import { Node } from './Node'
 import { ILinkedList } from './types'
 
 export class LinkedList<T> implements ILinkedList {
