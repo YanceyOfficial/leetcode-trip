@@ -8,12 +8,12 @@
 
 ## 数据结构
 
-- [栈](./package/dataStructures/Stack)
-- [队列](./package/dataStructures/Queue)
-- [链表](./package/dataStructures/LinkedList)
-- [集合](./package/dataStructures/Set)
-- [字典](./package/dataStructures/Dictionary)
-- [树](./package/dataStructures/Tree)
+- [栈](./package/DataStructures/Stack)
+- [队列](./package/DataStructures/Queue)
+- [链表](./package/DataStructures/LinkedList)
+- [集合](./package/DataStructures/Set)
+- [字典](./package/DataStructures/Dictionary)
+- [树](./package/DataStructures/Tree)
 - 堆
 - 图
 - 算法复杂度
@@ -21,7 +21,7 @@
 
 ## 经典算法
 
-- [递归](./package/classicilAlgorithm/Recursive)
+- [递归](./package/Algorithm/Recursive)
 - 动态规划
 - 排序算法
 - 查找算法
