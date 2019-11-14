@@ -2,27 +2,27 @@ import { Node } from './Node'
 import { IBinarySearchTree } from './types'
 
 export class BinarySearchTree<T> implements IBinarySearchTree<T> {
-  protected root: Node<T> | null
+  protected root: Node<T>
 
   constructor() {
     this.root = null
   }
 
-  protected insertNode(parentNode: Node<T> | null, key: T) {
+  protected insertNode(parentNode: Node<T>, key: T) {
     let current = parentNode
     const node = new Node(key)
 
-    if (current.key) {
-      if (key < current.key) {
+    if (key < current.key) {
+      if (current.left) {
         current = current.left
         this.insertNode(current, key)
       } else {
-        current = current.right
-        this.insertNode(current, key)
+        current.left = node
       }
     } else {
-      if (key < current.key) {
-        current.left = node
+      if (current.right) {
+        current = current.right
+        this.insertNode(current, key)
       } else {
         current.right = node
       }
