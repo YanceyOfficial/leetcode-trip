@@ -4,7 +4,7 @@ import { ILinkedList } from './types'
 export class LinkedList<T> implements ILinkedList {
   protected count: number
 
-  protected head: Node<T> | undefined
+  protected head: Node<T> | null
 
   constructor() {
     this.count = 0
@@ -119,7 +119,7 @@ export class LinkedList<T> implements ILinkedList {
     }
     let objString = `${this.head.element}`
     let current = this.head.next
-    for (let i = 1; i < this.size() && current != null; i++) {
+    for (let i = 1; i < this.size() && current !== null; i++) {
       objString = `${objString},${current.element}`
       current = current.next
     }

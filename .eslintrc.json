@@ -23,7 +23,8 @@
     "implicit-arrow-linebreak": "off",
     "class-methods-use-this": "off",
     "arrow-parens": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "no-lonely-if": "off"
   },
   "overrides": [
     {

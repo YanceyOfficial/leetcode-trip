@@ -63,3 +63,6 @@ typings/
 # production
 /build
 /dist
+
+# vscode
+.vscode/

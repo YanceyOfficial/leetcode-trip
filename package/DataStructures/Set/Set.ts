@@ -110,7 +110,7 @@ export class MySet<T> implements ISet<T> {
     const values = this.values()
     let objString = `${values[0]}`
     for (let i = 1; i < values.length; i++) {
-      objString = `${objString},${values[i].toString()}`
+      objString = `${objString},${(values[i] as any).toString()}`
     }
     return objString
   }

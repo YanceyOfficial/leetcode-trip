@@ -2,7 +2,7 @@ import { LinkedList } from './LinkedList'
 import { DoublyNode } from './DoublyNode'
 
 export class DoublyLinkedList<T> extends LinkedList<T> {
-  protected tail: DoublyNode<T> | undefined
+  protected tail: DoublyNode<T> | null
 
   constructor() {
     super()
@@ -26,9 +26,6 @@ export class DoublyLinkedList<T> extends LinkedList<T> {
     if (index < 0 || index > this.count - 1) return false
 
     const node = new DoublyNode(element)
-
-    if (index === 0) {
-    }
   }
 }
 
