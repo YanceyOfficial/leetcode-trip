@@ -61,13 +61,46 @@ export class BinarySearchTree<T> implements BST<T> {
     }
   }
 
+  private minNode(node: Node<T> | null) {
+    if (node) {
+      let current = node
+      while (current.left) {
+        current = current.left
+      }
+      return current.key
+    }
+    return null
+  }
+
+  private maxNode(node: Node<T> | null) {
+    if (node) {
+      let current = node
+      while (current.right) {
+        current = current.right
+      }
+      return current.key
+    }
+    return null
+  }
+
+  private searchNode(node: Node<T> | null, key: T) {
+    if (!node) return false
+
+    if (key < node.key) {
+      return this.searchNode(node.left, key)
+    }
+    if (key > node.key) {
+      return this.searchNode(node.right, key)
+    }
+    return true
+  }
+
   public insert(key: T) {
     if (!this.root) {
       this.root = new Node(key)
     } else {
       this.insertNode(this.root, key)
     }
-
     this.count++
   }
 
@@ -86,20 +119,26 @@ export class BinarySearchTree<T> implements BST<T> {
     this.postOrderTraverseNode(this.root, callback)
   }
 
-  public search(key: T) {
-    return !!key
+  public min() {
+    return this.minNode(this.root)
   }
+
+  public max() {
+    return this.maxNode(this.root)
+  }
+
+  public search(key: T) {
+    return this.searchNode(this.root, key)
+  }
+
+  // private removeNode(node: Node<T> | null, key: T) {}
 
   public remove(key: T) {
     return !!key
   }
 
-  public min() {
-    return (this.root as Node<T>).key
-  }
-
-  public max() {
-    return (this.root as Node<T>).key
+  public getRoot() {
+    return this.root
   }
 
   public isEmpty() {
@@ -122,18 +161,23 @@ bst.insert(7)
 bst.insert(15)
 bst.insert(5)
 bst.insert(3)
-// bst.insert(9)
-// bst.insert(8)
-// bst.insert(10)
-// bst.insert(13)
-// bst.insert(12)
-// bst.insert(14)
-// bst.insert(20)
-// bst.insert(18)
-// bst.insert(25)
+bst.insert(9)
+bst.insert(8)
+bst.insert(10)
+bst.insert(13)
+bst.insert(12)
+bst.insert(14)
+bst.insert(20)
+bst.insert(18)
+bst.insert(25)
 
 // console.log(bst)
 // console.log(bst.size())
 
-const cb = (value: number) => console.log(value)
-bst.inOrderTraverse(cb)
+// const cb = (value: number) => console.log(value)
+// bst.inOrderTraverse(cb)
+
+console.log(bst.min())
+console.log(bst.max())
+console.log(bst.search(331))
+console.log(bst.search(7))
