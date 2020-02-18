@@ -63,8 +63,10 @@ export class LinkedList<T> implements ILinkedList {
       this.head = node
     } else {
       const previous = this.getElementAt(index - 1)
-      node.next = previous.next
-      previous.next = node
+      if (previous) {
+        node.next = previous.next
+        previous.next = node
+      }
     }
 
     this.count++
