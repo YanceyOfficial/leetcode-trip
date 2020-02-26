@@ -1,10 +1,6 @@
 # Leetcode Trip
 
-这是鄙人 ~~刷 leetcode~~ 学习数据结构和算法的仓库, 项目在 `precommit` 阶段会走一遍 `jest` 嘻嘻, 手贱加了 airbnb 的 eslint, 一片红不忍直视 ==!
-
-强烈推荐使用 vscode 的小伙伴安装 `leetcode` 这个插件, 炒鸡好用, 绑定好你的 leetcode 账号, 把题目拉到本地, 然后就可以愉快的玩耍了.
-
-本仓库亦为 《学习 JavaScript 数据结构与算法》和《漫画算法——小灰的算法之旅》以及其他算法书、视频课的学习笔记.
+~~刷 leetcode~~ Data Structures and Algorithms with JavaScript.
 
 ## 时间复杂度和空间复杂度
 
