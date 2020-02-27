@@ -10,10 +10,9 @@
  * @return {void} Do not return anything, modify arr in-place instead.
  */
 var duplicateZeros = function(arr) {
-  const len = arr.length
   let i = 0
 
-  while (i < len) {
+  while (i < arr.length) {
     if (arr[i] === 0) {
       arr.splice(i, 0, 0)
       arr.pop()
@@ -21,6 +20,6 @@ var duplicateZeros = function(arr) {
     } else {
       i++
     }
-  } 
+  }
 }
 // @lc code=end
