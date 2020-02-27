@@ -20,7 +20,7 @@
 var removeElements = function(head, val) {
   let sentinel = new ListNode(null),
     prev = sentinel,
-    curr = heado
+    curr = head
   sentinel.next = head
 
   while (curr) {
