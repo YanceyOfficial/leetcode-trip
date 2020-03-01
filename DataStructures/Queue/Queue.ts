@@ -1,5 +1,5 @@
 import { IQueue } from './types'
-import { StringMap } from '../../../typings'
+import { StringMap } from '../../typings'
 
 export class Queue implements IQueue {
   private items: StringMap<any>

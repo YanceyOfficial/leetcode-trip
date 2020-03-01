@@ -1,5 +1,5 @@
-import { BinarySearchTree } from '../package/DataStructures/Tree/BinarySearchTree'
-import { Node } from '../package/DataStructures/Tree/Node'
+import { BinarySearchTree } from '../DataStructures/Tree/BinarySearchTree'
+import { Node } from '../DataStructures/Tree/Node'
 
 describe('binarySearchTreeChecker', () => {
   test('test BinarySearchTree', () => {

@@ -1,5 +1,5 @@
 import { IObjectStack } from './types'
-import { StringMap } from '../../../typings'
+import { StringMap } from '../../typings'
 
 export class Stack implements IObjectStack {
   private readonly items: StringMap<any>

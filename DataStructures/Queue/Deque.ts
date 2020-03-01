@@ -1,5 +1,5 @@
 import { IDeque } from './types'
-import { StringMap } from '../../../typings'
+import { StringMap } from '../../typings'
 
 export class Deque implements IDeque {
   private items: StringMap<any>
