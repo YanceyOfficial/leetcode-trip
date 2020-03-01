@@ -2,9 +2,17 @@
 
 ~~刷 leetcode~~ Data Structures and Algorithms with JavaScript.
 
-## 时间复杂度和空间复杂度
+## 大 O 复杂度表示法
 
-时间复杂度是对一个算法运行时间长短的度量, 一般来讲是跟循环有关, 常见的时间复杂度有 O<sub>(1)</sub> < O<sub>(logn)</sub> < O<sub>(n)</sub> < O<sub>(nlogn)</sub> < O<sub>(n<sup>2</sup>)</sub> < O<sub>(n<sup>3</sup>)</sub> < O<sub>(2<sup>n</sup>)</sub> < O<sub>(n!)</sub> < O<sub>(n<sup>n</sup>)</sub>.
+### 为什么需要复杂度分析
+
+通过计算一个算法执行的时间和占用的内存大小并不准确: 比如 i9 CPU 跑的程序 i3 CPU 跑的程序时间一定是不同的; 再如对于小规模的数据排序, 插入排序可能反倒会比快速排序要快. 因此这种方法的测试结果非常依赖测试环境, 并且测试结果受数据规模的影响很大.
+
+### 时间复杂度
+
+时间复杂度是对一个算法运行时间长短的度量, 常见的时间复杂度有 O<sub>(1)</sub> < O<sub>(logn)</sub> < O<sub>(n)</sub> < O<sub>(nlogn)</sub> < O<sub>(n<sup>2</sup>)</sub> < O<sub>(n<sup>3</sup>)</sub> < O<sub>(2<sup>n</sup>)</sub> < O<sub>(n!)</sub> < O<sub>(n<sup>n</sup>)</sub>.
+
+### 空间复杂度
 
 空间复杂度是一个算法运行过程中临时占用存储空间大小的度量, 它包含下面几种:
 
