@@ -15,23 +15,22 @@
 
 ## 数据结构
 
-- [栈](./package/DataStructures/Stack)
-- [队列](./package/DataStructures/Queue)
-- [链表](./package/DataStructures/LinkedList)
-- [集合](./package/DataStructures/Set)
-- [字典](./package/DataStructures/Dictionary)
-- [树](./package/DataStructures/Tree)
+- [栈](./DataStructures/Stack)
+- [队列](./DataStructures/Queue)
+- [链表](./DataStructures/LinkedList)
+- [集合](./DataStructures/Set)
+- [字典](./DataStructures/Dictionary)
+- [树](./DataStructures/Tree)
 - 堆
 - 图
 
-## 经典算法
+## 算法设计
 
-- [递归](./package/Algorithm/Recursive)
+- [递归算法](./AlgorithmDesign/Recursive)
+- 回溯算法
 - 动态规划
-- 排序算法
-- 查找算法
-- 洗牌算法
-- 大数相加
+- 贪心算法
+- 分治算法
 - ...
 
 ## leetcode
@@ -45,6 +44,8 @@
 
 - 中级
 
+  - Z 字形变换
+  - 全排列
   - ...
 
 - 高级

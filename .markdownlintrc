@@ -1,0 +1,6 @@
+{
+  "MD033": {
+    "allowed_elements": ["sup", "sub"]
+  },
+  "MD013": false
+}
