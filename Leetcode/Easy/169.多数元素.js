@@ -10,6 +10,21 @@
  * @return {number}
  */
 var majorityElement = function(nums) {
+  let candidate = null
+  let count = 0
+
+  for (let i = 0; i < nums.length; i++) {
+    if (count === 0) {
+      candidate = nums[i]
+    } else {
+      count += candidate === nums[i] ? 1 : -1
+    }
+  }
+}
+
+// @lc code=end
+
+var majorityElement = function(nums) {
   if (nums.length === 1) return nums[0]
 
   const map = new Map()
@@ -26,6 +41,3 @@ var majorityElement = function(nums) {
     }
   }
 }
-// @lc code=end
-
-console.log(majorityElement([3, 2, 3]))
