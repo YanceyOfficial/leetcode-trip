@@ -10,33 +10,31 @@
  * @return {number}
  */
 var reverse = function(x) {
-  if (x > -10 && x < 10) {
-    return x
+  const isNegative = Math.sign(x) === -1
+
+  let arr = Math.abs(x)
+    .toString()
+    .split('')
+
+  let i = 0
+  let j = arr.length - 1
+
+  while (i <= j) {
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+    i++
+    j--
   }
 
-  function getReverse(num) {
-    return parseInt(
-      num
-        .toString()
-        .split('')
-        .reverse()
-        .join(''),
-      10,
-    )
-  }
+  const num = parseInt(arr.join(''), 10)
 
-  let res = 0
+  const res = isNegative ? -1 * num : num
 
-  if (x < 0) {
-    res = getReverse(x * -1) * -1
-  } else {
-    res = getReverse(x)
-  }
-
-  if (res <= (-2) ** 31 || res >= 2 ** 31 - 1) {
-    return 0
-  }
-
-  return res
+  return res >= Math.pow(-2, 31) && res <= Math.pow(2, 31) - 1 ? res : 0
 }
 // @lc code=end
+
+// 思路
+//
+// 先判断数字的正负, 并将数字取绝对值后转成字符串数组
+// 然后将数组翻转, 不管使用 reverse() 还是双指针都可
+// 最后将反转后的数组转成数字返回
