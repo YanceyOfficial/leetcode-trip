@@ -6,7 +6,7 @@
 // c. 如果中点的元素大于查询的值, 则将上边界设置为中点元素所在下标减 1.
 // d. 否则中点元素即为要查找的数据, 可以进行返回.
 
-export function binSearch(arr: any[], el: any) {
+export function binarySearch(arr: any[], el: any) {
   let low = 0
   let high = arr.length - 1
   while (low <= high) {
