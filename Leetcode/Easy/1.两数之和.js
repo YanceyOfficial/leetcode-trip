@@ -30,3 +30,4 @@ var twoSum = function(nums, target) {
 // 创建一个哈希表, 遍历数组, 将元素存储到哈希表中
 // 如果 target - nums[i] 存在于哈希表中
 // 那么就找到了这两个相加等于 target 的元素
+// 时间复杂度和空间复杂度都为 O(n)
