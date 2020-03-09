@@ -11,11 +11,14 @@
  */
 
 var longestCommonPrefix = function(strs) {
-  let prefix = strs[0] ? strs[0] : ''
+  if (strs.length === 0) return ''
+
+  let prefix = strs[0]
   let flag = false
 
-  while (!flag && prefix) {
-    flag = strs.every(v => v.indexOf(prefix) === 0)
+  while (!flag) {
+    flag = strs.every(val => val.indexOf(prefix) === 0)
+
     if (!flag) {
       prefix = prefix.slice(0, -1)
     }
@@ -24,3 +27,5 @@ var longestCommonPrefix = function(strs) {
   return prefix
 }
 // @lc code=end
+
+console.log(longestCommonPrefix(['flower', 'flow', 'flight']))
