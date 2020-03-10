@@ -10,28 +10,22 @@
  * @return {boolean}
  */
 var isPalindrome = function(x) {
-  if (x === 0) return true
+  if (x < 0) return false
+  if (x < 10) return true
 
-  let num = x
-  const arr = []
-  while (num >= 1) {
-    const remainder = num % 10
-    num = parseInt(num / 10, 10)
-    arr.push(remainder)
+  let n = 0,
+    y = x
+  while (x) {
+    n = n * 10 + (x % 10)
+    x = (x - (x % 10)) / 10
   }
-
-  return parseInt(arr.join(''), 10) === x
+  return n === y
 }
 // @lc code=end
 
-// 取模逆排法
-var isPalindrome = function(x) {
-  let n = 0,
-    y = x
-  // 把 x 的每一位数倒过来组装成 n
-  while (x) {
-    n = n * 10 + (x % 10)
-    x = (x - (x % 10)) / 10 // 等价于 parseInt(x / 10, 10)
-  }
-  return y >= 0 && n === y
-}
+// 思路
+//
+// 对于一个正整数, 下面两句可以将该数字逆序
+// n = n * 10 + (x % 10)
+// x = (x - (x % 10)) / 10
+// 这种方法又称为「取模逆排法」
