@@ -21,3 +21,5 @@ var decompressRLElist = function(nums) {
   return res
 }
 // @lc code=end
+
+// 双循环呗, 还能有啥
