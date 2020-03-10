@@ -25,7 +25,12 @@ var romanToInt = function(s) {
     CD: 400,
     CM: 900,
   }
-  const romaSplit = s.match(/(CM)|(CD)|(XC)|(XL)|(IX)|(IV)|(IX)|(\w)/g)
+  const romaSplit = s.match(/(CM)|(CD)|(XC)|(XL)|(IX)|(IV)|(\w)/g)
   return romaSplit.reduce((acc, val) => acc + romaMap[val], 0)
 }
 // @lc code=end
+
+// 思路
+// 
+// 先根据 6 种特殊情况将罗马数字切成数组
+// 再根据 romaMap 将所有的元素累加和
