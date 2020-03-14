@@ -28,11 +28,9 @@ var isHappy = function(n) {
   do {
     slow = compute(slow)
     fast = compute(compute(fast))
-
-    if (slow === 1 || fast === 1) return true
   } while (fast !== slow)
 
-  return false
+  return slow === 1
 }
 // @lc code=end
 
@@ -53,4 +51,3 @@ var isHappy = function(n) {
 
 //   return true
 // }
-
