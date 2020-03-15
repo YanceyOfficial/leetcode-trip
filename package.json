@@ -8,6 +8,9 @@
   "scripts": {
     "test": "jest --coverage"
   },
+  "dependencies": {
+    "yancey-js-util": "^1.1.1"
+  },
   "devDependencies": {
     "@types/jest": "^25.1.4",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
@@ -16,7 +19,6 @@
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
-    "husky": "^4.2.3",
     "jest": "^25.1.0",
     "ts-jest": "^25.2.1",
     "typescript": "^3.8.3"
@@ -35,8 +37,5 @@
       "json",
       "node"
     ]
-  },
-  "dependencies": {
-    "yancey-js-util": "^1.1.1"
   }
 }
