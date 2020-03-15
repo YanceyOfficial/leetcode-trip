@@ -1,18 +1,16 @@
-/* eslint-disable */
-
 // <1>.从数列中挑出一个元素, 称为 "基准" (pivot)；
 // <2>.重新排序数列, 所有元素比基准值小的摆放在基准前面, 所有元素比基准值大的摆在基准的后面 (相同的数可以到任一边).
 // 在这个分区退出之后, 该基准就处于数列的中间位置.这个称为分区 (partition)操作；
 // <3>.递归地 (recursive)把小于基准值元素的子数列和大于基准值元素的子数列排序.
 
-export function quickSort(arr) {
+export function quickSort(arr: number[]) {
   if (arr.length <= 1) {
     return arr
   }
-  let pivotIndex = Math.floor(arr.length / 2)
-  let pivot = arr.splice(pivotIndex, 1)[0]
-  const left = []
-  const right = []
+  const pivotIndex = Math.floor(arr.length / 2)
+  const pivot = arr.splice(pivotIndex, 1)[0]
+  const left: number[] = []
+  const right: number[] = []
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] < pivot) {
       left.push(arr[i])
@@ -23,15 +21,15 @@ export function quickSort(arr) {
   return quickSort(left).concat([pivot], quickSort(right))
 }
 
-function swap(items, leftIndex, rightIndex) {
-  var temp = items[leftIndex]
+function swap(items: number[], leftIndex: number, rightIndex: number) {
+  const temp = items[leftIndex]
   items[leftIndex] = items[rightIndex]
   items[rightIndex] = temp
 }
 function partition(items, left, right) {
-  var pivot = items[Math.floor((right + left) / 2)],
-    i = left,
-    j = right
+  const pivot = items[Math.floor((right + left) / 2)]
+  let i = left
+  let j = right
   while (i <= j) {
     while (items[i] < pivot) {
       i++
@@ -49,7 +47,7 @@ function partition(items, left, right) {
 }
 
 function quickSort1(items, left, right) {
-  var index
+  const index = 0
   if (items.length > 1) {
     index = partition(items, left, right)
     if (left < index - 1) {
