@@ -18,7 +18,7 @@ Data Structures and Algorithms with JavaScript.
 
 - [递归算法](./AlgorithmDesign/Recursive)
 - 回溯算法
-- 动态规划
+- [动态规划](./AlgorithmDesign/DynamicProgramming)
 - 贪心算法
 - 分治算法
 - ...
