@@ -5,7 +5,7 @@ Data Structures and Algorithms with JavaScript.
 ## 数据结构
 
 - [栈](./DataStructures/Stack/README.md)
-- [队列](./DataStructures/Queue)/README.md
+- [队列](./DataStructures/Queue/README.md)
 - [链表](./DataStructures/LinkedList/README.md)
 - [集合](./DataStructures/Set/README.md)
 - [字典](./DataStructures/Dictionary/README.md)
