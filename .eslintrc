@@ -24,7 +24,9 @@
     "class-methods-use-this": "off",
     "arrow-parens": "off",
     "no-console": "off",
-    "no-lonely-if": "off"
+    "no-lonely-if": "off",
+    "no-param-reassign": "off",
+    "object-curly-newline": "off",
   },
   "overrides": [
     {

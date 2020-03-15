@@ -1,12 +1,12 @@
 import { Node } from './Node'
-import { BST } from './types'
+import { BST, Compare, ICompareFunction, defaultCompare } from './types'
 
 export class BinarySearchTree<T> implements BST<T> {
-  private root: Node<T> | null
+  protected root: Node<T> | null
 
   private count: number
 
-  constructor() {
+  constructor(protected compareFn: ICompareFunction<T> = defaultCompare) {
     this.root = null
     this.count = 0
   }
@@ -48,15 +48,15 @@ export class BinarySearchTree<T> implements BST<T> {
   private preOrderTraverseNode(node: Node<T> | null, callback: Function) {
     if (node) {
       callback(node.key)
-      this.inOrderTraverseNode(node.left, callback)
-      this.inOrderTraverseNode(node.right, callback)
+      this.preOrderTraverseNode(node.left, callback)
+      this.preOrderTraverseNode(node.right, callback)
     }
   }
 
   private postOrderTraverseNode(node: Node<T> | null, callback: Function) {
     if (node) {
-      this.inOrderTraverseNode(node.left, callback)
-      this.inOrderTraverseNode(node.right, callback)
+      this.postOrderTraverseNode(node.left, callback)
+      this.postOrderTraverseNode(node.right, callback)
       callback(node.key)
     }
   }
@@ -67,7 +67,7 @@ export class BinarySearchTree<T> implements BST<T> {
       while (current.left) {
         current = current.left
       }
-      return current.key
+      return current
     }
     return null
   }
@@ -78,7 +78,7 @@ export class BinarySearchTree<T> implements BST<T> {
       while (current.right) {
         current = current.right
       }
-      return current.key
+      return current
     }
     return null
   }
@@ -93,6 +93,41 @@ export class BinarySearchTree<T> implements BST<T> {
       return this.searchNode(node.right, key)
     }
     return true
+  }
+
+  private removeNode(node: Node<T> | null, key: T) {
+    if (node === null) {
+      return null
+    }
+    if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
+      node.left = this.removeNode(node.left, key)
+      return node
+    }
+    if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
+      node.right = this.removeNode(node.right, key)
+      return node
+    }
+    if (node.left == null && node.right == null) {
+      node = null
+      return node
+    }
+    if (node.left == null) {
+      node = node.right
+      return node
+    }
+    if (node.right == null) {
+      node = node.left
+      return node
+    }
+
+    const aux = this.minNode(node.right)
+    if (aux) {
+      node.key = aux.key
+      node.right = this.removeNode(node.right, aux.key)
+      return node
+    }
+
+    return null
   }
 
   public insert(key: T) {
@@ -131,10 +166,8 @@ export class BinarySearchTree<T> implements BST<T> {
     return this.searchNode(this.root, key)
   }
 
-  // private removeNode(node: Node<T> | null, key: T) {}
-
   public remove(key: T) {
-    return !!key
+    this.removeNode(this.root, key)
   }
 
   public getRoot() {

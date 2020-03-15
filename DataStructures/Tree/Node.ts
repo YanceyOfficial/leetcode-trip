@@ -3,7 +3,7 @@ export class Node<T> {
 
   public right: Node<T> | null
 
-  constructor(public readonly key: T) {
+  constructor(public key: T) {
     this.key = key
     this.left = null
     this.right = null
