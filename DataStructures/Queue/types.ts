@@ -5,10 +5,10 @@ export interface ICommon {
   toString(): string
 }
 
-export interface IQueue extends ICommon {
-  enqueue(elements: string | string[]): void // 向队尾插入一个或多个元素
-  dequeue(): void // 移除队头元素并返回该元素
-  peek(): string // 返回队头元素, 有时该方法也叫做 front 方法
+export interface IQueue<T> extends ICommon {
+  enqueue(element: T): void // 向队尾插入一个或多个元素
+  dequeue(): T | null // 移除队头元素并返回该元素
+  peek(): T | null // 返回队头元素, 有时该方法也叫做 front 方法
 }
 
 export interface IDeque extends ICommon {

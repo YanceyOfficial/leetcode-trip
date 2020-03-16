@@ -1,8 +1,8 @@
 import { IQueue } from './types'
 import { StringMap } from '../../typings'
 
-export class Queue implements IQueue {
-  private items: StringMap<any>
+export class Queue<T> implements IQueue<T> {
+  private items: StringMap<T>
 
   private count: number
 
@@ -14,15 +14,13 @@ export class Queue implements IQueue {
     this.lowestCount = 0
   }
 
-  public enqueue(...elements: string[]) {
-    for (let i = 0; i < elements.length; i += 1) {
-      this.items[this.count] = elements[i]
-      this.count++
-    }
+  public enqueue(element: T) {
+    this.items[this.count] = element
+    this.count++
   }
 
   public dequeue() {
-    if (this.isEmpty()) return undefined
+    if (this.isEmpty()) return null
     const result = this.items[this.lowestCount]
     delete this.items[this.lowestCount]
     this.lowestCount++
@@ -30,7 +28,7 @@ export class Queue implements IQueue {
   }
 
   public peek() {
-    if (this.isEmpty()) return undefined
+    if (this.isEmpty()) return null
     return this.items[this.lowestCount]
   }
 

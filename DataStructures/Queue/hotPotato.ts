@@ -3,16 +3,16 @@
 import { Queue } from './Queue'
 
 const hotPotato = (elementsList: string[], num: number) => {
-  const queue = new Queue()
-  const elimitatedList = []
+  const queue = new Queue<string>()
+  const elimitatedList: string[] = []
   for (let i = 0; i < elementsList.length; i++) {
     queue.enqueue(elementsList[i])
   }
   while (queue.size() > 1) {
     for (let i = 0; i < num; i += 1) {
-      queue.enqueue(queue.dequeue())
+      queue.enqueue(queue.dequeue() as string)
     }
-    elimitatedList.push(queue.dequeue())
+    elimitatedList.push(queue.dequeue() as string)
   }
   return {
     eliminated: elimitatedList,
