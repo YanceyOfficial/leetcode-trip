@@ -9,10 +9,10 @@ export interface BST<T> {
   postOrderTraverse(callback: Function): void // 通过后序遍历方式遍历所有节点
   min(): Node<T> | null // 返回树中最小的值/键
   max(): Node<T> | null // 返回树中最大的值/键
-  getRoot(): Node<T> | null // 返回树中最大的值/键
-  isEmpty(): boolean // 判断链表是否为空
-  size(): number // 获取链表的长度
-  clear(): any // 清空链表
+  getRoot(): Node<T> | null // 返回树的根节点
+  isEmpty(): boolean // 判断树是否为空
+  size(): number // 获取树的长度
+  clear(): any // 清空树
 }
 
 export enum Compare {
