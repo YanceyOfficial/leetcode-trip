@@ -14,7 +14,8 @@ export class Stack<T> implements IArrayStack<T> {
   }
 
   public pop() {
-    return this.items.pop()
+    if (this.isEmpty()) return null
+    return this.items.pop() as T
   }
 
   public peek() {

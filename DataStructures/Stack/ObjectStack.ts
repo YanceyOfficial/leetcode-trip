@@ -21,7 +21,7 @@ export class Stack<T> implements IObjectStack<T> {
   }
 
   public pop() {
-    if (this.isEmpty()) return undefined
+    if (this.isEmpty()) return null
     this.count--
     const poppedElm = this.items[this.count]
     delete this.items[this.count]
@@ -29,7 +29,7 @@ export class Stack<T> implements IObjectStack<T> {
   }
 
   public peek() {
-    if (this.isEmpty()) return undefined
+    if (this.isEmpty()) return null
     return this.items[this.count - 1]
   }
 

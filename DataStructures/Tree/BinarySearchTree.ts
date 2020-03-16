@@ -41,7 +41,7 @@ export class BinarySearchTree<T> implements BST<T> {
   // 用迭代的方式实现先序遍历
   private preOrderTraverseByIteration(callback: Function) {
     let treeNode = this.root
-    const stack = new Stack<T>()
+    const stack = new Stack<Node<T>>()
 
     while (treeNode !== null || !stack.isEmpty()) {
       while (treeNode !== null) {
@@ -52,7 +52,7 @@ export class BinarySearchTree<T> implements BST<T> {
 
       if (!stack.isEmpty()) {
         treeNode = stack.pop()
-        treeNode = treeNode?.right
+        treeNode = treeNode ? treeNode.right : null
       }
     }
   }

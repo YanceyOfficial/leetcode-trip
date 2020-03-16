@@ -3,7 +3,7 @@
 import { Stack } from './ArrayStack'
 
 export const baseConverter = (number: number, base: number) => {
-  const stack = new Stack()
+  const stack = new Stack<number>()
   const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   let rem = number
   let res = ''
@@ -18,7 +18,7 @@ export const baseConverter = (number: number, base: number) => {
   }
 
   while (!stack.isEmpty()) {
-    res += digits[stack.pop()]
+    res += digits[stack.pop() as number]
   }
 
   return res
