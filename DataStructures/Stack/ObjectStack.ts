@@ -1,8 +1,8 @@
 import { IObjectStack } from './types'
 import { StringMap } from '../../typings'
 
-export class Stack implements IObjectStack {
-  private readonly items: StringMap<any>
+export class Stack<T> implements IObjectStack<T> {
+  private readonly items: StringMap<T>
 
   private count: number
 
@@ -11,7 +11,7 @@ export class Stack implements IObjectStack {
     this.count = 0
   }
 
-  public push(element: string) {
+  public push(element: T) {
     this.items[this.count] = element
     this.count++
   }

@@ -1,4 +1,5 @@
 import { Node } from './Node'
+import { Stack } from '../Stack/ObjectStack'
 import { BST, Compare, ICompareFunction, defaultCompare } from './types'
 
 export class BinarySearchTree<T> implements BST<T> {
@@ -33,6 +34,25 @@ export class BinarySearchTree<T> implements BST<T> {
         this.insertNode(current, key)
       } else {
         current.right = node
+      }
+    }
+  }
+
+  // 用迭代的方式实现先序遍历
+  private preOrderTraverseByIteration(callback: Function) {
+    let treeNode = this.root
+    const stack = new Stack<T>()
+
+    while (treeNode !== null || !stack.isEmpty()) {
+      while (treeNode !== null) {
+        callback(treeNode.key)
+        stack.push(treeNode)
+        treeNode = treeNode.left
+      }
+
+      if (!stack.isEmpty()) {
+        treeNode = stack.pop()
+        treeNode = treeNode?.right
       }
     }
   }
