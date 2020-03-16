@@ -27,6 +27,7 @@
     "no-lonely-if": "off",
     "no-param-reassign": "off",
     "object-curly-newline": "off",
+    "import/extensions": "off"
   },
   "overrides": [
     {
