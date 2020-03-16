@@ -10,4 +10,4 @@
 
 ## 调用栈图解
 
-![调用栈](../../../public/assets/callStack.jpg)
+![调用栈](../../assets/callStack.jpg)

@@ -2,7 +2,7 @@
 
 ## 基本概念
 
-![树](../../public/assets/tree.jpg)
+![树](../../assets/tree.jpg)
 
 树是一种**非顺序**数据结构, 前面所学的散列表也是一种非顺序数据结构.
 
@@ -36,16 +36,16 @@
 
 先序遍历是先访问左, 再访问根, 最后访问右. 它会保证从小到大的顺序遍历, 可用来排序.
 
-![中序遍历](../../public/assets/inOrderTraverse.jpg)
+![中序遍历](../../assets/inOrderTraverse.jpg)
 
 ### 先序遍历
 
 先序遍历是先访问根, 再访问左, 最后访问右. 可用来打印一个结构化的文档.
 
-![先序遍历](../../public/assets/preOrderTraverse.jpg)
+![先序遍历](../../assets/preOrderTraverse.jpg)
 
 ### 后序遍历
 
 后序遍历是先访问左, 再访问右, 最后访问根. 可以用来计算一个目录及其子目录中所有文件所占空间的大小.
 
-![后序遍历](../../public/assets/postOrderTraverse.jpg)
+![后序遍历](../../assets/postOrderTraverse.jpg)
