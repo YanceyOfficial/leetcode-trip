@@ -1,8 +1,8 @@
 import { IDeque } from './types'
 import { StringMap } from '../../typings'
 
-export class Deque implements IDeque {
-  private items: StringMap<any>
+export class Deque<T> implements IDeque<T> {
+  private items: StringMap<T>
 
   private count: number
 
@@ -14,7 +14,7 @@ export class Deque implements IDeque {
     this.lowestCount = 0
   }
 
-  public addFront(element: string) {
+  public addFront(element: T) {
     if (this.isEmpty()) {
       this.addBack(element)
     } else if (this.lowestCount > 0) {
@@ -30,13 +30,13 @@ export class Deque implements IDeque {
     }
   }
 
-  public addBack(element: string) {
+  public addBack(element: T) {
     this.items[this.count] = element
     this.count++
   }
 
   public removeFront() {
-    if (this.isEmpty()) return undefined
+    if (this.isEmpty()) return null
     const result = this.items[this.lowestCount]
     delete this.items[this.lowestCount]
     this.lowestCount++
@@ -44,7 +44,7 @@ export class Deque implements IDeque {
   }
 
   public removeBack() {
-    if (this.isEmpty()) return undefined
+    if (this.isEmpty()) return null
     this.count--
     const poppedElm = this.items[this.count]
     delete this.items[this.count]
@@ -52,12 +52,12 @@ export class Deque implements IDeque {
   }
 
   public peekFront() {
-    if (this.isEmpty()) return undefined
+    if (this.isEmpty()) return null
     return this.items[this.count - 1]
   }
 
   public peekBack() {
-    if (this.isEmpty()) return undefined
+    if (this.isEmpty()) return null
     return this.items[this.lowestCount]
   }
 
