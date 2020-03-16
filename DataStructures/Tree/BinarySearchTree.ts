@@ -1,5 +1,6 @@
 import { Node } from './Node'
 import { Stack } from '../Stack/ObjectStack'
+import { Queue } from '../Queue/Queue'
 import { BST, Compare, ICompareFunction } from './types'
 import { defaultCompare } from './tools'
 
@@ -40,8 +41,11 @@ export class BinarySearchTree<T> implements BST<T> {
   }
 
   // 用迭代的方式实现先序遍历
-  private preOrderTraverseByIteration(callback: Function) {
-    let treeNode = this.root
+  private preOrderTraverseByIteration(
+    node: Node<T> | null,
+    callback: Function,
+  ) {
+    let treeNode = node
     const stack = new Stack<Node<T>>()
 
     while (treeNode !== null || !stack.isEmpty()) {
@@ -79,6 +83,26 @@ export class BinarySearchTree<T> implements BST<T> {
       this.postOrderTraverseNode(node.left, callback)
       this.postOrderTraverseNode(node.right, callback)
       callback(node.key)
+    }
+  }
+
+  private levelOrderTraverseNode(node: Node<T> | null, callback: Function) {
+    if (node !== null) {
+      const queue = new Queue<Node<T>>()
+      queue.enqueue(node)
+
+      while (!queue.isEmpty()) {
+        const treeNode = queue.dequeue() as Node<T>
+        callback(treeNode.key as T)
+
+        if (treeNode.left !== null) {
+          queue.enqueue(treeNode.left)
+        }
+
+        if (treeNode.right !== null) {
+          queue.enqueue(treeNode.right)
+        }
+      }
     }
   }
 
@@ -162,7 +186,11 @@ export class BinarySearchTree<T> implements BST<T> {
 
   // 先序遍历
   public preOrderTraverse(callback: Function) {
+    // 用递归的方式实现先序遍历
     this.preOrderTraverseNode(this.root, callback)
+
+    // 用迭代的方式实现先序遍历
+    // this.preOrderTraverseByIteration(this.root, callback)
   }
 
   // 中序遍历
@@ -173,6 +201,11 @@ export class BinarySearchTree<T> implements BST<T> {
   // 后序遍历
   public postOrderTraverse(callback: Function) {
     this.postOrderTraverseNode(this.root, callback)
+  }
+
+  // 层序遍历
+  public levelOrderTraverse(callback: Function) {
+    this.levelOrderTraverseNode(this.root, callback)
   }
 
   public min() {
@@ -217,21 +250,14 @@ bst.insert(5)
 bst.insert(3)
 bst.insert(9)
 bst.insert(8)
-bst.insert(10)
-bst.insert(13)
-bst.insert(12)
-bst.insert(14)
-bst.insert(20)
-bst.insert(18)
-bst.insert(25)
 
 // console.log(bst)
 // console.log(bst.size())
 
-// const cb = (value: number) => console.log(value)
-// bst.inOrderTraverse(cb)
+const cb = (value: number) => console.log(value)
+bst.levelOrderTraverse(cb)
 
-console.log(bst.min())
-console.log(bst.max())
-console.log(bst.search(331))
-console.log(bst.search(7))
+// console.log(bst.min())
+// console.log(bst.max())
+// console.log(bst.search(331))
+// console.log(bst.search(7))
