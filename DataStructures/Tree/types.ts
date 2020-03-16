@@ -15,11 +15,3 @@ export interface BST<T> {
   size(): number // 获取树的长度
   clear(): any // 清空树
 }
-
-export enum Compare {
-  LESS_THAN = -1,
-  BIGGER_THAN = 1,
-  EQUALS = 0,
-}
-
-export type ICompareFunction<T> = (a: T, b: T) => number

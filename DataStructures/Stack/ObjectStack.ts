@@ -1,8 +1,8 @@
 import { IObjectStack } from './types'
-import { StringMap } from '../../typings'
+import { Dict } from '../typings'
 
 export class Stack<T> implements IObjectStack<T> {
-  private readonly items: StringMap<T>
+  private readonly items: Dict<T>
 
   private count: number
 

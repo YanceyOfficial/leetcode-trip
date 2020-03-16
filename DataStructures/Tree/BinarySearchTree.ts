@@ -1,8 +1,9 @@
 import { Node } from './Node'
 import { Stack } from '../Stack/ObjectStack'
 import { Queue } from '../Queue/Queue'
-import { BST, Compare, ICompareFunction } from './types'
-import { defaultCompare } from './tools'
+import { BST } from './types'
+import { defaultCompare } from '../tools'
+import { Compare, ICompareFunction } from '../typings'
 
 export class BinarySearchTree<T> implements BST<T> {
   protected root: Node<T> | null

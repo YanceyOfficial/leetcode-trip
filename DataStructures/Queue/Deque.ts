@@ -1,8 +1,8 @@
 import { IDeque } from './types'
-import { StringMap } from '../../typings'
+import { Dict } from '../typings'
 
 export class Deque<T> implements IDeque<T> {
-  private items: StringMap<T>
+  private items: Dict<T>
 
   private count: number
 

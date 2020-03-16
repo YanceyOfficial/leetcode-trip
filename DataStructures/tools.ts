@@ -1,4 +1,4 @@
-import { Compare } from './types'
+import { Compare } from './typings'
 
 export function defaultCompare<T>(a: T, b: T): number {
   if (a === b) {

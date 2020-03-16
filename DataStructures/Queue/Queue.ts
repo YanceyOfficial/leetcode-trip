@@ -1,8 +1,8 @@
 import { IQueue } from './types'
-import { StringMap } from '../../typings'
+import { Dict } from '../typings'
 
 export class Queue<T> implements IQueue<T> {
-  private items: StringMap<T>
+  private items: Dict<T>
 
   private count: number
 
