@@ -8,6 +8,7 @@ export interface BST<T> {
   preOrderTraverse(callback: Function): void // 先序遍历
   postOrderTraverse(callback: Function): void // 后序遍历
   levelOrderTraverse(callback: Function): void // 层序遍历
+  depth(): number // 返回树的深度
   min(): Node<T> | null // 返回树中最小的值/键
   max(): Node<T> | null // 返回树中最大的值/键
   getRoot(): Node<T> | null // 返回树的根节点

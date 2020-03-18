@@ -6,7 +6,7 @@ import { defaultCompare } from '../tools'
 import { Compare, ICompareFunction } from '../typings'
 
 export class BinarySearchTree<T> implements BST<T> {
-  protected root: Node<T> | null
+  private root: Node<T> | null
 
   private count: number
 
@@ -39,6 +39,15 @@ export class BinarySearchTree<T> implements BST<T> {
         current.right = node
       }
     }
+  }
+
+  private maxDepth(node: Node<T> | null) {
+    if (!node) return 0
+
+    const left = this.maxDepth(node.left)
+    const right = this.maxDepth(node.right)
+
+    return Math.max(left, right) + 1
   }
 
   // 用迭代的方式实现先序遍历
@@ -207,6 +216,10 @@ export class BinarySearchTree<T> implements BST<T> {
   // 层序遍历
   public levelOrderTraverse(callback: Function) {
     this.levelOrderTraverseNode(this.root, callback)
+  }
+
+  public depth() {
+    return this.maxDepth(this.root)
   }
 
   public min() {
