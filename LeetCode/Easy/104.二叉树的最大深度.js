@@ -19,31 +19,9 @@
 var maxDepth = function(root) {
   if (!root) return 0
 
-  let count = 0
-  const queue = []
+  const left = maxDepth(root.left)
+  const right = maxDepth(root.right)
 
-  queue.push(root)
-
-  while (queue.length !== 0) {
-    if (queue.length === 1) {
-      count++
-    }
-    
-    const node = queue.shift()
-
-    if (node.left !== null) {
-      queue.push(node.left)
-    }
-
-    if (node.right !== null) {
-      queue.push(node.right)
-    }
-
-    if (node.left !== null || node.right !== null) {
-      count++
-    }
-  }
-
-  return count
+  return Math.max(left, right) + 1
 }
 // @lc code=end
