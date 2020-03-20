@@ -17,21 +17,18 @@
  * @return {number[]}
  */
 var inorderTraversal = function(root) {
-  let treeNode = root
   const stack = []
 
   const res = []
 
-  while (treeNode !== null || stack.length !== 0) {
-    while (treeNode !== null) {
-      stack.push(treeNode)
-      treeNode = treeNode.left
-    }
-
-    if (stack.length !== 0) {
-      treeNode = stack.pop()
-      res.push(treeNode.val)
-      treeNode = treeNode.right
+  while (stack.length !== 0 || root !== null) {
+    if (root !== null) {
+      stack.push(root)
+      root = root.left
+    } else {
+      root = stack.pop()
+      res.push(root.val)
+      root = root.right
     }
   }
 

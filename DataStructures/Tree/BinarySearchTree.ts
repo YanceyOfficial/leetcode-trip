@@ -52,19 +52,18 @@ export class BinarySearchTree<T> implements BST<T> {
 
   // 用迭代的方式实现中序遍历
   private inOrderTraverseByIteration(node: Node<T> | null, callback: Function) {
-    let treeNode = node
+    if (node === null) return
+
     const stack = new Stack<Node<T>>()
 
-    while (treeNode !== null || !stack.isEmpty()) {
-      while (treeNode !== null) {
-        stack.push(treeNode)
-        treeNode = treeNode.left
-      }
-
-      if (!stack.isEmpty()) {
-        treeNode = stack.pop() as Node<T>
-        callback(treeNode.key)
-        treeNode = treeNode.right
+    while (!stack.isEmpty() || node !== null) {
+      if (node !== null) {
+        stack.push(node)
+        node = node.left
+      } else {
+        node = stack.pop() as Node<T>
+        callback(node.key)
+        node = node.right
       }
     }
   }
@@ -89,6 +88,38 @@ export class BinarySearchTree<T> implements BST<T> {
       if (pop.left !== null) {
         stack.push(pop.left)
       }
+    }
+  }
+
+  // 用迭代的方式实现后序遍历
+  private postOrderTraverseByIteration(
+    node: Node<T> | null,
+    callback: Function,
+  ) {
+    if (node === null) return
+
+    const stack1 = new Stack<Node<T>>()
+    const stack2 = new Stack<Node<T>>()
+
+    stack1.push(node)
+
+    while (!stack1.isEmpty()) {
+      node = stack1.pop() as Node<T>
+
+      stack2.push(node)
+
+      if (node.left !== null) {
+        stack1.push(node.left)
+      }
+
+      if (node.right !== null) {
+        stack1.push(node.right)
+      }
+    }
+
+    while (!stack2.isEmpty()) {
+      const pop = stack2.pop() as Node<T>
+      callback(pop.key)
     }
   }
 
@@ -216,11 +247,7 @@ export class BinarySearchTree<T> implements BST<T> {
 
   // 先序遍历
   public preOrderTraverse(callback: Function) {
-    // 用递归的方式实现先序遍历
     this.preOrderTraverseNode(this.root, callback)
-
-    // 用迭代的方式实现先序遍历
-    // this.preOrderTraverseByIteration(this.root, callback)
   }
 
   // 中序遍历
@@ -289,7 +316,7 @@ bst.insert(8)
 // console.log(bst.size())
 
 const cb = (value: number) => console.log(value)
-bst.preOrderTraverse(cb)
+bst.postOrderTraverse(cb)
 
 // console.log(bst.min())
 // console.log(bst.max())
