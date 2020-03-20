@@ -50,6 +50,25 @@ export class BinarySearchTree<T> implements BST<T> {
     return Math.max(left, right) + 1
   }
 
+  // 用迭代的方式实现中序遍历
+  private inOrderTraverseByIteration(node: Node<T> | null, callback: Function) {
+    let treeNode = node
+    const stack = new Stack<Node<T>>()
+
+    while (treeNode !== null || !stack.isEmpty()) {
+      while (treeNode !== null) {
+        stack.push(treeNode)
+        treeNode = treeNode.left
+      }
+
+      if (!stack.isEmpty()) {
+        treeNode = stack.pop() as Node<T>
+        callback(treeNode.key)
+        treeNode = treeNode.right
+      }
+    }
+  }
+
   // 用迭代的方式实现先序遍历
   private preOrderTraverseByIteration(
     node: Node<T> | null,
@@ -66,8 +85,8 @@ export class BinarySearchTree<T> implements BST<T> {
       }
 
       if (!stack.isEmpty()) {
-        treeNode = stack.pop()
-        treeNode = treeNode ? treeNode.right : null
+        treeNode = stack.pop() as Node<T>
+        treeNode = treeNode.right
       }
     }
   }

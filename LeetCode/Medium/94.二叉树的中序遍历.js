@@ -16,25 +16,26 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var inorderTraversalNode = function(node, cb) {
-  if (node) {
-    inorderTraversalNode(node.left, cb)
-    cb(node.val)
-    inorderTraversalNode(node.right, cb)
-  }
-}
-
 var inorderTraversal = function(root) {
-  const arr = []
+  let treeNode = root
+  const stack = []
 
-  function cb(val) {
-    console.log(val)
-    arr.push(val)
+  const res = []
+
+  while (treeNode !== null || stack.length !== 0) {
+    while (treeNode !== null) {
+      stack.push(treeNode)
+      treeNode = treeNode.left
+    }
+
+    if (stack.length !== 0) {
+      treeNode = stack.pop()
+      res.push(treeNode.val)
+      treeNode = treeNode.right
+    }
   }
 
-  inorderTraversalNode(root, cb)
-
-  return arr
+  return res
 }
 
 // @lc code=end
