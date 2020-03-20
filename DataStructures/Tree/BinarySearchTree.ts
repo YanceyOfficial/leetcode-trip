@@ -74,19 +74,20 @@ export class BinarySearchTree<T> implements BST<T> {
     node: Node<T> | null,
     callback: Function,
   ) {
-    let treeNode = node
+    if (node === null) return
+
     const stack = new Stack<Node<T>>()
+    stack.push(node)
 
-    while (treeNode !== null || !stack.isEmpty()) {
-      while (treeNode !== null) {
-        callback(treeNode.key)
-        stack.push(treeNode)
-        treeNode = treeNode.left
+    while (!stack.isEmpty()) {
+      const pop = stack.pop() as Node<T>
+      callback(pop.key)
+
+      if (pop.right !== null) {
+        stack.push(pop.right)
       }
-
-      if (!stack.isEmpty()) {
-        treeNode = stack.pop() as Node<T>
-        treeNode = treeNode.right
+      if (pop.left !== null) {
+        stack.push(pop.left)
       }
     }
   }
@@ -288,7 +289,7 @@ bst.insert(8)
 // console.log(bst.size())
 
 const cb = (value: number) => console.log(value)
-bst.levelOrderTraverse(cb)
+bst.preOrderTraverse(cb)
 
 // console.log(bst.min())
 // console.log(bst.max())
