@@ -32,8 +32,6 @@ var addBinary = function(a, b) {
 }
 // @lc code=end
 
-console.log(addBinary('1010', '1011'))
-
 // var addBinary = function(a, b) {
 //   return (BigInt('0b' + a) + BigInt('0b' + b)).toString(2);
 // };
