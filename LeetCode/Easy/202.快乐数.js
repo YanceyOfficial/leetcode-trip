@@ -13,9 +13,9 @@ var compute = function(n) {
   let num = 0
 
   while (n >= 1) {
-    const remainder = n % 10
-    num += remainder * remainder
-    n = (n - remainder) / 10
+    const carry = n % 10
+    num += carry * carry
+    n = (n - carry) / 10
   }
 
   return num
