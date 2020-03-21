@@ -11,36 +11,24 @@
  * @return {string}
  */
 var addBinary = function(a, b) {
-  const lenA = a.length
-  const lenB = b.length
-  const len = lenA > lenB ? lenA : lenB
+  const maxLen = Math.max(a.length, b.length)
 
-  if (lenA > lenB) {
-    for (let i = 0; i < lenA - lenB; i++) {
-      b = '0' + b
-    }
-  } else {
-    for (let i = 0; i < lenB - lenA; i++) {
-      a = '0' + a
-    }
+  a = a.padStart(maxLen, '0')
+  b = b.padStart(maxLen, '0')
+
+  let arr = Array.from({ length: maxLen }, () => 0)
+  let carry = 0
+
+  for (let i = maxLen - 1; i >= 0; i--) {
+    const currA = a[i] | 0,
+      currB = b[i] | 0
+    const sum = currA + currB + carry
+    carry = sum / 2 >= 1 ? 1 : 0
+    arr[i] += carry ? sum % 2 : sum
   }
 
-  const arrA = a.split('').reverse()
-  const arrB = b.split('').reverse()
-  const arr = []
-
-  for (let i = 0; i < len; i++) {
-    arr.push(parseInt(arrA[i], 10) + parseInt(arrB[i], 10))
-  }
-
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] >= 2) {
-      arr[i] -= 2
-      arr[i + 1] = i + 1 >= arr.length ? 1 : arr[i + 1] + 1
-    }
-  }
-
-  return arr.reverse().join('')
+  let res = arr.join('')
+  return carry ? `1${res}` : res
 }
 // @lc code=end
 
