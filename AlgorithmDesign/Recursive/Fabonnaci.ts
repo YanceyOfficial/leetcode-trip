@@ -1,15 +1,23 @@
 /* eslint-disable */
 
 export function fibonacci(n: number) {
-  let n1 = 1
-  let n2 = 1
-  let sum = 1
-  for (let i = 3; i <= n; i += 1) {
-    sum = n1 + n2
-    n1 = n2
-    n2 = sum
+  if (n <= 1) {
+    return n
   }
-  return sum
+  if (n === 2) {
+    return 1
+  }
+
+  let current = 0
+  let prev1 = 1
+  let prev2 = 1
+
+  for (let i = 3; i <= n; i++) {
+    current = prev1 + prev2
+    prev2 = prev1
+    prev1 = current
+  }
+  return current
 }
 
 function memorize(f) {
