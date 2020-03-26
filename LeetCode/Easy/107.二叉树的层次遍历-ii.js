@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=102 lang=javascript
+ * @lc app=leetcode.cn id=107 lang=javascript
  *
- * [102] 二叉树的层次遍历
+ * [107] 二叉树的层次遍历 II
  */
 
 // @lc code=start
@@ -16,7 +16,7 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
-var levelOrder = function(root) {
+var levelOrderBottom = function(root) {
   const levels = []
   if (!root) return levels
 
@@ -34,7 +34,7 @@ var levelOrder = function(root) {
       if (node.right) queue.push(node.right)
     }
 
-    levels.push(temp)
+    levels.unshift(temp)
   }
 
   return levels
