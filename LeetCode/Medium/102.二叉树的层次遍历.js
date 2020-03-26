@@ -17,49 +17,28 @@
  * @return {number[][]}
  */
 var levelOrder = function(root) {
-  if (!root) return [[]]
+  const levels = []
+  if (!root) return levels
 
-  const arr = [[]],
-    queue = []
-
-  let i = 0
-
+  const queue = []
   queue.push(root)
-  arr[i] = [...arr[i], root.val]
+  let level = 0
 
   while (queue.length !== 0) {
-    const currNode = queue.shift()
+    levels.push([])
+    const currLevelLength = queue.length
 
-    if (currNode === queue[queue.length - 1]) {
-      arr.push([])
-      i++
+    for (let i = 0; i < currLevelLength; i++) {
+      const node = queue.shift()
+      levels[level].push(node.val)
+
+      if (node.left) queue.push(node.left)
+      if (node.right) queue.push(node.right)
     }
 
-    if (currNode.left) {
-      queue.push(currNode.left)
-      arr[i] = [...arr[i], currNode.left.val]
-    }
-
-    if (currNode.right) {
-      queue.push(currNode.right)
-      arr[i] = [...arr[i], currNode.right.val]
-    }
+    level++
   }
 
-  return arr
+  return levels
 }
 // @lc code=end
-
-function TreeNode(val) {
-  this.val = val
-  this.left = this.right = null
-}
-
-const tree = new TreeNode(1)
-tree.left = new TreeNode(2)
-tree.right = new TreeNode(3)
-tree.left.left = new TreeNode(4)
-tree.left.right = new TreeNode(5)
-tree.right.right = new TreeNode(6)
-
-console.log(levelOrder(tree))
