@@ -12,13 +12,13 @@
 var threeSum = function(nums) {
   let ans = []
   const len = nums.length
-  if (nums == null || len < 3) return ans
+  if (nums === null || len < 3) return ans
 
   nums.sort((a, b) => a - b) // 排序
 
   for (let i = 0; i < len; i++) {
     if (nums[i] > 0) break // 如果当前数字大于 0, 则三数之和一定大于 0, 所以结束循环
-    if (i > 0 && nums[i] == nums[i - 1]) continue // 去重
+    if (i > 0 && nums[i] === nums[i - 1]) continue // 去重
     let L = i + 1
     let R = len - 1
     while (L < R) {
