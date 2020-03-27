@@ -11,29 +11,37 @@
  * @return {number[][]}
  */
 var fourSum = function(nums, target) {
-  let ans = []
-  const len = nums.length
-  if (nums === null || len < 4) return ans
-  nums.sort((a, b) => a - b) // 排序
-  for (let i = 0; i < len; i++) {
-    if (nums[i] > target) break // 如果当前数字大于 0, 则三数之和一定大于 0, 所以结束循环
-    if (i > 0 && nums[i] === nums[i - 1]) continue // 去重
-    let L = i + 1
-    let R = len - 1
-    while (L < R) {
-      const sum = nums[i] + nums[L] + nums[R]
-      if (sum === target) {
-        ans.push([nums[i], nums[L], nums[R]])
-        while (L < R && nums[L] === nums[L + 1]) L++ // 去重
-        while (L < R && nums[R] === nums[R - 1]) R-- // 去重
-        L++
-        R--
-      } else if (sum < 0) L++
-      else if (sum > 0) R--
+  if (nums.length < 4) {
+    return []
+  }
+  nums.sort((a, b) => a - b)
+  const res = []
+  for (let i = 0; i < nums.length - 3; i++) {
+    // 若与已遍历过的数字相同，避免结果中出现重复的数组
+    if (i > 0 && nums[i] === nums[i - 1]) continue
+    // 若当前循环的前四位数字已大于 target
+    if (nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) break
+    for (let j = i + 1; j < nums.length - 2; j++) {
+      // 若与已遍历过的数字相同，避免结果中出现重复的数组
+      if (j > i + 1 && nums[j] === nums[j - 1]) continue
+      
+      let left = j + 1,
+        right = nums.length - 1
+      while (left < right) {
+        const sum = nums[i] + nums[j] + nums[left] + nums[right]
+        if (sum === target) {
+          res.push([nums[i], nums[j], nums[left], nums[right]])
+        }
+        if (sum <= target) {
+          while (nums[left] === nums[++left]);
+        } else {
+          while (nums[right] === nums[--right]);
+        }
+      }
     }
   }
-  return ans
+  return res
 }
 // @lc code=end
 
-console.log(fourSum([1, 0, -1, 0, -2, 2], 0))
+console.log(fourSum([-3, -1, 0, 2, 4, 5], 0))
