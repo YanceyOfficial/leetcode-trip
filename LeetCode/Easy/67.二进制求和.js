@@ -10,7 +10,7 @@
  * @param {string} b
  * @return {string}
  */
-var addBinary = function(a, b) {
+var addBinary = function (a, b) {
   const maxLen = Math.max(a.length, b.length)
 
   a = a.padStart(maxLen, '0')
