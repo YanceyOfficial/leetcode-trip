@@ -10,22 +10,18 @@
  * @param {string} needle
  * @return {number}
  */
-var strStr = function(haystack, needle) {
+var strStr = function (haystack, needle) {
   if (needle === '') return 0
 
   let i = 0,
-    j = 1
+    j = needle.length
 
-  while (i < haystack.length) {
+  while (j <= haystack.length) {
     if (haystack.slice(i, j) === needle) {
       return i
-    }
-
-    if (j < haystack.length) {
-      j++
     } else {
       i++
-      j = i + 1
+      j++
     }
   }
 
