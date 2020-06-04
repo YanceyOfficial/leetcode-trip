@@ -47,7 +47,7 @@ function partition(items, left, right) {
 }
 
 function quickSort1(items, left, right) {
-  const index = 0
+  let index = 0
   if (items.length > 1) {
     index = partition(items, left, right)
     if (left < index - 1) {
