@@ -34,3 +34,5 @@ function classify(nums, k) {
 
   return nums
 }
+
+console.log(classify([4, 5, 2, 1], 3))
