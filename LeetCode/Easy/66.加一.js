@@ -9,7 +9,7 @@
  * @param {number[]} digits
  * @return {number[]}
  */
-var plusOne = function(digits) {
+var plusOne = function (digits) {
   const len = digits.length
 
   let i = len - 1

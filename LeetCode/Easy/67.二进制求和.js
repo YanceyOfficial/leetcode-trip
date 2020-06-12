@@ -16,7 +16,7 @@ var addBinary = function (a, b) {
   a = a.padStart(maxLen, '0')
   b = b.padStart(maxLen, '0')
 
-  let arr = Array.from({ length: maxLen }, () => 0)
+  const arr = Array.from({ length: maxLen }, () => 0)
   let carry = 0
 
   for (let i = maxLen - 1; i >= 0; i--) {

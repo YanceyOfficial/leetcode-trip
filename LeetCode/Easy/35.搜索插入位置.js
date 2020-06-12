@@ -11,19 +11,19 @@
  * @return {number}
  */
 var searchInsert = function(nums, target) {
-  let left = 0,
-    right = nums.length - 1
-  while (left <= right) {
-    let mid = Math.floor((left + right) / 2)
+  let low = 0,
+    high = nums.length - 1
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2)
     if (nums[mid] === target) {
       return mid
     } else if (nums[mid] < target) {
-      left = mid + 1
+      low = mid + 1
     } else {
-      right = mid - 1
+      high = mid - 1
     }
   }
-  return left
+  return low
 }
 
 // @lc code=end

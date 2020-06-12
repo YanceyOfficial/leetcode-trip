@@ -24,11 +24,9 @@ var wordPattern = function(pattern, str) {
     
     if (curr !== undefined) {
       if (curr !== strArr[i]) return false
-
       i++
     } else {
       if (Object.values(map).includes(strArr[i])) return false
-
       map[pattern[i]] = strArr[i]
       i++
     }

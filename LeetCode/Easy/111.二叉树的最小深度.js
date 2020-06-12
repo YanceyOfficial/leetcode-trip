@@ -16,10 +16,8 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var minDepth = function(root) {
+var minDepth = function (root) {
   if (!root) return 0
-
-  //if (root.left === null && root.right === null) return 1
 
   return (minDepth(root.left) || minDepth(root.right)) + 1
 }
@@ -31,7 +29,7 @@ function TreeNode(val) {
 }
 
 const tree = new TreeNode(1)
-tree.left = new TreeNode(2) 
+tree.left = new TreeNode(2)
 // tree.right = new TreeNode(20)
 tree.left.left = new TreeNode(3)
 tree.left.left.left = new TreeNode(4)

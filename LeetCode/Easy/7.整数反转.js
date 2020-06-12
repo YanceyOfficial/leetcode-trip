@@ -9,32 +9,14 @@
  * @param {number} x
  * @return {number}
  */
-var reverse = function(x) {
-  const isNegative = Math.sign(x) === -1
+var reverse = function (x) {
+  let n = 0
 
-  let arr = Math.abs(x)
-    .toString()
-    .split('')
-
-  let i = 0
-  let j = arr.length - 1
-
-  while (i <= j) {
-    ;[arr[i], arr[j]] = [arr[j], arr[i]]
-    i++
-    j--
+  while (x) {
+    n = n * 10 + (x % 10)
+    x = (x - (x % 10)) / 10
   }
 
-  const num = parseInt(arr.join(''), 10)
-
-  const res = isNegative ? -1 * num : num
-
-  return res >= Math.pow(-2, 31) && res <= Math.pow(2, 31) - 1 ? res : 0
+  return n >= Math.pow(-2, 31) && n <= Math.pow(2, 31) - 1 ? n : 0
 }
 // @lc code=end
-
-// 思路
-//
-// 先判断数字的正负, 并将数字取绝对值后转成字符串数组
-// 然后将数组翻转, 不管使用 reverse() 还是双指针都可
-// 最后将反转后的数组转成数字返回
