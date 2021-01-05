@@ -42,7 +42,7 @@ LRUCache.prototype.put = function (key, value) {
     this.caches.delete(key)
   }
 
-  // 新增这个 k-v
+  // 新增 k-v
   this.caches.set(key, value)
 
   // 如果超过了容量, 就把 Map 最老的那个删除掉
