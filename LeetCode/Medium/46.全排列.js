@@ -9,24 +9,27 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var permute = function(nums) {
+var permute = function (nums) {
   let n = nums.length
   let res = []
-  let tmpPath = []
-  let backtrack = tmpPath => {
-    if (tmpPath.length == n) {
-      res.push(tmpPath)
+  let track = []
+  let backtrack = (track) => {
+    if (track.length === n) {
+      res.push(track)
       return
     }
     for (let i = 0; i < n; i++) {
-      if (!tmpPath.includes(nums[i])) {
-        tmpPath.push(nums[i])
-        backtrack(tmpPath.slice())
-        tmpPath.pop()
+      if (!track.includes(nums[i])) {
+        track.push(nums[i])
+        backtrack(track.slice())
+        track.pop()
       }
     }
   }
-  backtrack(tmpPath)
+
+  backtrack(track)
   return res
 }
 // @lc code=end
+
+console.log(permute([1, 2, 3]))
