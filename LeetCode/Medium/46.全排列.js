@@ -31,5 +31,3 @@ var permute = function (nums) {
   return res
 }
 // @lc code=end
-
-console.log(permute([1, 2, 3]))
