@@ -1,2 +1,3 @@
 __test__/*
-LeetCode/**/*
+src/LeetCode/**/*
+src/AlgorithmDesign/**/*

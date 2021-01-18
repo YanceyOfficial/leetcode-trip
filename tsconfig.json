@@ -13,5 +13,7 @@
     "esModuleInterop": true,
     "strictNullChecks": true
   },
+  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "include": ["src/"],
   "exclude": ["node_modules", "dist"]
 }
