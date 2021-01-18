@@ -10,28 +10,38 @@
  * @return {string[]}
  */
 var letterCombinations = function (digits) {
+  if (digits.length === 0) return []
+
   const map = {
-    2: ['a', 'b', 'c'],
-    3: ['d', 'e', 'f'],
-    4: ['g', 'h', 'i'],
-    5: ['j', 'k', 'l'],
-    6: ['m', 'n', 'o'],
-    7: ['p', 'q', 'r', 's'],
-    8: ['t', 'u', 'v'],
-    9: ['w', 'x', 'y', 'z'],
+    2: 'abc',
+    3: 'def',
+    4: 'ghi',
+    5: 'jkl',
+    6: 'mno',
+    7: 'pqrs',
+    8: 'tuv',
+    9: 'wxyz',
   }
 
-  const digitList = digits.split('')
-  const list = digitList.map((digit) => map[digit])
+  let res = []
+  let track = []
+  let backtrack = (track) => {
+    const len = track.length
+    if (len === digits.length) {
+      res.push(track.join(''))
+      return
+    }
 
-  const res = []
-
-  for (let i = 0; i < list.length; i++) {
-    for (let j = 0; j < list[i].length; j++) {
-
+    const digit = digits[len]
+    const val = map[digit]
+    for (let i = 0; i < val.length; i++) {
+      track.push(val[i])
+      backtrack(track.slice())
+      track.pop()
     }
   }
+
+  backtrack(track)
+  return res
 }
 // @lc code=end
-
-letterCombinations('23')
