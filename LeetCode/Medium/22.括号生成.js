@@ -12,34 +12,26 @@
 var generateParenthesis = function (n) {
   const res = []
   let track = []
-  let leftParenthesisCount = 0
-  const model = ['(', ')']
 
-  let backtrack = (track) => {
-    if (track.length === n * 2) {
+  let backtrack = (left, right, track) => {
+    if (right < left) return // 因为每个 track 的子串, 都要保证 '(' >= ')',  
+    if (left < 0 || right < 0) return
+    if (left === 0 && right === 0) {
       res.push(track.join(''))
       return
     }
 
-    for (let i = 0; i < model.length; i++) {
-      // if (leftParenthesisCount < n) {
-      //   track.push(model[i])
-      //   if (i === 0) {
-      //     leftParenthesisCount++
-      //   }
-      // } else {
-      //   track.push(model[1])
-      // }
+    track.push('(')
+    backtrack(left - 1, right, track)
+    track.pop()
 
-      track.push(model[i])
-
-      backtrack(track.slice())
-
-      track.pop()
-    }
+    track.push(')')
+    backtrack(left, right - 1, track)
+    track.pop()
   }
 
-  backtrack(track)
+  backtrack(n, n, track)
+
   return res
 }
 // @lc code=end
