@@ -16,16 +16,6 @@
     "clear": "docusaurus clear",
     "test": "jest --coverage"
   },
-  "dependencies": {
-    "@docusaurus/core": "2.0.0-alpha.70",
-    "@docusaurus/plugin-content-docs": "^2.0.0-alpha.70",
-    "@docusaurus/preset-classic": "2.0.0-alpha.70",
-    "@mdx-js/react": "^1.6.21",
-    "clsx": "^1.1.1",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "yancey-js-util": "^3.0.0"
-  },
   "browserslist": {
     "production": [
       ">0.5%",
@@ -37,6 +27,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "@docusaurus/core": "2.0.0-alpha.70",
+    "@docusaurus/plugin-ideal-image": "^2.0.0-alpha.70",
+    "@docusaurus/plugin-pwa": "^2.0.0-alpha.70",
+    "@docusaurus/preset-classic": "2.0.0-alpha.70",
+    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.70",
+    "@mdx-js/react": "^1.6.21",
+    "clsx": "^1.1.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "yancey-js-util": "^3.0.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^2.0.0-alpha.70",

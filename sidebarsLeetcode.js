@@ -1,6 +1,6 @@
 module.exports = {
   leetcode: {
-    Easy: ['twoSums'],
-    Middle: ['threeSums'],
+    Easy: ['twoSum'],
+    Middle: ['threeSum'],
   },
 }

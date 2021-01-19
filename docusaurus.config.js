@@ -1,21 +1,30 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+const path = require('path')
+
 module.exports = {
   title: 'LeetCode Trip',
-  tagline: 'LeetCode trip of Yancey.',
-  url: 'https://leetcode.yanceyleo.com',
+  tagline: 'LeetCode Trip',
+  url: 'https://algorithm.yanceyleo.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'Yancey Inc.',
   projectName: 'leetcode-trip',
+  themes: ['@docusaurus/theme-live-codeblock'],
   plugins: [
     [
       '@docusaurus/plugin-content-docs',
       {
         id: 'leetcode',
         path: 'leetcode-docs',
-        editUrl:
-          'https://github.com/YanceyOfficial/leetcode-trip/edit/master/website/',
+        editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         routeBasePath: 'leetcode',
         sidebarPath: require.resolve('./sidebarsLeetcode.js'),
         showLastUpdateAuthor: true,
@@ -27,7 +36,7 @@ module.exports = {
       {
         id: 'algorithm-design',
         path: 'algorithm-design-docs',
-        editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
+        editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         routeBasePath: 'algorithm-design',
         sidebarPath: require.resolve('./sidebarsAlgorithmDesign.js'),
         showLastUpdateAuthor: true,
@@ -39,15 +48,94 @@ module.exports = {
       {
         id: 'data-structure',
         path: 'data-structure-docs',
-        editUrl: 'https://github.com/facebook/docusaurus/edit/master/website/',
+        editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         routeBasePath: 'data-structure',
         sidebarPath: require.resolve('./sidebarsDataStructure.js'),
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
       },
     ],
+    [
+      '@docusaurus/plugin-sitemap',
+      {
+        cacheTime: 600 * 1000,
+        changefreq: 'weekly',
+        priority: 0.5,
+        trailingSlash: false,
+      },
+    ],
+    [
+      '@docusaurus/plugin-ideal-image',
+      {
+        quality: 70,
+        max: 1030,
+        min: 640,
+        steps: 2,
+      },
+    ],
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: false,
+        offlineModeActivationStrategies: ['appInstalled', 'queryString'],
+        swCustom: path.resolve(__dirname, 'src/sw.js'),
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'icon',
+            href: 'img/docusaurus.png',
+          },
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/manifest.json',
+          },
+          {
+            tagName: 'meta',
+            name: 'theme-color',
+            content: 'rgb(37, 194, 160)',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-capable',
+            content: 'yes',
+          },
+          {
+            tagName: 'meta',
+            name: 'apple-mobile-web-app-status-bar-style',
+            content: '#000',
+          },
+          {
+            tagName: 'link',
+            rel: 'apple-touch-icon',
+            href: 'img/docusaurus.png',
+          },
+          {
+            tagName: 'link',
+            rel: 'mask-icon',
+            href: 'img/docusaurus.svg',
+            color: 'rgb(62, 204, 94)',
+          },
+          {
+            tagName: 'meta',
+            name: 'msapplication-TileImage',
+            content: 'img/docusaurus.png',
+          },
+          {
+            tagName: 'meta',
+            name: 'msapplication-TileColor',
+            content: '#000',
+          },
+        ],
+      },
+    ],
   ],
   themeConfig: {
+    algolia: {
+      apiKey: 'xxxx',
+      indexName: 'xxxx',
+      contextualSearch: true,
+    },
     navbar: {
       title: 'LeetCode Trip',
       logo: {
@@ -56,7 +144,7 @@ module.exports = {
       },
       items: [
         {
-          to: '/leetcode/twoSums',
+          to: '/leetcode/twoSum',
           label: 'LeetCode',
           position: 'left',
           activeBaseRegex: '/leetcode/',
@@ -72,6 +160,11 @@ module.exports = {
           label: 'Data Structure',
           position: 'left',
           activeBaseRegex: '/data-structure/',
+        },
+        {
+          href: 'https://github.com/YanceyOfficial',
+          label: 'GitHub',
+          position: 'right',
         },
       ],
     },
