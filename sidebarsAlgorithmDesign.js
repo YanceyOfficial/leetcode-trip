@@ -1,3 +1,8 @@
 module.exports = {
-  algorithmDesign: ['backtrack'],
+  algorithmDesign: [
+    'backtrack',
+    {
+      Sort: ['sort/bubble', 'sort/quick'],
+    },
+  ],
 }
