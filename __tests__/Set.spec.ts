@@ -1,4 +1,4 @@
-import { MySet } from '../DataStructures/Set/Set'
+import { MySet } from '../src/DataStructures/Set/Set'
 
 describe('setChecker', () => {
   test('test Set', () => {

@@ -1,5 +1,5 @@
-import { Dictionary } from '../DataStructures/Dictionary/Dictionary'
-import { HashMap } from '../DataStructures/Dictionary/LooseHashMap'
+import { Dictionary } from '../src/DataStructures/Dictionary/Dictionary'
+import { HashMap } from '../src/DataStructures/Dictionary/LooseHashMap'
 
 describe('dictionaryChecker', () => {
   test('test Dictionary', () => {

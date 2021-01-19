@@ -1,4 +1,4 @@
-import { palindromeChecker } from '../DataStructures/Queue/palindromeChecker'
+import { palindromeChecker } from '../src/DataStructures/Queue/palindromeChecker'
 
 describe('palindromeChecker', () => {
   test('palindromeChecker("德韦恩韦德"): true', () => {

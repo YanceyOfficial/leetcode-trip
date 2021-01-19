@@ -56,15 +56,6 @@ module.exports = {
       },
     ],
     [
-      '@docusaurus/plugin-sitemap',
-      {
-        cacheTime: 600 * 1000,
-        changefreq: 'weekly',
-        priority: 0.5,
-        trailingSlash: false,
-      },
-    ],
-    [
       '@docusaurus/plugin-ideal-image',
       {
         quality: 70,
