@@ -1,5 +1,3 @@
 module.exports = {
-  leetcode: {
-    Easy: ['twoSum', 'threeSum'],
-  },
+  docs: ['mdx'],
 }
