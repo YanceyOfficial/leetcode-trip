@@ -1,6 +1,6 @@
-import { IArrayStack } from './types'
+import { ArrayStack } from './types'
 
-export class Stack<T> implements IArrayStack<T> {
+export class Stack<T> implements ArrayStack<T> {
   private readonly items: T[]
 
   constructor() {

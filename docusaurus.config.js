@@ -77,7 +77,7 @@ module.exports = {
       },
       items: [
         {
-          to: '/leetcode/twoSum',
+          to: '/leetcode/easy/1-two-sum',
           label: 'LeetCode',
           position: 'left',
           activeBaseRegex: '/leetcode/',

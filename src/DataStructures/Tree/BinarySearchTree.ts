@@ -3,14 +3,14 @@ import { Stack } from '../Stack/ObjectStack'
 import { Queue } from '../Queue/Queue'
 import { BST } from './types'
 import { defaultCompare } from '../tools'
-import { Compare, ICompareFunction } from '../typings'
+import { Compare, CompareFunction } from '../typings'
 
 export class BinarySearchTree<T> implements BST<T> {
   private root: Node<T> | null
 
   private count: number
 
-  constructor(protected compareFn: ICompareFunction<T> = defaultCompare) {
+  constructor(protected compareFn: CompareFunction<T> = defaultCompare) {
     this.root = null
     this.count = 0
   }

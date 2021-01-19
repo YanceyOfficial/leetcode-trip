@@ -8,4 +8,4 @@ export enum Compare {
   EQUALS = 0,
 }
 
-export type ICompareFunction<T> = (a: T, b: T) => number
+export type CompareFunction<T> = (a: T, b: T) => number

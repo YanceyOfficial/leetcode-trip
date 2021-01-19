@@ -1,7 +1,7 @@
-import { IObjectStack } from './types'
+import { ObjectStack } from './types'
 import { Dict } from '../typings'
 
-export class Stack<T> implements IObjectStack<T> {
+export class Stack<T> implements ObjectStack<T> {
   private readonly items: Dict<T>
 
   private count: number
