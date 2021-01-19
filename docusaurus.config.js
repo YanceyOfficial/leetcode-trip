@@ -82,13 +82,13 @@ module.exports = {
           activeBaseRegex: '/leetcode/',
         },
         {
-          to: '/algorithm-design/backtrack',
+          to: '/algorithm-design/backtrack/backtrack',
           label: 'Algorithm Design',
           position: 'left',
           activeBaseRegex: '/algorithm-design/',
         },
         {
-          to: '/data-structure/stack',
+          to: '/data-structure/stack/stack',
           label: 'Data Structure',
           position: 'left',
           activeBaseRegex: '/data-structure/',
@@ -112,7 +112,12 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/',
         },
-
+        sitemap: {
+          cacheTime: 600 * 1000,
+          changefreq: 'weekly',
+          priority: 0.5,
+          trailingSlash: false,
+        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },

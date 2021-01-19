@@ -1,3 +1,8 @@
 module.exports = {
-  dataStructure: ['stack'],
+  dataStructure: [
+    {
+      Stack: ['stack/stack'],
+      Queue: ['queue/queue'],
+    },
+  ],
 }
