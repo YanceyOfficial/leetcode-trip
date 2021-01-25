@@ -6,6 +6,8 @@ sidebar_label: 回溯算法
 
 ## 回溯算法套路
 
+回溯算法本身就是一个决策树的遍历过程, 或者说是一个深度优先遍历(DFS)的过程.
+
 - 路径
 
 - 选择列表
@@ -28,3 +30,7 @@ function backtrack(路径, 选择列表) {
   }
 }
 ```
+
+## 参考
+
+[回溯算法解题套路框架](https://labuladong.gitbook.io/algo/suan-fa-si-wei-xi-lie/hui-su-suan-fa-dfs-suan-fa/hui-su-suan-fa-xiang-jie-xiu-ding-ban)
