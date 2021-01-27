@@ -1,5 +1,5 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Yancey, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -72,7 +72,7 @@ module.exports = {
       title: 'LeetCode Trip',
       logo: {
         alt: 'LeetCode Trip Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       items: [
         {
@@ -119,7 +119,7 @@ module.exports = {
           trailingSlash: false,
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve('./static/css/custom.css'),
         },
       },
     ],
