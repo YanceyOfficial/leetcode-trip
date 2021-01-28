@@ -1,8 +1,9 @@
+dist: xenial
+os: linux
 language: node_js
-sudo: true
 node_js:
 - 12
-branchs:
+branches:
   only:
   - master
 addons:
@@ -20,7 +21,7 @@ before_install:
 - echo -e "Host $74.120.172.16\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 install:
 - yarn install
-scripts:
+script:
 - yarn test
 - yarn build
 after_success:
