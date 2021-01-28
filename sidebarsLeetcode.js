@@ -1,8 +1,28 @@
+const addSuffix = (arr, prefix) => arr.map((val) => `${prefix}/${val}`)
+
 module.exports = {
   leetcode: {
-    Easy: ['easy/1-two-sum', 'easy/20-valid-parentheses'],
-    Middle: ['middle/2-two-sum', 'middle/46-permute', 'middle/47-permute'],
-    Hard: ['hard/4-find-median-sorted-arrays'],
-    Others: ['others/classify'],
+    Easy: addSuffix(
+      [
+        '1-two-sum',
+        '7-reverse-integer',
+        '9-is-palindrome',
+        '20-valid-parentheses',
+      ],
+      'easy',
+    ),
+    Middle: addSuffix(
+      [
+        '2-two-sum',
+        '6-zig-zag-conversion',
+        '15-three-sum',
+        '39-combination-sum',
+        '46-permute',
+        '47-permute',
+      ],
+      'middle',
+    ),
+    Hard: addSuffix(['4-find-median-sorted-arrays'], 'hard'),
+    Others: addSuffix(['classify'], 'others'),
   },
 }
