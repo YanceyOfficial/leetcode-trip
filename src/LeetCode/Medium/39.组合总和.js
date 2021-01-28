@@ -34,7 +34,3 @@ var combinationSum = function (candidates, target) {
 }
 // @lc code=end
 console.log(combinationSum([2, 3, 5], 8))
-
-// 只要限制下一次选择的起点, 是基于本次的选择,
-// 这样下一次就不会选到本次选择的同层左边的数.
-// 即通过控制 for 遍历的起点, 去掉会产生重复组合的选项.

@@ -19,28 +19,23 @@ keywords:
 
 输入: `candidates = [2,3,6,7], target = 7`
 
-输出: `[ [7], [2,2,3] ]`
+输出: `[ [7], [2, 2, 3] ]`
 
 ---
 
-输入: `candidates = [2,3,5], target = 8`
+输入: `candidates = [2, 3, 5], target = 8`
 
-输出: `[ [2,2,2,2], [2,3,3], [3,5] ]`
+输出: `[ [2, 2, 2, 2], [2, 3, 3], [3, 5] ]`
 :::
 
 ## 题解
 
-![47-premute](../../static/img/47-premute.jpg)
+![39-combination-sum](../../static/img/39-combination-sum.png)
 
-遇到回溯算法, 先把决策树画出来, 我们能发现两条规律, 为了表示两个 1 代表不同的意义, 这里用 1<sub>a</sub> 和 1<sub>b</sub> 表示:
+获取**数字和为 target 的组合**并不难, 即在每次递归探索时将已选列表的值累加, 然后将 `sum === target` 作为回溯的结束条件即可. 但是这样会导致组合重复, 比如 `[2, 5]` 和 `[5, 2]` 都会被输出.
 
-1. 如果在一条路径上, 一个相同的数字已经被选择过了, 那这条路径需要被废弃掉, 也就是上图**红色圆形**标注的部分. 比如最左边的 1<sub>a</sub> -> 1<sub>a</sub> 这条, 抑或是 1<sub>a</sub> -> 1<sub>b</sub> -> 1<sub>a</sub> 这条.
-
-2. 在"同一层" 如果相邻的两个数字相同, 那它们生成的子树一定是相同的, 因此需要过滤掉一个, 也就是上图**红色三角形**标注的部分. 但要注意的是, **如果同一层一个值已经被用过了, 即便它右边的值与之相等, 右边这个值不会被过滤掉**, 比如第二层左侧的 1<sub>a</sub> -> 1<sub>b</sub> -> 2, 因为 1<sub>a</sub> 在第一条规则中已经被剪掉了, 1<sub>b</sub> 即便和 1<sub>a</sub> 相等, 也不会被剪掉.
-
-:::caution
-注意: 为保证相邻两个可以正常比较, 需要先对给定数组做一次排序.
-:::
+因此我们需要对重复的部分进行剪枝, 只要限制下一次选择的起点, 是基于本次的选择, 这样下一次就不会选到本次选择的同层左边的数.
+**即通过控制 for 遍历的起点, 去掉会产生重复组合的选项**.
 
 ```js
 /**
@@ -59,10 +54,11 @@ var combinationSum = function (candidates, target) {
     }
 
     for (let i = begin; i < len; i++) {
+      // 从 begin 开始选择
       if (sum < target) {
         track.push(candidates[i])
-        backtrack(i, track, sum + candidates[i])
-        track.pop()
+        backtrack(i, track, sum + candidates[i]) // 基于当前这个数的继续选择, 传 i, 下一次就不会选到 i 左边的数
+        track.pop() // 撤销选择, 回到选择 candidates[i] 之前的状态, 继续尝试选同层右边的数
       }
     }
   }
