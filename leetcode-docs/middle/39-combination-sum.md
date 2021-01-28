@@ -57,8 +57,12 @@ var combinationSum = function (candidates, target) {
       // 从 begin 开始选择
       if (sum < target) {
         track.push(candidates[i])
-        backtrack(i, track, sum + candidates[i]) // 基于当前这个数的继续选择, 传 i, 下一次就不会选到 i 左边的数
-        track.pop() // 撤销选择, 回到选择 candidates[i] 之前的状态, 继续尝试选同层右边的数
+
+        // 基于当前这个数的继续选择, 传 i, 下一次就不会选到 i 左边的数
+        backtrack(i, track, sum + candidates[i])
+
+        // 撤销选择, 回到选择 candidates[i] 之前的状态, 继续尝试选同层右边的数
+        track.pop()
       }
     }
   }
