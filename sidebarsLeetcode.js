@@ -20,6 +20,7 @@ module.exports = {
         '40-combination-sum',
         '46-permute',
         '47-permute',
+        '216-combination-sum',
       ],
       'middle',
     ),
