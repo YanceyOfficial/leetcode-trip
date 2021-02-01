@@ -17,6 +17,7 @@ module.exports = {
         '6-zig-zag-conversion',
         '15-three-sum',
         '39-combination-sum',
+        '40-combination-sum',
         '46-permute',
         '47-permute',
       ],
