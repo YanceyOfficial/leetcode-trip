@@ -16,6 +16,7 @@ module.exports = {
         '2-two-sum',
         '6-zig-zag-conversion',
         '15-three-sum',
+        '16-three-sum-closest',
         '22-genertate-parenthesis',
         '39-combination-sum',
         '40-combination-sum',
