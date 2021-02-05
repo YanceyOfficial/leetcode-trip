@@ -94,14 +94,19 @@ module.exports = {
           activeBaseRegex: '/data-structure/',
         },
         {
-          href: 'https://github.com/YanceyOfficial',
+          href: 'https://yanceyleo.com',
+          label: 'Blog',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/YanceyOfficial/leetcode-trip',
           label: 'GitHub',
           position: 'right',
         },
       ],
     },
     footer: {
-      copyright: `Copyright © ${new Date().getFullYear()} Yancey Inc. and its affiliates.`,
+      copyright: `<a href="https://yanceyleo.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Copyright © ${new Date().getFullYear()} Yancey Inc. and its affiliates.</a>`,
     },
   },
   presets: [
@@ -110,7 +115,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/',
+          editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         },
         sitemap: {
           cacheTime: 600 * 1000,
