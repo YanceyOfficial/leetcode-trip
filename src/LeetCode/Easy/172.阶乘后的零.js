@@ -9,7 +9,7 @@
  * @param {number} n
  * @return {number}
  */
-var trailingZeroes = function(n) {
+var trailingZeroes = function (n) {
   let total = 0
 
   while (n >= 5) {
