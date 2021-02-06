@@ -1,5 +1,5 @@
 ---
-id: 172-trailing-zeroes.md
+id: 172-trailing-zeroes
 title: 阶乘后的零
 sidebar_label: 172. 阶乘后的零
 ---
