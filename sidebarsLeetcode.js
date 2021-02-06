@@ -8,6 +8,7 @@ module.exports = {
         '7-reverse-integer',
         '9-is-palindrome',
         '20-valid-parentheses',
+        '172-trailing-zeroes',
       ],
       'easy',
     ),
