@@ -10,27 +10,23 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var sortColors = function (nums) {
-  let start = 0,
-    end = nums.length - 1,
-    cursor = 0
+  let bucket = new Array(2 + 1)
+  let sortedIndex = 0
+  let length = nums.length
+  let bucketLen = 2 + 1
 
-  while (cursor <= end) {
-    if (nums[cursor] === 0) {
-      nums[cursor] = nums[start]
-      nums[start] = 0
-      start += 1
+  for (let i = 0; i < length; i++) {
+    if (!bucket[nums[i]]) {
+      bucket[nums[i]] = 0
     }
-
-    if (nums[cursor] === 2) {
-      nums[cursor] = nums[end]
-      nums[end] = 2
-      end -= 1
-      cursor -= 1
-    }
-
-    cursor += 1
+    bucket[nums[i]]++
   }
 
-  return nums
+  for (let j = 0; j < bucketLen; j++) {
+    while (bucket[j] > 0) {
+      nums[sortedIndex++] = j
+      bucket[j]--
+    }
+  }
 }
 // @lc code=end
