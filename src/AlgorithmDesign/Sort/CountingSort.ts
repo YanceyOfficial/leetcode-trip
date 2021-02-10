@@ -1,24 +1,24 @@
-function countingSort(arr: number[], maxValue: number) {
-  var bucket = new Array(maxValue + 1)
+function countingSort(nums: number[], maxValue: number) {
+  let bucket = new Array(maxValue + 1)
   let sortedIndex = 0
-  let arrLen = arr.length
+  let len = nums.length
   let bucketLen = maxValue + 1
 
-  for (var i = 0; i < arrLen; i++) {
-    if (!bucket[arr[i]]) {
-      bucket[arr[i]] = 0
+  for (let i = 0; i < len; i++) {
+    if (!bucket[nums[i]]) {
+      bucket[nums[i]] = 0
     }
-    bucket[arr[i]]++
+    bucket[nums[i]]++
   }
 
-  for (var j = 0; j < bucketLen; j++) {
+  for (let j = 0; j < bucketLen; j++) {
     while (bucket[j] > 0) {
-      arr[sortedIndex++] = j
+      nums[sortedIndex++] = j
       bucket[j]--
     }
   }
 
-  return arr
+  return nums
 }
 
 console.log(countingSort([2, 0, 2, 1, 1, 0], 2))
