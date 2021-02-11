@@ -23,6 +23,7 @@ module.exports = {
         '40-combination-sum',
         '46-permute',
         '47-permute',
+        '75-sort-colors',
         '77-combine',
         '78-subsets',
         '90-subsets-with-dup',
