@@ -12,23 +12,27 @@
  */
 var multiply = function (num1, num2) {
   if (num1 == '0' || num2 == '0') return '0'
-  let l1 = num1.length,
-    l2 = num2.length
-  let res = new Array(l1 + l2 - 1).fill(0)
-  for (let i = 0; i < l2; i++) {
-    for (let j = 0; j < l1; j++) {
+
+  const len1 = num1.length
+  const len2 = num2.length
+  const len = len1 + len2 - 1
+  const res = new Array(len).fill(0)
+
+  for (let i = 0; i < len2; i++) {
+    for (let j = 0; j < len1; j++) {
       res[i + j] += +num2[i] * +num1[j]
     }
   }
-  let len = res.length
-  let str = '',
-    num = 0
-  while (len--) {
-    num += res[len]
-    str = (num % 10) + str
-    num = (num / 10) | 0
+
+  let str = ''
+  let carry = 0
+
+  for (let k = len - 1; k >= 0; k--) {
+    const sum = res[k] + carry
+    str = (sum % 10) + str
+    carry = (sum / 10) | 0
   }
-  return num > 0 ? num + str : str
+  return carry > 0 ? carry + str : str
 }
 
 // @lc code=end
