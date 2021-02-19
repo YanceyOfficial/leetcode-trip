@@ -12,5 +12,8 @@ module.exports = {
     {
       十大排序算法: ['sort/bubble', 'sort/quick'],
     },
+    {
+      位运算: ['bit-manipulation/bit-manipulation'],
+    },
   ],
 }
