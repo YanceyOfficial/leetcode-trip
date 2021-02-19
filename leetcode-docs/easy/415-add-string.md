@@ -41,4 +41,4 @@ var addStrings = function (num1, num2) {
 
 ## 类似题目
 
-[43-大数相乘](../middle/43-multiply)
+[43-大数相乘](../middle/43-multiply.md)
