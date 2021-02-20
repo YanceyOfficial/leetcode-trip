@@ -25,7 +25,7 @@ function bubbleSort(arr) {
 
 ## 优化版
 
-:::note
+:::info
 时间复杂度: O(n<sup>2</sup>)
 
 稳定性: 稳定

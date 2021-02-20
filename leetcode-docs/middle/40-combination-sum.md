@@ -15,7 +15,7 @@ keywords:
 - 所有数字(包括 target)都是正整数
 - 解集不能包含重复的组合
 
-:::note 示例
+:::info 示例
 
 输入: `candidates = [10,1,2,7,6,1,5], target = 8`
 
