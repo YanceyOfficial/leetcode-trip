@@ -24,31 +24,35 @@ sidebar_label: 445. 两数相加 II(链表版)
  * @return {ListNode}
  */
 var addTwoNumbers = function (l1, l2) {
-  let l1Num = ''
-  while (l1) {
-    l1Num = l1Num + l1.val.toString()
+  const stack1 = []
+  const stack2 = []
+
+  while (l1 !== null) {
+    stack1.push(l1.val)
     l1 = l1.next
   }
 
-  let l2Num = ''
-  while (l2) {
-    l2Num = l2Num + l2.val.toString()
+  while (l2 !== null) {
+    stack2.push(l2.val)
     l2 = l2.next
   }
 
-  // 大数相加
-  const sumArr = addStrings(l1Num, l2Num).split('')
+  const head = new ListNode(0)
+  let carry = 0
 
-  let node
-  let head = new ListNode(sumArr[0])
-  let pNode = head // pNode 变量用来保存前一个节点
+  while (stack1.length !== 0 || stack2.length !== 0 || carry !== 0) {
+    let sum = 0
+    const val1 = stack1.length === 0 ? 0 : stack1.pop()
+    const val2 = stack2.length === 0 ? 0 : stack2.pop()
+    sum = val1 + val2 + carry
 
-  for (let i = 1; i < sumArr.length; i++) {
-    node = new ListNode(sumArr[i])
-    pNode.next = node // 将前一个节点的 next 指向当前节点
-    pNode = node // 将node 赋值给 pNode
+    carry = (sum / 10) | 0
+
+    const tmp = new ListNode(sum % 10)
+    tmp.next = head.next
+    head.next = tmp
   }
 
-  return head
+  return head.next
 }
 ```
