@@ -31,7 +31,7 @@ var addStrings = function (num1, num2) {
 
   for (let i = len - 1; i >= 0; i--) {
     const sum = +num1[i] + +num2[i] + caddy
-    caddy = sum >= 10 ? 1 : 0
+    caddy = (sum / 10) | 0
     res = (sum % 10) + res
   }
 
