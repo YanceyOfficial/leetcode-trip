@@ -33,6 +33,7 @@ module.exports = {
         '78-subsets',
         '90-subsets-with-dup',
         '216-combination-sum',
+        '445-add-strings',
       ],
       'middle',
     ),

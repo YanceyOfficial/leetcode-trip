@@ -10,6 +10,7 @@
  * @param {string} num2
  * @return {string}
  */
+
 var addStrings = function (num1, num2) {
   const len = Math.max(num1.length, num2.length)
   num1 = num1.padStart(len, 0)
