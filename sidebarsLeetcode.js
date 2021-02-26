@@ -16,7 +16,7 @@ module.exports = {
       ],
       'easy',
     ),
-    Middle: addSuffix(
+    Medium: addSuffix(
       [
         '2-two-sum',
         '6-zig-zag-conversion',
@@ -35,7 +35,7 @@ module.exports = {
         '216-combination-sum',
         '445-add-strings',
       ],
-      'middle',
+      'medium',
     ),
     Hard: addSuffix(['4-find-median-sorted-arrays'], 'hard'),
     Others: addSuffix(['classify'], 'others'),

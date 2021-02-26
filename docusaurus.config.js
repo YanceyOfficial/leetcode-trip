@@ -115,7 +115,8 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
+          editUrl:
+            'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         },
         sitemap: {
           cacheTime: 600 * 1000,
