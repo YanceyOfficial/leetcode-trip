@@ -11,6 +11,7 @@
 var Twitter = function () {
   this.follows = {}
   this.tweets = {}
+  this.timeline = 0
 }
 
 /**
@@ -23,10 +24,9 @@ Twitter.prototype.postTweet = function (userId, tweetId) {
   const tweetsOfUser = this.tweets[userId]
 
   if (tweetsOfUser) {
-    this.tweets[userId].push(tweetId)
+    this.tweets[userId].push({ id: tweetId, timeline: ++this.timeline })
   } else {
-    this.tweets[userId] = [tweetId]
-    this.follows[userId] = []
+    this.tweets[userId] = [{ id: tweetId, timeline: ++this.timeline }]
   }
 }
 
@@ -39,19 +39,23 @@ Twitter.prototype.getNewsFeed = function (userId) {
   const tweetsOfUser = this.tweets[userId]
   const followsOfUser = this.follows[userId]
 
-  if (!tweetsOfUser || !followsOfUser) return []
-
   const all = []
-  all.push(...tweetsOfUser)
-  followsOfUser.map((followeeId) => {
-    const tweetsOfFollowee = this.tweets[followeeId]
-    if (tweetsOfFollowee) {
-      all.push(...tweetsOfFollowee)
-    }
-  })
 
-  all.sort((a, b) => b - a)
-  return all.slice(0, 10)
+  if (tweetsOfUser) {
+    all.push(...tweetsOfUser)
+  }
+
+  if (followsOfUser) {
+    followsOfUser.map((followeeId) => {
+      const tweetsOfFollowee = this.tweets[followeeId]
+      if (tweetsOfFollowee) {
+        all.push(...tweetsOfFollowee)
+      }
+    })
+  }
+
+  all.sort((a, b) => b.timeline - a.timeline)
+  return all.slice(0, 10).map((val) => val.id)
 }
 
 /**
@@ -61,16 +65,12 @@ Twitter.prototype.getNewsFeed = function (userId) {
  * @return {void}
  */
 Twitter.prototype.follow = function (followerId, followeeId) {
+  if (followerId === followeeId) return
+
   const currUser = this.follows[followerId]
-
   if (currUser) {
-    const currFollows = this.follows[followerId]
-
-    if (currFollows) {
-      this.follows[followerId].push(followeeId)
-    } else {
-      this.follows[followerId] = [followeeId]
-    }
+    if (currUser.includes(followeeId)) return
+    this.follows[followerId].push(followeeId)
   } else {
     this.follows[followerId] = [followeeId]
   }
@@ -86,14 +86,10 @@ Twitter.prototype.unfollow = function (followerId, followeeId) {
   const currUser = this.follows[followerId]
 
   if (currUser) {
-    const currFollows = this.follows[followerId]
+    const index = currUser.indexOf(followeeId)
 
-    if (currFollows) {
-      const index = currFollows.indexOf(followeeId)
-
-      if (index > -1) {
-        this.follows[followerId].splice(index, 1)
-      }
+    if (index > -1) {
+      this.follows[followerId].splice(index, 1)
     }
   }
 }
@@ -107,11 +103,3 @@ Twitter.prototype.unfollow = function (followerId, followeeId) {
  * obj.unfollow(followerId,followeeId)
  */
 // @lc code=end
-const obj = new Twitter()
-obj.postTweet(1, 1)
-console.log(obj.getNewsFeed(1))
-obj.follow(2, 1)
-obj.getNewsFeed(2)
-obj.getNewsFeed(2)
-obj.unfollow(2, 1)
-console.log(obj.getNewsFeed(2))
