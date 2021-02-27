@@ -18,8 +18,6 @@ LIFO (后进先出)
 
 - 撤销操作
 
-- [括号匹配 (20. 有效的括号)](../../leetcode/easy/20-valid-parentheses)
-
 ## 实现
 
 ```ts
