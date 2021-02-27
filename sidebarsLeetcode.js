@@ -11,6 +11,7 @@ module.exports = {
         '136-single-number',
         '172-trailing-zeroes',
         '191-hamming-weight',
+        '225-my-stack',
         '231-is-power-of-two',
         '415-add-string',
       ],
