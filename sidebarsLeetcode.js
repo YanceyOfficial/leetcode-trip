@@ -5,13 +5,10 @@ module.exports = {
     Easy: addSuffix(
       [
         '1-two-sum',
-        '7-reverse-integer',
-        '9-is-palindrome',
-        '20-valid-parentheses',
         '136-single-number',
+        '141-has-cycle',
         '172-trailing-zeroes',
         '191-hamming-weight',
-        '225-my-stack',
         '231-is-power-of-two',
         '415-add-string',
       ],
@@ -20,16 +17,13 @@ module.exports = {
     Medium: addSuffix(
       [
         '2-two-sum',
-        '6-zig-zag-conversion',
         '15-three-sum',
-        '16-three-sum-closest',
         '22-genertate-parenthesis',
         '39-combination-sum',
         '40-combination-sum',
         '43-multiply',
         '46-permute',
         '47-permute',
-        '75-sort-colors',
         '77-combine',
         '78-subsets',
         '90-subsets-with-dup',

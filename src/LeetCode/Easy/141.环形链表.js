@@ -17,26 +17,24 @@
  * @param {ListNode} head
  * @return {boolean}
  */
-var hasCycle = function(head) {
-  if (!head || !head.next) return false
-
+var hasCycle = function (head) {
   let slow = head
-  let fast = head.next
+  let fast = head
 
-  while (slow !== fast) {
-    if (!fast || !fast.next) return false
-
-    slow = slow.next
+  while (fast !== null && fast.next !== null) {
     fast = fast.next.next
+    slow = slow.next
+
+    if (fast === slow) return true
   }
 
-  return true
+  return false
 }
 // @lc code=end
 
 // 环形链表循环的节点是一个「链表结构」,因此在遍历过程中如果再次找到该节点的引用
 // 就证明它是一个环形链表
-var hasCycle = function(head) {
+var hasCycle = function (head) {
   let current = head
   const set = new Set()
 
