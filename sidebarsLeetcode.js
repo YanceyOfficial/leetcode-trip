@@ -11,6 +11,7 @@ module.exports = {
         '191-hamming-weight',
         '231-is-power-of-two',
         '415-add-string',
+        '876-middle-node',
       ],
       'easy',
     ),
