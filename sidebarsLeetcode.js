@@ -27,6 +27,7 @@ module.exports = {
         '77-combine',
         '78-subsets',
         '90-subsets-with-dup',
+        '142-detect-cycle',
         '216-combination-sum',
         '445-add-strings',
       ],
