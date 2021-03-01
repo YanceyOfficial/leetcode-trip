@@ -18,34 +18,46 @@
  * @return {ListNode}
  */
 var removeNthFromEnd = function (head, n) {
-  let curr = head
-  let total = 0
-  while (curr !== null) {
-    total++
-    curr = curr.next
+  let fast = head
+  let slow = head
+  while (n-- > 0) {
+    fast = fast.next
   }
-
-  let deletedNodeIndex = total - n
-  let prev = head
-
-  for (let i = 0; i < deletedNodeIndex - 1; i++) {
-    prev = prev.next
-  }
-
-  if (deletedNodeIndex === 0) {
+  if (fast == null) {
+    // 如果此时快指针走到头了
+    // 说明倒数第 n 个节点就是第一个节点
     return head.next
   }
-
-  prev.next = prev.next.next
+  // 让慢指针和快指针同步向前
+  while (fast !== null && fast.next !== null) {
+    fast = fast.next
+    slow = slow.next
+  }
+  // slow.next 就是倒数第 n 个节点, 删除它
+  slow.next = slow.next.next
   return head
 }
 // @lc code=end
-const l = {
-  val: 1,
-  next: {
-    val: 2,
-    next: { val: 3, next: { val: 4, next: { val: 5, next: null } } },
-  },
-}
 
-removeNthFromEnd(l, 2)
+// var removeNthFromEnd = function (head, n) {
+//   let curr = head
+//   let total = 0
+//   while (curr !== null) {
+//     total++
+//     curr = curr.next
+//   }
+
+//   let deletedNodeIndex = total - n
+//   let prev = head
+
+//   for (let i = 0; i < deletedNodeIndex - 1; i++) {
+//     prev = prev.next
+//   }
+
+//   if (deletedNodeIndex === 0) {
+//     return head.next
+//   }
+
+//   prev.next = prev.next.next
+//   return head
+// }

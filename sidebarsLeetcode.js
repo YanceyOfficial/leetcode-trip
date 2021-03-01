@@ -19,6 +19,7 @@ module.exports = {
       [
         '2-two-sum',
         '15-three-sum',
+        '19-remove-nth-from-end',
         '22-genertate-parenthesis',
         '39-combination-sum',
         '40-combination-sum',
