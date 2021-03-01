@@ -21,6 +21,7 @@ module.exports = {
         '15-three-sum',
         '19-remove-nth-from-end',
         '22-genertate-parenthesis',
+        '24-swap-pairs',
         '39-combination-sum',
         '40-combination-sum',
         '43-multiply',
