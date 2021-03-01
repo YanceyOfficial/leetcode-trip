@@ -25,6 +25,7 @@ module.exports = {
         '43-multiply',
         '46-permute',
         '47-permute',
+        '71-simplify-path',
         '77-combine',
         '78-subsets',
         '90-subsets-with-dup',
