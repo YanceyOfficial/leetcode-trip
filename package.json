@@ -15,7 +15,7 @@
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "test": "jest --coverage",
-    "statistics": "ts-node scripts/statistics.ts"
+    "statistics": "ts-node packages/statistics"
   },
   "browserslist": {
     "production": [
