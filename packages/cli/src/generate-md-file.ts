@@ -6,14 +6,13 @@ import { generateTemplate } from './template'
 export const generateMarkdownFile = (dirPath: string, fileName: string) => {
   const path = `${cwd()}/src/LeetCode/${dirPath}/${fileName}`
 
-  // TODO:
-  if (existsSync(path)) return
-
   const fileStr = readFileSync(path, { encoding: 'utf-8' })
   const [serial, title] = fileName.split('.')
   const { functionNameStr, functionStr } = parseFile(fileStr)
 
   const outPath = `${cwd()}/leetcode-docs/${dirPath.toLowerCase()}/${serial}-${functionNameStr}.md`
+  // TODO:
+  if (existsSync(outPath)) return
 
   writeFileSync(
     outPath,
