@@ -11,6 +11,7 @@ module.exports = {
         '172-trailing-zeroes',
         '191-hamming-weight',
         '231-is-power-of-two',
+        '344-reverse-string',
         '415-add-string',
         '876-middle-node',
       ],
