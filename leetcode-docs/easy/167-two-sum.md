@@ -1,0 +1,52 @@
+---
+id: 167-two-sum
+title: 两数之和 II - 输入有序数组
+sidebar_label: 167. 两数之和 II - 输入有序数组
+---
+
+## 题目
+
+给你一个**升序排列**的数组 nums 和一个整数 target, 数组中保证仅存在两个数的和为 target, 请你返回这两个数**位置**的数组, 且 pos1 < pos2.
+
+:::info 示例
+
+输入: nums = [2, 7, 11, 15], target = 9
+
+输出: [1, 2]
+:::
+
+## 题解
+
+:::success Tips
+看到升序排列的数组, 先想到双指针.
+
+-- 鲁迅
+:::
+
+1. 双指针, 一个指向开头, 一个指向结尾
+2. 如果双指针对应的数字之和大于 target, end 往前走
+3. 如果双指针对应的数字之和小于 target, start 往后走
+
+```ts
+/**
+ * @param {number[]} numbers
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (numbers, target) {
+  let i = 0,
+    j = numbers.length - 1
+
+  while (i <= j) {
+    const sum = numbers[i] + numbers[j]
+
+    if (sum > target) {
+      j--
+    } else if (sum < target) {
+      i++
+    } else {
+      return [i + 1, j + 1]
+    }
+  }
+}
+```

@@ -7,6 +7,7 @@ module.exports = {
         '1-two-sum',
         '136-single-number',
         '141-has-cycle',
+        '167-two-sum',
         '172-trailing-zeroes',
         '191-hamming-weight',
         '231-is-power-of-two',
