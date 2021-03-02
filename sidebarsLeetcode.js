@@ -1,20 +1,23 @@
+const { readdirSync } = require('fs')
+
 const addSuffix = (arr, prefix) => arr.map((val) => `${prefix}/${val}`)
 
 module.exports = {
   leetcode: {
     Easy: addSuffix(
-      [
-        '1-two-sum',
-        '136-single-number',
-        '141-has-cycle',
-        '167-two-sum',
-        '172-trailing-zeroes',
-        '191-hamming-weight',
-        '231-is-power-of-two',
-        '344-reverse-string',
-        '415-add-string',
-        '876-middle-node',
-      ],
+      readdirSync('./leetcode-docs/easy').map(val => val.split('.')[0]),
+      // [
+      //   '1-two-sum',
+      //   '136-single-number',
+      //   '141-has-cycle',
+      //   '167-two-sum',
+      //   '172-trailing-zeroes',
+      //   '191-hamming-weight',
+      //   '231-is-power-of-two',
+      //   '344-reverse-string',
+      //   '415-add-string',
+      //   '876-middle-node',
+      // ],
       'easy',
     ),
     Medium: addSuffix(
