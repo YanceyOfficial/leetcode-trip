@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalk from 'lt-cli/src/generator/chalk'
 import clear from 'clear'
 import figlet from 'figlet'
 import { dirSelect } from './dir-selector'

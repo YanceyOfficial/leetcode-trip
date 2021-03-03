@@ -1,8 +1,7 @@
-import typescript from 'rollup-plugin-typescript2'
-import { terser } from 'rollup-plugin-terser'
-import filesize from 'rollup-plugin-filesize'
-import multiInput from 'rollup-plugin-multi-input'
-import process from 'process'
+import typescript from 'lt-cli/rollup-plugin-typescript2'
+import multi from 'lt-cli/@rollup/plugin-multi-entry'
+import { terser } from 'lt-cli/rollup-plugin-terser'
+import filesize from 'lt-cli/rollup-plugin-filesize'
 
 export default {
   input: ['src/statistics/index.ts', 'src/generator/index.ts'],
@@ -12,13 +11,14 @@ export default {
       target: 'esnext',
       useTsconfigDeclarationDir: false,
       declarationDir: `${process.cwd()}/lib`,
+
     }),
     terser(),
     filesize(),
-    multiInput({ relative: 'src/' }),
+    multi(),
   ],
   output: {
-    dir: 'lib',
+    dir: 'dist',
     format: 'esm',
   },
 }

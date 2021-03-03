@@ -1,4 +1,4 @@
-import { paramCase } from 'param-case'
+import { paramCase } from 'lt-cli/src/generator/param-case'
 
 export const parseFile = (content: string) => {
   const functionBodyMatcher = content.match(

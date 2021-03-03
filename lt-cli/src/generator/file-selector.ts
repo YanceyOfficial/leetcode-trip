@@ -1,8 +1,7 @@
 import inquirer, { ChoiceOptions } from 'inquirer'
-import autocomplete from 'inquirer-autocomplete-prompt'
 import { getFileMeta } from './get-file-meta'
 
-inquirer.registerPrompt('autocomplete', autocomplete)
+inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'))
 
 export const fileSelect = (dir: string, choices: string[]) =>
   inquirer.prompt([
