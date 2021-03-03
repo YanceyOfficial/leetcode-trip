@@ -1,21 +1,21 @@
-import { cwd } from 'process'
-import { readFileSync, writeFileSync, existsSync } from 'fs'
-import { parseFile } from './parseFile'
+import ora from 'ora'
+import { writeFileSync } from 'fs'
+import { getFileMeta } from './get-file-meta'
 import { generateTemplate } from './template'
 
-export const generateMarkdownFile = (dirPath: string, fileName: string) => {
-  const path = `${cwd()}/src/LeetCode/${dirPath}/${fileName}`
+export const generateMarkdownFile = (dirName: string, fileName: string) => {
+  const fileMeta = getFileMeta(dirName, fileName)
+  if (typeof fileMeta === 'boolean') return
 
-  const fileStr = readFileSync(path, { encoding: 'utf-8' })
-  const [serial, title] = fileName.split('.')
-  const { functionNameStr, functionStr } = parseFile(fileStr)
-
-  const outPath = `${cwd()}/leetcode-docs/${dirPath.toLowerCase()}/${serial}-${functionNameStr}.md`
-  // TODO:
-  if (existsSync(outPath)) return
+  const {
+    outPath,
+    meta: { serial, title, functionBody, functionName },
+  } = fileMeta
 
   writeFileSync(
     outPath,
-    generateTemplate(serial, title, functionNameStr, functionStr),
+    generateTemplate(serial, title, functionName, functionBody),
   )
+
+  ora().succeed('模版创建成功!')
 }

@@ -18,7 +18,8 @@ const bootstrap = async () => {
     ),
   )
   const { dir } = await dirSelect()
-  const { file } = await fileSelect(getFileList(dir))
+  const files = getFileList(dir)
+  const { file } = await fileSelect(dir, files)
 
   generateMarkdownFile(dir, file)
 }

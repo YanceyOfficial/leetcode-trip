@@ -1,11 +1,11 @@
 export const generateTemplate = (
   serial: string,
   title: string,
-  functionNameStr: string,
-  functionStr: string,
+  functionName: string,
+  functionBody: string,
 ) =>
   `---
-id: ${serial}-${functionNameStr}
+id: ${serial}-${functionName}
 title: ${title}
 sidebar_label: ${serial}. ${title}
 ---
@@ -26,6 +26,6 @@ sidebar_label: ${serial}. ${title}
 这里是题解这里是题解这里是题解这里是题解这里是题解
 
 \`\`\`ts
-${functionStr}
+${functionBody}
 \`\`\`
 `

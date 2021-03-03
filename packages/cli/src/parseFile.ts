@@ -1,16 +1,17 @@
 import { paramCase } from 'param-case'
 
 export const parseFile = (content: string) => {
-  const functionArr = content.match(
+  const functionBodyMatcher = content.match(
     /\/\/ @lc code=start([\s\S]*)?\/\/ @lc code=end/im,
   )
 
-  if (Array.isArray(functionArr)) {
-    const functionStr = functionArr[1]
-    const functionNameArr = functionStr.match(/var([\s\S]*?)=/i)
-    if (Array.isArray(functionNameArr)) {
-      const functionNameStr = functionNameArr[1].trim()
-      return { functionStr, functionNameStr: paramCase(functionNameStr) }
+  if (Array.isArray(functionBodyMatcher)) {
+    const functionBody = functionBodyMatcher[1]
+    const functionNameMatcher = functionBody.match(/var([\s\S]*?)=/i)
+
+    if (Array.isArray(functionNameMatcher)) {
+      const functionName = functionNameMatcher[1].trim()
+      return { functionBody, functionName: paramCase(functionName) }
     }
     throw new Error('Can not get the function name string.')
   } else {
