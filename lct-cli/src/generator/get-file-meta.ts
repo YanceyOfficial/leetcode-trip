@@ -1,5 +1,5 @@
 import { readFileSync, existsSync } from 'fs'
-import { parseFile } from './parseFile'
+import { parseFile } from './parse-file'
 import { srcPath, docPath } from '../shared/constants'
 
 export const getFileMeta = (
