@@ -1,48 +1,15 @@
 const { readdirSync } = require('fs')
 
-const addSuffix = (arr, prefix) => arr.map((val) => `${prefix}/${val}`)
+const getFileList = (category) =>
+  readdirSync(`./leetcode-docs/${category}`)
+    .sort((a, b) => +a.split('-')[0] - +b.split('-')[0])
+    .map((fileName) => `${category}/${fileName.replace('.md', '')}`)
 
 module.exports = {
   leetcode: {
-    Easy: addSuffix(
-      readdirSync('./leetcode-docs/easy').map(val => val.split('.')[0]),
-      // [
-      //   '1-two-sum',
-      //   '136-single-number',
-      //   '141-has-cycle',
-      //   '167-two-sum',
-      //   '172-trailing-zeroes',
-      //   '191-hamming-weight',
-      //   '231-is-power-of-two',
-      //   '344-reverse-string',
-      //   '415-add-string',
-      //   '876-middle-node',
-      // ],
-      'easy',
-    ),
-    Medium: addSuffix(
-      [
-        '2-two-sum',
-        '15-three-sum',
-        '19-remove-nth-from-end',
-        '22-genertate-parenthesis',
-        '24-swap-pairs',
-        '39-combination-sum',
-        '40-combination-sum',
-        '43-multiply',
-        '46-permute',
-        '47-permute',
-        '71-simplify-path',
-        '77-combine',
-        '78-subsets',
-        '90-subsets-with-dup',
-        '142-detect-cycle',
-        '216-combination-sum',
-        '445-add-strings',
-      ],
-      'medium',
-    ),
-    Hard: addSuffix(['4-find-median-sorted-arrays'], 'hard'),
-    Others: addSuffix(['classify'], 'others'),
+    Easy: getFileList('easy'),
+    Medium: getFileList('medium'),
+    Hard: getFileList('hard'),
+    Others: getFileList('others'),
   },
 }
