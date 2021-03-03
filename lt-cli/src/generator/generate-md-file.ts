@@ -1,6 +1,6 @@
-import ora from 'lt-cli/src/generator/ora'
+import ora from 'ora'
 import { promises } from 'fs'
-import { sleep } from 'lt-cli/src/generator/yancey-js-util'
+import { sleep } from 'yancey-js-util'
 import { getFileMeta } from './get-file-meta'
 import { generateTemplate } from './template'
 

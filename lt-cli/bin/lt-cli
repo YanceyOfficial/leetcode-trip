@@ -9,14 +9,16 @@ program
   .command('create')
   .description('创建模版')
   .action(() => {
-    require('../lib/generator')
+    // eslint-disable-next-line global-require
+    require('../lib/generator/index')
   })
 
 program
   .command('statistics')
   .description('查看做题统计')
   .action(() => {
-    require('../lib/statistics')
+    // eslint-disable-next-line global-require
+    require('../lib/statistics/index')
   })
 
 // output help information on unknown commands

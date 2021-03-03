@@ -8,12 +8,12 @@
     "target": "esnext",
     "sourceMap": true,
     "baseUrl": ".",
+    "outDir": "./src",
     "incremental": true,
     "esModuleInterop": true,
     "strictNullChecks": true,
-    "types": ["node", "jest"],
+    "types": ["node"],
     "moduleResolution": "node"
   },
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
   "exclude": ["node_modules"]
 }

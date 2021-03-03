@@ -6,9 +6,7 @@
   "author": "Yancey Leo",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c",
-    "build:generator": "./node_modules/.bin/esbuild package/generator/index.ts --bundle --platform=node --minify-whitespace  --outfile=lib/generator.js",
-    "build:statistics": "./node_modules/.bin/esbuild package/statistics/index.ts --bundle --platform=node --minify-whitespace  --outfile=lib/statistics.js"
+    "build": "rollup -c"
   },
   "dependencies": {
     "chalk": "^4.1.0",
@@ -22,11 +20,9 @@
     "yancey-js-util": "^3.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-multi-entry": "^4.0.0",
     "@types/clear": "^0.1.1",
     "@types/figlet": "^1.2.1",
     "@types/inquirer": "^7.3.1",
-    "esbuild": "^0.8.54",
     "rollup": "^2.40.0",
     "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-terser": "^7.0.2",
