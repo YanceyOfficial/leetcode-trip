@@ -3,20 +3,32 @@ import { terser } from 'rollup-plugin-terser'
 import filesize from 'rollup-plugin-filesize'
 import process from 'process'
 
-export default {
-  input: 'src/generator/index.ts',
-  plugins: [
-    typescript({
-      lib: ['ES2015'],
-      target: 'ES5',
-      useTsconfigDeclarationDir: false,
-      declarationDir: `${process.cwd()}/lib`,
-    }),
-    terser(),
-    filesize(),
-  ],
-  output: {
-    file: 'lib/index.js',
-    format: 'cjs',
+const plugins = [
+  typescript({
+    lib: ['ES2015'],
+    target: 'ES5',
+    useTsconfigDeclarationDir: false,
+    declarationDir: `${process.cwd()}/lib`,
+  }),
+  terser(),
+  filesize(),
+]
+
+export default [
+  {
+    input: 'src/generator/index.ts',
+    plugins,
+    output: {
+      file: 'lib/generator.js',
+      format: 'cjs',
+    },
   },
-}
+  {
+    input: 'src/statistics/index.ts',
+    plugins,
+    output: {
+      file: 'lib/statistics.js',
+      format: 'cjs',
+    },
+  },
+]

@@ -15,8 +15,8 @@
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "test": "jest --coverage",
-    "statistics": "ts-node cli/src/statistics",
-    "cli": "node lt-cli/bin/lt-cli"
+    "statistics": "node lt-cli/bin/lt-cli statistics",
+    "generator": "node lt-cli/bin/lt-cli create"
   },
   "browserslist": {
     "production": [

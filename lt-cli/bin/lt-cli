@@ -2,6 +2,27 @@
 
 const { program } = require('commander')
 const chalk = require('chalk')
+const leven = require('leven')
+
+function suggestCommands(unknownCommand) {
+  // eslint-disable-next-line no-underscore-dangle
+  const availableCommands = program.commands.map((cmd) => cmd._name)
+
+  let suggestion
+
+  availableCommands.forEach((cmd) => {
+    // eslint-disable-next-line operator-linebreak
+    const isBestMatch =
+      leven(cmd, unknownCommand) < leven(suggestion || '', unknownCommand)
+    if (leven(cmd, unknownCommand) < 3 && isBestMatch) {
+      suggestion = cmd
+    }
+  })
+
+  if (suggestion) {
+    console.log(`  ${chalk.red(`Did you mean ${chalk.yellow(suggestion)}?`)}`)
+  }
+}
 
 program.version('0.0.1').usage('<command> [options]')
 
@@ -10,7 +31,7 @@ program
   .description('创建模版')
   .action(() => {
     // eslint-disable-next-line global-require
-    require('../lib/generator/index')
+    require('../lib/generator.js')
   })
 
 program
@@ -18,7 +39,7 @@ program
   .description('查看做题统计')
   .action(() => {
     // eslint-disable-next-line global-require
-    require('../lib/statistics/index')
+    require('../lib/statistics.js')
   })
 
 // output help information on unknown commands
@@ -26,7 +47,7 @@ program.on('command:*', ([cmd]) => {
   program.outputHelp()
   console.log(`  ${chalk.red(`Unknown command ${chalk.yellow(cmd)}.`)}`)
   console.log()
-  // suggestCommands(cmd)
+  suggestCommands(cmd)
   process.exitCode = 1
 })
 
@@ -43,44 +64,8 @@ program.on('--help', () => {
 
 program.commands.forEach((command) => command.on('--help', () => console.log()))
 
-// // enhance common error messages
-// const enhanceErrorMessages = require('../lib/util/enhanceErrorMessages')
-
-// enhanceErrorMessages(
-//   'missingArgument',
-//   (argName) => `Missing required argument ${chalk.yellow(`<${argName}>`)}.`,
-// )
-
-/* enhanceErrorMessages(
-  'unknownOption',
-  (optionName) => `Unknown option ${chalk.yellow(optionName)}.`,
-) */
-
-// enhanceErrorMessages('optionMissingArgument', (option, flag) => (
-//   `Missing required argument for option ${chalk.yellow(option.flags)}${
-//     flag ? `, got ${chalk.yellow(flag)}` : ''}`
-// ))
-
 program.parse(process.argv)
 
 if (!process.argv.slice(2).length) {
   program.outputHelp()
 }
-
-// function suggestCommands(unknownCommand) {
-//   const availableCommands = program.commands.map((cmd) => cmd._name)
-
-//   let suggestion
-
-//   availableCommands.forEach((cmd) => {
-//     const isBestMatch =
-//       leven(cmd, unknownCommand) < leven(suggestion || '', unknownCommand)
-//     if (leven(cmd, unknownCommand) < 3 && isBestMatch) {
-//       suggestion = cmd
-//     }
-//   })
-
-//   if (suggestion) {
-//     console.log(`  ${chalk.red(`Did you mean ${chalk.yellow(suggestion)}?`)}`)
-//   }
-// }
