@@ -60,7 +60,7 @@ var removeNthFromEnd = function (head, n) {
 5. 使用 `slow.next = slow.next.next` 即可删除该节点
 
 :::note
-由于第二次遍历是第一次的延续(第一次是从链头到 n, 第二次是从 n 到链尾), 因此其实就是一趟排序.
+由于第二次遍历是第一次的延续(第一次是从链头到 n, 第二次是从 n 到链尾), 因此其实就是一趟遍历.
 :::
 
 ```ts
