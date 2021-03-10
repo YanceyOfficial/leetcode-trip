@@ -1,5 +1,5 @@
 import ora from 'ora'
-import { promises } from 'fs'
+import { writeFileSync } from 'fs'
 import { sleep } from 'yancey-js-util'
 import { getFileMeta } from './get-file-meta'
 import { generateTemplate } from './template'
@@ -18,11 +18,10 @@ export const generateMarkdownFile = async (
 
   const spinner = ora('正在创建中...').start()
   await sleep()
-  await promises.writeFile(
+  writeFileSync(
     outPath,
     generateTemplate(serial, title, functionName, functionBody),
   )
   spinner.stop()
-
   ora().succeed('模版创建成功!')
 }
