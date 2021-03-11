@@ -1,10 +1,26 @@
-/*
- * @lc app=leetcode.cn id=34 lang=javascript
- *
- * [34] 在排序数组中查找元素的第一个和最后一个位置
- */
+---
+id: 34-search-range
+title: 在排序数组中查找元素的第一个和最后一个位置
+sidebar_label: 34. 在排序数组中查找元素的第一个和最后一个位置
+---
 
-// @lc code=start
+## 题目
+
+在从小到大排序的数组 nums 中, 找出 target
+
+:::info 示例
+
+输入:
+
+输出:
+:::
+
+## 题解
+
+这里是题解这里是题解这里是题解这里是题解这里是题解
+
+```ts
+
 /**
  * @param {number[]} nums
  * @param {number} target
@@ -36,4 +52,5 @@ var searchRange = function (nums, target) {
   }
   return [-1, -1]
 }
-// @lc code=end
+
+```

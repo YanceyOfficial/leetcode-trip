@@ -9,9 +9,11 @@ module.exports = {
         'dynamic-programming/example',
       ],
     },
+
     {
       十大排序算法: ['sort/bubble', 'sort/quick'],
     },
+    'binary-search/binary-search',
     'bit-manipulation/bit-manipulation',
   ],
 }
