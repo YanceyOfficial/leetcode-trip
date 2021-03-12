@@ -1,0 +1,81 @@
+---
+id: 33-search
+title: 搜索旋转排序数组
+sidebar_label: 33. 搜索旋转排序数组
+---
+
+## 题目
+
+整数数组 nums 按升序排列, 数组中的值 **互不相同**.
+
+在传递给函数之前, nums 在预先未知的某个下标 k(0 <= k < nums.length) 上进行了**旋转**, 例如, [0, 1, 2, 4, 5, 6, 7] 在下标 `3` 处经旋转后可能变为 [4, 5, 6, 7, 0, 1, 2].
+
+给你**旋转后**的数组 nums 和一个整数 target, 如果 nums 中存在这个目标值 target, 则返回它的索引, 否则返回 -1.
+
+:::info 示例
+输入: `nums = [5, 6, 7, 0, 1, 2,3], target: 4`
+
+输出: `0`
+:::
+
+## 题解
+
+![33-search](../../static/img/33-search.png)
+
+可以发现的是, 我们将数组从中间分开成左右两部分的时候, 一定有一部分的数组是有序的. 拿示例来看, 我们从 `6` 这个位置分开以后数组变成了 `[4, 5, 6]` 和 `[7, 0, 1, 2]` 两个部分, 其中左边 `[4, 5, 6]` 这个部分的数组是有序的, 其他也是如此.
+
+这启示我们可以在常规二分查找的时候查看当前 mid 为分割位置分割出来的两个部分 `[left, mid)` 和 `[mid + 1, right]` 哪个部分是有序的, 并根据有序的那个部分确定我们该如何改变二分查找的上下界, 因为我们能够根据有序的那部分判断出 target 在不在这个部分:
+
+如果 `[left, mid - 1]` 是有序数组, 且 target 的大小满足 `[nums[left], nums[mid]]`, 则我们应该将搜索范围缩小至 `[left, mid - 1]`, 否则在 `[mid + 1, right]` 中寻找.
+
+如果 `[mid, right]` 是有序数组, 且 target 的大小满足 `[nums[mid], nums[right]]`, 则我们应该将搜索范围缩小至 `[mid + 1, right]`, 否则在 `[left, mid - 1]` 中寻找.
+
+```ts
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var search = function (nums, target) {
+  const len = nums.length
+  let left = 0
+  let right = len - 1
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2)
+    if (nums[mid] === target) return mid
+
+    [4,5,6,1,2]
+
+    // nums[0] < nums[mid] 即可判断左边那片是有序的
+    // 可看个例子: [5, 6, 1, 2, 3] 的左半部分是 [5, 6, 1], 5 < 1 不成立
+    // 因此左半边不是有序的, 也意味着右半边是有序的
+    if (nums[0] <= nums[mid]) {
+      // 如果 target 落在左边这片, 那搜索范围就缩小成 [left, mid - 1]
+      if (nums[0] <= target && target < nums[mid]) {
+        right = mid - 1
+      } else {
+        // 否则搜索范围就缩小成 [mid + 1, right]
+        left = mid + 1
+      }
+      // 如果右边是有序的
+    } else {
+      // 如果 target 落在右边这片, 那搜索范围就缩小成 [mid + 1, right]
+      if (nums[mid] < target && target <= nums[len - 1]) {
+        left = mid + 1
+      } else {
+        // 否则搜索范围就缩小成 [left, mid - 1]
+        right = mid - 1
+      }
+    }
+  }
+
+  return -1
+}
+```
+
+## 复杂度
+
+时间复杂度: O(logn)
+
+空间复杂度: O(1), 只需要常数级别的空间存放变量.
