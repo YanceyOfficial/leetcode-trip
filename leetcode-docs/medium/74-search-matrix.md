@@ -20,7 +20,10 @@ sidebar_label: 74. 搜索二维矩阵
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
+其实就是把这个**二维数组**, 看成**一维数组**, 然后进行二分查找.
+
+1. 先算出二维数组的总长度 `m * n`, 那么 right 就是 `m * n - 1`
+2. 下面是常规的二分查找套路, 只不过找到 mid 对应的元素稍微费事些: `matrix[(mid / n) | 0][mid % n]`
 
 ```ts
 /**
@@ -28,5 +31,30 @@ sidebar_label: 74. 搜索二维矩阵
  * @param {number} target
  * @return {boolean}
  */
-var searchMatrix = function (matrix, target) {}
+var searchMatrix = function (matrix, target) {
+  const m = matrix.length
+  const n = matrix[0].length
+
+  let left = 0
+  let right = m * n - 1
+
+  while (left <= right) {
+    const mid = ((left + right) / 2) | 0
+    const midEl = matrix[(mid / n) | 0][mid % n]
+    if (midEl > target) {
+      right = mid - 1
+    } else if (midEl < target) {
+      left = mid + 1
+    } else {
+      return true
+    }
+  }
+
+  return false
+}
 ```
+
+## 复杂度
+
+时间复杂度: O(log(mn))
+空间复杂度: O(1)

@@ -15,14 +15,24 @@
  * @return {boolean}
  */
 var searchMatrix = function (matrix, target) {
-    const matrixLen = matrix.length
-    const matrixItemLen = matrix[0].length
+  const m = matrix.length
+  const n = matrix[0].length
 
   let left = 0
-  let right = matrix.length - 1
+  let right = m * n - 1
 
-  while(left <=right) {
-      const mid = 
+  while (left <= right) {
+    const mid = ((left + right) / 2) | 0
+    const midEl = matrix[(mid / n) | 0][mid % n]
+    if (midEl > target) {
+      right = mid - 1
+    } else if (midEl < target) {
+      left = mid + 1
+    } else {
+      return true
+    }
   }
+
+  return false
 }
 // @lc code=end
