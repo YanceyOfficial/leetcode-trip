@@ -119,7 +119,6 @@ module.exports = {
             'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         },
         sitemap: {
-          cacheTime: 600 * 1000,
           changefreq: 'weekly',
           priority: 0.5,
           trailingSlash: false,
