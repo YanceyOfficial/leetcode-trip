@@ -1,24 +1,28 @@
 /*
- * @lc app=leetcode.cn id=33 lang=javascript
+ * @lc app=leetcode.cn id=81 lang=javascript
  *
- * [33] 搜索旋转排序数组
+ * [81] 搜索旋转排序数组 II
  */
 
 // @lc code=start
 /**
  * @param {number[]} nums
  * @param {number} target
- * @return {number}
+ * @return {boolean}
  */
 var search = function (nums, target) {
-  const len = nums.length
   let left = 0
-  let right = len - 1
+  let right = nums.length - 1
 
   while (left <= right) {
-    const mid = Math.floor((left + right) / 2)
+    const mid = (left + (right - left) / 2) | 0
 
-    if (nums[mid] === target) return mid
+    if (nums[mid] === target) return true
+
+    if (nums[left] === nums[mid]) {
+      left++
+      continue
+    }
 
     if (nums[left] <= nums[mid]) {
       if (nums[left] <= target && target < nums[mid]) {
@@ -27,7 +31,7 @@ var search = function (nums, target) {
         left = mid + 1
       }
     } else {
-      if (nums[mid] < target && target <= nums[len - 1]) {
+      if (nums[mid] < target && target <= nums[nums.length - 1]) {
         left = mid + 1
       } else {
         right = mid - 1
@@ -35,6 +39,6 @@ var search = function (nums, target) {
     }
   }
 
-  return -1
+  return false
 }
 // @lc code=end

@@ -45,10 +45,10 @@ var search = function (nums, target) {
     const mid = Math.floor((left + right) / 2)
     if (nums[mid] === target) return mid
 
-    // nums[0] < nums[mid] 即可判断左边那片是有序的
-    if (nums[0] <= nums[mid]) {
+    // nums[left] < nums[mid] 即可判断左边那片是有序的
+    if (nums[left] <= nums[mid]) {
       // 如果 target 落在左边这片, 那搜索范围就缩小成 [left, mid - 1]
-      if (nums[0] <= target && target < nums[mid]) {
+      if (nums[left] <= target && target < nums[mid]) {
         right = mid - 1
       } else {
         // 否则搜索范围就缩小成 [mid + 1, right]
