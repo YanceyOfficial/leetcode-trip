@@ -26,7 +26,7 @@ sidebar_label: 153. 寻找旋转排序数组中的最小值
 
 ## 题解
 
-还是使用二分算法:
+### 我写的解法
 
 - 设置一个变量 `min`, 初始化为数组的第一个元素
 - 在循环中:
@@ -57,5 +57,26 @@ var findMin = function (nums) {
   }
 
   return min
+}
+```
+
+### 别人写的解法
+
+啊, 我太菜了.
+
+```ts
+var findMin = function (nums) {
+  let low = 0
+  let high = nums.length - 1
+  while (low < high) {
+    const pivot = (low + high) >> 1
+
+    if (nums[pivot] > nums[high]) {
+      low = pivot + 1
+    } else {
+      high = pivot
+    }
+  }
+  return nums[low]
 }
 ```
