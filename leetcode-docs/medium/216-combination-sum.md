@@ -37,7 +37,7 @@ keywords:
 
 ## 题解
 
-好了我已经吐了, 这个题其实是 [39. 组合数字](./39-combination-sum.md) 和 [47. 全排列 II](./47-permute.md) 的综合体.
+好了我已经吐了, 这个题其实是 [39. 组合数字](/leetcode/medium/39-combination-sum) 和 [47. 全排列 II](/leetcode/medium/47-permute) 的综合体.
 
 - `candidates 中的每个数字在每个组合中只能使用一次`: 其实就对标第 47 题, 即使用 **同层相邻不能相等** 和 **used 数组** 的剪枝策略.
 

@@ -7,7 +7,7 @@ sidebar_label: 191. 位1的个数
 :::success Tips
 题目类型: 位运算
 
-相关题目: [136. 只出现一次的数字](./136-single-number), [231. 2 的幂](./231-is-power-of-two)
+相关题目: [136. 只出现一次的数字](/leetcode/easy/136-single-number), [231. 2 的幂](/leetcode/easy/231-is-power-of-two)
 :::
 
 ## 题目

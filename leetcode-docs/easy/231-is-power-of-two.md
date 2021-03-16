@@ -13,7 +13,7 @@ sidebar_label: 231. 2的幂
 :::success Tips
 题目类型: 位运算, 数学
 
-相关题目: [136. 只出现一次的数字](./136-single-number), [191. 位 1 的个数](./191-hamming-weight),
+相关题目: [136. 只出现一次的数字](/leetcode/easy/136-single-number), [191. 位 1 的个数](/leetcode/easy/191-hamming-weight),
 :::
 
 ### 使用 `n & (n - 1)`

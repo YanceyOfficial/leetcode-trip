@@ -6,7 +6,7 @@ sidebar_label: 81. 搜索旋转排序数组-ii
 
 ## 题目
 
-本题为 [33.搜索旋转排序数组](./33-search.md) 的扩展, 在此基础上的 nums 可能包含重复元素.
+本题为 [33.搜索旋转排序数组](/leetcode/medium/33-search) 的扩展, 在此基础上的 nums 可能包含重复元素.
 
 :::info 示例
 

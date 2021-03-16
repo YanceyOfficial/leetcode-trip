@@ -21,7 +21,7 @@ keywords:
 
 ![backtrack](../../static/img/backtrack.jpg)
 
-本题为经典的[回溯算法](../../algorithm-design/backtrack/backtrack), 回溯算法的本质是遍历一颗决策树, 遍历过程中我们肯定会以一定的顺序, 比如先找 1, 再找 2, 最后只能找 3, 此时这这分支找完了, 就会退到上一层, 然后是 3, 最后只能找 2...
+本题为经典的[回溯算法](/algorithm-design/backtrack/backtrack), 回溯算法的本质是遍历一颗决策树, 遍历过程中我们肯定会以一定的顺序, 比如先找 1, 再找 2, 最后只能找 3, 此时这这分支找完了, 就会退到上一层, 然后是 3, 最后只能找 2...
 
 ```js
 /**
