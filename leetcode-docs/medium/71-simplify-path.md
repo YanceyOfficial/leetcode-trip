@@ -7,7 +7,7 @@ sidebar_label: 71. 简化路径
 :::success Tips
 题目类型: 栈
 
-相关题目: [191. 位 1 的个数](/leetcode//easy/191-hamming-weight), [231. 2 的幂](/leetcode/medium/easy/231-is-power-of-two)
+相关题目: [191. 位 1 的个数](/leetcode/easy/191-hamming-weight), [231. 2 的幂](/leetcode/medium/easy/231-is-power-of-two)
 :::
 
 ## 题目
