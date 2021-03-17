@@ -11,17 +11,27 @@
  * @return {number}
  */
 var minSubArrayLen = function (target, nums) {
-  let i = 0
+  const len = nums.length
+  if (len === 0) return 0
+
+  let start = 0
+  let end = 0
+  let totalLen = Number.MAX_SAFE_INTEGER
   let sum = 0
-  let len = 0
-  for (let j = 0; j < nums.length; j++) {
-    sum += nums[j]
+
+  while (end < len) {
+    sum += nums[end]
+
     while (sum >= target) {
-      len = len == 0 ? j - i + 1 : Math.min(len, j - i + 1)
-      sum -= nums[i++]
+      totalLen = Math.min(totalLen, end - start + 1)
+      sum -= nums[start]
+      start++
     }
+
+    end++
   }
-  return len
+
+  return totalLen == Number.MAX_SAFE_INTEGER ? 0 : totalLen
 }
 // @lc code=end
 console.log(minSubArrayLen(7, [2, 3, 1, 2, 4, 3]))
