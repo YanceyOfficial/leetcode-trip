@@ -10,10 +10,9 @@
  * @return {number}
  */
 
-// abcabcbb -> abc
 var lengthOfLongestSubstring = function (s) {
   const map = {}
-  let start
+  let start = 0
   let end = 0
   let res = 0
 
@@ -39,4 +38,3 @@ var lengthOfLongestSubstring = function (s) {
   return res
 }
 // @lc code=end
-console.log(lengthOfLongestSubstring('bacabcbb'))

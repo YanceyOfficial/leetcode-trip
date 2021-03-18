@@ -30,12 +30,43 @@ sidebar_label: 3. 无重复字符的最长子串
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
+import Carousel from 'nuka-carousel';
+
+<Carousel style={{margin: '48px 0'}}>
+<img src="../../static/img/33-search.png"/>
+<img src="../../static/img/39-combination-sum.png"/>
+</Carousel>
 
 ```ts
 /**
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function (s) {}
+var lengthOfLongestSubstring = function (s) {
+  const map = {}
+  let start = 0
+  let end = 0
+  let res = 0
+
+  while (end < s.length) {
+    const endVal = s[end]
+    end++
+
+    if (map[endVal]) {
+      map[endVal] += 1
+    } else {
+      map[endVal] = 1
+    }
+
+    while (map[endVal] > 1) {
+      const startVal = s[start]
+      start++
+      map[startVal] -= 1
+    }
+
+    res = Math.max(res, end - start)
+  }
+
+  return res
+}
 ```

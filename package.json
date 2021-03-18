@@ -36,6 +36,7 @@
     "@docusaurus/preset-classic": "^2.0.0-alpha.72",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
+    "nuka-carousel": "^4.7.7",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "yancey-js-util": "^3.0.0"
