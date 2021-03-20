@@ -54,7 +54,7 @@ var subsets = function (nums) {
     for (let i = index; i < len; i++) {
       // 枚举出所有可选的数
       track.push(nums[i]) // 选这个数
-      backtrack(i + 1, track) // 基于选这个数,继续递归,传入的是i+1
+      backtrack(i + 1, track) // 基于选这个数, 继续递归, 传入的是 i + 1
       track.pop() // 撤销选这个数
     }
   }
