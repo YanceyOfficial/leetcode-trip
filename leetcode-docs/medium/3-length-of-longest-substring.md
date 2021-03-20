@@ -32,6 +32,7 @@ sidebar_label: 3. 无重复字符的最长子串
 
 import Carousel from 'nuka-carousel';
 import { randomSeries } from 'yancey-js-util';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 <Carousel
   style={{ margin: '48px 0',  padding: '24px 0', border: '1px solid #ccc' }}
@@ -40,7 +41,7 @@ import { randomSeries } from 'yancey-js-util';
   {new Array(10).fill(randomSeries(6)).map((val, index) => (
     <img
       key={val}
-      src={`../../static/img/3-length-of-longest-substring-${index + 1}.png`}
+      src={useBaseUrl(`/img/3-length-of-longest-substring-${index + 1}.png`)}
     />
   ))}
 </Carousel>

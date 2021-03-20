@@ -16,7 +16,9 @@ const isContrarySign = (2 ^ 1) < 0 // false
 
 ## n & (n - 1)
 
-<img src="../../static/img/191-hamming-weight.png" alt="191-hamming-weight" style={{background: '#fff'}} />
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
+<img src={useBaseUrl('/img/191-hamming-weight.png')} alt="191-hamming-weight" style={{background: '#fff'}} />
 
 其核心逻辑是 n - 1 一定可以消除最后一个 1, 同时把其后的 0 都变成 1, 这样再和 n 做一次 & 运算, 就可以仅仅把最后一个 1 变成 0 了.
 

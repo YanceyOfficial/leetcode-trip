@@ -99,7 +99,7 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://github.com/YanceyOfficial/leetcode-trip',
+          href: 'https://github.com/YanceyOfficial',
           label: 'GitHub',
           position: 'right',
         },

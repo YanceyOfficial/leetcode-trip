@@ -21,6 +21,8 @@ keywords:
 
 ## 题解
 
+![90-subsets-with-dup](../../static/img/90-subsets-with-dup.png)
+
 本题是 [78. 组合总数](/leetcode/medium/78-subsets) 的一个变种, 核心思想看这篇文章即可, 只不过本题加入了**可能包含重复元素**的情况, 直接套用 used 大法即可.
 
 ```js

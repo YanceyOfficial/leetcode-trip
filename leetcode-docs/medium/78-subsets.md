@@ -30,8 +30,6 @@ keywords:
 
 ## 题解
 
-![47-premute](../../static/img/90-subsets-with-dup.png)
-
 用 for 枚举出当前可选的数, 比如选第一个数: 1、2、3 可选.
 
 - 如果第一个数选 1, 选第二个数, 2、3 可选；
