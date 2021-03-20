@@ -31,10 +31,18 @@ sidebar_label: 3. 无重复字符的最长子串
 ## 题解
 
 import Carousel from 'nuka-carousel';
+import { randomSeries } from 'yancey-js-util';
 
-<Carousel style={{margin: '48px 0'}}>
-<img src="../../static/img/33-search.png"/>
-<img src="../../static/img/39-combination-sum.png"/>
+<Carousel
+  style={{ margin: '48px 0',  padding: '24px 0', border: '1px solid #ccc' }}
+  renderBottomCenterControls={null}
+>
+  {new Array(10).fill(randomSeries(6)).map((val, index) => (
+    <img
+      key={val}
+      src={`../../static/img/3-length-of-longest-substring-${index + 1}.png`}
+    />
+  ))}
 </Carousel>
 
 ```ts
