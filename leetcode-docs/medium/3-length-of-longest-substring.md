@@ -40,7 +40,7 @@ import { randomSeries } from 'yancey-js-util';
   {new Array(10).fill(randomSeries(6)).map((val, index) => (
     <img
       key={val}
-      src={`../../static/img/3-length-of-longest-substring-${index + 1}.png`}
+      src={`../static/img/3-length-of-longest-substring-${index + 1}.png`}
     />
   ))}
 </Carousel>
