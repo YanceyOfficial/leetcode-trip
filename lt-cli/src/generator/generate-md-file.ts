@@ -9,7 +9,7 @@ export const generateMarkdownFile = async (
   fileName: string,
 ) => {
   const fileMeta = getFileMeta(dirName, fileName)
-  if (typeof fileMeta === 'boolean') return
+  if (typeof fileMeta !== 'object') return
 
   const {
     outPath,

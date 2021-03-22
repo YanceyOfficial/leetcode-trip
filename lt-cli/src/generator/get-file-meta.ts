@@ -14,7 +14,7 @@ export const getFileMeta = (
   const outPath = `${docPath}/${dirName.toLowerCase()}/${serial}-${functionName}.md`
 
   if (existsSync(outPath)) {
-    return false
+    return '文件已存在, 请重新选择.'
   }
 
   return isValidate
