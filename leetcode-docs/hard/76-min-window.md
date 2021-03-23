@@ -19,7 +19,13 @@ sidebar_label: 76. 最小覆盖子串
 
 ## 题解
 
-如其名, 滑动窗口
+这是个很经典的滑动窗口问题, 滑动窗口的基本框架不太复杂, 这道题的难点在于**如何知道 window 已经覆盖了 t 字符串**.
+
+1. 首先创建一个名叫 need 的 hashmap, 用于映射 t 的每个元素
+2. 定义一个 valid 的变量, 初始化为 0, 当 `window[s[right]] === need[s[right]]` 时, 让 valid++
+3. 因此当 `valid === need.size` 时, 就保证了 window 中已经覆盖了 t 字符串
+4. 接着就可以缩小窗口了, 缩小窗口的代码跟扩大窗口的代码相反, 即直到窗口中的字符串不再符合要求, left 不再继续移动
+5. 重复这个过程, 直到 right 到了最右边退出循环
 
 ```ts
 /**
@@ -31,6 +37,7 @@ var minWindow = function (s, t) {
   const need = {}
   const window = {}
 
+  // 将 t 的每个元素映射到 hashmap 中
   for (const i of t) {
     need[i] ? (need[i] += 1) : (need[i] = 1)
   }
