@@ -4,7 +4,7 @@
  * [76] 最小覆盖子串
  */
 
-// @lc code=start
+// @lc code=left
 /**
  * @param {string} s
  * @param {string} t
@@ -12,48 +12,54 @@
  */
 
 var minWindow = function (s, t) {
-  const target = {}
-  const map = {}
-  t.split('').forEach((val) => {
-    target[val] ? (target[val] += 1) : (target[val] = 1)
-  })
+  const need = {}
+  const window = {}
 
-  let start = 0
-  let end = 0
-  let count = Number.MAX_SAFE_INTEGER
-  let begin = 0
+  for (const i of t) {
+    need[i] ? (need[i] += 1) : (need[i] = 1)
+  }
+
+  const needLen = Object.keys(need).length
+
+  let left = 0,
+    right = 0
+
   let valid = 0
 
-  while (end < s.length) {
-    const endVal = s[end]
-    end++
+  let start = 0,
+    len = Number.MAX_SAFE_INTEGER
 
-    if (target[endVal]) {
-      map[endVal] ? (map[endVal] += 1) : (map[endVal] = 1)
+  while (right < s.length) {
+    const c = s[right]
+    right++
 
-      if (map[endVal] === target[endVal]) {
+    if (need[c]) {
+      window[c] ? (window[c] += 1) : (window[c] = 1)
+
+      if (window[c] === need[c]) {
         valid++
       }
     }
 
-    while (valid === Object.keys(target).length) {
-      if (end - start < count) {
-        begin = start
-        count = end - start
+    while (valid === needLen) {
+      if (right - left < len) {
+        start = left
+        len = right - left
       }
 
-      const startVal = s[start]
-      start++
+      const d = s[left]
+      left++
 
-      if (target[startVal]) {
-        if (map[startVal] === target[startVal]) {
+      if (need[d]) {
+        if (window[d] === need[d]) {
           valid--
-          map[startVal] -= 1
         }
+
+        window[d] -= 1
       }
     }
   }
 
-  return count === Number.MAX_SAFE_INTEGER ? '' : s.substr(begin, count)
+  return len === Number.MAX_SAFE_INTEGER ? '' : s.substr(start, len)
 }
-// @lc code=end
+// @lc code=right
