@@ -2,7 +2,13 @@
 id: 76-min-window
 title: 最小覆盖子串
 sidebar_label: 76. 最小覆盖子串
+keywords:
+  - Sliding Window
 ---
+
+:::success Tips
+题目类型: 滑动窗口
+:::
 
 ## 题目
 
