@@ -4,7 +4,7 @@ module.exports = {
     'binary-search',
     'bit-manipulation',
     {
-      十大排序算法: ['sort/bubble'],
+      Sort: ['sort/menu', 'sort/bubble', 'sort/heap'],
     },
   ],
 }
