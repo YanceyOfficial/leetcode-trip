@@ -26,7 +26,7 @@ sidebar_label: 231. 2的幂
 2 ^ 2 = 4 = 0b0100
 ```
 
-因此通过使用 n & (n - 1), 把这个 1 去掉, 剩下的如果等于 0, 就证明是 2 的指数. 关于使用 n & (n - 1), 这里不再赘述, 可访问 [位运算的一些技巧](/algorithm-design/bit-manipulation/bit-manipulation#n--n---1).
+因此通过使用 n & (n - 1), 把这个 1 去掉, 剩下的如果等于 0, 就证明是 2 的指数. 关于使用 n & (n - 1), 这里不再赘述, 可访问 [位运算的一些技巧](/algorithm-design/bit-manipulation#n--n---1).
 
 ```js
 /**

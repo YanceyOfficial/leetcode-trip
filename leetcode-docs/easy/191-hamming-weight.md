@@ -34,7 +34,7 @@ sidebar_label: 191. 位1的个数
 
 ### 使用 `n & (n - 1)`
 
-关于使用 n & (n - 1), 这里不再赘述, 可访问 [位运算的一些技巧](/algorithm-design/bit-manipulation/bit-manipulation#n--n---1).
+关于使用 n & (n - 1), 这里不再赘述, 可访问 [位运算的一些技巧](/algorithm-design/bit-manipulation#n--n---1).
 
 ```js
 /**

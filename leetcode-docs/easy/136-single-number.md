@@ -56,7 +56,7 @@ var singleNumber = function (nums) {
 }
 ```
 
-这道题的另一种解法是使用按位异或, 关于按位异或可访问 [位运算的一些技巧](/algorithm-design/bit-manipulation/bit-manipulation#按位异或xor).
+这道题的另一种解法是使用按位异或, 关于按位异或可访问 [位运算的一些技巧](/algorithm-design/bit-manipulation#按位异或xor).
 
 ```js
 // 按位异或(XOR)

@@ -48,7 +48,7 @@ keywords:
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
+具体题解看 [567. 字符串的排列](/leetcode/medium/567-check-inclusion) 这道题即可.
 
 ```js
 /**
