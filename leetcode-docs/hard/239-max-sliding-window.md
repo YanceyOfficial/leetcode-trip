@@ -57,3 +57,45 @@ var maxSlidingWindow = function (nums, k) {
 ```
 
 ### 优雅解法
+
+队首始终保存窗口中最大的元素(滑进窗口的那个数要通过与队尾比较找到属于自己的位置, 比队尾大要不断弹出队尾把自己插进去, 比队尾小则让自己成为队尾), 在窗口滑动过程中检查最大值是否还在窗口内, 否则就弹出. 这样记录下每次滑动时的队首就行了.
+
+```ts
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var maxSlidingWindow = function (nums, k) {
+  // deque 中存储的是 num 的下标
+  const deque = []
+  const maxs = []
+  const len = nums.length
+
+  if (len === 0 && k <= 0) return maxs
+
+  for (let i = 0; i < len; i++) {
+    // 如果队列不为空且队尾对应的 num 小于当前遍历到的值,
+    // 则弹出当前队尾, 直到队尾没有小于 i 所对应的元素,
+    // 这样就确保了队首对应的元素始终是最大的.
+    while (deque.length !== 0 && nums[deque[deque.length - 1]] <= nums[i]) {
+      deque.pop()
+    }
+
+    // 队尾弹入 i
+    deque.push(i)
+
+    // 检测队首所对应的元素是否还在窗口中, 不在则弹出
+    if (deque[0] <= i - k) {
+      deque.shift()
+    }
+
+    //只有当 i >= 窗口大小时才能写入窗口的最大值
+    if (i >= k - 1) {
+      maxs.push(nums[deque[0]])
+    }
+  }
+
+  return maxs
+}
+```

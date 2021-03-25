@@ -52,7 +52,7 @@ function maxHeapify(arr: number[], start: number, end: number) {
 
 function heapSort(arr: number[]) {
   const len = arr.length
-  // 初始化, i 从最后一个父节点开始调整
+  // 初始化, 从最后一个父节点(非叶子结点)开始调整
   for (let i = Math.floor(len / 2) - 1; i >= 0; i--) {
     maxHeapify(arr, i, len)
   }
