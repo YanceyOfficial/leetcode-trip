@@ -17,14 +17,14 @@ keywords:
 
 :::info 示例
 
-```ts
-输入: (candidates = [2, 3, 6, 7]), (target = 7)
+```bash
+输入: candidates = [2, 3, 6, 7], target = 7
 
 输出: [[7], [2, 2, 3]]
 ```
 
-```ts
-输入: (candidates = [2, 3, 5]), (target = 8)
+```bash
+输入: candidates = [2, 3, 5], target = 8
 
 输出: [
   [2, 2, 2, 2],

@@ -10,14 +10,14 @@ sidebar_label: 81. 搜索旋转排序数组-ii
 
 :::info 示例
 
-```ts
-输入: (nums = [2, 5, 6, 0, 0, 1, 2]), (target = 0)
+```bash
+输入: nums = [2, 5, 6, 0, 0, 1, 2], target = 0
 
 输出: true
 ```
 
-```ts
-输入: (nums = [1, 0, 1, 1, 1]), (target = 0)
+```bash
+输入: nums = [1, 0, 1, 1, 1], target = 0
 
 输出: true
 ```
