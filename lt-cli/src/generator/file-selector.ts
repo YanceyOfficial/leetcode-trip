@@ -13,6 +13,6 @@ export const fileSelect = (dir: string, choices: string[]) =>
       source: (answersSoFar: string, input: string) =>
         choices.filter((choice) => choice.includes(input || '')),
       validate: (input: ChoiceOptions) =>
-        getFileMeta(dir, input.name || '', true) as boolean,
+        getFileMeta(dir, input.name || '', true),
     },
   ])
