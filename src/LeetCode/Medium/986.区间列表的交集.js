@@ -18,16 +18,16 @@ var intervalIntersection = function (firstList, secondList) {
   const res = []
 
   while (i < firstListLen && j < secondListLen) {
-    const a0 = firstList[i][0]
-    const a1 = firstList[i][1]
-    const b0 = secondList[j][0]
-    const b1 = secondList[j][1]
+    const a1 = firstList[i][0]
+    const a2 = firstList[i][1]
+    const b1 = secondList[j][0]
+    const b2 = secondList[j][1]
 
-    if (b1 >= a0 && a1 >= b0) {
-      res.push([Math.max(a0, b0), Math.min(a1, b1)])
+    if (b2 >= a1 && a2 >= b1) {
+      res.push([Math.max(a1, b1), Math.min(a2, b2)])
     }
 
-    if (b1 < a1) {
+    if (b2 < a2) {
       j += 1
     } else {
       i += 1
@@ -37,19 +37,3 @@ var intervalIntersection = function (firstList, secondList) {
   return res
 }
 // @lc code=end
-console.log(
-  intervalIntersection(
-    [
-      [0, 2],
-      [5, 10],
-      [13, 23],
-      [24, 25],
-    ],
-    [
-      [1, 5],
-      [8, 12],
-      [15, 24],
-      [25, 26],
-    ],
-  ),
-)

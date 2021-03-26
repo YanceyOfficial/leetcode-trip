@@ -13,16 +13,26 @@ sidebar_label: 986. 区间列表的交集
 两个闭区间的交集是一组实数, 要么为空集, 要么为闭区间. 例如, [1, 3] 和 [2, 4] 的交集为 [2, 3].
 
 :::info 示例
-![986-interval-intersection](../../static/img/986-interval-intersection.jpg)
+![986-interval-intersection](../../static/img/986-interval-intersection-1.jpg)
 
-输入: `firstList = [[0, 2], [5, 10], [13, 23], [24, 25]], secondList = [[1, 5], [8, 12], [15, 24], [25, 26]]`
+输入: `firstList = [[0,2], [5,10], [13,23], [24,25]], secondList = [[1,5], [8,12], [15,24], [25,26]]`
 
 输出: `[[1, 2], [5, 5], [8, 10], [15, 23], [24, 24], [25, 25]]`
 :::
 
 ## 题解
 
-看到区间问题先要做排序, 因为数组已经排序了, 这道题就不用 care 了.
+看到区间问题先要做排序, 因为该题的数组已经排序了, 这里就不用 care 了. 因为是找交集, 可以先反着看, 即什么情况下是没有交集的. 通过下图可以发现, `a2 < b1 || b2 < a1` 时, 是没有交集的; 反过来, 也就是 `a2 >= b1 && b2 >= a1` 时, 才会有交集.
+
+![986-interval-intersection](../../static/img/986-interval-intersection-2.jpeg)
+
+接着我们把所有交集的情况列出来, 如下图所示, 可以看到对于交集 `[c1, c2]`, 那么 `c1 = Math.max(a1, b1)`, `c2 = Math.min(a2,b2)`.
+
+![986-interval-intersection](../../static/img/986-interval-intersection-3.jpeg)
+
+最后, `b2 < a2` 时, `j` 向右移动, 否则 `i` 向右移动.
+
+![986-interval-intersection](../../static/img/986-interval-intersection-4.gif)
 
 ```ts
 /**
@@ -38,16 +48,16 @@ var intervalIntersection = function (firstList, secondList) {
   const res = []
 
   while (i < firstListLen && j < secondListLen) {
-    const a0 = firstList[i][0]
-    const a1 = firstList[i][1]
-    const b0 = secondList[j][0]
-    const b1 = secondList[j][1]
+    const a1 = firstList[i][0]
+    const a2 = firstList[i][1]
+    const b1 = secondList[j][0]
+    const b2 = secondList[j][1]
 
-    if (b1 >= a0 && a1 >= b0) {
-      res.push([Math.max(a0, b0), Math.min(a1, b1)])
+    if (b2 >= a1 && a2 >= b1) {
+      res.push([Math.max(a1, b1), Math.min(a2, b2)])
     }
 
-    if (b1 < a1) {
+    if (b2 < a2) {
       j += 1
     } else {
       i += 1
