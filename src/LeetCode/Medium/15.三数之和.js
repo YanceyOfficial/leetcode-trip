@@ -9,7 +9,7 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var threeSum = function(nums) {
+var threeSum = function (nums) {
   let ans = []
   const len = nums.length
   if (nums === null || len < 3) return ans
