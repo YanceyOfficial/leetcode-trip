@@ -1,6 +1,6 @@
-# [Leetcode Trip](https://algorithm.yanceyleo.com/)
+# Leetcode Trip
 
-Data Structures and Algorithms with JavaScript.
+Data Structures and Algorithms with JavaScript. Visit [Leetcode Trip](https://algorithm.yanceyleo.com/) for more information.
 
 ## License
 
