@@ -16,9 +16,30 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var maxDepth = function(root) {
-  if (!root) return 0
+var maxDepth = function (root) {
+  if (root === null) return 0
 
-  return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1
+  const queue = []
+  queue.push(root)
+  let depth = 0
+
+  while (queue.length !== 0) {
+    const len = queue.length
+
+    for (let i = 0; i < len; i++) {
+      const curr = queue.shift()
+
+      if (curr.left !== null) {
+        queue.push(curr.left)
+      }
+
+      if (curr.right !== null) {
+        queue.push(curr.right)
+      }
+    }
+
+    depth++
+  }
+  return depth
 }
 // @lc code=end

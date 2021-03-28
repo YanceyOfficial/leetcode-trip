@@ -1,0 +1,113 @@
+---
+id: 111-min-depth
+title: 二叉树的最小深度
+sidebar_label: 111. 二叉树的最小深度
+---
+
+## 题目
+
+给定一个二叉树, 找出其最小深度.
+
+:::info 示例
+
+```ts
+  3
+ / \
+9 20
+  / \
+ 15  7
+```
+
+输入: root = [3, 9, 20, null, null, 15, 7]
+
+输出: 2
+:::
+
+## 题解
+
+### 深度优先遍历
+
+1. 如果 root 都没有, 直接返回 0
+2. 如果有 root, 但 root 没有叶子节点, 返回 1
+3. 对于其他情况: 如果存在左叶子节点, 就一直往左递归, 并计算最小深度; 如果存在右叶子节点, 就一直往右递归, 并计算最小深度.
+
+时间复杂度: O(n)
+
+空间复杂度: O(logn)
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDepth = function (root) {
+  if (root === null) {
+    return 0
+  }
+
+  if (root.left === null && root.right === null) {
+    return 1
+  }
+
+  let minDepth = Number.MAX_SAFE_INTEGER
+
+  if (root.left != null) {
+    minDepth = Math.min(minDepth(root.left), minDepth)
+  }
+  if (root.right != null) {
+    minDepth = Math.min(minDepth(root.right), minDepth)
+  }
+
+  return minDepth + 1
+}
+```
+
+### 广度优先遍历
+
+广度优先遍历的核心思想是**队列**, 具体思想可以看 [深度/广度优先遍历](/algorithm-design/dfs-bfs), 该题的关键在于**当某个节点没有子节点了, 那它就是最小的深度**, 其余的就是广度优先遍历的基本套路了, 这里不再赘述.
+
+时间复杂度: O(n)
+
+空间复杂度: O(n)
+
+```ts
+var minDepth = function (root) {
+  if (root === null) return 0
+
+  const queue = []
+  queue.push(root)
+  let depth = 1
+
+  while (queue.length !== 0) {
+    const len = queue.length
+
+    for (let i = 0; i < len; i++) {
+      const curr = queue.shift()
+
+      // 当某个节点没有子节点了, 那它就是最小的深度
+      if (curr.left === null && curr.right === null) {
+        return depth
+      }
+
+      if (curr.left !== null) {
+        queue.push(curr.left)
+      }
+
+      if (curr.right !== null) {
+        queue.push(curr.right)
+      }
+    }
+
+    depth++
+  }
+  return depth
+}
+```
