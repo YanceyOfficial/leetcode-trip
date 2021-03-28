@@ -15,9 +15,11 @@ export class DoublyLinkedList<T> extends LinkedList<T> {
       this.head = node
       this.tail = node
     } else {
-      this.tail.next = node
-      node.prev = this.tail
-      this.tail = node
+      if (this.tail) {
+        this.tail.next = node
+        node.prev = this.tail
+        this.tail = node
+      }
     }
     this.count++
   }
@@ -26,10 +28,6 @@ export class DoublyLinkedList<T> extends LinkedList<T> {
     if (index < 0 || index > this.count - 1) return false
 
     const node = new DoublyNode(element)
+    return true
   }
 }
-
-const doublyLinkedList = new DoublyLinkedList()
-doublyLinkedList.push('A')
-doublyLinkedList.push('B')
-console.log(doublyLinkedList)

@@ -15,5 +15,6 @@
     "moduleResolution": "node"
   },
   "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "include": ["src/**/*", "__test__/**/*"],
   "exclude": ["node_modules"]
 }

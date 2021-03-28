@@ -302,23 +302,3 @@ export class BinarySearchTree<T> implements BST<T> {
     this.count = 0
   }
 }
-
-const bst = new BinarySearchTree<number>()
-
-bst.insert(7)
-bst.insert(15)
-bst.insert(5)
-bst.insert(3)
-bst.insert(9)
-bst.insert(8)
-
-// console.log(bst)
-// console.log(bst.size())
-
-const cb = (value: number) => console.log(value)
-bst.postOrderTraverse(cb)
-
-// console.log(bst.min())
-// console.log(bst.max())
-// console.log(bst.search(331))
-// console.log(bst.search(7))
