@@ -99,9 +99,21 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://github.com/YanceyOfficial',
-          label: 'GitHub',
+          href: 'https://github.com/YanceyOfficial/natsuha-weather',
+          label: 'Natsuha Weather ☁️',
           position: 'right',
+          className: 'natsuha-weather',
+        },
+        {
+          href: 'https://js.yanceyleo.com',
+          label: 'JavaScript APIs',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/YanceyOfficial/leetcode-trip',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
         },
       ],
     },

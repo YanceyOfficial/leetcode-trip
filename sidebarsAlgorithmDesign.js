@@ -3,8 +3,9 @@ module.exports = {
     'backtrack',
     'binary-search',
     'bit-manipulation',
+    'bfs',
     {
-      Sort: ['sort/menu', 'sort/bubble', 'sort/heap'],
+      十大排序算法: ['sort/menu', 'sort/bubble', 'sort/heap'],
     },
   ],
 }
