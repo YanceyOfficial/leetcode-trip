@@ -25,7 +25,7 @@ sidebar_label: 104. 二叉树的最大深度
 
 ## 题解
 
-和 [111. 二叉树的最小深度](/leetcode/medium/111-min-depth) 类似, 具体可以看这个题.
+和 [111. 二叉树的最小深度](/leetcode/easy/111-min-depth) 类似, 具体可以看这个题.
 
 ### 深度优先遍历
 
