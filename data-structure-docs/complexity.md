@@ -1,4 +1,8 @@
-# 大 O 复杂度表示法
+---
+id: complexity
+title: 大 O 复杂度表示法
+sidebar_label: 大 O 复杂度表示法
+---
 
 ## 为什么需要复杂度分析
 
