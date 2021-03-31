@@ -6,6 +6,9 @@
   "author": "Yancey Leo",
   "license": "MIT",
   "description": "a command-line interface for LeetCode Trip",
+  "bin": {
+    "lt-cli": "./bin/lt-cli"
+  },
   "scripts": {
     "build": "rollup -c"
   },
