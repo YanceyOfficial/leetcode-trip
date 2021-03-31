@@ -5,6 +5,18 @@
   "typings": "lib/index.d.ts",
   "author": "Yancey Leo",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YanceyOfficial/leetcode-trip.git"
+  },
+  "keywords": [
+    "LeetCode Trip",
+    "CLI"
+  ],
+  "bugs": {
+    "url": "https://github.com/YanceyOfficial/leetcode-trip/issues"
+  },
+  "homepage": "https://github.com/YanceyOfficial/leetcode-trip#readme",
   "description": "a command-line interface for LeetCode Trip",
   "bin": {
     "lt-cli": "./bin/lt-cli"
