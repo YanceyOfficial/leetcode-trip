@@ -5,6 +5,7 @@
   "typings": "lib/index.d.ts",
   "author": "Yancey Leo",
   "license": "MIT",
+  "description": "a command-line interface for LeetCode Trip",
   "scripts": {
     "build": "rollup -c"
   },
@@ -32,5 +33,7 @@
   "directories": {
     "lib": "lib"
   },
-  "description": ""
+  "publishConfig": {
+    "access": "public"
+  }
 }
