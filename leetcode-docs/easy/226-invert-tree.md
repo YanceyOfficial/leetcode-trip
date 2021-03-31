@@ -52,6 +52,7 @@ sidebar_label: 226. 翻转二叉树
 var invertTree = function (root) {
   if (!root) return root
 
+  // 先序遍历
   const temp = root.left
   root.left = root.right
   root.right = temp
