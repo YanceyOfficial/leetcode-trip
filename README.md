@@ -16,7 +16,7 @@ Data structures and algorithms implemented in JavaScript with explanations. The 
 
 ## lt-cli
 
-LeetCode Trip comes with a built-in CLI which can be used to generate template markdown files and do statistical analysis from the command line. While you can install lt-cli globally on your machine, you can run the following commands.
+LeetCode Trip comes with a built-in CLI which can be used to generate template markdown files and do statistical analysis from the command line. While you can install lt-cli globally on your machine, it's much better to install it locally project by project. If you would like not to install it globally, use `yarn generator` and `yarn statistics` instead.
 
 ### Install
 
@@ -27,8 +27,6 @@ Using npm:
 or using yarn:
 
 `yarn global add @yancey-inc/lt-cli`
-
-If you would like not to install it globally, use `yarn generator` and `yarn statistics` instead.
 
 ![lt-cli create](https://static.yancey.app/Screen%20Recording%202021-03-28%20at%205.32.18%20PM.gif)
 
