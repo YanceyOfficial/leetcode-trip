@@ -82,7 +82,9 @@ module.exports = {
     },
     algolia: {
       apiKey: '428e3094afa3248dffafdbd793d4ea9d',
+      appId: 'UCJRNXXMOH',
       indexName: 'leetcode-trip',
+      searchParameters: {},
     },
     navbar: {
       title: 'LeetCode Trip',
