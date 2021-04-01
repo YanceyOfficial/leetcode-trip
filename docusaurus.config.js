@@ -75,12 +75,12 @@ module.exports = {
       content:
         '⭐️ For more technical articles, please visit our <a target="_blank" rel="noopener noreferrer" href="https://yanceyleo.com">official website</a>! ⭐️',
     },
-    googleAnalytics: {
+    gtag: {
       trackingID: 'G-HFK851F5W3',
     },
     algolia: {
-      apiKey: 'xxxx',
-      indexName: 'xxxx',
+      apiKey: 'UCJRNXXMOH',
+      indexName: 'leetcode-trip',
       contextualSearch: true,
     },
     navbar: {
