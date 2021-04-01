@@ -9,3 +9,5 @@ export class Node<T> {
     this.right = null
   }
 }
+
+export type TreeNode<T> = Node<T> | null

@@ -1,4 +1,4 @@
-import { Node } from './Node'
+import { Node, TreeNode } from './Node'
 import { Stack } from '../Stack/ObjectStack'
 import { Queue } from '../Queue/Queue'
 import { BST } from './types'
@@ -6,7 +6,7 @@ import { defaultCompare } from '../tools'
 import { Compare, CompareFunction } from '../typings'
 
 export class BinarySearchTree<T> implements BST<T> {
-  private root: Node<T> | null
+  private root: TreeNode<T>
 
   private count: number
 
@@ -41,7 +41,7 @@ export class BinarySearchTree<T> implements BST<T> {
     }
   }
 
-  private maxDepth(node: Node<T> | null) {
+  private maxDepth(node: TreeNode<T>) {
     if (!node) return 0
 
     const left = this.maxDepth(node.left)
@@ -51,7 +51,7 @@ export class BinarySearchTree<T> implements BST<T> {
   }
 
   // 用迭代的方式实现中序遍历
-  private inOrderTraverseByIteration(node: Node<T> | null, callback: Function) {
+  private inOrderTraverseByIteration(node: TreeNode<T>, callback: Function) {
     if (node === null) return
 
     const stack = new Stack<Node<T>>()
@@ -69,10 +69,7 @@ export class BinarySearchTree<T> implements BST<T> {
   }
 
   // 用迭代的方式实现先序遍历
-  private preOrderTraverseByIteration(
-    node: Node<T> | null,
-    callback: Function,
-  ) {
+  private preOrderTraverseByIteration(node: TreeNode<T>, callback: Function) {
     if (node === null) return
 
     const stack = new Stack<Node<T>>()
@@ -92,10 +89,7 @@ export class BinarySearchTree<T> implements BST<T> {
   }
 
   // 用迭代的方式实现后序遍历
-  private postOrderTraverseByIteration(
-    node: Node<T> | null,
-    callback: Function,
-  ) {
+  private postOrderTraverseByIteration(node: TreeNode<T>, callback: Function) {
     if (node === null) return
 
     const stack1 = new Stack<Node<T>>()
@@ -123,7 +117,7 @@ export class BinarySearchTree<T> implements BST<T> {
     }
   }
 
-  private inOrderTraverseNode(node: Node<T> | null, callback: Function) {
+  private inOrderTraverseNode(node: TreeNode<T>, callback: Function) {
     if (node) {
       this.inOrderTraverseNode(node.left, callback)
       callback(node.key)
@@ -131,7 +125,7 @@ export class BinarySearchTree<T> implements BST<T> {
     }
   }
 
-  private preOrderTraverseNode(node: Node<T> | null, callback: Function) {
+  private preOrderTraverseNode(node: TreeNode<T>, callback: Function) {
     if (node) {
       callback(node.key)
       this.preOrderTraverseNode(node.left, callback)
@@ -139,7 +133,7 @@ export class BinarySearchTree<T> implements BST<T> {
     }
   }
 
-  private postOrderTraverseNode(node: Node<T> | null, callback: Function) {
+  private postOrderTraverseNode(node: TreeNode<T>, callback: Function) {
     if (node) {
       this.postOrderTraverseNode(node.left, callback)
       this.postOrderTraverseNode(node.right, callback)
@@ -147,7 +141,7 @@ export class BinarySearchTree<T> implements BST<T> {
     }
   }
 
-  private levelOrderTraverseNode(node: Node<T> | null, callback: Function) {
+  private levelOrderTraverseNode(node: TreeNode<T>, callback: Function) {
     if (node !== null) {
       const queue = new Queue<Node<T>>()
       queue.enqueue(node)
@@ -167,7 +161,7 @@ export class BinarySearchTree<T> implements BST<T> {
     }
   }
 
-  private minNode(node: Node<T> | null) {
+  private minNode(node: TreeNode<T>) {
     if (node) {
       let current = node
       while (current.left) {
@@ -178,7 +172,7 @@ export class BinarySearchTree<T> implements BST<T> {
     return null
   }
 
-  private maxNode(node: Node<T> | null) {
+  private maxNode(node: TreeNode<T>) {
     if (node) {
       let current = node
       while (current.right) {
@@ -189,7 +183,7 @@ export class BinarySearchTree<T> implements BST<T> {
     return null
   }
 
-  private searchNode(node: Node<T> | null, key: T) {
+  private searchNode(node: TreeNode<T>, key: T) {
     if (!node) return false
 
     if (key < node.key) {
@@ -201,7 +195,7 @@ export class BinarySearchTree<T> implements BST<T> {
     return true
   }
 
-  private removeNode(node: Node<T> | null, key: T) {
+  private removeNode(node: TreeNode<T>, key: T) {
     if (node === null) {
       return null
     }
