@@ -16,9 +16,9 @@ keywords:
 
 :::info 示例
 
-输入:
+输入: TreeNode 实例
 
-输出:
+输出: 每个 TreeNode 节点的 val 组成的数组
 :::
 
 ## 题解
