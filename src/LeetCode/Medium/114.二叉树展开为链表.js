@@ -18,24 +18,22 @@
  * @return {void} Do not return anything, modify root in-place instead.
  */
 var flatten = function (root) {
-  if (!root) return root
+  if (root !== null) return
 
-  flatten(root.left)
-  flatten(root.right)
+  const stack = [root]
+  let prev = null
 
-  // 1. 后序遍历: 左右子树已经被拉平成一条链表
-  const left = root.left
-  const right = root.right
+  while (stack.length !== 0) {
+    const curr = stack.pop()
+    if (prev !== null) {
+      prev.left = null
+      prev.right = curr
+    }
 
-  // 2. 将左子树作为右子树
-  root.left = null
-  root.right = left
+    if (curr.right !== null) stack.push(curr.right)
+    if (curr.left !== null) stack.push(curr.left)
 
-  // 3. 将原先的右子树接到当前右子树的末端
-  let p = root
-  while (p.right !== null) {
-    p = p.right
+    prev = curr
   }
-  p.right = right
 }
 // @lc code=end
