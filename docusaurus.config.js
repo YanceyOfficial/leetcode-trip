@@ -79,9 +79,8 @@ module.exports = {
       trackingID: 'UA-193598199-1',
     },
     algolia: {
-      apiKey: 'UCJRNXXMOH',
+      apiKey: '428e3094afa3248dffafdbd793d4ea9d',
       indexName: 'leetcode-trip',
-      contextualSearch: true,
     },
     navbar: {
       title: 'LeetCode Trip',
