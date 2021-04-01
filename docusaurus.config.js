@@ -69,22 +69,21 @@ module.exports = {
     },
     colorMode: {
       defaultMode: 'dark',
+      respectPrefersColorScheme: true,
     },
     announcementBar: {
       id: 'referral-traffic',
       content:
-        '⭐️ For more technical articles, please visit our <a target="_blank" rel="noopener noreferrer" href="https://yanceyleo.com">official website</a>! ⭐️',
+        '⭐️ For more technical articles, please visit my <a target="_blank" rel="noopener noreferrer" href="https://yanceyleo.com">official website</a>! ⭐️',
     },
     googleAnalytics: {
       trackingID: 'UA-193598199-1',
-      // Optional fields.
-      anonymizeIP: true, // Should IPs be anonymized?
+      anonymizeIP: true,
     },
     algolia: {
       apiKey: '428e3094afa3248dffafdbd793d4ea9d',
       appId: 'UCJRNXXMOH',
       indexName: 'leetcode-trip',
-      searchParameters: {},
     },
     navbar: {
       title: 'LeetCode Trip',
