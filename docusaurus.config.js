@@ -75,8 +75,8 @@ module.exports = {
       content:
         '⭐️ For more technical articles, please visit our <a target="_blank" rel="noopener noreferrer" href="https://yanceyleo.com">official website</a>! ⭐️',
     },
-    gtag: {
-      trackingID: 'G-HFK851F5W3',
+    googleAnalytics: {
+      trackingID: 'UA-193598199-1',
     },
     algolia: {
       apiKey: 'UCJRNXXMOH',
