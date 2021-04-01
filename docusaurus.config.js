@@ -15,6 +15,7 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'Yancey Inc.',
   projectName: 'leetcode-trip',
+  themes: ['@docusaurus/theme-live-codeblock'],
   plugins: [
     [
       '@docusaurus/plugin-content-docs',
@@ -63,6 +64,20 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    liveCodeBlock: {
+      playgroundPosition: 'bottom',
+    },
+    colorMode: {
+      defaultMode: 'dark',
+    },
+    announcementBar: {
+      id: 'referral-traffic',
+      content:
+        '⭐️ For more technical articles, please visit our <a target="_blank" rel="noopener noreferrer" href="https://yanceyleo.com">official website</a>! ⭐️',
+    },
+    googleAnalytics: {
+      trackingID: 'G-HFK851F5W3',
+    },
     algolia: {
       apiKey: 'xxxx',
       indexName: 'xxxx',
