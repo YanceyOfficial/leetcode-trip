@@ -77,6 +77,8 @@ module.exports = {
     },
     googleAnalytics: {
       trackingID: 'UA-193598199-1',
+      // Optional fields.
+      anonymizeIP: true, // Should IPs be anonymized?
     },
     algolia: {
       apiKey: '428e3094afa3248dffafdbd793d4ea9d',
