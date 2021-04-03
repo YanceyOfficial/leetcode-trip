@@ -1,0 +1,79 @@
+---
+id: 654-construct-maximum-binary-tree
+title: 最大二叉树
+sidebar_label: 654. 最大二叉树
+---
+
+## 题目
+
+给定一个**不含重复元素**的整数数组 `nums`, 以此数组直接递归构建**最大二叉树**:
+
+1. 二叉树的根是数组 `nums` 中的最大元素
+2. 左子树是通过数组中**最大值左边部分**递归构造出的最大二叉树
+3. 右子树是通过数组中**最大值右边部分**递归构造出的最大二叉树
+
+:::info 示例
+
+输入: nums = [3, 2, 1, 6, 0, 5]
+
+输出:
+
+```ts
+     6
+   /   \
+  3     5
+   \    /
+    2  0
+     \
+      1
+
+解释:
+
+- 首先最大的是 6, 因此左边一坨就是 [3, 2, 1], 右边是 [0, 5]
+    - 左边一坨最大的是 3, 此时它左边为 [], 右边是 [2, 1]
+        - 左边一坨数组为空了, 返回 null
+        - 右边一坨最大的是 1, 此时它左边为 [], 右边是 [1]
+            - 左边一坨数组为空了, 返回 null
+            - 右边一坨只有一个节点 1
+    - 右边一坨最大的是 5, 此时它左边为 [0], 右边是 []
+        - 左边一坨只有一个节点 1
+        - 右边一坨数组为空了, 返回 null
+```
+
+:::
+
+## 题解
+
+题目都说了, 用递归, 那也就没啥太多可讲的了.
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {number[]} nums
+ * @return {TreeNode}
+ */
+var constructMaximumBinaryTree = function (nums) {
+  // nums 长度为 0 了, 即没有节点了, 返回 null 完事
+  if (nums.length === 0) return null
+
+  // 找到最大值及其索引
+  const max = Math.max(...nums)
+  const index = nums.indexOf(max)
+
+  // 构造树节点的实例, val 赋值为 max
+  const root = new TreeNode(max)
+
+  // 递归就完事了
+  root.left = constructMaximumBinaryTree(nums.slice(0, index))
+  root.right = constructMaximumBinaryTree(nums.slice(index + 1))
+
+  return root
+}
+```
