@@ -38,7 +38,7 @@ keywords:
 
 这道题最重要的还是得清楚前序遍历和中序遍历的定义 (注: 蓝色背景代表根, 红色背景代表左, 绿色背景代表右):
 
-前序遍历: 根 -> 左 -> 右. 在示例中: <span style={{background: 'blue'}}>3</span><span style={{background: 'red'}}> 9 20 15 </span><span style={{background: 'green'}}>7</span>
+前序遍历: 根 -> 左 -> 右. 在示例中: <span style={{background: 'blue'}}>3</span><span style={{background: 'red'}}> 9 </span><span style={{background: 'green'}}>20 15 7</span>
 
 中序遍历: 左 -> 根 -> 右. 在示例中: <span style={{background: 'red'}}>9</span><span style={{background: 'blue'}}> 3 </span><span style={{background: 'green'}}>15 20 7</span>
 
