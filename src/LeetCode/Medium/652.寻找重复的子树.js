@@ -17,5 +17,7 @@
  * @param {TreeNode} root
  * @return {TreeNode[]}
  */
-var findDuplicateSubtrees = function (root) {}
+var findDuplicateSubtrees = function (root) {
+    
+}
 // @lc code=end

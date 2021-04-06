@@ -2,7 +2,12 @@
 id: 652-find-duplicate-subtrees
 title: 寻找重复的子树
 sidebar_label: 652. 寻找重复的子树
+keywords:
+  - Tree
 ---
+
+:::success Tips
+题目类型: Tree
 
 ## 题目
 
@@ -33,6 +38,8 @@ sidebar_label: 652. 寻找重复的子树
  * @param {TreeNode} root
  * @return {TreeNode[]}
  */
-var findDuplicateSubtrees = function (root) {}
+var findDuplicateSubtrees = function (root) {
+
+}
 
 ```

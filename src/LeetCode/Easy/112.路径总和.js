@@ -7,22 +7,23 @@
 // @lc code=start
 /**
  * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
  * }
  */
 /**
  * @param {TreeNode} root
- * @param {number} sum
+ * @param {number} targetSum
  * @return {boolean}
  */
-var hasPathSum = function (root, sum) {
+ var hasPathSum = function(root, targetSum) {
   if (root === null) return false
-  if (root.left === null && root.right === null && root.val === sum) return true
+  if (root.left === null && root.right === null && root.val === targetSum) return true
 
-  let left = hasPathSum(root.left, sum - root.val)
-  let right = hasPathSum(root.right, sum - root.val)
+  const left = hasPathSum(root.left, targetSum - root.val)
+  const right = hasPathSum(root.right, targetSum - root.val)
   return left || right
-}
+};
 // @lc code=end
