@@ -74,7 +74,7 @@ module.exports = {
     announcementBar: {
       id: 'referral-traffic',
       content:
-        '⭐️ For more technical articles, please visit my <a target="_blank" rel="noopener noreferrer" href="https://yanceyleo.com">official website</a>! ⭐️',
+        '⭐️ Want more technical articles? Please visit my <a target="_blank" rel="noopener noreferrer" href="https://yanceyleo.com">official website</a>! ⭐️',
     },
     googleAnalytics: {
       trackingID: 'UA-193598199-1',
@@ -109,11 +109,6 @@ module.exports = {
           label: 'Data Structure',
           position: 'left',
           activeBaseRegex: '/data-structure/',
-        },
-        {
-          href: 'https://yanceyleo.com',
-          label: 'Blog',
-          position: 'right',
         },
         {
           href: 'https://github.com/YanceyOfficial/natsuha-weather',
