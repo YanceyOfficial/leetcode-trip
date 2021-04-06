@@ -9,7 +9,7 @@ keywords:
 :::success Tips
 题目类型: Tree
 
-相关题目: [113. 路径总和-ii](/leetcode/meduim/113-path-sum)
+相关题目: [113. 路径总和-ii](/leetcode/medium/113-path-sum)
 :::
 
 ## 题目
