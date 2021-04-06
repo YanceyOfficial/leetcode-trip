@@ -111,6 +111,11 @@ module.exports = {
           activeBaseRegex: '/data-structure/',
         },
         {
+          href: 'https://yanceyleo.com',
+          label: 'Blog',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/YanceyOfficial/natsuha-weather',
           label: 'Natsuha Weather ☁️',
           position: 'right',
