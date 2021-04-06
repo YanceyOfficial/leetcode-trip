@@ -2,7 +2,13 @@
 id: 129-sum-numbers
 title: 求根节点到叶节点数字之和
 sidebar_label: 129. 求根节点到叶节点数字之和
+keywords:
+  - Tree
 ---
+
+:::success Tips
+题目类型: Tree
+:::
 
 ## 题目
 
