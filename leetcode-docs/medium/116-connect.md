@@ -2,7 +2,13 @@
 id: 116-connect
 title: 填充每个节点的下一个右侧节点指针
 sidebar_label: 116. 填充每个节点的下一个右侧节点指针
+keywords:
+  - Tree
 ---
+
+:::success Tips
+题目类型: Tree
+:::
 
 ## 题目
 
