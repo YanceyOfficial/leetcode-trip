@@ -17,6 +17,16 @@ keywords:
 
 输入:
 
+```ts
+    1
+   / \
+  2   3
+ /   / \
+4   2   4
+   /
+  4
+```
+
 输出:
 :::
 
@@ -25,7 +35,6 @@ keywords:
 这里是题解这里是题解这里是题解这里是题解这里是题解
 
 ```ts
-
 /**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
@@ -38,8 +47,5 @@ keywords:
  * @param {TreeNode} root
  * @return {TreeNode[]}
  */
-var findDuplicateSubtrees = function (root) {
-
-}
-
+var findDuplicateSubtrees = function (root) {}
 ```
