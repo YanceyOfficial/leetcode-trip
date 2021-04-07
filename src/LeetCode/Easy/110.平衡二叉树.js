@@ -23,12 +23,16 @@ var isBalanced = function (root) {
   const leftHeight = getHeight(root.left)
   const rightHeight = getHeight(root.right)
   return (
+    // 判断当前子树是否是平衡树
     Math.abs(leftHeight - rightHeight) <= 1 &&
+    // 判断当前子树的左子树是否是平衡树
     isBalanced(root.left) &&
+    // 判断当前子树的右子树是否是平衡树
     isBalanced(root.right)
   )
 }
 
+// 计算 root 的最大高度
 var getHeight = function (root) {
   if (root === null) return 0
   return Math.max(getHeight(root.left), getHeight(root.right)) + 1

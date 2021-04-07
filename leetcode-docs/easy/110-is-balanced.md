@@ -12,7 +12,15 @@ sidebar_label: 110. 平衡二叉树
 
 输入:
 
-输出:
+```ts
+   3
+ /  \
+9   20
+    / \
+   15  7
+```
+
+输出: true
 :::
 
 ## 题解
@@ -20,6 +28,10 @@ sidebar_label: 110. 平衡二叉树
 :::info 推荐阅读
 关于平衡二叉树的详细介绍, 请访问[平衡二叉树](/data-structure/tree/avl).
 :::
+
+### 自顶而下
+
+构造一个获取当前节点最大深度的方法 `depth(root)`, 通过比较此子树的左右子树的最大高度差 `Math.abs(depth(root.left) - depth(root.right))`, 来判断此子树是否是二叉平衡树. 若树的所有子树都平衡时, 此树才平衡.
 
 ```ts
 /**
@@ -34,5 +46,58 @@ sidebar_label: 110. 平衡二叉树
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isBalanced = function (root) {}
+var isBalanced = function (root) {
+  if (root === null) return true
+
+  const leftHeight = depth(root.left)
+  const rightHeight = depth(root.right)
+  return (
+    // 判断当前子树是否是平衡树
+    Math.abs(leftHeight - rightHeight) <= 1 &&
+    // 判断当前子树的左子树是否是平衡树
+    isBalanced(root.left) &&
+    // 判断当前子树的右子树是否是平衡树
+    isBalanced(root.right)
+  )
+}
+
+// 计算 root 的最大高度
+var depth = function (root) {
+  if (root === null) return 0
+  return Math.max(depth(root.left), depth(root.right)) + 1
+}
 ```
+
+- 时间复杂度: O(nlogn), 最差情况下， `isBalanced(root)` 遍历树所有节点，占用 `O(n)`; 判断每个节点的最大高度 `depth(root)` 需要遍历**各子树**的所有节点, 即 n, 因此总的时间复杂度为 `O(nlogn)`.
+
+- 空间复杂度: O(n), 即 root 退化成链表时.
+
+### 自底而上
+
+```ts
+var isBalanced = function (root) {
+  return depth(root) !== -1
+}
+
+var depth = function (root) {
+  // 递归终止条件 1: 当前节点不存在
+  if (root === null) return 0
+
+  // 递归终止条件 2: 左子树不是平衡树, 直接返回 -1
+  let left = depth(root.left)
+  if (left === -1) return -1
+
+  // 递归终止条件 3: 右子树不是平衡树, 直接返回 -1
+  let right = depth(root.right)
+  if (right === -1) return -1
+
+  // 递归返回值:
+  // 当节点 root 左右子树的高度差 < 2 时, 返回以节点 root 为根节点的子树的最大高度, 即 Math.max(left, right) + 1
+  // 否则返回 -1
+  return Math.abs(left - right) < 2 ? Math.max(left, right) + 1 : -1
+}
+```
+
+- 时间复杂度 O(n): 最差情况下, 需要递归遍历树的所有节点.
+
+- 空间复杂度 O(n): 最差情况下, 即树退化为链表时, 递归需要使用 O(n) 的栈空间.
