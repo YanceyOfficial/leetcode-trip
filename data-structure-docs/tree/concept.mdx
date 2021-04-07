@@ -1,7 +1,7 @@
 ---
-id: tree
-title: 树
-sidebar_label: 树
+id: concept
+title: 树的概念
+sidebar_label: 树的概念
 ---
 
 ## 基本概念
@@ -32,37 +32,14 @@ sidebar_label: 树
 
 - 二叉搜索树(BST): 只允许在左侧存储比父节点小的值, 在右侧存储比父节点大的值, 开篇图就是一棵二叉搜索树.
 
-## 树的遍历
-
-树的遍历分为**深度优先遍历(先序遍历, 中序遍历, 后序遍历)**和**广度优先遍历(层序遍历)**.
-
-### 中序遍历
-
-先序遍历是先访问左, 再访问根, 最后访问右. 它会保证从小到大的顺序遍历, 可用来排序.
-
-![中序遍历](../../static/img/inOrderTraverse.jpg)
-
-### 先序遍历
-
-先序遍历是先访问根, 再访问左, 最后访问右. 可用来打印一个结构化的文档.
-
-![先序遍历](../../static/img/preOrderTraverse.jpg)
-
-### 后序遍历
-
-后序遍历是先访问左, 再访问右, 最后访问根. 可以用来计算一个目录及其子目录中所有文件所占空间的大小.
-
-![后序遍历](../../static/img/postOrderTraverse.jpg)
-
-## 树的几种特殊类型
+## 几种特殊树
 
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <img
   style={{
     display: 'block',
-    margin: '24px auto',
-    textAlgin: 'center',
+    margin: '24px 0',
     background: '#fff',
   }}
   src={useBaseUrl('/img/222-count-nodes.png')}
