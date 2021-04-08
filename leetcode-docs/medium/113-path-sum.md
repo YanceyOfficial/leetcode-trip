@@ -8,20 +8,30 @@ keywords:
 ---
 
 :::success Tips
-题目类型: Tree
+题目类型: [Tree](/data-structure/tree/concept) | [Backtrack](/algorithm-design/backtrack)
 
 相关题目: [112. 路径总和](/leetcode/easy/112-has-path-sum)
 :::
 
 ## 题目
 
-这里是题目这里是题目这里是题目这里是题目这里是题目
+给你二叉树的根节点 root 和一个整数目标和 targetSum, 找出所有**从根节点到叶子节点**路径总和等于给定目标和的路径.
 
 :::info 示例
 
-输入:
+输入: root = 如下, targetSum = 22
 
-输出:
+```ts
+      5
+     / \
+    4   8
+   /   / \
+  11  13  4
+ /  \      \
+7    2      1
+```
+
+输出: `[[5,4,11,2],[5,8,4,5]]`
 :::
 
 ## 题解
