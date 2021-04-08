@@ -2,7 +2,13 @@
 id: 236-lowest-common-ancestor
 title: 二叉树的最近公共祖先
 sidebar_label: 236. 二叉树的最近公共祖先
+keywords:
+  - Tree
 ---
+
+:::success Tips
+题目类型: Tree
+:::
 
 ## 题目
 
