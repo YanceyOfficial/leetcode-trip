@@ -1,3 +1,3 @@
 module.exports = {
-  docs: ['mdx'],
+  docs: ['default'],
 }
