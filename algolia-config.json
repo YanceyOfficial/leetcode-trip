@@ -1,11 +1,7 @@
 {
   "index_name": "leetcode-trip",
-  "start_urls": [
-    "https://algorithm.yanceyleo.com/"
-  ],
-  "sitemap_urls": [
-    "https://algorithm.yanceyleo.com/sitemap.xml"
-  ],
+  "start_urls": ["https://algorithm.yanceyleo.com/"],
+  "sitemap_urls": ["https://algorithm.yanceyleo.com/sitemap.xml"],
   "sitemap_alternate_links": true,
   "stop_urls": [],
   "selectors": {
@@ -23,18 +19,11 @@
     "lvl6": "article h6",
     "text": "article p, article li, article td:last-child"
   },
-  "selectors_exclude": [
-    ".hash-link"
-  ],
+  "selectors_exclude": [".hash-link"],
   "strip_chars": " .,;:#",
   "custom_settings": {
     "separatorsToIndex": "_",
-    "attributesForFaceting": [
-      "language",
-      "version",
-      "type",
-      "docusaurus_tag"
-    ],
+    "attributesForFaceting": ["language", "version", "type", "docusaurus_tag"],
     "attributesToRetrieve": [
       "hierarchy",
       "content",
@@ -44,8 +33,6 @@
       "type"
     ]
   },
-  "conversation_id": [
-    "833762294"
-  ],
+  "conversation_id": ["833762294"],
   "nb_hits": 16653
 }
