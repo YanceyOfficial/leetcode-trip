@@ -1,0 +1,83 @@
+---
+id: 230-kth-smallest
+title: 二叉搜索树中第k小的元素
+sidebar_label: 230. 二叉搜索树中第k小的元素
+keywords:
+  - Tree
+---
+
+:::success Tips
+题目类型: Tree
+:::
+
+## 题目
+
+给定一个二叉搜索树的根节点 root, 和一个整数 k, 请你设计一个算法查找其中第 k 个最小元素(从 1 开始计数).
+
+:::info 示例
+
+输入: root = 如下, k = 3
+输出：3
+
+```ts
+      5
+     / \
+    3   6
+   / \
+  2   4
+ /
+1
+```
+
+输出: 3
+
+解释: 第三小的数字就是 3
+:::
+
+## 题解
+
+:::success review
+
+- 若任意节点的左子树不空, 则左子树上所有节点的值均小于它的根节点的值;
+- 若任意节点的右子树不空, 则右子树上所有节点的值均大于它的根节点的值;
+- 任意节点的左、右子树也分别为二叉查找树;
+- **BST 的中序遍历结果是有序的(升序).**
+:::
+
+利用中序遍历去遍历 BST 到 k 次, 返回 root.val 即可.
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+var kthSmallest = function (root, k) {
+  let res = null
+
+  let inOrderTraverseNode = function (node) {
+    if (node !== null && k > 0) {
+      // 先遍历左子树
+      inOrderTraverseNode(node.left)
+      // 然后根节点
+      if (--k === 0) {
+        res = node.val
+        return
+      }
+      // 再遍历右子树
+      inOrderTraverseNode(node.right)
+    }
+  }
+
+  inOrderTraverseNode(root)
+  return res
+}
+```
