@@ -2,7 +2,16 @@
 id: 700-search-bst
 title: 二叉搜索树中的搜索
 sidebar_label: 700. 二叉搜索树中的搜索
+keywords:
+  - Tree
+  - BST
 ---
+
+:::success Tips
+题目类型: Tree, BST
+
+相关题目: [700. 二叉搜索树中的搜索](/leetcode/easy/700-search-bst), [701. 二叉搜索树中的插入操作](/leetcode/medium/701-insert-into-bst)
+:::
 
 ## 题目
 

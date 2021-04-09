@@ -2,7 +2,16 @@
 id: 98-is-valid-bst
 title: 验证二叉搜索树
 sidebar_label: 98. 验证二叉搜索树
+keywords:
+  - Tree
+  - BST
 ---
+
+:::success Tips
+题目类型: Tree, BST
+
+相关题目: [98. 验证二叉搜索树](/leetcode/medium/98-is-valid-bst), [701. 二叉搜索树中的插入操作](/leetcode/medium/701-insert-into-bst)
+:::
 
 ## 题目
 
