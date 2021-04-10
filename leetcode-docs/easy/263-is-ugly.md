@@ -1,0 +1,60 @@
+---
+id: 263-is-ugly
+title: 丑数
+sidebar_label: 263. 丑数
+keywords:
+  - Math
+---
+
+:::success Tips
+题目类型: Math
+
+相关题目: [264. 丑数-ii](/leetcode/medium/264-nth-ugly-number)
+:::
+
+## 题目
+
+编写一个程序判断给定的数是否为丑数. 丑数就是只包含质因数 2, 3, 5 的**正整数**, 注意 1 也是丑数.
+
+:::info 示例
+
+输入: 8
+
+输出: true
+
+解释: 8 = 2 \* 2 \* 2
+:::
+
+## 题解
+
+这题没啥难的, 就是只要 num 能够除以 2, 3, 5, 那就除到头. 如果最后结果等于 1, 说明就是丑数. 当然题目说了丑数只存在于**正整数中**, 因此先把 0 和负数过滤掉.
+
+```ts
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+var isUgly = function (num) {
+  if (num <= 0) return false
+
+  while (num % 2 === 0) {
+    num /= 2
+  }
+
+  while (num % 3 === 0) {
+    num /= 3
+  }
+
+  while (num % 5 === 0) {
+    num /= 5
+  }
+
+  return num === 1
+}
+```
+
+## 复杂度
+
+时间复杂度: O(logn). 时间复杂度取决于对 n 除以 2,3,5 的次数，由于每次至少将 n 除以 2, 因此除法运算的次数不会超过 O(logn).
+
+空间复杂度：O(1)
