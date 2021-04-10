@@ -28,7 +28,7 @@ or using yarn:
 
 `yarn global add @yancey-inc/lt-cli`
 
-![lt-cli create](https://static.yancey.app/Screen%20Recording%202021-03-28%20at%205.32.18%20PM.gif)
+![lt-cli](https://static.yancey.app/lt-cli.gif)
 
 ## Contributing
 
