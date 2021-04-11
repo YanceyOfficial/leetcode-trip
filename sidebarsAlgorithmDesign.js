@@ -5,6 +5,7 @@ module.exports = {
     'bit-manipulation',
     'dfs-bfs',
     'recursion',
+    'union-find',
     {
       十大排序算法: ['sort/menu', 'sort/bubble', 'sort/heap'],
     },

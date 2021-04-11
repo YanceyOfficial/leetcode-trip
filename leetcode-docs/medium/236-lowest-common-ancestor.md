@@ -101,7 +101,7 @@ var lowestCommonAncestor = function (root, p, q) {
 
 对于上面的代码, 因为我们使用的**后序遍历**, 即从下往上走, 因此递归结束的返回值, 也就是离 p, q 最近的了.
 
-## 附: The testing tree instance
+## 附: The testing Tree instance
 
 ```ts
 function TreeNode(val, left, right) {

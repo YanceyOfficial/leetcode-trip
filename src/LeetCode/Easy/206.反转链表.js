@@ -16,17 +16,16 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var reverseList = function(head) {
-  let prev = null,
-    curr = head
+var reverseList = function (head) {
+  if (head === null || head.next === null) return head
 
-  while (curr) {
-    const nextTemp = curr.next
-    curr.next = prev
-    prev = curr
-    curr = nextTemp
-  }
+  const p = reverseList(head.next) // 递的过程: 找到尾部节点
 
-  return prev
+  // 归的过程, 将尾部节点的 next 设为 head
+  head.next.next = head
+  // 并将 head 的 next 设为 null
+  head.next = null
+
+  return p
 }
 // @lc code=end
