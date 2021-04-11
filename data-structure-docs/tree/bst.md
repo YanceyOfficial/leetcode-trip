@@ -24,7 +24,7 @@ export type TreeNode<T> = Node<T> | null
 
 export interface BST<T> {
   insert(key: T): void // 向树中插入一个新的键
-  search(key: T): boolean // 在树中查找一个键。如果节点存在，则返回 true;如果不存在，则返回 false
+  search(key: T): boolean // 在树中查找一个键. 如果节点存在, 则返回 true;如果不存在, 则返回 false
   remove(key: T): void // 从树中移除某个键
   inOrderTraverse(callback: Function): void // 中序遍历
   preOrderTraverse(callback: Function): void // 先序遍历

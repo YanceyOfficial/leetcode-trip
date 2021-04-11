@@ -11,7 +11,7 @@ function knapsack(weights, values, w) {
   let f = [[]] // 定义 f 的矩阵
   for (let j = 0; j <= w; j++) {
     if (j < weights[0]) {
-      // 容量装不下物品 0 的重量，价值为 0
+      // 容量装不下物品 0 的重量, 价值为 0
       f[0][j] = 0
     } else {
       f[0][j] = values[0] // 否则容量为物品 0 的价值

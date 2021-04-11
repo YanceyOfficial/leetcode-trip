@@ -17,7 +17,7 @@ keywords:
 :::info 示例
 
 输入: root = 如下, k = 3
-输出：3
+输出: 3
 
 ```ts
       5
