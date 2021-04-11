@@ -16,34 +16,44 @@
  * @param {ListNode} head
  * @return {boolean}
  */
-var isPalindrome = function(head) {
+var isPalindrome = function (head) {
   if (head === null || head.next === null) return true
 
   let slow = head,
-    fast = head,
-    prev = null
+    fast = head
 
-  while (slow) {
-    if (fast && fast.next) {
-      fast = fast.next.next
-      const temp = slow
-      slow = slow.next
-      temp.next = prev
-      prev = temp
-    } else {
-      if (fast) {
-        fast = null
-        slow = slow.next
-      }
-
-      if (prev.val !== slow.val) {
-        return false
-      }
-      slow = slow.next
-      prev = prev.next
-    }
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next
+    fast = fast.next.next
   }
 
+  if (fast !== null) {
+    slow = slow.next
+  }
+
+  let left = head
+  let right = reverse(slow)
+
+  while (right !== null) {
+    if (left.val !== right.val) return false
+    left = left.next
+    right = right.next
+  }
+  
   return true
+}
+
+var reverse = function (head) {
+  let prev = null,
+    curr = head
+
+  while (curr) {
+    const next = curr.next
+    curr.next = prev
+    prev = curr
+    curr = next
+  }
+
+  return prev
 }
 // @lc code=end
