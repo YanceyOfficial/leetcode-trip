@@ -1,13 +1,13 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  roots: ['__tests__', 'src/DataStructures', 'src/algorithm-design'],
+  roots: ['__tests__', 'src/data-structures', 'src/algorithm-design'],
   testRegex: ['.spec.ts$', '.e2e-spec.ts'],
   moduleFileExtensions: ['js', 'json', 'ts'],
   collectCoverage: true,
   coverageDirectory: './coverage',
   collectCoverageFrom: [
-    'src/DataStructures/**/*.ts',
+    'src/data-structures/**/*.ts',
     'src/algorithm-design/**/*.ts',
     '!**/node_modules/**',
   ],

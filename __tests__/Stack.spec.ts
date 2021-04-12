@@ -1,4 +1,4 @@
-import { baseConverter } from '../src/DataStructures/Stack/baseConverter'
+import { baseConverter } from '../src/data-structures/Stack/base-converter'
 
 describe('baseConverter', () => {
   test('baseConverter(100345, 2): "11000011111111001"', () => {

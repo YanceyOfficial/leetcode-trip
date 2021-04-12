@@ -23,11 +23,4 @@ export class DoublyLinkedList<T> extends LinkedList<T> {
     }
     this.count++
   }
-
-  public insert(element: T, index: number) {
-    if (index < 0 || index > this.count - 1) return false
-
-    const node = new DoublyNode(element)
-    return true
-  }
 }
