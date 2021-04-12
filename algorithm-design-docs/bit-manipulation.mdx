@@ -1,7 +1,7 @@
 ---
 id: bit-manipulation
-title: 位运算的一些技巧
-sidebar_label: 位运算的一些技巧
+title: 位运算
+sidebar_label: 位运算
 ---
 
 ## 判断两个数是否异号
@@ -16,9 +16,13 @@ const isContrarySign = (2 ^ 1) < 0 // false
 
 ## n & (n - 1)
 
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import useBaseUrl from '@docusaurus/useBaseUrl'
 
-<img src={useBaseUrl('/img/191-hamming-weight.png')} alt="191-hamming-weight" style={{background: '#fff'}} />
+<img
+  src={useBaseUrl('/img/191-hamming-weight.png')}
+  alt='191-hamming-weight'
+  style={{ background: '#fff' }}
+/>
 
 其核心逻辑是 n - 1 一定可以消除最后一个 1, 同时把其后的 0 都变成 1, 这样再和 n 做一次 & 运算, 就可以仅仅把最后一个 1 变成 0 了.
 

@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 export function fibonacci(n: number) {
   if (n <= 1) {
     return n
@@ -20,9 +18,9 @@ export function fibonacci(n: number) {
   return current
 }
 
-function memorize(f) {
+function memorize(f: Function) {
   const cache = {}
-  return function() {
+  return function () {
     const key = Array.prototype.join.call(arguments, ',')
     if (key in cache) {
       return cache[key]
@@ -36,5 +34,3 @@ export function fibonacci1(n: number) {
   if (n === 0 || n === 1) return n
   return fibonacci1(n - 1) + fibonacci1(n - 2)
 }
-
-console.log(fibonacci1(7))

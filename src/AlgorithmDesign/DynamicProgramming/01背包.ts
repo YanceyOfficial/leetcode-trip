@@ -6,9 +6,9 @@
  * @param {Number} w 背包能装多少重量
  * @returns
  */
-function knapsack(weights, values, w) {
+function knapsack(weights: number[], values: number[], w: number) {
   let n = weights.length - 1 // 获取物品个数
-  let f = [[]] // 定义 f 的矩阵
+  let f: number[][] = [[]] // 定义 f 的矩阵
   for (let j = 0; j <= w; j++) {
     if (j < weights[0]) {
       // 容量装不下物品 0 的重量, 价值为 0

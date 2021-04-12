@@ -1,4 +1,4 @@
-import { ITreeNode } from './treeNode'
+import { ITreeNode } from './TreeNode'
 
 // 递归法的深度优先遍历, 实现先序遍历
 const DFSByRecursion = <T>(root: ITreeNode<T> | null, callback: Function) => {
@@ -15,7 +15,7 @@ const DFSByRecursion = <T>(root: ITreeNode<T> | null, callback: Function) => {
 }
 
 // 迭代法的深度优先遍历, 使用栈, 实现先序遍历
-const DFSByIteration = <T>(root: ITreeNode<T> | null, callback: Function) => {
+export const DFSByIteration = <T>(root: ITreeNode<T> | null, callback: Function) => {
   if (root === null) return
 
   const stack = [root]

@@ -1,7 +1,7 @@
 ---
 id: dfs-bfs
-title: 深度/广度优先遍历
-sidebar_label: 深度/广度优先遍历
+title: DFS / BFS
+sidebar_label: DFS / BFS
 ---
 
 ## 综述

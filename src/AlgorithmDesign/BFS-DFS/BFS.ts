@@ -1,6 +1,6 @@
-import { ITreeNode } from './treeNode'
+import { ITreeNode } from './TreeNode'
 
-const BFS = <T>(root: ITreeNode<T>, callback: Function) => {
+export const BFS = <T>(root: ITreeNode<T>, callback: Function) => {
   if (!root) return null
 
   const queue = [root]
