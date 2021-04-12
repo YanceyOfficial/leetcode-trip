@@ -14,4 +14,6 @@ LeetCode Trip comes with a built-in CLI which can be used to generate template m
 
 - `lt-cli statistics`: To do statistical analysis.
 
+- `lt-cli upgrade`: To upgrade lt-cli.
+
 ![lt-cli](https://static.yancey.app/lt-cli.gif)
