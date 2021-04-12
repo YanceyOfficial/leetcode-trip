@@ -3,7 +3,8 @@
 const { program } = require('commander')
 const chalk = require('chalk')
 const leven = require('leven')
-const package = require('../package.json')
+const packages = require('../package.json')
+const { upgrade } = require('../lib/upgrade')
 
 function suggestCommands(unknownCommand) {
   const availableCommands = program.commands.map((cmd) => cmd._name)
@@ -23,7 +24,7 @@ function suggestCommands(unknownCommand) {
   }
 }
 
-program.version(`v${package.version}`).usage('<command> [options]')
+program.version(`v${packages.version}`).usage('<command> [options]')
 
 program
   .command('create')
@@ -43,7 +44,7 @@ program
   .command('upgrade')
   .description('升级脚手架')
   .action(() => {
-    require('../lib/upgrade.js')
+    upgrade('npm install -g @yancey-inc/lt-cli@latest', packages.version)
   })
 
 // output help information on unknown commands

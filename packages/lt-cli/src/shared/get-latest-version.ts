@@ -2,7 +2,6 @@
 import fetch from 'node-fetch'
 import compareVersions from 'compare-versions'
 import chalk from 'chalk'
-import packages from '../../package.json'
 import { tagsAPI } from './constants'
 
 interface Tag {
@@ -29,9 +28,8 @@ export const getLatestVersion = async () => {
   return ''
 }
 
-export const needUpgrade = async () => {
+export const needUpgrade = async (currVersion: string) => {
   const latestVersion = await getLatestVersion()
-  const currVersion = packages.version
 
   const shouldUpgrade = compareVersions(latestVersion, currVersion) === 1
 
@@ -42,7 +40,7 @@ export const needUpgrade = async () => {
       ),
     )
   } else {
-    console.log(chalk.green(`已经是最新版本 v${latestVersion}, 无需升级.`))
+    console.log(chalk.green(`\n已经是最新版本 v${latestVersion}, 无需升级.`))
   }
 
   return shouldUpgrade
