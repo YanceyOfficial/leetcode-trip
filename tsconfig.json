@@ -13,7 +13,8 @@
     "esModuleInterop": true,
     "strictNullChecks": true,
     "types": ["node", "jest"],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   },
   "include": ["src/**/*", "__test__/**/*"],
   "exclude": ["node_modules"]
