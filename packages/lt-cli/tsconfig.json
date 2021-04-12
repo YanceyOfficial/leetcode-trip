@@ -13,7 +13,8 @@
     "esModuleInterop": true,
     "strictNullChecks": true,
     "types": ["node"],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"]
 }

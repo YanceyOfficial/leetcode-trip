@@ -1,6 +1,7 @@
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import filesize from 'rollup-plugin-filesize'
+import json from '@rollup/plugin-json'
 import process from 'process'
 
 const plugins = [
@@ -12,6 +13,7 @@ const plugins = [
   }),
   terser(),
   filesize(),
+  json(),
 ]
 
 export default [
@@ -28,6 +30,14 @@ export default [
     plugins,
     output: {
       file: 'lib/statistics.js',
+      format: 'cjs',
+    },
+  },
+  {
+    input: 'src/shared/upgrade.ts',
+    plugins,
+    output: {
+      file: 'lib/upgrade.js',
       format: 'cjs',
     },
   },

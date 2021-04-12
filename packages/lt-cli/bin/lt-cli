@@ -3,15 +3,14 @@
 const { program } = require('commander')
 const chalk = require('chalk')
 const leven = require('leven')
+const package = require('../package.json')
 
 function suggestCommands(unknownCommand) {
-  // eslint-disable-next-line no-underscore-dangle
   const availableCommands = program.commands.map((cmd) => cmd._name)
 
   let suggestion
 
   availableCommands.forEach((cmd) => {
-    // eslint-disable-next-line operator-linebreak
     const isBestMatch =
       leven(cmd, unknownCommand) < leven(suggestion || '', unknownCommand)
     if (leven(cmd, unknownCommand) < 3 && isBestMatch) {
@@ -24,13 +23,12 @@ function suggestCommands(unknownCommand) {
   }
 }
 
-program.version('0.0.1').usage('<command> [options]')
+program.version(`v${package.version}`).usage('<command> [options]')
 
 program
   .command('create')
   .description('创建模版')
   .action(() => {
-    // eslint-disable-next-line global-require
     require('../lib/generator.js')
   })
 
@@ -38,8 +36,14 @@ program
   .command('statistics')
   .description('查看做题统计')
   .action(() => {
-    // eslint-disable-next-line global-require
     require('../lib/statistics.js')
+  })
+
+program
+  .command('upgrade')
+  .description('升级脚手架')
+  .action(() => {
+    require('../lib/upgrade.js')
   })
 
 // output help information on unknown commands
@@ -56,7 +60,7 @@ program.on('--help', () => {
   console.log()
   console.log(
     `  Run ${chalk.cyan(
-      'lt <command> --help',
+      'lt-cli <command> --help',
     )} for detailed usage of given command.`,
   )
   console.log()
