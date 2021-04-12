@@ -5,6 +5,6 @@ export enum Category {
   Others = 'Others',
 }
 
-export const srcPath = `${process.cwd()}/src/LeetCode`
+export const srcPath = `${process.cwd()}/src/leetcode`
 
 export const docPath = `${process.cwd()}/leetcode-docs`
