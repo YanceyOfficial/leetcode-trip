@@ -7,10 +7,10 @@ const hardCount = readdirSync(`${srcPath}/${Category.Hard}`).length
 const totcal = easyCount + mediumCount + hardCount
 
 const statistics = [
-  { category: Category.Easy, conut: easyCount },
-  { category: Category.Medium, conut: mediumCount },
-  { category: Category.Hard, conut: hardCount },
-  { category: 'Total', conut: totcal },
+  { category: Category.Easy, count: easyCount },
+  { category: Category.Medium, count: mediumCount },
+  { category: Category.Hard, count: hardCount },
+  { category: 'Total', count: totcal },
 ]
 
 console.table(statistics)
