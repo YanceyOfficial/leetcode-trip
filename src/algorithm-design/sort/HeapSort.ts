@@ -8,12 +8,14 @@ function maxHeapify(arr: number[], start: number, end: number) {
   // 建立父/子节点
   const dad = start
   let son = dad * 2 + 1
-  if (son >= end)
+  if (son >= end) {
     // 若子节点 > end 直接返回
     return
-  if (son + 1 < end && arr[son] < arr[son + 1])
+  }
+  if (son + 1 < end && arr[son] < arr[son + 1]) {
     // 先比较两个子节点大小, 选择最大的
     son++
+  }
   if (arr[dad] <= arr[son]) {
     // 如果父节点小于子节点时, 交换父子内容再继续子节点和孙节点比较
     swap(arr, dad, son)

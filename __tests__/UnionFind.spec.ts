@@ -1,4 +1,4 @@
-import { UnionFind } from '../src/AlgorithmDesign/UnionFind/UnionFind'
+import { UnionFind } from '../src/algorithm-design/union-find/UnionFind'
 
 describe('UnionFind', () => {
   test('test UnionFind', () => {

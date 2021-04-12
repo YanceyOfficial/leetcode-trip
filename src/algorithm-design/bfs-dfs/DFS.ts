@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ITreeNode } from './TreeNode'
 
 // 递归法的深度优先遍历, 实现先序遍历
@@ -15,13 +17,16 @@ const DFSByRecursion = <T>(root: ITreeNode<T> | null, callback: Function) => {
 }
 
 // 迭代法的深度优先遍历, 使用栈, 实现先序遍历
-export const DFSByIteration = <T>(root: ITreeNode<T> | null, callback: Function) => {
+export const DFSByIteration = <T>(
+  root: ITreeNode<T> | null,
+  callback: Function,
+) => {
   if (root === null) return
 
   const stack = [root]
 
   while (stack.length !== 0) {
-    const curr = stack.pop() as  ITreeNode<T>
+    const curr = stack.pop() as ITreeNode<T>
 
     callback(curr)
 

@@ -1,8 +1,8 @@
 function countingSort(nums: number[], maxValue: number) {
-  let bucket = new Array(maxValue + 1)
+  const bucket: number[] = new Array(maxValue + 1)
   let sortedIndex = 0
-  let len = nums.length
-  let bucketLen = maxValue + 1
+  const len = nums.length
+  const bucketLen = maxValue + 1
 
   for (let i = 0; i < len; i++) {
     if (!bucket[nums[i]]) {

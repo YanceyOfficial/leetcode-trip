@@ -1,3 +1,4 @@
+/* eslint-disable prefer-rest-params */
 export function fibonacci(n: number) {
   if (n <= 1) {
     return n
@@ -18,15 +19,15 @@ export function fibonacci(n: number) {
   return current
 }
 
-function memorize(f: Function) {
+export function memorize(f: Function) {
   const cache = {}
-  return function () {
+  return () => {
     const key = Array.prototype.join.call(arguments, ',')
     if (key in cache) {
       return cache[key]
-    } else {
-      return (cache[key] = f.apply(this, arguments))
     }
+    // eslint-disable-next-line no-return-assign
+    return (cache[key] = f.apply(this, arguments))
   }
 }
 
