@@ -9,7 +9,7 @@ keywords:
 :::success Tips
 题目类型: 单调栈
 
-相关题目: [496. 下一个更大元素-i496. 下一个更大元素-i](/leetcode/easy/496-next-greater-element)
+相关题目: [496. 下一个更大元素-i](/leetcode/easy/496-next-greater-element), [739. 每日温度](/leetcode/medium/739-daily-temperatures)
 :::
 
 ## 题目
@@ -46,7 +46,10 @@ var nextGreaterElements = function (nums) {
   const res = new Array(len).fill(-1)
 
   for (let i = 0; i < len * 2 - 1; i++) {
-    while (stack !== 0 && nums[stack[stack.length - 1]] < nums[i % len]) {
+    while (
+      stack.length !== 0 &&
+      nums[stack[stack.length - 1]] < nums[i % len]
+    ) {
       res[stack[stack.length - 1]] = nums[i % len]
       stack.pop()
     }
@@ -67,7 +70,7 @@ var nextGreaterElements = function (nums) {
   const res = new Array(len).fill(-1)
 
   for (let i = 0; i < len; i++) {
-    while (stack !== 0 && nums[stack[stack.length - 1]] < nums[i]) {
+    while (stack.length !== 0 && nums[stack[stack.length - 1]] < nums[i]) {
       res[stack[stack.length - 1]] = nums[i]
       stack.pop()
     }
