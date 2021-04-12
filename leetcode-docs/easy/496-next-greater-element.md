@@ -8,6 +8,8 @@ keywords:
 
 :::success Tips
 题目类型: 单调栈
+
+相关题目: [503. 下一个更大元素-ii](/leetcode/medium/503-next-greater-elements)
 :::
 
 ## 题目
