@@ -132,7 +132,7 @@ var nSumTarget = function (nums, n, start, target) {
   const len = nums.length
   const res = []
 
-  // 提前过滤掉一些不可能的强狂
+  // 提前过滤掉一些不可能的情况
   // 至少是 2Sum, 且数组大小不应该小于 n
   if (n < 2 || len < n) return res
 
