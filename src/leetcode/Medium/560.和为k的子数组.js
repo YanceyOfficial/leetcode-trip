@@ -11,21 +11,20 @@
  * @return {number}
  */
 var subarraySum = function (nums, k) {
-  const len = nums.length
-  const preSum = new Array(len + 1).fill(0)
-
-  // 构造前缀和
-  for (let i = 0; i < len; i++) {
-    preSum[i + 1] = preSum[i] + nums[i]
-  }
-
+  const map = new Map([[0, 1]])
+  let sum = 0
   let count = 0
-  // 穷举所有子数组
-  for (let left = 0; left < len; left++) {
-    for (let right = left; right < len; right++) {
-      if (preSum[right + 1] - preSum[left] === k) {
-        count++
-      }
+
+  for (const num of nums) {
+    sum += num
+    if (map.has(sum - k)) {
+      count += map.get(sum - k)
+    }
+
+    if (map.has(sum)) {
+      map.set(sum, map.get(sum) + 1)
+    } else {
+      map.set(sum, 1)
     }
   }
 
