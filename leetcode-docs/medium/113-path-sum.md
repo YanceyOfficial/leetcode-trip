@@ -10,7 +10,9 @@ keywords:
 :::success Tips
 题目类型: [Tree](/data-structure/tree/concept) | [Backtrack](/algorithm-design/backtrack)
 
-相关题目: [112. 路径总和](/leetcode/easy/112-has-path-sum)
+相关题目:
+
+- [112. 路径总和](/leetcode/easy/112-has-path-sum)
 :::
 
 ## 题目

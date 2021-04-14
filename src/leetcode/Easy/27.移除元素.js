@@ -10,15 +10,23 @@
  * @param {number} val
  * @return {number}
  */
-var removeElement = function(nums, val) {
-  let i = 0
-  for (let j = 0; j < nums.length; j++) {
-    if (nums[j] !== val) {
-      nums[i] = nums[j]
-      i++
+var removeElement = function (nums, val) {
+  const len = nums.length
+  let slow = 0,
+    fast = 0
+
+  while (fast < len) {
+    if (nums[fast] !== val) {
+      nums[slow] = nums[fast]
+      slow++
     }
+
+    fast++
   }
-  return i
+
+  console.log(nums)
+
+  return slow
 }
 // @lc code=end
-console.log(removeElement([0, 1, 2, 2, 3, 0, 4, 2], 2))
+console.log(removeElement([3, 2, 2, 3], 3))

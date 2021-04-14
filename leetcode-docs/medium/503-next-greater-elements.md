@@ -9,7 +9,10 @@ keywords:
 :::success Tips
 题目类型: 单调栈
 
-相关题目: [496. 下一个更大元素-i](/leetcode/easy/496-next-greater-element), [739. 每日温度](/leetcode/medium/739-daily-temperatures)
+相关题目:
+
+- [496. 下一个更大元素-i](/leetcode/easy/496-next-greater-element)
+- [739. 每日温度](/leetcode/medium/739-daily-temperatures)
 :::
 
 ## 题目

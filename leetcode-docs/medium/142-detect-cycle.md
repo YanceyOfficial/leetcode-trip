@@ -2,7 +2,23 @@
 id: 142-detect-cycle
 title: 环形链表 II
 sidebar_label: 142. 环形链表 II
+keywords:
+  - 链表
+  - 快慢指针
 ---
+
+:::success Tips
+题目类型: 链表, 快慢指针
+
+相关题目:
+
+- [26. 删除排序数组中的重复项](/leetcode/easy/26-remove-duplicates)
+- [27. 移除元素](/leetcode/easy/27-remove-element)
+- [61. 旋转链表](/leetcode/medium/61-rotate-right)
+- [83. 删除排序链表中的重复元素](/leetcode/easy/83-delete-duplicates)
+- [141. 环形链表](/leetcode/easy/141-has-cycle)
+- [234. 回文链表](/leetcode/easy/234-is-palindrome)
+:::
 
 ## 题目
 

@@ -9,7 +9,9 @@ keywords:
 :::success Tips
 题目类型: Dynamic Programming
 
-相关题目: [263. 丑数](/leetcode/easy/263-is-ugly)
+相关题目:
+
+- [263. 丑数](/leetcode/easy/263-is-ugly)
 :::
 
 ## 题目

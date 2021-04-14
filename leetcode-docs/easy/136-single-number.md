@@ -7,7 +7,10 @@ sidebar_label: 136. 只出现一次的数字
 :::success Tips
 题目类型: 位运算, hash 表
 
-相关题目: [191. 位 1 的个数](/leetcode/easy/191-hamming-weight), [231. 2 的杨](/leetcode/easy/231-is-power-of-two)
+相关题目:
+
+- [191. 位 1 的个数](/leetcode/easy/191-hamming-weight)
+- [231. 2 的杨](/leetcode/easy/231-is-power-of-two)
 :::
 
 ## 题目

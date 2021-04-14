@@ -10,7 +10,11 @@ keywords:
 :::success Tips
 题目类型: Tree, BST
 
-相关题目: [98. 验证二叉搜索树](/leetcode/medium/98-is-valid-bst), [700. 二叉搜索树中的搜索](/leetcode/easy/700-search-bst), [701. 二叉搜索树中的插入操作](/leetcode/medium/701-insert-into-bst)
+相关题目:
+
+- [98. 验证二叉搜索树](/leetcode/medium/98-is-valid-bst)
+- [700. 二叉搜索树中的搜索](/leetcode/easy/700-search-bst)
+- [701. 二叉搜索树中的插入操作](/leetcode/medium/701-insert-into-bst)
 :::
 
 ## 题目

@@ -9,7 +9,10 @@ keywords:
 :::success Tips
 题目类型: LinkedList
 
-相关题目: [25. k-个一组翻转链表](/leetcode/hard/25-reverse-k-group), [206. 反转链表](/leetcode/easy/206-reverse-list)
+相关题目:
+
+- [25. k-个一组翻转链表](/leetcode/hard/25-reverse-k-group)
+- [206. 反转链表](/leetcode/easy/206-reverse-list)
 :::
 
 ## 题目

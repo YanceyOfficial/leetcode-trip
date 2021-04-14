@@ -9,7 +9,9 @@ keywords:
 :::success Tips
 题目类型: Math
 
-相关题目: [264. 丑数-ii](/leetcode/medium/264-nth-ugly-number)
+相关题目:
+
+- [264. 丑数-ii](/leetcode/medium/264-nth-ugly-number)
 :::
 
 ## 题目

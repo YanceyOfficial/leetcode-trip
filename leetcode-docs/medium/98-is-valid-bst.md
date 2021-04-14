@@ -10,7 +10,11 @@ keywords:
 :::success Tips
 题目类型: Tree, BST
 
-相关题目: [450. 删除二叉搜索树中的节点](/leetcode/medium/450-delete-node), [700. 二叉搜索树中的搜索](/leetcode/easy/700-search-bst), [701. 二叉搜索树中的插入操作](/leetcode/medium/701-insert-into-bst)
+相关题目:
+
+- [450. 删除二叉搜索树中的节点](/leetcode/medium/450-delete-node)
+- [700. 二叉搜索树中的搜索](/leetcode/easy/700-search-bst)
+- [701. 二叉搜索树中的插入操作](/leetcode/medium/701-insert-into-bst)
 :::
 
 ## 题目

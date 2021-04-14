@@ -9,7 +9,9 @@ keywords:
 :::success Tips
 题目类型: Tree
 
-相关题目: [105. 从前序与中序遍历序列构造二叉树](/leetcode/medium/105-build-tree)
+相关题目:
+
+- [105. 从前序与中序遍历序列构造二叉树](/leetcode/medium/105-build-tree)
 :::
 
 ## 题目

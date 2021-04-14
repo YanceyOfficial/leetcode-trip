@@ -2,7 +2,23 @@
 id: 234-is-palindrome
 title: 回文链表
 sidebar_label: 234. 回文链表
+keywords:
+  - 链表
+  - 快慢指针
 ---
+
+:::success Tips
+题目类型: 链表, 快慢指针
+
+相关题目:
+
+- [26. 删除排序数组中的重复项](/leetcode/easy/26-remove-duplicates)
+- [27. 移除元素](/leetcode/easy/27-remove-element)
+- [61. 旋转链表](/leetcode/medium/61-rotate-right)
+- [83. 删除排序链表中的重复元素](/leetcode/easy/83-delete-duplicates)
+- [141. 环形链表](/leetcode/easy/141-has-cycle)
+- [142. 环形链表 II](/leetcode/medium/142-detect-cycle)
+:::
 
 ## 题目
 
