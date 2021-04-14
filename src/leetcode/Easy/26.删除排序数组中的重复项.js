@@ -9,18 +9,21 @@
  * @param {number[]} nums
  * @return {number}
  */
-var removeDuplicates = function(nums) {
-  const length = nums.length
-  if (length === 0) return 0
+var removeDuplicates = function (nums) {
+  const len = nums.length
+  if (len === 0) return 0
   // 双指针
-  let i = 0
-  for (let j = 1; j < length; j++) {
-    if (nums[j] !== nums[i]) {
-      ++i
-      nums[i] = nums[j]
+  let slow = 0,
+    fast = 0
+
+  while (fast < len) {
+    if (nums[fast] !== nums[slow]) {
+      slow++
+      nums[slow] = nums[fast]
     }
+    fast++
   }
-  return i + 1
+
+  return slow + 1
 }
 // @lc code=end
-removeDuplicates([1,1,2])
