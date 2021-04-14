@@ -18,7 +18,7 @@ keywords:
 - [141. 环形链表](/leetcode/easy/141-has-cycle)
 - [142. 环形链表 II](/leetcode/medium/142-detect-cycle)
 - [234. 回文链表](/leetcode/easy/234-is-palindrome)
-:::
+  :::
 
 ## 题目
 
@@ -35,6 +35,7 @@ keywords:
 
 看到有序数组, 先想到**双指针**, 这道题可以使用**快慢指针**: 让慢指针 `slow` 走在后面, 快指针 `fast` 走在前面探路, 找到一个不重复的元素就告诉 `slow` 并让 `slow` 前进一步. 这样当 `fast` 指针遍历完整个数组 `nums` 后, 前 `slow + 1` 个就是不重复元素.
 
+- 第零步: `fast`, `slow` 都指向第一个元素;
 - 第一步: `fast`, `slow` 指向的都是 `1`, 因此只需 `fast` 向前走一步;
 - 第二步: 此时 `fast`, `slow` 指向的值不同, 让 `slow + 1`, 并把 `fast` 指向的值赋值给 `slow` 指向的值, 然后 `fast` 向前走一步;
 - 第三步: `fast`, `slow` 指向的都是 `2`, 因此只需 `fast` 向前走一步;
@@ -43,11 +44,11 @@ keywords:
 - 第六步: `fast`, `slow` 指向的都是 `3`, 因此只需 `fast` 向前走一步, 此时 `fast > len`, 跳出循环, 返回 `show + 1` 即可.
 
 ```ts
-  fast              fast              fast              fast              fast              fast
-   ↓                 ↓                 ↓                 ↓                 ↓                 ↓
-[1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 3 2 3 3]   [1 2 3 2 3 3]
- ↑                 ↑               ↑               ↑                 ↑               ↑
-slow              slow            slow            slow              slow            slow
+fast              fast              fast              fast              fast              fast              fast
+ ↓                 ↓                 ↓                 ↓                 ↓                 ↓                 ↓
+[1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 3 2 3 3]   [1 2 3 2 3 3]
+ ↑               ↑                 ↑               ↑               ↑                 ↑               ↑
+slow            slow              slow            slow            slow              slow            slow
 ```
 
 ```ts

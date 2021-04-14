@@ -1,0 +1,46 @@
+---
+id: 283-move-zeroes
+title: 移动零
+sidebar_label: 283. 移动零
+---
+
+## 题目
+
+给定一个数组 nums, 编写一个函数将所有 0 移动到数组的末尾, 同时保持非零元素的相对顺序, 必须在原数组上操作, 不能拷贝额外的数组.
+
+:::info 示例
+
+输入: [0, 1, 0, 3, 6]
+
+输出: [1, 3, 6, 0, 0]
+:::
+
+## 题解
+
+```ts
+right          right            right           right           right          right
+ ↓               ↓               ↓               ↓               ↓               ↓
+[0 1 0 3 6]   [0 1 0 3 6]   [1 0 0 3 6]   [1 0 0 3 6]   [1 3 0 0 6]   [1 3 6 0 0]
+ ↑             ↑               ↑             ↑               ↑               ↑
+left          left            left          left             left           left
+```
+
+```ts
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var moveZeroes = function (nums) {
+  const n = nums.length
+  let left = 0,
+    right = 0
+
+  while (right < n) {
+    if (nums[right] !== 0) {
+      ;[nums[left], nums[right]] = [nums[right], nums[left]]
+      left++
+    }
+    right++
+  }
+}
+```

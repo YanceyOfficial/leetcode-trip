@@ -9,23 +9,17 @@
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-var moveZeroes = function(nums) {
-  if (nums.length <= 1) return
+var moveZeroes = function (nums) {
+  const n = nums.length
+  let left = 0,
+    right = 0
 
-  let i = 0,
-    j = 1
-
-  while (j < nums.length) {
-    if (nums[i] === 0 && nums[j] !== 0) {
-      ;[nums[i], nums[j]] = [nums[j], nums[i]]
-      i++
-      j++
-    } else if (nums[i] === 0 && nums[j] === 0) {
-      j++
-    } else {
-      i++
-      j++
+  while (right < n) {
+    if (nums[right]) {
+      ;[nums[left], nums[right]] = [nums[right], nums[left]]
+      left++
     }
+    right++
   }
 }
 // @lc code=end
