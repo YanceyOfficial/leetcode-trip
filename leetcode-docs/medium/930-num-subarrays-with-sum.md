@@ -42,7 +42,7 @@ keywords:
 
 ## 题解
 
-这道题的解法跟 [560. 和为 k 的子数组 32](/leetcode-docs/medium/560-subarray-sum) 一模一样, 看那篇文章即可.
+这道题的解法跟 [560. 和为 k 的子数组 32](/leetcode/medium/560-subarray-sum) 一模一样, 看那篇文章即可.
 
 ```ts
 /**
