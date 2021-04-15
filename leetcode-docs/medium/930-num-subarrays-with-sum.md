@@ -11,7 +11,7 @@ keywords:
 
 相关题目:
 
-- [560. 和为 k 的子数组 32](/leetcode-docs/medium/560-subarray-sum)
+- [560. 和为 k 的子数组 32](/leetcode/medium/560-subarray-sum)
   :::
 
 ## 题目
