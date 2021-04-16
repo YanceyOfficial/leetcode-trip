@@ -52,6 +52,17 @@ Please make sure to read the [Issue Reporting Checklist](./.github/ISSUE_TEMPLAT
 
 This app follows the [Angular Team's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit), your commit will be checked by commitlint, please use `git cz` instead of `git commit`. For this reason, you should install `commitizen` globally or use `yarn commit` instead.
 
+### Algolia
+
+Unfortunately, LeetCode Trip is [not compliant with algolia's checklist](https://docsearch.algolia.com/docs/who-can-apply), we must run the crawler by ourselves. Please create `.env` in root path and read the [document](https://docsearch.algolia.com/docs/run-your-own) to build your own docker crawler system.
+
+```bash
+# DO NOT UPLOAD THIS FILE TO PUBLIC!!!
+# .env
+APPLICATION_ID=YOUR_ALGOLIA_APP_ID
+API_KEY=YOUR_ALGOLIA_API_KEY
+```
+
 ## License
 
 LeetCode Trip is licensed under the terms of the [MIT licensed](https://opensource.org/licenses/MIT).
