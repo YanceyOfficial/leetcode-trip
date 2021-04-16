@@ -17,3 +17,7 @@ sidebar_label: 前缀和
 - [930. 和相同的二元子数组](/leetcode/medium/930-num-subarrays-with-sum)
 - [974. 和可被-k-整除的子数组](/leetcode/medium/974-subarrays-div-by-k)
 - [1248. 统计「优美子数组」](/leetcode/medium/1248-number-of-subarrays)
+
+## 参考
+
+[【动画模拟】秒杀七道题](https://leetcode-cn.com/problems/subarray-sum-equals-k/solution/de-liao-yi-wen-jiang-qian-zhui-he-an-pai-yhyf/)
