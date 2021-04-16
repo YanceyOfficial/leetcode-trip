@@ -50,7 +50,7 @@ Please make sure to read the [Issue Reporting Checklist](./.github/ISSUE_TEMPLAT
 
 ### Using Commitizen
 
-This app follows the [Angular Team's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit), your commit will be checked by commitlint, please use `git cz` instead of `git commit`. For this reason, you should install `commitizen` globally or use `yarn commit` instead.
+This app follows the [Angular Team's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit), your commit will be checked by commitlint, please use `git cz` instead of `git commit`. For this reason, you might install `commitizen` globally.
 
 ### Algolia
 
