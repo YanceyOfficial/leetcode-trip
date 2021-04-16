@@ -1,4 +1,3 @@
-__test__/*
 src/leetcode/**/*
-packages/lt-cli/bin/**/*
 packages/lt-cli/lib/**/*
+packages/lt-cli/bin/**/*
