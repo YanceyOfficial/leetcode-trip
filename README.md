@@ -1,6 +1,6 @@
 # LeetCode Trip
 
-[Build Status](https://github.com/YanceyOfficial/leetcode-trip/actions/workflows/github-actions.yml/badge.svg)
+[![Build Status]](https://github.com/YanceyOfficial/leetcode-trip/actions/workflows/github-actions.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/YanceyOfficial/leetcode-trip/pulls)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)

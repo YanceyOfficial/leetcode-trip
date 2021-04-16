@@ -1,4 +1,4 @@
-name: Node.js CI
+name: GitHub Actions for LeetCode Trip
 
 on: [push, pull_request]
 
