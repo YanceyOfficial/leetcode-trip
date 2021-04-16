@@ -2,7 +2,22 @@
 id: 974-subarrays-div-by-k
 title: 和可被-k-整除的子数组
 sidebar_label: 974. 和可被-k-整除的子数组
+keywords:
+  - 前缀和
 ---
+
+:::success Tips
+题目类型: 前缀和
+
+相关题目:
+
+- [1. 两数之和](/leetcode/easy/1-two-sum)
+- [523. 连续的子数组和](/leetcode/medium/523-check-subarray-sum)
+- [560. 和为 k 的子数组](/leetcode/medium/560-subarray-sum)
+- [724. 寻找数组的中心下标](/leetcode/easy/724-pivot-index)
+- [930. 和相同的二元子数组](/leetcode/medium/930-num-subarrays-with-sum)
+- [1248. 统计「优美子数组」](/leetcode/medium/1248-number-of-subarrays)
+:::
 
 ## 题目
 
@@ -23,7 +38,7 @@ sidebar_label: 974. 和可被-k-整除的子数组
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
+这道跟 [560. 和为 k 的子数组](/leetcode/medium/560-subarray-sum) 如出一辙, 需要注意的是 `const key = ((preSum % K) + K) % K`, 这是要保证余数不能为负数.
 
 ```ts
 /**

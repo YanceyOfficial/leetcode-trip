@@ -9,10 +9,15 @@ keywords:
 :::success Tips
 题目类型: 前缀和
 
-相关题目: 
+相关题目:
 
+- [1. 两数之和](/leetcode/easy/1-two-sum)
 - [523. 连续的子数组和](/leetcode/medium/523-check-subarray-sum)
+- [724. 寻找数组的中心下标](/leetcode/easy/724-pivot-index)
 - [930. 和相同的二元子数组](/leetcode/medium/930-num-subarrays-with-sum)
+- [974. 和可被-k-整除的子数组](/leetcode/medium/974-subarrays-div-by-k)
+- [1248. 统计「优美子数组」](/leetcode/medium/1248-number-of-subarrays)
+
 :::
 
 ## 题目
@@ -125,10 +130,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
   renderBottomCenterControls={null}
 >
   {new Array(9).fill(randomSeries(6)).map((val, index) => (
-    <img
-      key={val}
-      src={useBaseUrl(`/img/560-subarray-sum-${index + 1}.png`)}
-    />
+    <img key={val} src={useBaseUrl(`/img/560-subarray-sum-${index + 1}.png`)} />
   ))}
 </Carousel>
 
