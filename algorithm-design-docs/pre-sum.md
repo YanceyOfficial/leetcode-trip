@@ -12,7 +12,7 @@ sidebar_label: 前缀和
 
 - [1. 两数之和](/leetcode/easy/1-two-sum)
 - [523. 连续的子数组和](/leetcode/medium/523-check-subarray-sum)
-- [560. 和为 k 的子数组 32](/leetcode/medium/560-subarray-sum)
+- [560. 和为 k 的子数组](/leetcode/medium/560-subarray-sum)
 - [724. 寻找数组的中心下标](/leetcode/easy/724-pivot-index)
 - [930. 和相同的二元子数组](/leetcode/medium/930-num-subarrays-with-sum)
-- [973. 最接近原点的-k-个点](/leetcode/medium/973-k-closest)
+- [974. 和可被-k-整除的子数组](/leetcode/medium/974-subarrays-div-by-k)
