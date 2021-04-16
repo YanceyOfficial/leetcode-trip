@@ -11,6 +11,7 @@ keywords:
 
 相关题目:
 
+- [523. 连续的子数组和](/leetcode/medium/523-check-subarray-sum)
 - [560. 和为 k 的子数组 32](/leetcode/medium/560-subarray-sum)
 :::
 
