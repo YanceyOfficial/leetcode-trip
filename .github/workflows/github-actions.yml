@@ -31,14 +31,14 @@ jobs:
       - name: Execute unit tests
         run: yarn test
 
+      - name: Pre compilation
+        run: yarn build
+
       - uses: actions/checkout@master
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
-
-      - name: Pre compilation
-        run: yarn build
 
   deployment:
     runs-on: ubuntu-latest
