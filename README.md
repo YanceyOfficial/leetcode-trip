@@ -48,11 +48,11 @@ Read our [contributing guide](./CONTRIBUTING.md) to learn about our development 
 
 Please make sure to read the [Issue Reporting Checklist](./.github/ISSUE_TEMPLATE/bug_report.md) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
 
-### Using Commitizen
+### Commitizen
 
 This project follows the [Angular Team's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit), your commit will be checked by commitlint, please use `git cz` instead of `git commit`. For this reason, you might install `commitizen` globally.
 
-### Algolia
+### Algolia Search
 
 Unfortunately, LeetCode Trip is [not compliant with algolia's checklist](https://docsearch.algolia.com/docs/who-can-apply), we must run the crawler by ourselves. Please create `.env` in root path and read the [document](https://docsearch.algolia.com/docs/run-your-own) to build your own docker crawler system.
 
