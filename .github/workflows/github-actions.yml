@@ -34,10 +34,12 @@ jobs:
       - name: Pre compilation
         run: yarn build
 
-      - uses: actions/checkout@master
+      - name: Upload coverage to Codecov
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./lcov.info,./clover.xml
+          directory: ./coverage/
           verbose: true
 
   deployment:
