@@ -1,6 +1,7 @@
 # LeetCode Trip
 
 ![Build Status](https://github.com/YanceyOfficial/leetcode-trip/actions/workflows/github-actions.yml/badge.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa4d332655a94f498de02baa20125868)](https://app.codacy.com/gh/YanceyOfficial/leetcode-trip?utm_source=github.com&utm_medium=referral&utm_content=YanceyOfficial/leetcode-trip&utm_campaign=Badge_Grade_Settings)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/YanceyOfficial/leetcode-trip/pulls)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
