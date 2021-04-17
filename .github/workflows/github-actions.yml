@@ -31,6 +31,9 @@ jobs:
       - name: Execute unit tests
         run: yarn test
 
+      - name: Upload test coverage
+        run: codecov -t ${{ secrets.CODECOV_TOKEN }}
+
       - name: Pre compilation
         run: yarn build
 

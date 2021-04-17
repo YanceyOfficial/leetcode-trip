@@ -7,6 +7,8 @@
 ![Code Style](https://camo.githubusercontent.com/c83b8df34339bd302b7fd3fbb631f99ba25f87f8/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f64655f7374796c652d70726574746965722d6666363962342e737667)
 [![Node](https://img.shields.io/badge/node-%3E%3D12.20.2-orange.svg)](https://nodejs.org/en/)
 [![DependaBot](https://camo.githubusercontent.com/1fe7004c016a5ab641008b9579409c784eaa1725/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446570656e6461626f742d656e61626c65642d626c75652e737667)](https://dependabot.com/)
+[![codecov](https://codecov.io/gh/YanceyOfficial/leetcode-trip/branch/master/graph/badge.svg)](https://codecov.io/gh/YanceyOfficial/leetcode-trip)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e0f64194d78841e38021984b6a52ef7b)](https://www.codacy.com/gh/YanceyOfficial/leetcode-trip/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=YanceyOfficial/leetcode-trip&amp;utm_campaign=Badge_Grade)
 
 ⭐️ _Found it cool? Want more updates?_ [**Show your support by giving a ⭐️**](https://github.com/YanceyOfficial/leetcode-trip/stargazers)
 
