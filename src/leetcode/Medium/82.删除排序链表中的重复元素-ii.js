@@ -19,8 +19,8 @@
 var deleteDuplicates = function (head) {
   if (!head) return head
   const dummy = new ListNode(Number.MAX_SAFE_INTEGER, head)
-
   let curr = dummy
+
   while (curr.next && curr.next.next) {
     if (curr.next.val === curr.next.next.val) {
       const currVal = curr.next.val
