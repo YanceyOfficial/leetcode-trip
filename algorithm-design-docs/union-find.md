@@ -37,7 +37,7 @@ interface UF<T> {
 
 如果现在调用 `union(0, 1)`, 那么 0 和 1 被连通, 连通分量降为 9 个.
 
-再调用 `union(1, 2)`, 这时 0,1,2 都被连通, 调用 `connected(0, 2)` 会返回 true, 连通分量变为 8 个.
+再调用 `union(1, 2)`, 这时 0, 1, 2 都被连通, 调用 `connected(0, 2)` 会返回 true, 连通分量变为 8 个.
 
 ```ts
 interface UF {
