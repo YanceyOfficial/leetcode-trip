@@ -1,5 +1,5 @@
 export class PriorityQueue {
-  private heap: number[]
+  private heap: number[] = []
 
   private leftChild(index: number) {
     return index * 2 + 1
@@ -25,12 +25,12 @@ export class PriorityQueue {
     let smallest = index
 
     // if the left child is bigger than the node we are looking at
-    if (left < this.heap.length && this.heap[smallest] < this.heap[left]) {
+    if (left < this.heap.length && this.heap[smallest] > this.heap[left]) {
       smallest = left
     }
 
     // if the right child is bigger than the node we are looking at
-    if (right < this.heap.length && this.heap[smallest] < this.heap[right]) {
+    if (right < this.heap.length && this.heap[smallest] > this.heap[right]) {
       smallest = right
     }
 
@@ -42,7 +42,11 @@ export class PriorityQueue {
     }
   }
 
-  public insert(e: number) {
+  public size() {
+    return this.heap.length
+  }
+
+  public offer(e: number) {
     // push element to the end of the heap
     this.heap.push(e)
 
@@ -51,7 +55,7 @@ export class PriorityQueue {
 
     // if the element is greater than its parent:
     // swap element with its parent
-    while (index !== 0 && this.heap[index] > this.heap[this.parentIdx(index)]) {
+    while (index !== 0 && this.heap[index] < this.heap[this.parentIdx(index)]) {
       this.swap(index, this.parentIdx(index))
       index = this.parentIdx(index)
     }
@@ -62,7 +66,7 @@ export class PriorityQueue {
     return this.heap[0]
   }
 
-  public extractMax() {
+  public poll() {
     // remove the first element from the heap
     const root = this.heap.shift()
 
@@ -78,3 +82,12 @@ export class PriorityQueue {
     return root
   }
 }
+
+const pq = new PriorityQueue()
+
+pq.offer(2)
+pq.offer(1)
+pq.offer(5)
+pq.offer(4)
+
+console.log(pq)

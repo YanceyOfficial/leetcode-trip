@@ -6,6 +6,7 @@ sidebar_label: 目录
 
 - [冒泡排序](/algorithm-design/sort/bubble)
 - [堆排序](/algorithm-design/sort/heap)
+- [快速排序](/algorithm-design/sort/quick)
 
 ## 稳定性
 

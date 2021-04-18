@@ -13,7 +13,7 @@ sidebar_label: 优先级队列
 - 登机时经济舱的普通队列与头等舱的优先级队列
 - 股票交易时基于时间和价格的成交规则上, 量大优先的优先级队列
 
-## 实现
+## 实现(最大堆)
 
 ```ts
 export class PriorityQueue {
@@ -60,7 +60,8 @@ export class PriorityQueue {
     }
   }
 
-  public insert(e: number) {
+  // 插入节点
+  public offer(e: number) {
     // push element to the end of the heap
     this.heap.push(e)
 
@@ -80,7 +81,8 @@ export class PriorityQueue {
     return this.heap[0]
   }
 
-  public extractMax() {
+  // 弹出队顶元素
+  public poll() {
     // remove the first element from the heap
     const root = this.heap.shift()
 
