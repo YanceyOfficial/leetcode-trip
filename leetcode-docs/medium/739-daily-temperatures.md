@@ -11,8 +11,12 @@ keywords:
 
 相关题目:
 
-- [496. 下一个更大元素-i496. 下一个更大元素-i](/leetcode/easy/496-next-greater-element)
+- [316. 去除重复字母](/leetcode/medium/316-remove-duplicate-letters)
+- [402. 移掉k位数字](/leetcode/medium/402-remove-kdigits)
+- [496. 下一个更大元素-i](/leetcode/easy/496-next-greater-element)
 - [503. 下一个更大元素-ii](/leetcode/medium/503-next-greater-elements)
+- [1081. 不同字符的最小子序列](/leetcode/medium/1081-smallest-subsequence)
+
 :::
 
 ## 题目

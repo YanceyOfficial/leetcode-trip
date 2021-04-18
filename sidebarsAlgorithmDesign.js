@@ -8,6 +8,7 @@ module.exports = {
     'dfs-bfs',
     'pre-sum',
     'diff-array',
+    'monotone-stack',
     {
       十大排序算法: ['sort/menu', 'sort/bubble', 'sort/heap'],
     },

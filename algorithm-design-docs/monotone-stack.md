@@ -1,0 +1,27 @@
+---
+id: monotone-stack
+title: 单调栈
+sidebar_label: 单调栈
+---
+
+## 用途
+
+要给当前的元素, 找右边/左边第一个比它大/小的位置.
+
+- 单调递增栈, 利用波谷剔除栈中的波峰, 留下波谷;
+- 单调递减栈, 利用波峰剔除栈中的波谷, 留下波峰.
+
+![monotone-stack](../static/img/monotone-stack.png)
+
+## 单调栈算法合辑
+
+- [316. 去除重复字母](/leetcode/medium/316-remove-duplicate-letters)
+- [402. 移掉 k 位数字](/leetcode/medium/402-remove-kdigits)
+- [496. 下一个更大元素-i](/leetcode/easy/496-next-greater-element)
+- [503. 下一个更大元素-ii](/leetcode/medium/503-next-greater-elements)
+- [739. 每日温度](/leetcode/medium/739-daily-temperatures)
+- [1081. 不同字符的最小子序列](/leetcode/medium/1081-smallest-subsequence)
+
+## 参考
+
+[一招吃遍力扣四道题, 妈妈再也不用担心我被套路啦～](https://leetcode-cn.com/problems/remove-k-digits/solution/yi-zhao-chi-bian-li-kou-si-dao-ti-ma-ma-zai-ye-b-5/)
