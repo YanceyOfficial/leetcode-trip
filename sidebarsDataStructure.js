@@ -1,14 +1,16 @@
 module.exports = {
   dataStructure: [
     'stack/stack',
-    'queue/queue',
+    {
+      队列: ['queue/queue', 'queue/priority-queue'],
+    },
     {
       树: [
         'tree/concept',
         'tree/traversal',
         'tree/bst',
         'tree/avl',
-        'tree/red-black',
+        'tree/binary-heap',
       ],
     },
     { 图: ['graph/concept', 'graph/dfs', 'graph/bfs'] },
