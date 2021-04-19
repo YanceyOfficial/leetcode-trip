@@ -13,7 +13,7 @@ keywords:
 
 相关题目:
 
-- [215. 数组中的第 k 个最大元素](/leetcode-docs/medium/215-find-kth-largest)
+- [215. 数组中的第 k 个最大元素](/leetcode/medium/215-find-kth-largest)
 
 :::
 

@@ -13,7 +13,7 @@ keywords:
 
 相关题目:
 
-- [347. 前-k-个高频元素](/leetcode-docs/medium/347-top-k-frequent)
+- [347. 前-k-个高频元素](/leetcode/medium/347-top-k-frequent)
 
 :::
 
