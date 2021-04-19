@@ -13,6 +13,7 @@ keywords:
 
 相关题目:
 
+- [剑指 Offer - 40. 最小的 k 个数](/leetcode/lcof/40-get-least-numbers)
 - [347. 前-k-个高频元素](/leetcode/medium/347-top-k-frequent)
 
 :::
@@ -103,7 +104,7 @@ function shuffle(arr) {
 // j 指针遍历数组, 当 arr[j] 小于 pivot 时, 就把 arr[j] 放到"已处理区间"的尾部, 也即是 arr[i] 所在位置
 // 因此 swap(arr, i, j) 然后 i 指针后移, i++
 // 直到 j 遍历到数组末尾 arr[high], 将 arr[i] 和 arr[high](pivot点)进行交换, 返回下标 i, 就是分区点的下标.
-function partition(nu ms, low, high) {
+function partition(nums, low, high) {
   let i = low
   const pivot = nums[high]
   for (let j = low; j < high; j++) {

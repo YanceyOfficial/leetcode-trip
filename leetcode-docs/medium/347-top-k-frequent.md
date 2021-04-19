@@ -13,6 +13,7 @@ keywords:
 
 相关题目:
 
+- [剑指 Offer - 40. 最小的 k 个数](/leetcode/lcof/40-get-least-numbers)
 - [215. 数组中的第 k 个最大元素](/leetcode/medium/215-find-kth-largest)
 
 :::
