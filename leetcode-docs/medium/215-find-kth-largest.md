@@ -2,7 +2,20 @@
 id: 215-find-kth-largest
 title: 数组中的第k个最大元素
 sidebar_label: 215. 数组中的第k个最大元素
+keywords:
+  - topK
+  - 二叉堆
+  - 优先队列
 ---
+
+:::success Tips
+题目类型: topK
+
+相关题目:
+
+- [347. 前-k-个高频元素](/leetcode-docs/medium/347-top-k-frequent)
+
+:::
 
 ## 题目
 

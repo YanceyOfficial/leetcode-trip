@@ -15,20 +15,34 @@ sidebar_label: 优先级队列
 
 ## 实现(最大堆)
 
+该大顶堆接受两种参数, `type PriorityQueueElement<T> = number | [number, T]`, 要么只接收数字当作比较的 key, 要么接受 `[key, val]` 的形态.
+
 ```ts
-export class PriorityQueue {
-  private heap: number[]
+type PriorityQueueElement<T> = number | [number, T]
 
-  private leftChild(index: number) {
-    return index * 2 + 1
+export class PriorityQueue<T> {
+  private heap: PriorityQueueElement<T>[] = []
+
+  constructor(initData?: PriorityQueueElement<T>[]) {
+    if (initData) {
+      this.build(initData)
+    }
   }
 
-  private rightChild(index: number) {
-    return index * 2 + 2
+  private build(initData: PriorityQueueElement<T>[]) {
+    initData.forEach((data) => this.offer(data))
   }
 
-  private parentIdx(index: number) {
-    return Math.floor((index - 1) / 2)
+  private leftChild(idx: number) {
+    return idx * 2 + 1
+  }
+
+  private rightChild(idx: number) {
+    return idx * 2 + 2
+  }
+
+  private parentIdx(idx: number) {
+    return Math.floor((idx - 1) / 2)
   }
 
   private swap(i: number, j: number) {
@@ -37,42 +51,74 @@ export class PriorityQueue {
     this.heap[j] = tmp
   }
 
-  private heapify(index: number) {
-    const left = this.leftChild(index)
-    const right = this.rightChild(index)
-    let smallest = index
+  private heapify(idx: number) {
+    const left = this.leftChild(idx)
+    const right = this.rightChild(idx)
+    let smallest = idx
 
-    // if the left child is bigger than the node we are looking at
-    if (left < this.heap.length && this.heap[smallest] < this.heap[left]) {
-      smallest = left
-    }
+    if (Array.isArray(this.heap[smallest])) {
+      // if the left child is bigger than the node we are looking at
+      if (
+        left < this.heap.length &&
+        this.heap[smallest][0] < this.heap[left][0]
+      ) {
+        smallest = left
+      }
 
-    // if the right child is bigger than the node we are looking at
-    if (right < this.heap.length && this.heap[smallest] < this.heap[right]) {
-      smallest = right
+      // if the right child is bigger than the node we are looking at
+      if (
+        right < this.heap.length &&
+        this.heap[smallest][0] < this.heap[right][0]
+      ) {
+        smallest = right
+      }
+    } else {
+      // if the left child is bigger than the node we are looking at
+      if (left < this.heap.length && this.heap[smallest] < this.heap[left]) {
+        smallest = left
+      }
+
+      // if the right child is bigger than the node we are looking at
+      if (right < this.heap.length && this.heap[smallest] < this.heap[right]) {
+        smallest = right
+      }
     }
 
     // if the value of smallest has changed, then some swapping needs to be done
     // and this method needs to be called again with the swapped element
-    if (smallest !== index) {
-      this.swap(smallest, index)
+    if (smallest !== idx) {
+      this.swap(smallest, idx)
       this.heapify(smallest)
     }
   }
 
-  // 插入节点
-  public offer(e: number) {
+  public size() {
+    return this.heap.length
+  }
+
+  public offer(e: PriorityQueueElement<T>) {
     // push element to the end of the heap
     this.heap.push(e)
 
-    // the index of the element we have just pushed
-    let index = this.heap.length - 1
+    // the idx of the element we have just pushed
+    let idx = this.heap.length - 1
 
     // if the element is greater than its parent:
     // swap element with its parent
-    while (index !== 0 && this.heap[index] > this.heap[this.parentIdx(index)]) {
-      this.swap(index, this.parentIdx(index))
-      index = this.parentIdx(index)
+
+    if (Array.isArray(e)) {
+      while (
+        idx !== 0 &&
+        this.heap[idx][0] > this.heap[this.parentIdx(idx)][0]
+      ) {
+        this.swap(idx, this.parentIdx(idx))
+        idx = this.parentIdx(idx)
+      }
+    } else {
+      while (idx !== 0 && this.heap[idx] > this.heap[this.parentIdx(idx)]) {
+        this.swap(idx, this.parentIdx(idx))
+        idx = this.parentIdx(idx)
+      }
     }
   }
 
@@ -81,7 +127,6 @@ export class PriorityQueue {
     return this.heap[0]
   }
 
-  // 弹出队顶元素
   public poll() {
     // remove the first element from the heap
     const root = this.heap.shift()
