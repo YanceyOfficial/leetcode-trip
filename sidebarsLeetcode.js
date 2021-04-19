@@ -10,6 +10,7 @@ module.exports = {
     Easy: getFiles('easy'),
     Medium: getFiles('medium'),
     Hard: getFiles('hard'),
+    '剑指 Offer': getFiles('lcof'),
     Others: getFiles('others'),
   },
 }
