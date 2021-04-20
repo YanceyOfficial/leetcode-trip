@@ -46,3 +46,11 @@ var trailingZeroes = function (n) {
 ### 时间复杂度
 
 时间复杂度是底数为 5 的对数, 也就是 O(logN)
+
+## 附录: 也可以用递归
+
+```ts
+function trailingZeroes(n) {
+  return n < 5 ? 0 : n / 5 + Math.floor(trailingZeroes(n / 5))
+}
+```

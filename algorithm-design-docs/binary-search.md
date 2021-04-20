@@ -29,3 +29,45 @@ var search = function (nums, target) {
   return -1
 }
 ```
+
+## 寻找左边界
+
+```ts
+var leftBound = function (nums, target) {
+  let lo = 0,
+    hi = nums.length
+  while (lo < hi) {
+    let mid = lo + (hi - lo) / 2
+    if (trailingZeroes(mid) < target) {
+      lo = mid + 1
+    } else if (trailingZeroes(mid) > target) {
+      hi = mid
+    } else {
+      hi = mid
+    }
+  }
+
+  return lo
+}
+```
+
+## 寻找右边界
+
+```ts
+var rightBound = function (nums, target) {
+  let lo = 0,
+    hi = nums.length
+  while (lo < hi) {
+    let mid = lo + (hi - lo) / 2
+    if (trailingZeroes(mid) < target) {
+      lo = mid + 1
+    } else if (trailingZeroes(mid) > target) {
+      hi = mid
+    } else {
+      lo = mid + 1
+    }
+  }
+
+  return lo - 1
+}
+```
