@@ -1,0 +1,87 @@
+---
+id: 645-find-error-nums
+title: 错误的集合
+sidebar_label: 645. 错误的集合
+---
+
+## 题目
+
+集合 `s` 包含从 `1 到 n` 的整数. 不幸的是, 因为数据错误, 导致集合里面某一个数字复制了成了集合里面的另外一个数字的值, 导致集合**丢失了一个数字**并且**有一个数字重复**. 给定一个数组 `nums` 代表了集合 `s` 发生错误后的结果. 请你找出重复出现的整数, 再找到丢失的整数, 将它们以数组的形式返回.
+
+:::info 示例
+
+```ts
+输入: nums = [1, 2, 2, 4]
+输出: [2, 3]
+```
+
+```ts
+输入: nums = [1, 1]
+输出: [1, 2]
+```
+
+:::
+
+## 题解
+
+### 方法一: 哈希表
+
+这个方案不难理解, 这里用 Set 作为一个哈希表, 遍历数组, 如果有重复的, 就找到了重复元素. 因为集合 `s` 包含从 `1 到 n` 的整数, 所以可以用等差数列求和公式算出正确的总和, 再算出 nums 实际的总和, 两者相减, 再加上重复元素, 就算出了丢失元素.
+
+```ts
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findErrorNums = function (nums) {
+  const n = nums.length
+  const set = new Set()
+  const correctTotal = ((1 + n) * n) / 2
+  const errorTotal = nums.reduce((acc, val) => acc + val)
+  let duplicates = 0
+  for (const num of nums) {
+    if (set.has(num)) {
+      duplicates = num
+      break
+    } else {
+      set.add(num)
+    }
+  }
+
+  return [duplicates, duplicates + (correctTotal - errorTotal)]
+}
+```
+
+### 方法二
+
+上面的方式借用了哈希表, 因此空间复杂度为 O(n), 但实际上, 可以利用元素跟索引一一对应的关系来看. 以 `nums = [1, 2, 2, 4]` 为例, 把第一个元素 1 改成 -1, 第二个元素 2 改成 -2, 那第三个元素发现对应的数字变成 -2 了, 这样就找出了重复元素. 接下来, 丢失的那个元素因为在上面"变负值"的操作中没被修改, 因此找到那个大于 0 的元素的索引, 加 1 即可. 当然这种方法破坏了原 nums 的结构.
+
+```ts
+index: 0 1 2 3
+nums : 1 2 2 4
+nums : -1 -2 2 4
+```
+
+```ts
+var findErrorNums = function (nums) {
+  const n = nums.length
+
+  let dup = -1
+  for (let i = 0; i < n; i++) {
+    const index = Math.abs(nums[i]) - 1
+    if (nums[index] < 0) {
+      dup = Math.abs(nums[i])
+    } else {
+      nums[index] *= -1
+    }
+  }
+
+  let missing = -1
+  for (let i = 0; i < n; i++)
+    if (nums[i] > 0) {
+      missing = i + 1
+    }
+
+  return [dup, missing]
+}
+```
