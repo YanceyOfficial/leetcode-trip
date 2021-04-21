@@ -2,7 +2,23 @@
 id: 239-max-sliding-window
 title: 滑动窗口最大值
 sidebar_label: 239. 滑动窗口最大值
+keywords:
+  - Sliding Window
 ---
+
+:::success Tips
+题目类型: 滑动窗口
+
+相关题目:
+
+- [3. 无重复字符的最长子串](/leetcode/medium/3-length-of-longest-substring)
+- [76. 最小覆盖子串](/leetcode/hard/76-min-window)
+- [209. 长度最小的子数组](/leetcode/medium/209-min-sub-array-len)
+- [424. 替换后的最长重复字符](/leetcode/medium/424-character-replacement)
+- [438. 找到字符串中所有字母异位词](/leetcode/medium/438-find-anagrams)
+- [567. 字符串的排列](/leetcode/medium/567-check-inclusion)
+
+:::
 
 ## 题目
 
@@ -76,7 +92,7 @@ var maxSlidingWindow = function (nums, k) {
 
   if (len === 0 && k <= 0) return maxs
 
-  for (let i = 0; i < len; i++) 
+  for (let i = 0; i < len; i++)
     // 如果队列不为空且队尾对应的元素小于当前遍历到的值,
     // 则弹出当前队尾, 直到队尾没有小于 i 所对应的元素,
     // 这样就确保了队首对应的元素始终是最大的.
