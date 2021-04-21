@@ -30,7 +30,7 @@ sidebar_label: 1109. 航班预订统计
 
 ## 题解
 
-该题为[差分数组](/algorithm-design/diff-array)的一个实际应用, 具体实现看那篇文章即可.
+该题为[差分数组](/algorithm-design/difference-array)的一个实际应用, 具体实现看那篇文章即可.
 
 ```ts
 /**

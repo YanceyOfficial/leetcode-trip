@@ -1,8 +1,7 @@
 import { ObjectStack } from './types'
-import { Dict } from '../typings'
 
 export class Stack<T> implements ObjectStack<T> {
-  private readonly items: Dict<T>
+  private readonly items: Record<string, T>
 
   private count: number
 

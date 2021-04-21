@@ -1,12 +1,12 @@
 /* eslint-disable prefer-destructuring */
 import assert from 'assert'
 
-interface IDiffArray {
+interface IDifferenceArray {
   increment(i: number, j: number, val: number): void
   result(): number[]
 }
 
-export class DiffArray implements IDiffArray {
+export class DifferenceArray implements IDifferenceArray {
   private diff: number[] = []
 
   constructor(readonly nums: number[]) {
