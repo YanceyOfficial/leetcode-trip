@@ -3,11 +3,16 @@ id: 382-solution
 title: 链表随机节点
 sidebar_label: 382. 链表随机节点
 keywords:
-  - 水塘抽样算法
+  - 水塘抽样算法(蓄水池抽样算法)
 ---
 
 :::success Tips
-题目类型: 水塘抽样算法
+题目类型: 水塘抽样算法(蓄水池抽样算法)
+
+相关题目:
+
+- [398. 随机数索引](/leetcode/medium/398-solution)
+
 :::
 
 ## 题目
@@ -31,7 +36,7 @@ solution.getRandom()
 
 ## 题解
 
-水塘抽样算法:
+水塘抽样算法(蓄水池采样算法, Reservoir Sampling), 是说在一个流中, 随机选择 k 个数字, 保证每个数字被选择的概率相等.
 
 先说结论, 当你遇到第 `i` 个元素时, 应该有 `1 / i` 的概率选择该元素, `1 - 1 / i` 的概率保持原有的选择.
 证明: 假设总共有 `n` 个元素, 我们要的随机性无非就是每个元素被选择的概率都是 `1 / n` 对吧, 那么对于第 `i` 个元素, 它被选择的概率就是:
@@ -62,12 +67,12 @@ var Solution = function (head) {
  * @return {number}
  */
 Solution.prototype.getRandom = function () {
-  let num = 0
-  let res = null
+  let cnt = 0
+  let res = 0
   let head = this.head
-  while (head !== null) {
-    num++
-    if (!Math.floor(Math.random() * num)) {
+  while (head) {
+    ++cnt
+    if (Math.floor(Math.random() * cnt) === 0) {
       res = head.val
     }
     head = head.next

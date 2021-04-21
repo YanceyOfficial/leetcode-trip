@@ -26,12 +26,12 @@ var Solution = function (head) {
  * @return {number}
  */
 Solution.prototype.getRandom = function () {
-  let num = 0
-  let res = null
+  let cnt = 0
+  let res = 0
   let head = this.head
-  while (head !== null) {
-    num++
-    if (!Math.floor(Math.random() * num)) {
+  while (head) {
+    ++cnt
+    if (Math.floor(Math.random() * cnt) === 0) {
       res = head.val
     }
     head = head.next
