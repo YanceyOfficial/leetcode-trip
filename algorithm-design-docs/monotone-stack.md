@@ -1,7 +1,7 @@
 ---
 id: monotone-stack
 title: 单调栈
-sidebar_label: 单调栈
+sidebar_label: Monotone Stack
 ---
 
 ## 用途

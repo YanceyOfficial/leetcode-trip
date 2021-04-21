@@ -1,12 +1,13 @@
 ---
 id: menu
 title: 目录
-sidebar_label: 目录
+sidebar_label: Menu
 ---
 
 - [冒泡排序](/algorithm-design/sort/bubble)
 - [堆排序](/algorithm-design/sort/heap)
 - [快速排序](/algorithm-design/sort/quick)
+- [归并排序](/algorithm-design/sort/merge)
 
 ## 稳定性
 

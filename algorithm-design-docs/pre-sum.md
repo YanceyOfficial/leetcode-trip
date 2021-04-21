@@ -1,7 +1,7 @@
 ---
 id: pre-sum
 title: 前缀和
-sidebar_label: 前缀和
+sidebar_label: Pre Sum
 ---
 
 ## 前缀和算法合辑

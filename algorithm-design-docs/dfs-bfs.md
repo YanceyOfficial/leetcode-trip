@@ -1,7 +1,7 @@
 ---
 id: dfs-bfs
 title: DFS / BFS
-sidebar_label: DFS / BFS
+sidebar_label: DFS and BFS
 ---
 
 ## 综述

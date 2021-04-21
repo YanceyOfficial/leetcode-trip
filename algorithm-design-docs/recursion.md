@@ -1,7 +1,7 @@
 ---
 id: recursion
 title: 递归
-sidebar_label: 递归
+sidebar_label: Recursion
 ---
 
 ## 递归三要素

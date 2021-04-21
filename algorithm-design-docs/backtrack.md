@@ -1,7 +1,7 @@
 ---
 id: backtrack
 title: 回溯算法
-sidebar_label: 回溯算法
+sidebar_label: Backtrack
 ---
 
 ## 回溯算法套路

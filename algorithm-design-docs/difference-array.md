@@ -1,7 +1,7 @@
 ---
-id: diff-array
+id: difference-array
 title: 差分数组
-sidebar_label: 差分数组
+sidebar_label: Difference Array
 ---
 
 ## 概念

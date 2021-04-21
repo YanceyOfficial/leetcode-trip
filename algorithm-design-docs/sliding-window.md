@@ -1,7 +1,7 @@
 ---
 id: sliding-window
 title: 滑动窗口
-sidebar_label: 滑动窗口
+sidebar_label: Sliding Window
 ---
 
 ## 滑动窗口算法合辑

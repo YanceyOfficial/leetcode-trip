@@ -7,10 +7,18 @@ module.exports = {
     'union-find',
     'dfs-bfs',
     'pre-sum',
-    'diff-array',
+    'difference-array',
     'monotone-stack',
+    'sliding-window',
+    'greedy',
     {
-      十大排序算法: ['sort/menu', 'sort/bubble', 'sort/heap', 'sort/quick'],
+      Sorts: [
+        'sort/menu',
+        'sort/bubble',
+        'sort/heap',
+        'sort/quick',
+        'sort/merge',
+      ],
     },
   ],
 }

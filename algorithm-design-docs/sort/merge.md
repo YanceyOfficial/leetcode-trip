@@ -1,3 +1,22 @@
+---
+id: merge
+title: 归并排序
+sidebar_label: Merge Sort
+---
+
+## 原理
+
+归并排序是利用**归并**的思想实现的排序方法, 该算法采用经典的分治(divide-and-conquer)策略. 分治法将问题分(divide)成一些小的问题然后递归求解, 而治(conquer)的阶段则将分的阶段得到的各答案"修补"在一起, 即分而治之.
+
+![merge-sort](../../static/img/merge-sort-1.png)
+
+![merge-sort](../../static/img/merge-sort-2.png)
+
+![merge-sort](../../static/img/merge-sort-3.png)
+
+## 实现
+
+```ts
 export const merge = (
   arr: number[],
   left: number,
@@ -57,5 +76,8 @@ export const mergeSort = (arr: number[]) => {
 
   return arr
 }
+```
 
-console.log(mergeSort([4, 65, 3, 2, 5, 765, 12, 4, 3, 5, 7, 21]))
+## 复杂度分析
+
+归并排序是稳定排序, 它也是一种十分高效的排序, 能利用完全二叉树特性的排序一般性能都不会太差. java 中 Arrays.sort() 采用了一种名为 TimSort 的排序算法, 就是归并排序的优化版本. 从上文的图中可看出, 每次合并操作的平均时间复杂度为 O(n), 而完全二叉树的深度为 log2n. 总的平均时间复杂度为 O(nlogn). 而且, 归并排序的最好, 最坏, 平均时间复杂度均为 O(nlogn).

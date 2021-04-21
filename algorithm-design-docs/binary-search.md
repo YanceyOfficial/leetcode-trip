@@ -1,7 +1,7 @@
 ---
 id: binary-search
 title: 二分查找
-sidebar_label: 二分查找
+sidebar_label: Binary Search
 ---
 
 ## 朴素的二分查找
