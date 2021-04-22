@@ -123,29 +123,3 @@ export class PriorityQueue<T> {
     return root
   }
 }
-
-const topKFrequent = (nums, k) => {
-  const map = new Map()
-  const pq = new PriorityQueue()
-  const res = []
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const num of nums) {
-    if (map.has(num)) {
-      map.set(num, map.get(num) + 1)
-    } else {
-      map.set(num, 1)
-    }
-  }
-
-  map.forEach((val, key) => pq.offer([val, key]))
-
-  for (let i = 0; i < k; i++) {
-    // @ts-ignore
-    res.push(pq.poll()[1])
-  }
-
-  return res
-}
-
-console.log(topKFrequent([1], 1))
