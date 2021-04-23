@@ -9,6 +9,10 @@ keywords:
 :::success Tips
 题目类型: Greey
 
+相关题目:
+
+- [452. 用最少数量的箭引爆气球](/leetcode/medium/452-find-min-arrow-shots)
+
 :::
 
 ## 题目
@@ -46,9 +50,9 @@ keywords:
 
 1. 在所有区间中选择 end 最小的那个区间, 因此先排个序
 
-2. 如果某个区间 x 的 start 小于 end, 说明这个区间 x 是重叠的
+2. 如果某个区间 x 的 start 小于 smallestEnd, 说明这个区间 x 是重叠的
 
-3. 否则把这个区间 x 的 end 设为新的 end
+3. 否则把这个区间 x 的 end 设为新的 smallestEnd
 
 ![435-erase-overlap-intervals](../../static/img/435-erase-overlap-intervals.png)
 
@@ -58,21 +62,21 @@ keywords:
  * @return {number}
  */
 var eraseOverlapIntervals = function (intervals) {
-  let total = 0
   const n = intervals.length
   // 根据 end 从小到大排序
   intervals.sort((a, b) => a[1] - b[1])
 
+  let total = 0
   // 选取最小的 end
-  let end = intervals[0][1]
+  let smallestEnd = intervals[0][1]
 
   for (let i = 1; i < n; i++) {
-    const curr = intervals[i]
+    const [start, end] = intervals[i]
 
-    if (curr[0] < end) {
+    if (start < smallestEnd) {
       total++
     } else {
-      end = curr[1]
+      smallestEnd = end
     }
   }
 

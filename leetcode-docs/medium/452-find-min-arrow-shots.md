@@ -2,7 +2,18 @@
 id: 452-find-min-arrow-shots
 title: 用最少数量的箭引爆气球
 sidebar_label: 452. 用最少数量的箭引爆气球
+keywords:
+  - Greey
 ---
+
+:::success Tips
+题目类型: Greey
+
+相关题目:
+
+- [435. 无重叠区间](/leetcode/medium/435-erase-overlap-intervals)
+
+:::
 
 ## 题目
 
@@ -17,7 +28,7 @@ sidebar_label: 452. 用最少数量的箭引爆气球
 ```ts
 输入: points = [[10,16],[2,8],[1,6],[7,12]]
 输出: 2
-解释: 对于该样例, x = 6 可以射爆 [2,8],[1,6] 两个气球, 以及 x = 11 射爆另外两个气球
+解释: 对于该样例, x = 6 可以射爆 [2,8],[1,6] 两个气球, 以及 x = 10 射爆另外两个气球
 ```
 
 ```ts
@@ -57,12 +68,33 @@ sidebar_label: 452. 用最少数量的箭引爆气球
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
+1. 在所有区间中选择 end 最小的那个区间, 因此先排个序
+
+2. 如果某个区间 x 的 start 小于等于 smallestEnd, 说明这个区间 x 是重叠的, 可以被射爆
+
+3. 否则这一炮射不爆当前区间, 故 total++, 并把这个区间 x 的 end 设为新的 smallestEnd
 
 ```ts
 /**
  * @param {number[][]} points
  * @return {number}
  */
-var findMinArrowShots = function (points) {}
+var findMinArrowShots = function (points) {
+  const n = points.length
+  points.sort((a, b) => a[1] - b[1])
+
+  let total = 1
+  let smallestEnd = points[0][1]
+
+  for (let i = 1; i < n; i++) {
+    const [start, end] = points[i]
+
+    if (start > smallestEnd) {
+      smallestEnd = end
+      total++
+    }
+  }
+
+  return total
+}
 ```
