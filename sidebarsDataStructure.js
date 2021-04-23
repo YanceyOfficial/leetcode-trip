@@ -2,10 +2,10 @@ module.exports = {
   dataStructure: [
     'stack/stack',
     {
-      队列: ['queue/queue', 'queue/priority-queue'],
+      Queue: ['queue/queue', 'queue/priority-queue'],
     },
     {
-      树: [
+      Tree: [
         'tree/concept',
         'tree/traversal',
         'tree/bst',
@@ -13,7 +13,7 @@ module.exports = {
         'tree/binary-heap',
       ],
     },
-    { 图: ['graph/concept', 'graph/dfs', 'graph/bfs'] },
+    { Graph: ['graph/concept', 'graph/dfs', 'graph/bfs'] },
     'complexity',
   ],
 }

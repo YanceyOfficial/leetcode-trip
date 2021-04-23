@@ -11,6 +11,7 @@ module.exports = {
     'monotone-stack',
     'sliding-window',
     'greedy',
+    'divide-and-conquer',
     {
       Sorts: [
         'sort/menu',

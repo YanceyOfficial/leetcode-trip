@@ -1,7 +1,7 @@
 ---
 id: priority-queue
 title: 优先级队列
-sidebar_label: 优先级队列
+sidebar_label: Priority Queue
 ---
 
 ## 用途

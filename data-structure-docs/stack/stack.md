@@ -1,7 +1,7 @@
 ---
 id: stack
 title: 栈
-sidebar_label: 栈
+sidebar_label: Stack
 ---
 
 ## 特性

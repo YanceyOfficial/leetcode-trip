@@ -1,7 +1,7 @@
 ---
 id: queue
 title: 队列概念
-sidebar_label: 队列概念
+sidebar_label: Concept
 ---
 
 ## 特性

@@ -1,7 +1,7 @@
 ---
 id: complexity
 title: 大 O 复杂度表示法
-sidebar_label: 大 O 复杂度表示法
+sidebar_label: Complexity Analysis
 ---
 
 ## 为什么需要复杂度分析
