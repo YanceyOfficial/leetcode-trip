@@ -50,6 +50,8 @@ keywords:
 
 3. 否则把这个区间 x 的 end 设为新的 end
 
+![435-erase-overlap-intervals](../../static/img/435-erase-overlap-intervals.png)
+
 ```ts
 /**
  * @param {number[][]} intervals
