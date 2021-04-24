@@ -12,6 +12,7 @@ module.exports = {
     'sliding-window',
     'greedy',
     'divide-and-conquer',
+    'dynamic-programming',
     {
       Sorts: [
         'sort/menu',

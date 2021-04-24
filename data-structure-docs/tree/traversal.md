@@ -1,7 +1,7 @@
 ---
 id: traversal
 title: 树的遍历
-sidebar_label: 树的遍历
+sidebar_label: Traversal
 ---
 
 :::info 注意

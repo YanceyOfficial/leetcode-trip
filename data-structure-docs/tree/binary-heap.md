@@ -1,7 +1,7 @@
 ---
 id: binary-heap
 title: 二叉堆
-sidebar_label: 二叉堆
+sidebar_label: Binary Heap
 ---
 
 ## 概念

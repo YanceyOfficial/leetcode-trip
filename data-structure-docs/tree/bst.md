@@ -1,7 +1,7 @@
 ---
 id: bst
 title: 二分搜索树
-sidebar_label: 二分搜索树
+sidebar_label: BST
 ---
 
 ## 性质

@@ -1,0 +1,170 @@
+---
+id: linkedlist
+title: 链表
+sidebar_label: LinkedList
+---
+
+## 概念
+
+数组利用下标查询数组元素的时间复杂度是 O(1), **中间**插入和删除数组元素的时间复杂度是 O(n), 因为数组长度是固定的, 所以在数组头部或者中间插入或移除元素需要移动元素. 因此数组适合查询, 而不适合删除和插入.
+
+链表中的每个元素由 **一个存储元素本身的节点** 和 **一个指向下一个元素的引用** 组成. 查询链表元素的时间复杂度是 O(n), **中间**插入和删除数组元素的时间复杂度是 O(1). 因此链表适合删除和插入, 而不适合查询.
+
+链表有单向链表, 双向列表, 循环列表, 排序链表等几种形式.
+
+## 实现
+
+```ts
+export interface ILinkedList<T> {
+  push(element: T): void // 向链表尾部添加一个新元素
+  removeAt(index: number): any // 删除指定位置的元素
+  remove(element: T): any // 从链表移除一个元素
+  insert(element: T, index: number): boolean // 向链表指定位置插入元素
+  getElementAt(index: number): Node<T> | null // 返回链表指定位置的元素, 若找不到返回 null
+  indexOf(element: T): number // 返回链表指定元素的索引, 没有则返回 -1
+  isEmpty(): boolean // 判断链表是否为空
+  size(): number // 获取链表的长度
+  getHead(): Node<T> | null // 获取 head
+  clear(): void // 清空链表
+  toString(): string // 返回链表的字符串形式
+}
+
+// 节点类
+// 一个链表节点包括当前元素和下一个元素的指针
+export class Node<T> {
+  constructor(public element: T, public next?: Node<T> | null) {
+    this.element = element
+    this.next = null
+  }
+}
+
+// 单向链表类
+export class LinkedList<T> implements ILinkedList<T> {
+  protected count: number
+
+  protected head: Node<T> | null
+
+  constructor() {
+    this.count = 0
+    this.head = null
+  }
+
+  public push(element: T) {
+    const node = new Node(element)
+    let current: Node<T> | null = null
+
+    // 如果链表为空, 即 head 为 null, 该节点将放置到链表头部
+    if (this.isEmpty()) {
+      this.head = node
+    } else {
+      current = this.head as Node<T>
+      // 否则一直遍历到链表的尾部
+      while (current.next) {
+        current = current.next
+      }
+      // 将该新增节点插入到尾部
+      current.next = node
+    }
+    this.count++
+  }
+
+  public removeAt(index: number) {
+    if (index < 0 || index > this.count - 1) return null
+
+    let current = this.head
+
+    // 如果删除第一个元素
+    if (index === 0) {
+      this.head = (current as Node<T>).next as Node<T>
+    } else {
+      const previous = this.getElementAt(index - 1)
+      current = (previous as Node<T>).next as Node<T>
+      ;(previous as Node<T>).next = current.next
+    }
+    this.count--
+    return (current as Node<T>).element
+  }
+
+  public remove(element: T) {
+    const index = this.indexOf(element)
+    return this.removeAt(index)
+  }
+
+  public insert(element: T, index: number) {
+    if (index < 0 || index > this.count - 1) return false
+
+    const node = new Node(element)
+
+    if (index === 0) {
+      const current = this.head
+      node.next = current
+      this.head = node
+    } else {
+      const previous = this.getElementAt(index - 1)
+      if (previous) {
+        node.next = previous.next
+        previous.next = node
+      }
+    }
+
+    this.count++
+    return true
+  }
+
+  public getElementAt(index: number) {
+    // 如果索引越界, 返回 null
+    if (index < 0 || index > this.count - 1) return null
+
+    let current = this.head as Node<T>
+    for (let i = 0; i < index; i += 1) {
+      current = current.next as Node<T>
+    }
+
+    return current
+  }
+
+  public indexOf(element: T) {
+    let current = this.head
+
+    // 遍历链表
+    for (let i = 0; i < this.size(); i += 1) {
+      if ((current as Node<T>).element === element) {
+        return i
+      }
+
+      current = (current as Node<T>).next as Node<T>
+    }
+    return -1
+  }
+
+  public isEmpty() {
+    return this.size() === 0
+  }
+
+  public size() {
+    return this.count
+  }
+
+  public getHead() {
+    return this.head
+  }
+
+  public clear() {
+    this.head = null
+    this.count = 0
+  }
+
+  public toString() {
+    if (this.head === null) {
+      return ''
+    }
+    let objString = `${this.head.element}`
+    let current = this.head.next
+    for (let i = 1; i < this.size() && current !== null; i++) {
+      objString = `${objString},${(current as Node<T>).element}`
+      current = (current as Node<T>).next
+    }
+    return objString
+  }
+}
+```
