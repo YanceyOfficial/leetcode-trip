@@ -8,7 +8,18 @@ export const generateTemplate = (
 id: ${serial}-${functionName}
 title: ${title}
 sidebar_label: ${serial}. ${title}
+keywords:
+  - HashMap
 ---
+
+:::success Tips
+题目类型: HashMap
+
+相关题目:
+
+- [1. 两数之和](/leetcode/easy/1-two-sum)
+
+:::
 
 ## 题目
 
