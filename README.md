@@ -52,7 +52,7 @@ Please make sure to read the [Issue Reporting Checklist](./.github/ISSUE_TEMPLAT
 
 ### Semantic Commit
 
-This project follows the [Angular Team's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit), your commit will be checked by commitlint, please use `git cz` instead of `git commit`. For this reason, you might install [`commitizen`](https://github.com/commitizen/cz-cli) globally.
+LeetCode Trip follows the [Angular Team's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit), your commit will be checked by commitlint, please use `git cz` instead of `git commit`. For this reason, you might install [`commitizen`](https://github.com/commitizen/cz-cli) globally.
 
 ### Algolia Search
 
