@@ -15,9 +15,8 @@ var coinChange = function (coins, amount) {
   const dp = new Array(n).fill(n)
 
   dp[0] = 0
-  for (let i = 0; i < n; i++) {
-    for (const coin of coins) {
-      if (i - coin < 0) continue
+  for (const coin of coins) {
+    for (let i = coin; i < n; i++) {
       dp[i] = Math.min(dp[i], 1 + dp[i - coin])
     }
   }

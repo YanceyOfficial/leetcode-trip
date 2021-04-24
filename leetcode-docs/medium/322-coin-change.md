@@ -8,6 +8,11 @@ keywords:
 
 :::success Tips
 题目类型: Dynamic Programming
+
+相关题目:
+
+- [518. 零钱兑换-ii(背包组合问题)](/leetcode/medium/518-change)
+
 :::
 
 ## 题目
@@ -101,10 +106,8 @@ var coinChange = function (coins, amount) {
   const dp = new Array(n).fill(n)
 
   dp[0] = 0
-  for (let i = 0; i < n; i++) {
-    for (const coin of coins) {
-      // 目标金额 - 硬币面额 < 0, 意味着子问题无解, 跳过
-      if (i - coin < 0) continue
+  for (const coin of coins) {
+    for (let i = coin; i < n; i++) {
       dp[i] = Math.min(dp[i], 1 + dp[i - coin])
     }
   }
