@@ -9,6 +9,11 @@ keywords:
 
 :::success Tips
 题目类型: Dynamic Programming, Binary Search
+
+相关题目:
+
+- [673. 最长递增子序列的个数](/leetcode/medium/673-find-number-of-lis)
+
 :::
 
 ## 题目
@@ -38,7 +43,7 @@ keywords:
 
 这个方法的时间复杂度为 O(n<sup>2</sup>)
 
-![300-length-of-list](../../static/img/300-length-of-list-1.jpg)
+![300-length-of-list](../../static/img/300-length-of-lis-1.jpg)
 
 ```ts
 /**

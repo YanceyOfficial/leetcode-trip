@@ -1,0 +1,77 @@
+---
+id: 673-find-number-of-lis
+title: 最长递增子序列的个数
+sidebar_label: 673. 最长递增子序列的个数
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+
+相关题目:
+
+- [300. 最长递增子序列](/leetcode/medium/300-length-of-lis)
+
+:::
+
+## 题目
+
+给定一个未排序的整数数组，找到最长递增子序列的个数。
+
+:::info 示例
+
+```ts
+输入: [1,3,5,4,7]
+输出: 2
+解释: 有两个最长递增子序列，分别是 [1, 3, 4, 7] 和[1, 3, 5, 7]。
+```
+
+```ts
+输入: [2,2,2,2,2]
+输出: 5
+解释: 最长递增子序列的长度是1，并且存在5个子序列的长度为1，因此输出5。
+```
+
+:::
+
+## 题解
+
+这里是题解这里是题解这里是题解这里是题解这里是题解
+
+```ts
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findNumberOfLIS = function (nums) {
+  const n = nums.length
+  const dp = new Array(n).fill(1)
+  const count = new Array(n).fill(1)
+
+  let max = 1
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[j] < nums[i]) {
+        if (dp[j] + 1 > dp[i]) {
+          dp[i] = dp[j] + 1
+          count[i] = count[j]
+        } else if (dp[j] + 1 === dp[i]) {
+          count[i] += count[j]
+        }
+      }
+    }
+
+    max = Math.max(dp[i], max)
+  }
+
+  let ans = 0
+  for (let i = 0; i < n; i++) {
+    if (dp[i] == max) {
+      ans += count[i]
+    }
+  }
+
+  return ans
+}
+```
