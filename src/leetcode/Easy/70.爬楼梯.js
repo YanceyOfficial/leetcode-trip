@@ -19,3 +19,5 @@ var climbStairs = function (n) {
   return dp[n]
 }
 // @lc code=end
+
+console.log(climbStairs(10))
