@@ -97,7 +97,20 @@ dp[i][k][1] = Math.max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i])
 
 - `dp[-1][k][0] = 0`, 因为 `i` 是从 `0` 开始的, `i = -1` 意味着还没开始, 此时利润当然是 `0`
 - `dp[-1][k][1] = Number.NEGATIVE_INFINITY`, `i = -1` 意味着还没开始, 根本不可能持有股票, 此时利润写为 `Number.NEGATIVE_INFINITY`
-- `dp[i][0][0] = 0`, 因为 `k` 是从 `1` 开始的, `k = 0` 意味着
+- `dp[i][0][0] = 0`, 因为 `k` 是从 `1` 开始的, `k = 0` 意味着不允许交易, 此时利润当然是 `0`
+- `dp[i][0][1] = Number.NEGATIVE_INFINITY`, 因为 `k` 是从 `1` 开始的, `k = 0` 意味着不允许交易, 根本不可能持有股票, 此时利润写为 `Number.NEGATIVE_INFINITY`
+
+### 股票问题的框架
+
+```ts
+// base case
+dp[-1][k][0] = dp[i][0][0] = 0
+dp[-1][k][1] = dp[i][0][1] = Number.NEGATIVE_INFINITY
+
+// 状态转移方程
+dp[i][k][0] = Math.max(dp[i - 1][k][0], dp[i - 1][k][1] + prices[i])
+dp[i][k][1] = Math.max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i])
+```
 
 ```ts
 /**
