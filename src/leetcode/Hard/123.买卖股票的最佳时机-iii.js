@@ -1,38 +1,18 @@
 /*
- * @lc app=leetcode.cn id=188 lang=javascript
+ * @lc app=leetcode.cn id=123 lang=javascript
  *
- * [188] 买卖股票的最佳时机 IV
+ * [123] 买卖股票的最佳时机 III
  */
 
 // @lc code=start
 /**
- * @param {number} k
  * @param {number[]} prices
  * @return {number}
  */
-var maxProfitInfinity = function (prices) {
+var maxProfit = function (prices) {
   const n = prices.length
+  const maxK = 2
 
-  let dp_i_0 = 0,
-    dp_i_1 = Number.NEGATIVE_INFINITY
-
-  for (let i = 0; i < n; i++) {
-    const temp = dp_i_0
-    dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i])
-    dp_i_1 = Math.max(dp_i_1, temp - prices[i])
-  }
-  return dp_i_0
-}
-
-var maxProfit = function (k, prices) {
-  const n = prices.length
-  const maxK = k
-
-  if (maxK > n / 2) {
-    return maxProfitInfinity(prices)
-  }
-
-  // 注意初始化 JavaScript 的傻逼三维数组, 小心引用类型.
   const dp = new Array(n).fill(
     JSON.parse(JSON.stringify(new Array(maxK + 1).fill([0, 0]))),
   )
@@ -61,3 +41,5 @@ var maxProfit = function (k, prices) {
   return dp[n - 1][maxK][0]
 }
 // @lc code=end
+
+console.log(maxProfit([3, 3, 5, 0, 0, 3, 1, 4]))

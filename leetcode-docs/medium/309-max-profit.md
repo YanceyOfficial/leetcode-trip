@@ -8,6 +8,15 @@ keywords:
 
 :::success Tips
 题目类型: Dynamic Programming
+
+相关题目:
+
+- [121. 买卖股票的最佳时机](/leetcode/easy/121-max-profit)
+- [122. 买卖股票的最佳时机-ii](/leetcode/easy/122-max-profit)
+- [123. 买卖股票的最佳时机-iii](/leetcode/hard/123-max-profit)
+- [188. 买卖股票的最佳时机-iv](/leetcode/hard/188-max-profit)
+- [714. 买卖股票的最佳时机含手续费](/leetcode/medium/714-max-profit)
+
 :::
 
 ## 题目
