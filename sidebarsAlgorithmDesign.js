@@ -12,7 +12,14 @@ module.exports = {
     'sliding-window',
     'greedy',
     'divide-and-conquer',
-    'dynamic-programming',
+    {
+      'Dynamic Programming': [
+        'dynamic-programming/concept',
+        'dynamic-programming/pack',
+        'dynamic-programming/stock',
+      ],
+    },
+
     {
       Sorts: [
         'sort/menu',

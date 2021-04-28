@@ -1,7 +1,7 @@
 ---
 id: heap
 title: 堆排序
-sidebar_label: Heap Sort
+sidebar_label: Heap
 ---
 
 ## 概念

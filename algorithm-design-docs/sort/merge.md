@@ -1,7 +1,7 @@
 ---
 id: merge
 title: 归并排序
-sidebar_label: Merge Sort
+sidebar_label: Merge
 ---
 
 ## 原理

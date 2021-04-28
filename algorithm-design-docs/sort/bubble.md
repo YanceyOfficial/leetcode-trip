@@ -1,7 +1,7 @@
 ---
 id: bubble
 title: 冒泡排序
-sidebar_label: Bubble Sort
+sidebar_label: Bubble
 ---
 
 1. 比较相邻的元素. 如果第一个比第二个大, 就交换它们两个

@@ -1,7 +1,7 @@
 ---
-id: dynamic-programming
+id: concept
 title: 动态规划
-sidebar_label: Dynamic Programming
+sidebar_label: Concept
 ---
 
 ## 从斐波那契数列说起
@@ -10,7 +10,7 @@ sidebar_label: Dynamic Programming
 
 最暴力的递归大家都懂, 试了下 `fibonacci1(100)` 都卡成了狗, 原因在于大量数字被重复计算. 如下图所示, 像 f(18), f(17) 这些都被重复计算了一次, 此时时间复杂度到了 O(2<sup>n</sup>) 指数级别.
 
-![dynamic-programming](../static/img/dynamic-programming-1.jpeg)
+![dynamic-programming](../../static/img/dynamic-programming-1.jpeg)
 
 ```ts
 export const fibonacci1 = (n: number) => {
@@ -45,7 +45,7 @@ export const fibonacci2 = memoize((n: number) => {
 })
 ```
 
-![dynamic-programming](../static/img/dynamic-programming-2.jpeg)
+![dynamic-programming](../../static/img/dynamic-programming-2.jpeg)
 
 ### 具有动态规划雏形的斐波那契数列
 
@@ -99,19 +99,3 @@ export function fibonacci4(n: number) {
 - DP 需要列出正确的**状态转移方程**, 需要明确**状态** -> 定义 dp 数组/函数的含义 -> 明确**选择**-> 明确 base case.
 
 对于最有子结构, 有一个例子说的很好: 比如说, 你的原问题是考出最高的总成绩, 那么你的子问题就是要把语文考到最高, 数学考到最高... 为了每门课考到最高, 你要把每门课相应的选择题分数拿到最高, 填空题分数拿到最高... 当然, 最终就是你每门课都是满分, 这就是最高的总成绩. 这个过程符合最优子结构, 即**每门科目考到最高**这些子问题是互相独立, 互不干扰的.
-
-## 动态规划题目合辑
-
-- [322. 零钱兑换(完全背包问题)](/leetcode/medium/322-coin-change)
-- [518. 零钱兑换-ii(背包组合问题)](/leetcode/medium/518-change)
-
-### 股票买卖
-
-通用思路是在 [188. 买卖股票的最佳时机-iv](/leetcode/hard/188-max-profit) 题, 具体看这一篇.
-
-- [121. 买卖股票的最佳时机](/leetcode/easy/121-max-profit)
-- [122. 买卖股票的最佳时机-ii](/leetcode/easy/122-max-profit)
-- [123. 买卖股票的最佳时机-iii](/leetcode/hard/123-max-profit)
-- [188. 买卖股票的最佳时机-iv](/leetcode/hard/188-max-profit)
-- [309. 最佳买卖股票时机含冷冻期](/leetcode/medium/309-max-profit)
-- [714. 买卖股票的最佳时机含手续费](/leetcode/medium/714-max-profit)
