@@ -23,7 +23,6 @@ export function knapsack(W: number, N: number, wt: number[], val: number[]) {
     }
   }
 
-  console.log(dp)
   return dp[N][W]
 }
 

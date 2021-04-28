@@ -31,6 +31,33 @@ val = [4, 2, 3]
 - 如果你把第 i 个物品装到背包, 那么 `dp[i][w]` 应该等于 `dp[i-1][w-wt[i-1]] + val[i-1]`, 首先, 由于 i 是从 1 开始的, 所以对 val 和 wt 的取值是 `i-1`. 对于前半部分 `dp[i-1][w-wt[i-1]]`, 就是说如果装了当前物品 i, 那么背包的剩余容量就变成了 `w-wt[i-1]`, 当然剩余容量可能超过了总容量, 后面会过滤掉这种情况; 对于后半部分 `val[i-1]`, 就很显而易见了, 你把这个物品 i 装了进去, 那么就要把这个物品的价格加上嘛.
 
 ```ts
+/**
+ * @param {Number[]} wt 物品重量列表
+ * @param {Number[]} val 物品价值列表
+ * @param {Number} W 背包能装多少重量
+ * @param {Number} N 背包能装多少个商品
+ * @returns
+ */
+export function knapsack(W: number, N: number, wt: number[], val: number[]) {
+  const dp: number[][] = []
+  for (let j = 0; j <= N; j++) {
+    dp.push(new Array(W + 1).fill(0))
+  }
+
+  for (let i = 1; i <= N; i++) {
+    for (let w = 1; w <= W; w++) {
+      if (w - wt[i - 1] < 0) {
+        // 当前背包容量装不下,只能选择不装入背包
+        dp[i][w] = dp[i - 1][w]
+      } else {
+        // 装入或者不装入背包, 择优
+        dp[i][w] = Math.max(dp[i - 1][w], dp[i - 1][w - wt[i - 1]] + val[i - 1])
+      }
+    }
+  }
+
+  return dp[N][W]
+}
 ```
 
 ## 题目汇总
