@@ -1,0 +1,61 @@
+---
+id: 494-find-target-sum-ways
+title: 目标和
+sidebar_label: 494. 目标和
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+:::
+
+## 题目
+
+给定一个非负整数数组, a1, a2, ..., an, 和一个目标数, S. 现在你有两个符号 + 和 -. 对于数组中的任意一个整数, 你都可以从 + 或 - 中选择一个符号添加在前面. 返回可以使最终数组和为目标数 S 的所有添加符号的方法数.
+
+:::info 示例
+
+输入: nums: [1, 1, 1, 1, 1], S: 3
+输出: 5
+解释:
+
+- -1+1+1+1+1 = 3
+- +1-1+1+1+1 = 3
+- +1+1-1+1+1 = 3
+- +1+1+1-1+1 = 3
+- +1+1+1+1-1 = 3
+
+一共有 5 种方法让最终目标和为 3.
+:::
+
+## 题解
+
+0-1 背包问题是选还是不选, 需要先将这个题目转化一下. 设 `x` 为所有前面为 `+` 的元素之和, 设 `y` 为所有前面为 `-` 的元素之和的绝对值, 因此 `S = x - y`, 因为 `x + y = sum`, 因此 `S + sum = 2 * x`, 因此 `x = (S + sum) / 2`, 即装满容量为 `(S + sum) / 2` 的背包, 有几种方案.
+
+```ts
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var findTargetSumWays = function (nums, target) {
+  const n = nums.length
+  const sum = nums.reduce((acc, val) => acc + val)
+
+  if (target > sum || (sum + target) % 2 === 1) return 0
+
+  const weight = (sum + target) / 2
+
+  const dp = new Array(weight + 1).fill(0)
+  dp[0] = 1
+
+  for (let i = 1; i <= n; i++) {
+    for (let j = weight; j >= nums[i - 1]; j--) {
+      dp[j] = dp[j] + dp[j - nums[i - 1]]
+    }
+  }
+
+  return dp[weight]
+}
+```

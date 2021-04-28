@@ -62,8 +62,9 @@ export function knapsack(W: number, N: number, wt: number[], val: number[]) {
 
 ## 题目汇总
 
-| 题目                                                    | 类型     |
-| ------------------------------------------------------- | -------- |
-| [322. 零钱兑换](/leetcode/medium/322-coin-change)       | 完全背包 |
-| [416. 分割等和子集](/leetcode/medium/416-can-partition) | 0-1 背包 |
-| [518. 零钱兑换-ii](/leetcode/medium/518-change)         | 背包组合 |
+| 题目                                                     | 类型     |
+| -------------------------------------------------------- | -------- |
+| [416. 分割等和子集](/leetcode/medium/416-can-partition)  | 0-1 背包 |
+| [494. 目标和](/leetcode/medium/494-find-target-sum-ways) | 0-1 背包 |
+| [322. 零钱兑换](/leetcode/medium/322-coin-change)        | 完全背包 |
+| [518. 零钱兑换-ii](/leetcode/medium/518-change)          | 背包组合 |
