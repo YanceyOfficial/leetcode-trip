@@ -1468,9 +1468,9 @@
     webpack "^4.44.1"
 
 "@docusaurus/module-type-aliases@^2.0.0-alpha.72":
-  version "2.0.0-alpha.73"
-  resolved "https://registry.yarnpkg.com/@docusaurus/module-type-aliases/-/module-type-aliases-2.0.0-alpha.73.tgz#8411a9d37562969974506059ffbd646056f44328"
-  integrity sha512-JHhRRxcn9Gwn1sFqaZtx0Yna8SeDBZypjtjuu1nulXXwaWr1L8fc1RHp1PXy+DNXQ3XkTMEqCX6HFniG271ipg==
+  version "2.0.0-alpha.74"
+  resolved "https://registry.yarnpkg.com/@docusaurus/module-type-aliases/-/module-type-aliases-2.0.0-alpha.74.tgz#b792b05cca3a9d39449f9ed5c029f65b1a9ea32f"
+  integrity sha512-jEDM/gkXQB46iyCqR1Hpx3KDugJwndcUlvkvqbMRuCg/1a2NEV2p/4EoCNblyG2lAqQhiVC3xK9Pb33mcqvnGw==
 
 "@docusaurus/plugin-content-blog@2.0.0-alpha.73":
   version "2.0.0-alpha.73"
