@@ -1,0 +1,38 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "20:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: husky
+    versions:
+    - 6.0.0
+  - dependency-name: chalk
+    versions:
+    - 4.1.1
+  - dependency-name: eslint
+    versions:
+    - 7.23.0
+    - 7.24.0
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.20.0
+    - 4.21.0
+  - dependency-name: "@docusaurus/module-type-aliases"
+    versions:
+    - 2.0.0-alpha.72
+  - dependency-name: "@types/figlet"
+    versions:
+    - 1.5.0
+  - dependency-name: lerna
+    versions:
+    - 4.0.0
+  - dependency-name: ora
+    versions:
+    - 5.4.0
+  - dependency-name: ts-jest
+    versions:
+    - 26.5.4
