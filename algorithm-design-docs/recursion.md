@@ -16,7 +16,7 @@ sidebar_label: Recursion
 
 ### 斐波那契数列
 
-关于斐波那契数的各种花式玩法, 可参考[动态规划](/algorithm-design/dynamic-programming#从斐波那契数列说起).
+关于斐波那契数的各种花式玩法, 可参考[动态规划](/algorithm-design/dynamic-programming/concept#从斐波那契数列说起).
 
 ```ts
 export const fibonacci1 = (n: number) => {
