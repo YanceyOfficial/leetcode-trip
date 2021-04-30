@@ -3,14 +3,15 @@ id: 435-erase-overlap-intervals
 title: 无重叠区间
 sidebar_label: 435. 无重叠区间
 keywords:
-  - Greey
+  - Greedy
 ---
 
 :::success Tips
-题目类型: Greey
+题目类型: Greedy
 
 相关题目:
 
+- [55. 跳跃游戏](/leetcode/medium/55-can-jump)
 - [452. 用最少数量的箭引爆气球](/leetcode/medium/452-find-min-arrow-shots)
 
 :::
