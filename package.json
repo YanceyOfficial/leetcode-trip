@@ -33,10 +33,10 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.74",
-    "@docusaurus/plugin-ideal-image": "^2.0.0-alpha.74",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.74",
-    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.74",
+    "@docusaurus/core": "^2.0.0-alpha.75",
+    "@docusaurus/plugin-ideal-image": "^2.0.0-alpha.75",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.75",
+    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.75",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "nuka-carousel": "^4.7.7",
@@ -45,7 +45,7 @@
     "yancey-js-util": "^3.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.0.0-alpha.74",
+    "@docusaurus/module-type-aliases": "^2.0.0-alpha.75",
     "@tsconfig/docusaurus": "^1.0.2",
     "@types/jest": "^26.0.20",
     "@types/react": "^17.0.0",
