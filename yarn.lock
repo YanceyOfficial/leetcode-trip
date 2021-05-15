@@ -1603,12 +1603,12 @@
     tslib "^2.1.0"
 
 "@docusaurus/theme-live-codeblock@^2.0.0-alpha.75":
-  version "2.0.0-alpha.75"
-  resolved "https://registry.yarnpkg.com/@docusaurus/theme-live-codeblock/-/theme-live-codeblock-2.0.0-alpha.75.tgz#be4f485d0d5de64b954d6c40075664ef122fdecc"
-  integrity sha512-T1mkruMx6al/JUZ/fUzag80xUK6qsbiGmTza89o9yFKoa+W27ncmpMnvKmosvLu8pAhNz2JPV4vCDOf65sCLVw==
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@docusaurus/theme-live-codeblock/-/theme-live-codeblock-2.0.0-beta.0.tgz#3d43b9b4d524bf9cbd070dd078ad989480fe8aae"
+  integrity sha512-J/ZE90aQN66xM2NZf82FnodfuxMPvv9nW+oosTq/T/lcMxQ3Yy/z1XGSJkEAXgsd2Ry0oiewCfiTU6sbr37zAg==
   dependencies:
-    "@docusaurus/core" "2.0.0-alpha.75"
-    "@docusaurus/utils-validation" "2.0.0-alpha.75"
+    "@docusaurus/core" "2.0.0-beta.0"
+    "@docusaurus/utils-validation" "2.0.0-beta.0"
     "@philpl/buble" "^0.19.7"
     clsx "^1.1.1"
     parse-numeric-range "^1.2.0"
