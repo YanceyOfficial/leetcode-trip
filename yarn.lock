@@ -1318,9 +1318,9 @@
     webpack "^5.28.0"
 
 "@docusaurus/module-type-aliases@^2.0.0-alpha.75":
-  version "2.0.0-alpha.75"
-  resolved "https://registry.yarnpkg.com/@docusaurus/module-type-aliases/-/module-type-aliases-2.0.0-alpha.75.tgz#fa1f7f8f50ac5e77b7bf5a575e2458993c9efcff"
-  integrity sha512-9OWDcQ6JpgCsD/ihFhVC9JuOuxcJ1AeHnFSThVb7/5tINx5sTkxPy5Ee1c0xbvCxvxz7EADufZTX03JJQdcrHg==
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@docusaurus/module-type-aliases/-/module-type-aliases-2.0.0-beta.0.tgz#e018adfe3c8834c526ca687eed3cbc87569a47a7"
+  integrity sha512-Yj+7hjy5pCK4DQ3l2JDGBF4bMY63MV/z18WK7REHniyqC66IJQT+0Gpb6Q+Oz8e2Og8AsyWIbfTXvsFWK0UhJA==
 
 "@docusaurus/plugin-content-blog@2.0.0-alpha.75":
   version "2.0.0-alpha.75"
