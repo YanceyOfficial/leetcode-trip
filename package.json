@@ -33,10 +33,10 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.75",
-    "@docusaurus/plugin-ideal-image": "^2.0.0-alpha.75",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.75",
-    "@docusaurus/theme-live-codeblock": "^2.0.0-alpha.75",
+    "@docusaurus/core": "^2.0.0-beta.0",
+    "@docusaurus/plugin-ideal-image": "^2.0.0-beta.0",
+    "@docusaurus/preset-classic": "^2.0.0-beta.0",
+    "@docusaurus/theme-live-codeblock": "^2.0.0-beta.0",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "nuka-carousel": "^4.7.7",
@@ -45,7 +45,7 @@
     "yancey-js-util": "^3.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.0.0-alpha.75",
+    "@docusaurus/module-type-aliases": "^2.0.0-beta.0",
     "@tsconfig/docusaurus": "^1.0.2",
     "@types/jest": "^26.0.20",
     "@types/react": "^17.0.0",
@@ -56,7 +56,7 @@
     "eslint": "^7.23.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "^2.23.1",
     "husky": "^4.3.8",
     "jest": "^26.6.3",
     "lerna": "^4.0.0",
