@@ -1600,16 +1600,16 @@
     tslib "^2.1.0"
 
 "@docusaurus/theme-live-codeblock@^2.0.0-beta.0":
-  version "2.0.0-beta.0"
-  resolved "https://registry.npmjs.org/@docusaurus/theme-live-codeblock/-/theme-live-codeblock-2.0.0-beta.0.tgz#3d43b9b4d524bf9cbd070dd078ad989480fe8aae"
-  integrity sha512-J/ZE90aQN66xM2NZf82FnodfuxMPvv9nW+oosTq/T/lcMxQ3Yy/z1XGSJkEAXgsd2Ry0oiewCfiTU6sbr37zAg==
+  version "2.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@docusaurus/theme-live-codeblock/-/theme-live-codeblock-2.0.0-beta.1.tgz#90afe4355eb35dffd1ebb4fbbe4a29da314629bc"
+  integrity sha512-alK/u55GlBsv2zE8ZtjqPVyfGC/qyRNeRpl/AIwIi3n90jyMdQr63otPMW9Hc6fSw83WF++1tN1XaIbTmNaEVA==
   dependencies:
-    "@docusaurus/core" "2.0.0-beta.0"
-    "@docusaurus/utils-validation" "2.0.0-beta.0"
+    "@docusaurus/core" "2.0.0-beta.1"
+    "@docusaurus/utils-validation" "2.0.0-beta.1"
     "@philpl/buble" "^0.19.7"
     clsx "^1.1.1"
     parse-numeric-range "^1.2.0"
-    prism-react-renderer "^1.1.1"
+    prism-react-renderer "^1.2.1"
     react-live "^2.2.3"
 
 "@docusaurus/theme-search-algolia@2.0.0-beta.1":
