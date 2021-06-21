@@ -15,6 +15,7 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'Yancey Inc.',
   projectName: 'leetcode-trip',
+  trailingSlash: false,
   themes: ['@docusaurus/theme-live-codeblock'],
   plugins: [
     [
@@ -150,7 +151,6 @@ module.exports = {
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
-          trailingSlash: false,
         },
         theme: {
           customCss: require.resolve('./static/css/custom.css'),
