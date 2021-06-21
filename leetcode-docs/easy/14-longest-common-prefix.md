@@ -10,7 +10,7 @@ sidebar_label: 14. 最长公共前缀
 
 :::info 示例
 
-输入: strs = ["flower","flow","flight"]
+输入: strs = `["flower", "flow", "flight"]`
 
 输出: "fl"
 :::
