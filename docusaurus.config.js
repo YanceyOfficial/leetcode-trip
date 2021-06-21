@@ -15,7 +15,6 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'Yancey Inc.',
   projectName: 'leetcode-trip',
-  trailingSlash: false,
   themes: ['@docusaurus/theme-live-codeblock'],
   plugins: [
     [
