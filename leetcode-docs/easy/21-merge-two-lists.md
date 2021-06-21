@@ -11,7 +11,7 @@ keywords:
 
 相关题目:
 
-- [23. 合并k个升序链表](/leetcode/hard/23-merge-k-lists)
+- [23. 合并 k 个升序链表](/leetcode/hard/23-merge-k-lists)
 
 :::
 
@@ -27,6 +27,8 @@ keywords:
 :::
 
 ## 题解
+
+### 递归版
 
 ```ts
 /**
@@ -53,5 +55,38 @@ var mergeTwoLists = function (l1, l2) {
     l2.next = mergeTwoLists(l1, l2.next)
     return l2
   }
+}
+```
+
+### 迭代版
+
+迭代版的比较直观, 先建立一个伪节点 head, 然后进行迭代, 在迭代的过程中:
+
+- 如果 `l1.val < l2.val`, 说明 l1 应该放在 head 的 next, 然后让 l1, head 往下走
+- 如果 `l1.val >= l2.val`, 说明 l2 应该放在 head 的 next, 然后让 l2, head 往下走
+
+只要 l1 或者 l2 有一个到底了, 跳出循环. 此时某个链表可能还没走到头, 因为你没法保证两个链表长度一样. 不过没关系, 题目标注了两个链表是有序的, 所以直接把最后多出来的这一块链到 head 最后即可.
+
+```ts
+var mergeTwoLists = function (l1, l2) {
+  let head = new ListNode(-1)
+  const dummy = head
+
+  while (l1 && l2) {
+    if (l1.val < l2.val) {
+      head.next = l1
+      l1 = l1.next
+      head = head.next
+    } else {
+      head.next = l2
+      l2 = l2.next
+      head = head.next
+    }
+  }
+
+  if (l1 !== null) head.next = l1
+  if (l2 !== null) head.next = l2
+
+  return dummy.next
 }
 ```
