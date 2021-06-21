@@ -20,3 +20,5 @@ var reverse = function (x) {
   return n >= Math.pow(-2, 31) && n <= Math.pow(2, 31) - 1 ? n : 0
 }
 // @lc code=end
+
+console.log(reverse(120))
