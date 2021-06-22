@@ -8,7 +8,7 @@ sidebar_label: 67. 二进制求和
 
 相关题目:
 
-- [43. 字符串相乘(大数相乘)](/leetcode/easy/43-multiply)
+- [43. 字符串相乘(大数相乘)](/leetcode/medium/43-multiply)
 - [415. 字符串相加(大数相加)](/leetcode/easy/415-add-string)
 - [445. 两数相加 II(大数相加链表版)](/leetcode/medium/445-add-strings)
 
