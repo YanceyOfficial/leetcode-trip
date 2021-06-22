@@ -10,7 +10,7 @@
  * @param {number} target
  * @return {number}
  */
-var searchInsert = function(nums, target) {
+var searchInsert = function (nums, target) {
   let low = 0,
     high = nums.length - 1
   while (low <= high) {
