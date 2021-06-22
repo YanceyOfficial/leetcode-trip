@@ -11,24 +11,21 @@
  * @return {string}
  */
 var addBinary = function (a, b) {
-  const maxLen = Math.max(a.length, b.length)
+  const len = Math.max(a.length, b.length)
 
-  a = a.padStart(maxLen, '0')
-  b = b.padStart(maxLen, '0')
+  a = a.padStart(len, 0)
+  b = b.padStart(len, 0)
 
-  const arr = Array.from({ length: maxLen }, () => 0)
   let carry = 0
+  let res = ''
 
-  for (let i = maxLen - 1; i >= 0; i--) {
-    const currA = a[i] | 0,
-      currB = b[i] | 0
-    const sum = currA + currB + carry
-    carry = sum / 2 >= 1 ? 1 : 0
-    arr[i] += carry ? sum % 2 : sum
+  for (let i = len - 1; i >= 0; i--) {
+    const sum = +a[i] + +b[i] + carry
+    carry = (sum / 2) | 0
+    res = (sum % 2) + res
   }
 
-  let res = arr.join('')
-  return carry ? `1${res}` : res
+  return carry === 0 ? res : `1${res}`
 }
 // @lc code=end
 
