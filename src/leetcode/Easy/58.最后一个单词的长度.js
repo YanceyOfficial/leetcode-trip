@@ -9,12 +9,32 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLastWord = function(s) {
-  const sArr = s.trim().split(' ')
-  if (sArr.length > 0) {
-    return sArr[sArr.length - 1].length
+// var lengthOfLastWord = function(s) {
+//   const sArr = s.trim().split(' ')
+//   if (sArr.length > 0) {
+//     return sArr[sArr.length - 1].length
+//   }
+
+//   return 0
+// }
+
+var lengthOfLastWord = function (s) {
+  let count = 0
+
+  for (let i = s.length - 1; i >= 0; i--) {
+    if (s[i] === ' ') {
+      if (count !== 0) {
+        break
+      }
+    } else {
+      count++
+    }
   }
 
-  return 0
+  return count
 }
+
 // @lc code=end
+console.log(lengthOfLastWord('Hello World'))
+console.log(lengthOfLastWord('Hello '))
+console.log(lengthOfLastWord(' '))
