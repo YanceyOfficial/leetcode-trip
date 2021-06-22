@@ -9,7 +9,7 @@
  * @param {number} x
  * @return {number}
  */
-var mySqrt = function(x) {
+var mySqrt = function (x) {
   if (x < 2) return x
 
   const halfX = (x - (x % 2)) / 2
@@ -20,3 +20,5 @@ var mySqrt = function(x) {
   }
 }
 // @lc code=end
+
+console.log(mySqrt(24))
