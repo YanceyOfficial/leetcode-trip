@@ -4,10 +4,11 @@ title: 爬楼梯
 sidebar_label: 70. 爬楼梯
 keywords:
   - Dynamic Programming
+  - Recursive
 ---
 
 :::success Tips
-题目类型: Dynamic Programming
+题目类型: Dynamic Programming, Recursive
 :::
 
 ## 题目
@@ -18,7 +19,7 @@ keywords:
 
 输入: 10
 
-输出:
+输出: 89
 :::
 
 ## 题解
@@ -47,7 +48,7 @@ var climbStairs = function (n) {
 
 ```ts
 var climbStairs = function (n) {
-  if (n === 1) return n
+  if (n < 2) return n
 
   let prev = 1
   let curr = 1
@@ -58,5 +59,17 @@ var climbStairs = function (n) {
     curr = sum
   }
   return curr
+}
+```
+
+### 递归
+
+再来个递归嘻嘻, 不过超时了 TAT.
+
+```ts
+var climbStairs = function (n) {
+  if (n <= 2) return n
+
+  return climbStairs(n - 1) + climbStairs(n - 2)
 }
 ```
