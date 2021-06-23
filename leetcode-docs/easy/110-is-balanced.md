@@ -68,7 +68,7 @@ var depth = function (root) {
 }
 ```
 
-- 时间复杂度: O(nlogn), 最差情况下,  `isBalanced(root)` 遍历树所有节点, 占用 `O(n)`; 判断每个节点的最大高度 `depth(root)` 需要遍历**各子树**的所有节点, 即 n, 因此总的时间复杂度为 `O(nlogn)`.
+- 时间复杂度: O(nlogn), 最差情况下, `isBalanced(root)` 遍历树所有节点, 占用 `O(n)`; 判断每个节点的最大高度 `depth(root)` 需要遍历**各子树**的所有节点, 即 n, 因此总的时间复杂度为 `O(nlogn)`.
 
 - 空间复杂度: O(n), 即 root 退化成链表时.
 
