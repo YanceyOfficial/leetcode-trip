@@ -43,7 +43,7 @@ var hasCycle = function (head) {
   while (fast !== null && fast.next !== null) {
     // 快指针一次走两个
     fast = fast.next.next
-    // 满指针一次走两一个
+    // 慢指针一次走两一个
     slow = slow.next
 
     // 如果相遇了, 证明是环形链表
