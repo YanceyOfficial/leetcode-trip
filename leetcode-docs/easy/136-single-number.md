@@ -10,7 +10,7 @@ sidebar_label: 136. 只出现一次的数字
 相关题目:
 
 - [191. 位 1 的个数](/leetcode/easy/191-hamming-weight)
-- [231. 2 的杨](/leetcode/easy/231-is-power-of-two)
+- [231. 2 的幂](/leetcode/easy/231-is-power-of-two)
 :::
 
 ## 题目
