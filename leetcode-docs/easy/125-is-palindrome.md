@@ -1,0 +1,56 @@
+---
+id: 125-is-palindrome
+title: 验证回文串
+sidebar_label: 125. 验证回文串
+---
+
+## 题目
+
+给定一个字符串, 验证它是否是回文串, 只考虑字母和数字字符, 可以忽略字母的大小写. 说明: 本题中, 我们将空字符串定义为有效的回文串.
+
+:::info 示例
+
+输入: "A man, a plan, a canal: Panama"
+
+输出: true
+:::
+
+## 题解
+
+这题不难, 定义前后两个指针往中间游走, 如果遇见**非字母和数字字符**, 那就跳过它们; 否则将对应的字符进行比较: 一旦不同, 说明不是回文; 一次遍历之后如果都相同, 说明是回文.
+
+```ts
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function(s) {
+  const reg = /[A-Za-z0-9]/
+  let i = 0
+  let j = s.length - 1
+  let flag = true
+
+  while (flag && i < j) {
+    if (!reg.test(s[i])) {
+      i++
+    }
+
+    if (!reg.test(s[j])) {
+      j--
+    }
+
+    if (reg.test(s[i]) && reg.test(s[j])) {
+      flag = s[i].toLowerCase() === s[j].toLowerCase()
+      i++
+      j--
+    }
+  }
+  
+  return flag
+}
+```
+
+## 扩展
+
+`\w` 匹配字母, 数字, 下划线. 等价于 `[A-Za-z0-9_]`.
