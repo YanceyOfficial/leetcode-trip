@@ -29,10 +29,6 @@ sidebar_label: 104. 二叉树的最大深度
 
 ### 深度优先遍历
 
-时间复杂度: O(n)
-
-空间复杂度: O(height)
-
 ```ts
 /**
  * Definition for a binary tree node.
@@ -52,11 +48,11 @@ var maxDepth = function (root) {
 }
 ```
 
-### 广度优先遍历
-
 时间复杂度: O(n)
 
-空间复杂度: O(n)
+空间复杂度: O(height)
+
+### 广度优先遍历
 
 ```ts
 var maxDepth = function (root) {
@@ -86,3 +82,7 @@ var maxDepth = function (root) {
   return depth
 }
 ```
+
+时间复杂度: O(n)
+
+空间复杂度: O(n)
