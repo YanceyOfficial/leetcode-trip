@@ -34,7 +34,7 @@ keywords:
 
 ## 题解
 
-框架镇楼:
+框架镇楼(关于框架讲解在 [188. 买卖股票的最佳时机-iv](/leetcode/hard/188-max-profit) 题):
 
 ```ts
 // base case
