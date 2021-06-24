@@ -12,7 +12,7 @@ keywords:
 相关题目:
 
 - [113. 路径总和-ii](/leetcode/medium/113-path-sum)
-:::
+  :::
 
 ## 题目
 
@@ -54,7 +54,9 @@ keywords:
  * @return {boolean}
  */
 var hasPathSum = function (root, targetSum) {
-  if (root === null) return false
+  if (root === null) return
+
+  // 到了叶子结点了, 且值等于 targetSum
   if (root.left === null && root.right === null && root.val === targetSum)
     return true
 

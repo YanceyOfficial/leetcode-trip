@@ -57,16 +57,16 @@ var minDepth = function (root) {
     return 1
   }
 
-  let minDepth = Number.MAX_SAFE_INTEGER
+  let min = Number.MAX_SAFE_INTEGER
 
-  if (root.left != null) {
-    minDepth = Math.min(minDepth(root.left), minDepth)
+  if (root.left !== null) {
+    min = Math.min(minDepth(root.left), min)
   }
-  if (root.right != null) {
-    minDepth = Math.min(minDepth(root.right), minDepth)
+  if (root.right !== null) {
+    min = Math.min(minDepth(root.right), min)
   }
 
-  return minDepth + 1
+  return min + 1
 }
 ```
 

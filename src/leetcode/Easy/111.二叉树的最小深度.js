@@ -18,32 +18,23 @@
  * @return {number}
  */
 var minDepth = function (root) {
-  if (root === null) return 0
-
-  const queue = []
-  queue.push(root)
-  let depth = 1
-
-  while (queue.length !== 0) {
-    const len = queue.length
-
-    for (let i = 0; i < len; i++) {
-      const curr = queue.shift()
-
-      if (curr.left === null && curr.right === null) {
-        return depth
-      }
-
-      if (curr.left !== null) {
-        queue.push(curr.left)
-      }
-
-      if (curr.right !== null) {
-        queue.push(curr.right)
-      }
-    }
-    depth++
+  if (root === null) {
+    return 0
   }
-  return depth
+
+  if (root.left === null && root.right === null) {
+    return 1
+  }
+
+  let min = Number.MAX_SAFE_INTEGER
+
+  if (root.left != null) {
+    min = Math.min(minDepth(root.left), min)
+  }
+  if (root.right != null) {
+    min = Math.min(minDepth(root.right), min)
+  }
+
+  return min + 1
 }
 // @lc code=end
