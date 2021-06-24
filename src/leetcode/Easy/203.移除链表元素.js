@@ -17,7 +17,7 @@
  * @param {number} val
  * @return {ListNode}
  */
-var removeElements = function(head, val) {
+var removeElements = function (head, val) {
   let sentinel = new ListNode(null),
     prev = sentinel,
     curr = head

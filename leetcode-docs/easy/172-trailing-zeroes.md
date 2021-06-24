@@ -6,7 +6,7 @@ sidebar_label: 172. 阶乘后的零
 
 ## 题目
 
-输入一个非负整数 n, 计算阶乘 n! 的结果末尾有几个 0.
+输入一个非负整数 n, 计算 n 的阶乘末尾有几个 0.
 
 :::info 示例
 
@@ -36,7 +36,7 @@ var trailingZeroes = function (n) {
   let total = 0
 
   while (n >= 5) {
-    n = Math.floor(n / 5)
+    n = (n / 5) | 0
     total += n
   }
   return total

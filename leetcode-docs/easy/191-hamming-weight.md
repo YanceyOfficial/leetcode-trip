@@ -11,6 +11,7 @@ sidebar_label: 191. 位1的个数
 
 - [136. 只出现一次的数字](/leetcode/easy/136-single-number)
 - [231. 2 的幂](/leetcode/easy/231-is-power-of-two)
+
 :::
 
 ## 题目
@@ -47,7 +48,9 @@ sidebar_label: 191. 位1的个数
 var hammingWeight = function (n) {
   let res = 0
 
+  // 依次把二进制的最后一个 1 变为 0
   while (n !== 0) {
+    // 用于把二进制的最后一个 1 变成 0
     n = n & (n - 1)
     res++
   }

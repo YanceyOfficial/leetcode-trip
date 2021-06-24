@@ -9,7 +9,7 @@
  * @param {number[]} nums
  * @return {number}
  */
-var majorityElement = function(nums) {
+var majorityElement = function (nums) {
   let candidate = null,
     count = 0
 
@@ -27,7 +27,7 @@ var majorityElement = function(nums) {
 
 // @lc code=end
 
-var majorityElement = function(nums) {
+var majorityElement = function (nums) {
   if (nums.length === 1) return nums[0]
 
   const map = new Map()

@@ -23,7 +23,7 @@ sidebar_label: 204. 计数质数
 
 ```ts
 var countPrimes = function (n) {
-  let count = ''
+  let count = 0
 
   for (let i = 2; i < n; i++) {
     if (isPrime(i)) count++
@@ -55,10 +55,10 @@ var countPrimes = function (n) {
   const isPrime = new Array(n).fill(true)
 
   let ans = 0
-  for (let i = 2; i < n; ++i) {
+  for (let i = 2; i < n; i++) {
     if (isPrime[i]) {
       ans += 1
-      // 如意 i 是质数, 那么 i 的倍数不可能是素数了
+      // 如果 i 是质数, 那么 i 的倍数不可能是素数了
       for (let j = i * i; j < n; j += i) {
         isPrime[j] = false
       }

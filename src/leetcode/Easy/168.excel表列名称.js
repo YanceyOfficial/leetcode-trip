@@ -9,7 +9,7 @@
  * @param {number} n
  * @return {string}
  */
-var convertToTitle = function(n) {
+var convertToTitle = function (n) {
   let res = ''
 
   while (n > 0) {
@@ -25,3 +25,5 @@ var convertToTitle = function(n) {
   return res
 }
 // @lc code=end
+
+console.log(convertToTitle(27))
