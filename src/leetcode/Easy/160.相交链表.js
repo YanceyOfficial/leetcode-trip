@@ -18,15 +18,13 @@
  * @param {ListNode} headB
  * @return {ListNode}
  */
-var getIntersectionNode = function(headA, headB) {
-  if (headA === null || headB === null) return null
-
+var getIntersectionNode = function (headA, headB) {
   let pA = headA,
     pB = headB
 
   while (pA !== pB) {
     pA = pA === null ? headB : pA.next
-    pB = pB === null ? headA : pB.next 
+    pB = pB === null ? headA : pB.next
   }
 
   return pA
@@ -38,7 +36,7 @@ var getIntersectionNode = function(headA, headB) {
 // 再遍历 B, 只要 B 中某个节点引用存在于 Set 中, 说明是相交链表
 // 时间复杂度: O(m + n)
 // 空间复杂度: O(n)
-var getIntersectionNode = function(headA, headB) {
+var getIntersectionNode = function (headA, headB) {
   let currentA = headA
   let currentB = headB
   const set = new Set()
