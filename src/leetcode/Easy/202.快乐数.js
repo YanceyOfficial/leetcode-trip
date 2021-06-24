@@ -9,10 +9,10 @@
  * @param {number} n
  * @return {boolean}
  */
-var compute = function(n) {
+var compute = function (n) {
   let num = 0
 
-  while (n >= 1) {
+  while (n > 0) {
     const remainder = n % 10
     num += remainder * remainder
     n = (n - remainder) / 10
@@ -21,7 +21,7 @@ var compute = function(n) {
   return num
 }
 
-var isHappy = function(n) {
+var isHappy = function (n) {
   let fast = n,
     slow = n
 
