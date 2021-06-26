@@ -18,14 +18,14 @@
  * @return {ListNode}
  */
 
-var addTwoNumbers = function(l1, l2) {
-  const pre = new ListNode(0)
+var addTwoNumbers = function (l1, l2) {
+  const pre = new ListNode(null)
   let curr = pre
   let carry = 0
 
   while (l1 || l2) {
     let x = l1 === null ? 0 : l1.val
-    let y = l1 === null ? 0 : l2.val
+    let y = l2 === null ? 0 : l2.val
 
     let sum = x + y + carry
     carry = (sum / 10) | 0
@@ -43,7 +43,7 @@ var addTwoNumbers = function(l1, l2) {
   }
 
   if (carry === 1) {
-    curr.next = new ListNode(curr)
+    curr.next = new ListNode(1)
   }
 
   return pre.next
