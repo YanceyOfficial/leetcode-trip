@@ -10,13 +10,18 @@
  * @param {number} numRows
  * @return {string}
  */
-var convert = function(s, numRows) {
+var convert = function (s, numRows) {
+  const n = s.length
   if (numRows < 2) return s
 
-  let r = Array(numRows).fill(''),
-    c = (numRows - 1) * 2
+  const res = Array(n).fill('')
+  const cycleLen = (numRows - 1) * 2
 
-  s.split('').forEach((l, i) => (r[i % c < numRows ? i % c : c - (i % c)] += l))
-  return r.join('')
+  for (let i = 0; i < n; i++) {
+    const carry = i % cycleLen
+    res[carry < numRows ? carry : cycleLen - carry] += s[i]
+  }
+
+  return res.join('')
 }
 // @lc code=end
