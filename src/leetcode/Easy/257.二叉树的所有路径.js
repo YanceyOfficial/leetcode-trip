@@ -19,21 +19,23 @@
  */
 var binaryTreePaths = function (root) {
   const paths = []
-  dfs(root, '', paths)
+
+  var dfs = function (root, path) {
+    if (root !== null) {
+      path += root.val
+      if (root.left === null && root.right === null) {
+        paths.push(path)
+      } else {
+        path += '->'
+        dfs(root.left, path)
+        dfs(root.right, path)
+      }
+    }
+  }
+
+  dfs(root, '')
 
   return paths
 }
 
-var dfs = function (root, path, paths) {
-  if (root !== null) {
-    path += root.val
-    if (root.left === null && root.right === null) {
-      paths.push(path)
-    } else {
-      path += '->'
-      dfs(root.left, path, paths)
-      dfs(root.right, path, paths)
-    }
-  }
-}
 // @lc code=end

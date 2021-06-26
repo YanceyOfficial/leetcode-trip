@@ -25,7 +25,7 @@ sidebar_label: 257. 二叉树的所有路径
 
 ## 题解
 
-先把当前值存到 path 中; 到了叶子结点, 这次路径就到头了, 将 path 推到 paths 中; 否则走递归.
+本质是先序遍历, 先把当前值存到 path 中; 到了叶子结点, 这次路径就到头了, 将 path 推到 paths 中; 否则走递归.
 
 ```ts
 /**
@@ -42,21 +42,22 @@ sidebar_label: 257. 二叉树的所有路径
  */
 var binaryTreePaths = function (root) {
   const paths = []
-  dfs(root, '', paths)
 
-  return paths
-}
-
-var dfs = function (root, path, paths) {
-  if (root !== null) {
-    path += root.val
-    if (root.left === null && root.right === null) {
-      paths.push(path)
-    } else {
-      path += '->'
-      dfs(root.left, path, paths)
-      dfs(root.right, path, paths)
+  var dfs = function (root, path) {
+    if (root !== null) {
+      path += root.val
+      if (root.left === null && root.right === null) {
+        paths.push(path)
+      } else {
+        path += '->'
+        dfs(root.left, path)
+        dfs(root.right, path)
+      }
     }
   }
+
+  dfs(root, '')
+
+  return paths
 }
 ```

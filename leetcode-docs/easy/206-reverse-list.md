@@ -53,14 +53,13 @@ prev = curr
  * @return {ListNode}
  */
 var reverseList = function (head) {
-  let prev = null,
-    curr = head
+  let prev = null
 
-  while (curr) {
-    const next = curr.next
-    curr.next = prev
-    prev = curr
-    curr = next
+  while (head) {
+    const next = head.next
+    head.next = prev
+    prev = head
+    head = next
   }
 
   return prev
