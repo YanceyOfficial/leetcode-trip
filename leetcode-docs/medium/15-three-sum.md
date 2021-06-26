@@ -84,7 +84,6 @@ function twoSumTarget(nums, target) {
 本题是找三个数的和为 0, 我们泛化一下, 把题目改成**找三个数的和为 target**. 它其实就是先找出一个数 a(注意找 a 的时候也需要跳过重复的), 然后在找两数之和 `b + c`, 使得 `b + c === target - a`.
 
 ```ts
-// 与上面不同的是, 你需要将
 function twoSumTarget(nums, start, target) {
   const res = []
   let low = start,

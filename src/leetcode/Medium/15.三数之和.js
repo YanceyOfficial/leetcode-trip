@@ -9,31 +9,49 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var threeSum = function (nums) {
-  let ans = []
+var nSumTarget = function (nums, n, start, target) {
   const len = nums.length
-  if (nums === null || len < 3) return ans
+  const res = []
 
-  nums.sort((a, b) => a - b) // 排序
+  if (n < 2 || len < n) return res
 
-  for (let i = 0; i < len; i++) {
-    if (nums[i] > 0) break // 如果当前数字大于 0, 则三数之和一定大于 0, 所以结束循环
-    if (i > 0 && nums[i] === nums[i - 1]) continue // 去重
-    let L = i + 1
-    let R = len - 1
-    while (L < R) {
-      const sum = nums[i] + nums[L] + nums[R]
-      if (sum === 0) {
-        ans.push([nums[i], nums[L], nums[R]])
-        while (L < R && nums[L] === nums[L + 1]) L++ // 去重
-        while (L < R && nums[R] === nums[R - 1]) R-- // 去重
-        L++
-        R--
-      } else if (sum < 0) L++
-      else if (sum > 0) R--
+  if (n === 2) {
+    let lo = start,
+      hi = len - 1
+
+    while (lo < hi) {
+      const sum = nums[lo] + nums[hi]
+      const left = nums[lo]
+      const right = nums[hi]
+
+      if (sum < target) {
+        while (lo < hi && nums[lo] === left) lo++
+      } else if (sum > target) {
+        while (lo < hi && nums[hi] === right) hi--
+      } else {
+        res.push([left, right])
+        while (lo < hi && nums[lo] === left) lo++
+        while (lo < hi && nums[hi] === right) hi--
+      }
+    }
+  } else {
+    for (let i = start; i < len; i++) {
+      const items = nSumTarget(nums, n - 1, i + 1, target - nums[i])
+      for (const item of items) {
+        item.push(nums[i])
+        res.push(item)
+      }
+
+      while (i < len - 1 && nums[i] === nums[i + 1]) i++
     }
   }
-  return ans
+
+  return res
+}
+
+var threeSum = function (nums) {
+  nums.sort((a, b) => a - b)
+  return nSumTarget(nums, 3, 0, 0)
 }
 // @lc code=end
 
