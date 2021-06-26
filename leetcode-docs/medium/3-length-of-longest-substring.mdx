@@ -51,7 +51,7 @@ import { randomSeries } from 'yancey-js-util'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <Carousel
-  style={{ margin: '48px 0', padding: '24px 0', border: '1px solid #ccc' }}
+  style={{ margin: '48px 0', border: '1px solid #ccc' }}
   renderBottomCenterControls={null}
 >
   {new Array(10).fill(randomSeries(6)).map((val, index) => (
@@ -71,11 +71,10 @@ var lengthOfLongestSubstring = function (s) {
   const map = {}
   let start = 0
   let end = 0
-  let res = 0
+  let max = 0
 
   while (end < s.length) {
-    const endVal = s[end]
-    end++
+    const endVal = s[end++]
 
     if (map[endVal]) {
       map[endVal] += 1
@@ -84,14 +83,13 @@ var lengthOfLongestSubstring = function (s) {
     }
 
     while (map[endVal] > 1) {
-      const startVal = s[start]
-      start++
+      const startVal = s[start++]
       map[startVal] -= 1
     }
 
-    res = Math.max(res, end - start)
+    max = Math.max(max, end - start)
   }
 
-  return res
+  return max
 }
 ```
