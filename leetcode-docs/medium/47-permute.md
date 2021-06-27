@@ -6,6 +6,10 @@ keywords:
   - backtrack
 ---
 
+:::success Tips
+题目类型: backtrack
+:::
+
 ## 题目
 
 给定一个 `有重复` 数字的序列, 按任意顺序返回所有不重复的全排列.
