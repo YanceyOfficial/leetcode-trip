@@ -39,5 +39,3 @@ var threeSumClosest = function (nums, target) {
   return ans
 }
 // @lc code=end
-
-// 思路: 先给数组进行排序, 然后定住一个值, 另外两个值用双指针游走, 时间复杂度 O(n²)

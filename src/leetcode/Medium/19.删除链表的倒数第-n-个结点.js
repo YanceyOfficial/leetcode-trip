@@ -38,26 +38,3 @@ var removeNthFromEnd = function (head, n) {
   return head
 }
 // @lc code=end
-
-// var removeNthFromEnd = function (head, n) {
-//   let curr = head
-//   let total = 0
-//   while (curr !== null) {
-//     total++
-//     curr = curr.next
-//   }
-
-//   let deletedNodeIndex = total - n
-//   let prev = head
-
-//   for (let i = 0; i < deletedNodeIndex - 1; i++) {
-//     prev = prev.next
-//   }
-
-//   if (deletedNodeIndex === 0) {
-//     return head.next
-//   }
-
-//   prev.next = prev.next.next
-//   return head
-// }

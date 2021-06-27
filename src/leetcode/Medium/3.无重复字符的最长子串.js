@@ -17,8 +17,7 @@ var lengthOfLongestSubstring = function (s) {
   let res = 0
 
   while (end < s.length) {
-    const endVal = s[end]
-    end++
+    const endVal = s[end++]
 
     if (map[endVal]) {
       map[endVal] += 1
@@ -27,8 +26,7 @@ var lengthOfLongestSubstring = function (s) {
     }
 
     while (map[endVal] > 1) {
-      const startVal = s[start]
-      start++
+      const startVal = s[start++]
       map[startVal] -= 1
     }
 
