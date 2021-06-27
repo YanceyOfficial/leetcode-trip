@@ -2,7 +2,13 @@
 id: 22-genertate-parenthesis
 title: 括号生成
 sidebar_label: 22. 括号生成
+keywords:
+  - backtrack
 ---
+
+:::success Tips
+题目类型: backtrack
+:::
 
 ## 题目
 
@@ -12,12 +18,14 @@ sidebar_label: 22. 括号生成
 
 输入: 3
 
-输出: [
-  "((()))",
-  "(()())",
-  "(())()",
-  "()(())",
-  "()()()"
+输出:
+
+[
+"((()))",
+"(()())",
+"(())()",
+"()(())",
+"()()()"
 ]
 :::
 
