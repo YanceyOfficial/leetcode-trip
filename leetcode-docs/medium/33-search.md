@@ -13,7 +13,7 @@ sidebar_label: 33. 搜索旋转排序数组
 给你**旋转后**的数组 nums 和一个整数 target, 如果 nums 中存在这个目标值 target, 则返回它的索引, 否则返回 -1.
 
 :::info 示例
-输入: `nums = [5, 6, 7, 0, 1, 2,3], target: 4`
+输入: `nums = [4, 5, 6, 7, 0, 1, 2], target: 4`
 
 输出: `0`
 :::
@@ -57,7 +57,7 @@ var search = function (nums, target) {
       // 如果右边是有序的
     } else {
       // 如果 target 落在右边这片, 那搜索范围就缩小成 [mid + 1, right]
-      if (nums[mid] < target && target <= nums[len - 1]) {
+      if (nums[mid] < target && target <= nums[right]) {
         left = mid + 1
       } else {
         // 否则搜索范围就缩小成 [left, mid - 1]
