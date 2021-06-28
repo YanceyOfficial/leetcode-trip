@@ -22,7 +22,7 @@ keywords:
 给定一个非负整数数组, 你最初位于数组的第一个位置. 数组中的每个元素代表你在该位置可以跳跃的最大长度. 你的目标是使用最少的跳跃次数到达数组的最后一个位置. 假设你总是可以到达数组的最后一个位置.
 
 :::info 示例
-输入: [2,3,1,1,4]
+输入: [2, 3, 1, 1, 4]
 
 输出: 2
 
@@ -45,14 +45,15 @@ keywords:
 var jump = function (nums) {
   const n = nums.length
   let end = 0
-  let maxPosition = 0
+  let farthest = 0
   let steps = 0
   for (let i = 0; i < n - 1; i++) {
-    maxPosition = Math.max(maxPosition, i + nums[i])
+    // 不断计算能跳到的最远距离
+    farthest = Math.max(farthest, i + nums[i])
 
     // 如果恰好为最后一个位置, 需要增加一次 step, 以越过最后一个
     if (i === end) {
-      end = maxPosition
+      end = farthest
       steps++
     }
   }

@@ -16,14 +16,14 @@ var combinationSum = function (candidates, target) {
 
   const backtrack = (begin, track, sum) => {
     if (target === sum) {
-      res.push(track.slice())
+      res.push(track)
       return
     }
 
     for (let i = begin; i < len; i++) {
       if (sum < target) {
         track.push(candidates[i])
-        backtrack(i, track, sum + candidates[i])
+        backtrack(i, track.slice(), sum + candidates[i])
         track.pop()
       }
     }

@@ -31,7 +31,7 @@ keywords:
 var permute = function (nums) {
   let n = nums.length
   let res = []
-  let track = []
+
   let backtrack = (track) => {
     if (track.length === n) {
       res.push(track)
@@ -46,7 +46,7 @@ var permute = function (nums) {
     }
   }
 
-  backtrack(track)
+  backtrack([])
   return res
 }
 ```
