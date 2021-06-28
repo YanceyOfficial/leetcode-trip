@@ -12,14 +12,14 @@ keywords:
 
 :::info 示例
 
-输入: `n = 3, k = 2`
+输入: `n = 4, k = 2`
 
 输出: `[ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4] ]`
 :::
 
 ## 题解
 
-好了我已经吐了, 这个题其实是 [40. 组合总数 II](/leetcode/medium/40-combination-sum) 的变体. 翻译过来就是: 候选项为 [1, n], 每个组合有 k 个数, 每个数字只能选一次, 且组合不能重复.
+好了我已经吐了, 这个题其实是 [40. 组合总数 II](/leetcode/medium/40-combination-sum) 的变体. 翻译过来就是: 候选项为 [1, n], 每个组合有 k 个数, 每个数字只能选一次, 且组合不能重复(即 [1, 2] 和 [2, 1] 视为同一个).
 
 ```js
 /**
@@ -29,33 +29,23 @@ keywords:
  */
 var combine = function (n, k) {
   const res = []
-  const used = new Array(k).fill(false)
 
-  const backtrack = (begin, track) => {
+  const backtrack = function (begin, track) {
     if (track.length === k) {
-      res.push(track.slice())
+      res.push(track)
       return
     }
 
     for (let i = begin; i <= n; i++) {
-      if (i - 1 === i && i - 1 >= 1 && !used[i - 1]) {
-        continue
+      if (!track.includes(i)) {
+        track.push(i)
+        backtrack(i, track.slice())
+        track.pop()
       }
-
-      if (used[i]) {
-        continue
-      }
-
-      track.push(i)
-      used[i] = true
-      backtrack(i, track)
-      track.pop()
-      used[i] = false
     }
   }
 
   backtrack(1, [])
-
   return res
 }
 ```
