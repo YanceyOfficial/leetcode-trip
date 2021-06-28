@@ -20,10 +20,10 @@ sidebar_label: 74. 搜索二维矩阵
 
 ## 题解
 
-其实就是把这个**二维数组**, 看成**一维数组**, 然后进行二分查找.
+看到已排序的数组找某个值, 就先想到二分查找. 虽然这是个**二维数组**, 但你仍然可以看成一个**一维数组**.
 
-1. 先算出二维数组的总长度 `m * n`, 那么 right 就是 `m * n - 1`
-2. 下面是常规的二分查找套路, 只不过找到 mid 对应的元素稍微费事些: `matrix[(mid / n) | 0][mid % n]`
+1. 先算出二维数组的总长度 `row * column`, 那么 right 就是 `row * column - 1`
+2. 下面是常规的二分查找套路, 只不过找到 mid 对应的元素稍微费事些: `matrix[(mid / column) | 0][mid % column]`
 
 ```ts
 /**
@@ -32,15 +32,15 @@ sidebar_label: 74. 搜索二维矩阵
  * @return {boolean}
  */
 var searchMatrix = function (matrix, target) {
-  const m = matrix.length
-  const n = matrix[0].length
+  const row = matrix.length
+  const column = matrix[0].length
 
   let left = 0
-  let right = m * n - 1
+  let right = row * column - 1
 
   while (left <= right) {
     const mid = ((left + right) / 2) | 0
-    const midEl = matrix[(mid / n) | 0][mid % n]
+    const midEl = matrix[(mid / column) | 0][mid % column]
     if (midEl > target) {
       right = mid - 1
     } else if (midEl < target) {
