@@ -31,6 +31,11 @@ function backtrack(路径, 选择列表) {
 }
 ```
 
+## 小技巧
+
+- 如果给的数组里有重复元素: 得用上 used 辅助数组
+- 解集不能包含重复的组合: 即 [1, 2] 和 [2, 1] 视为同一种情况, backtrack 函数第一个参数传 begin
+
 ## 参考
 
 [回溯算法解题套路框架](https://labuladong.gitbook.io/algo/suan-fa-si-wei-xi-lie/hui-su-suan-fa-dfs-suan-fa/hui-su-suan-fa-xiang-jie-xiu-ding-ban)

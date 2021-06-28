@@ -12,33 +12,23 @@
  */
 var combine = function (n, k) {
   const res = []
-  const used = new Array(k).fill(false)
 
-  const backtrack = (begin, track) => {
+  const backtrack = function (begin, track) {
     if (track.length === k) {
-      res.push(track.slice())
+      res.push(track)
       return
     }
 
     for (let i = begin; i <= n; i++) {
-      if (i - 1 === i && i - 1 >= 1 && !used[i - 1]) {
-        continue
+      if (!track.includes(i)) {
+        track.push(i)
+        backtrack(i, track.slice())
+        track.pop()
       }
-
-      if (used[i]) {
-        continue
-      }
-
-      track.push(i)
-      used[i] = true
-      backtrack(i, track)
-      track.pop()
-      used[i] = false
     }
   }
 
   backtrack(1, [])
-
   return res
 }
 // @lc code=end
