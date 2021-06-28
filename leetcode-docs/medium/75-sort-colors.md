@@ -60,6 +60,51 @@ var sortColors = function (nums) {
 当然我也不是那么的菜啦嘻嘻, 双指针也是会写的. 需要注意的是, left 和 right 只能保证 0 和 2 的交换, 因此需要借助 i, 在 nums[i] 为 0 或 1 时向右游走.
 
 ```ts
+left
+ ↓
+[2, 0, 2, 1, 1, 0]
+ ↑              ↑
+ i             right
+
+left
+ ↓
+[0, 0, 2, 1, 1, 2]
+ ↑           ↑
+ i         right
+
+   left
+    ↓
+[0, 0, 2, 1, 1, 2]
+    ↑        ↑
+    i      right
+
+      left
+       ↓
+[0, 0, 2, 1, 1, 2]
+       ↑     ↑
+       i   right
+
+      left
+       ↓
+[0, 0, 1, 1, 2, 2]
+       ↑  ↑
+       i right
+
+      left
+       ↓
+[0, 0, 1, 1, 2, 2]
+          ↑
+        right
+          i
+
+      left
+       ↓
+[0, 0, 1, 1, 2, 2]
+          ↑  ↑
+       right i
+```
+
+```ts
 var sortColors = function (nums) {
   const len = nums.length
   if (len < 2) return
