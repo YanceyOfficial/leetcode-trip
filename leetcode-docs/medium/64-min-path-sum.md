@@ -37,6 +37,8 @@ var minPathSum = function (grid) {
 
   if (rows === 0 || columns === 0) return 0
 
+  // 创建二维数组
+  // 我他妈真的不会用 JavaScript 创建二维数组
   const dp = []
   for (let i = 0; i < rows; i++) {
     dp.push(new Array(columns).fill(0))
