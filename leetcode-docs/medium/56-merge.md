@@ -33,23 +33,32 @@ sidebar_label: 56. 合并区间
 3. 否则的话就不是连续区间, 那就直接 `push` 到 `res` 即可
 
 ```ts
+1 2 3
+
+  2 3 4 5 6
+
+              8 9
+```
+
+```ts
 /**
  * @param {number[][]} intervals
  * @return {number[][]}
  */
 var merge = function (intervals) {
-  const len = intervals.length
+  const n = intervals.ngth
   const res = []
-  if (len === 0) return res
+  if (n === 0) return res
   intervals.sort((a, b) => a[0] - b[0])
   res.push(intervals[0])
 
-  for (let i = 1; i < len; i++) {
+  for (let i = 1; i < n; i++) {
     const curr = intervals[i]
-    const last = res[res.length - 1]
+    const peek = res[res.length - 1]
 
-    if (curr[0] <= last[1]) {
-      last[1] = Math.max(last[1], curr[1])
+    // 有重叠(或包含)
+    if (curr[0] <= peek[1]) {
+      peek[1] = Math.max(peek[1], curr[1])
     } else {
       res.push(curr)
     }
