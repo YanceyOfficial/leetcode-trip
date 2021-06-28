@@ -73,6 +73,7 @@ keywords:
  */
 var rotateRight = function (head, k) {
   if (!head || !head.next) return head
+  if (k === 0) return head
 
   let curr = head
   let len = 0
@@ -82,8 +83,6 @@ var rotateRight = function (head, k) {
   }
 
   k = k % len
-
-  if (k === 0) return head
 
   let fast = head,
     slow = head
