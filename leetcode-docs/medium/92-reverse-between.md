@@ -13,7 +13,7 @@ keywords:
 
 - [25. k-个一组翻转链表](/leetcode/hard/25-reverse-k-group)
 - [206. 反转链表](/leetcode/easy/206-reverse-list)
-:::
+  :::
 
 ## 题目
 
@@ -68,7 +68,7 @@ var reverseN = function (head, n) {
  * @return {ListNode}
  */
 var reverseBetween = function (head, m, n) {
-  // 如果 m == 1, 就相当于反转链表开头的 n 个元素
+  // 如果 m === 1, 就相当于反转链表开头的 n 个元素
   if (m === 1) {
     return reverseN(head, n)
   }

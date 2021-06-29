@@ -10,7 +10,7 @@ sidebar_label: 82. 删除排序链表中的重复元素-ii
 
 :::info 示例
 
-输入: 1 -> 1 -> 2 -> 2 -> 3 -> 4 -> 5 -> 5
+输入: 1 -> 1 -> 1 -> 2 -> 3 -> 4 -> 5 -> 5
 
 输出: 3 -> 4
 :::
@@ -33,9 +33,10 @@ sidebar_label: 82. 删除排序链表中的重复元素-ii
  */
 var deleteDuplicates = function (head) {
   if (!head) return head
-  const dummy = new ListNode(Number.MAX_SAFE_INTEGER, head)
-
+  const dummy = new ListNode(-1)
+  dummy.next = head
   let curr = dummy
+
   while (curr.next && curr.next.next) {
     if (curr.next.val === curr.next.next.val) {
       const currVal = curr.next.val

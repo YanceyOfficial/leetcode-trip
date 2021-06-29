@@ -31,7 +31,7 @@ var search = function (nums, target) {
         left = mid + 1
       }
     } else {
-      if (nums[mid] < target && target <= nums[nums.length - 1]) {
+      if (nums[mid] < target && target <= nums[right]) {
         left = mid + 1
       } else {
         right = mid - 1

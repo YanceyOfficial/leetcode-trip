@@ -12,6 +12,7 @@ keywords:
 相关题目:
 
 - [105. 从前序与中序遍历序列构造二叉树](/leetcode/medium/105-build-tree)
+
 :::
 
 ## 题目
@@ -36,7 +37,11 @@ keywords:
 
 ## 题解
 
-本题为[105. 从前序与中序遍历序列构造二叉树](/leetcode/medium/105-build-tree)的姊妹题, 题解看那篇即可, 最重要的是要了解三种遍历方式的含义.
+本题为[105. 从前序与中序遍历序列构造二叉树](/leetcode/medium/105-build-tree)的姊妹题, 题解看那篇即可, 最重要的要清楚后序遍历和中序遍历的定义 (注: 蓝色背景代表根, 红色背景代表左, 绿色背景代表右):
+
+中序遍历: 左 -> 根 -> 右. 在示例中: <span style={{background: 'red'}}>9</span><span style={{background: 'blue'}}> 3 </span><span style={{background: 'green'}}>15 20 7</span>
+
+后序遍历: 左 -> 右 -> 根. 在示例中: <span style={{background: 'red'}}>9</span><span style={{background: 'green'}}> 15 7 20 </span><span style={{background: 'blue'}}>3</span>
 
 ```ts
 /**

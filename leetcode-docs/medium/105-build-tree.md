@@ -12,6 +12,7 @@ keywords:
 相关题目:
 
 - [106. 从后序与中序遍历序列构造二叉树](/leetcode/medium/106-build-tree)
+  
 :::
 
 ## 题目
@@ -63,14 +64,15 @@ keywords:
 var buildTree = function (preorder, inorder) {
   if (preorder.length === 0 || inorder.length === 0) return null
 
+  // 前序遍历的第一个元素是根节点
   const rootVal = preorder[0]
 
-  // 根据前序遍历的根节点, 找到中序遍历的左子树和右子树
+  // 根据中序遍历的左子树长度, 找到前序遍历的左子树和右子树
   const inorderDivider = inorder.indexOf(rootVal)
   const inorderLefts = inorder.slice(0, inorderDivider)
   const inorderRights = inorder.slice(inorderDivider + 1)
 
-  // 根据中序遍历的左子树长度, 找到前序遍历的左子树和右子树
+  // 根据前序遍历的根节点, 找到中序遍历的左子树和右子树
   const preorderDivider = inorderLefts.length + 1
   const preorderLefts = preorder.slice(1, preorderDivider)
   const preorderRights = preorder.slice(preorderDivider)
@@ -83,7 +85,3 @@ var buildTree = function (preorder, inorder) {
   return root
 }
 ```
-
-### 迭代法
-
-// TODO:

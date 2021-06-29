@@ -15,7 +15,7 @@ keywords:
 - [450. 删除二叉搜索树中的节点](/leetcode/medium/450-delete-node)
 - [700. 二叉搜索树中的搜索](/leetcode/easy/700-search-bst)
 - [701. 二叉搜索树中的插入操作](/leetcode/medium/701-insert-into-bst)
-:::
+  :::
 
 ## 题目
 
@@ -42,7 +42,7 @@ keywords:
 
 ### 方法一: 中序遍历
 
-因为 BST 的中序遍历是有序的, 所以只要保证**当前节点的值大于前一个节点的值**即可. 因此可以先创建一个 prevNode 节点初始为 null, 走中序遍历即可.
+因为 BST 的中序遍历是**有序的**, 所以只要保证**当前节点的值大于前一个节点的值**即可. 因此可以先创建一个 prevNode 节点初始为 null, 走中序遍历即可.
 
 ```ts
 /**
@@ -92,14 +92,12 @@ var isValidBST = function (root) {
   return isValid(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
 }
 var isValid = function (root, min, max) {
-  if (root === null) {
-    return true
-  }
+  if (!root) return true
+
   const mid = root.val
   // mid 不在 min 和 max 之间时, 一定不是 BST
-  if (!(mid > min && mid < max)) {
-    return false
-  }
+  if (!(mid > min && mid < max)) return false
+
   return isValid(root.left, min, mid) && isValid(root.right, mid, max)
 }
 ```

@@ -27,7 +27,7 @@ sidebar_label: 103. 二叉树的锯齿形层序遍历
 
 ## 题解
 
-本质上还是层序遍历, 只不过要增加一个 level 变量来计算**层数索引**, 当 level 为偶数时, push 到一个数组中; 当 level 为奇数时, shift 到一个临时数组中.
+本质上还是层序遍历, 只不过要增加一个 level 变量来计算**层数索引**, 当 level 为偶数时, push 到双端队列中; 当 level 为奇数时, shift 到双端队列中.
 
 ```ts
 /**
@@ -43,21 +43,22 @@ sidebar_label: 103. 二叉树的锯齿形层序遍历
  */
 var zigzagLevelOrder = function (root) {
   const res = []
-  const deque = []
-  let level = 0
   if (root === null) return res
+
   const queue = [root]
+  let level = 0
 
   while (queue.length !== 0) {
     const len = queue.length
+    const temp = []
 
     for (let i = 0; i < len; i++) {
       const curr = queue.shift()
 
       if (level % 2 === 0) {
-        deque.push(curr.val)
+        temp.push(curr.val)
       } else {
-        deque.unshift(curr.val)
+        temp.unshift(curr.val)
       }
 
       if (curr.left) queue.push(curr.left)
@@ -65,11 +66,7 @@ var zigzagLevelOrder = function (root) {
     }
 
     level++
-
-    // 避免按引用传值, 做个浅拷贝
-    res.push(deque.slice())
-    // 这一层用完之后, 将 deque 置为空
-    deque.length = 0
+    res.push(temp)
   }
 
   return res
