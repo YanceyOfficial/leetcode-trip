@@ -18,7 +18,7 @@
  */
 var zigzagLevelOrder = function (root) {
   const res = []
-  const deque = []
+
   let level = 0
   if (root === null) return res
   const queue = [root]
@@ -26,13 +26,14 @@ var zigzagLevelOrder = function (root) {
   while (queue.length !== 0) {
     const len = queue.length
 
+    const temp = []
     for (let i = 0; i < len; i++) {
       const curr = queue.shift()
 
       if (level % 2 === 0) {
-        deque.push(curr.val)
+        temp.push(curr.val)
       } else {
-        deque.unshift(curr.val)
+        temp.unshift(curr.val)
       }
 
       if (curr.left) queue.push(curr.left)
@@ -40,8 +41,7 @@ var zigzagLevelOrder = function (root) {
     }
 
     level++
-    res.push(deque.slice())
-    deque.length = 0
+    res.push(temp)
   }
 
   return res
