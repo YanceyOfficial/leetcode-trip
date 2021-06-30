@@ -61,13 +61,18 @@ var preorderTraversal = function (root) {
 ### 递归版
 
 ```ts
-var preorderTraversal = function (root, arr = []) {
-  if (root) {
-    arr.push(root.val)
-    preorderTraversal(root.left, arr)
-    preorderTraversal(root.right, arr)
+var preorderTraversal = function (root) {
+  const arr = []
+
+  const bst = function (root) {
+    if (root) {
+      arr.push(root.val)
+      bst(root.left)
+      bst(root.right)
+    }
   }
 
+  bst(root)
   return arr
 }
 ```

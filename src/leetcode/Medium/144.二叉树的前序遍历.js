@@ -19,19 +19,17 @@
  */
 
 var preorderTraversal = function (root) {
-  if (root === null) return []
+  const arr = []
 
-  const stack = [root]
-  const res = []
-
-  while (stack.length !== 0) {
-    const curr = stack.pop()
-
-    res.push(curr.val)
-    if (curr.right !== null) stack.push(curr.right)
-    if (curr.left !== null) stack.push(curr.left)
+  const bst = function (root) {
+    if (root) {
+      arr.push(root.val)
+      bst(root.left)
+      bst(root.right)
+    }
   }
 
-  return res
+  bst(root)
+  return arr
 }
 // @lc code=end
