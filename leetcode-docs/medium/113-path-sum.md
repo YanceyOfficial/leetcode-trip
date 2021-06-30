@@ -92,18 +92,19 @@ var pathSum = function (root, targetSum) {
     if (!root) return
 
     // 2.2 路径添加当前元素(回)
-    track.push(root.val)
+    const val = root.val
+    track.push(val)
 
     // 2.3 如果没有左子树和右子树(叶子节点)
     if (!root.left && !root.right) {
       // 2.4 如果目标总数等于当前节点的值
-      if (targetSum - root.val === 0) {
+      if (targetSum === val) {
         res.push(track.slice())
       }
     } else {
       // 2.5 进一步递归左子树和右子树
-      backtrack(root.left, track, targetSum - root.val)
-      backtrack(root.right, track, targetSum - root.val)
+      backtrack(root.left, track, targetSum - val)
+      backtrack(root.right, track, targetSum - val)
     }
 
     // 2.6 溯

@@ -30,9 +30,9 @@ sidebar_label: 153. 寻找旋转排序数组中的最小值
 
 - 设置一个变量 `min`, 初始化为数组的第一个元素
 - 在循环中:
-  - 如果 `nums[low] <= nums[mid]`, 也就是左边是有序的, 也就意味着左边部分, 最小的一定是 `nums[low]`, 该值与 min 比较, 如果比 min 小, 就将其设为 min, 此时左边部分已经扫描完了, 因此忽略左边这一部分, 即让 `low = mid + 1`.
-  - 否则右边是有序的, 此时右边部分, 最小的一定是 `nums[mid]`, 该值与 min 比较, 如果比 min 小, 就将其设为 min, 此时右边部分已经扫描完了, 因此忽略右边这一部分, 即让 `high = mid`.
-- 当循环至 `low <= high` 不成立时, 退出循环, 返回的 min 一定是最小的.
+  - 如果 `nums[lo] <= nums[mid]`, 也就是左边是有序的, 也就意味着左边部分, 最小的一定是 `nums[lo]`, 该值与 min 比较, 如果比 min 小, 就将其设为 min, 此时左边部分已经扫描完了, 因此忽略左边这一部分, 即让 `lo = mid + 1`.
+  - 否则右边是有序的, 此时右边部分, 最小的一定是 `nums[mid]`, 该值与 min 比较, 如果比 min 小, 就将其设为 min, 此时右边部分已经扫描完了, 因此忽略右边这一部分, 即让 `hi = mid`.
+- 当循环至 `lo <= hi` 不成立时, 退出循环, 返回的 min 一定是最小的.
 
 ```ts
 /**
@@ -40,19 +40,19 @@ sidebar_label: 153. 寻找旋转排序数组中的最小值
  * @return {number}
  */
 var findMin = function (nums) {
-  let low = 0
-  let high = nums.length - 1
+  let lo = 0
+  let hi = nums.length - 1
   let min = nums[0]
 
-  while (low <= high) {
-    const mid = ((low + high) / 2) | 0
+  while (lo <= hi) {
+    const mid = ((lo + hi) / 2) | 0
 
-    if (nums[low] <= nums[mid]) {
-      min = min > nums[low] ? nums[low] : min
-      low = mid + 1
-    } else if (nums[low] > nums[mid]) {
+    if (nums[lo] <= nums[mid]) {
+      min = min > nums[lo] ? nums[lo] : min
+      lo = mid + 1
+    } else if (nums[lo] > nums[mid]) {
       min = min > nums[mid] ? nums[mid] : min
-      high = mid
+      hi = mid
     }
   }
 
@@ -66,17 +66,17 @@ var findMin = function (nums) {
 
 ```ts
 var findMin = function (nums) {
-  let low = 0
-  let high = nums.length - 1
-  while (low < high) {
-    const pivot = (low + high) >> 1
+  let lo = 0,
+    hi = nums.length - 1
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1
 
-    if (nums[pivot] > nums[high]) {
-      low = pivot + 1
+    if (nums[mid] > nums[hi]) {
+      lo = mid + 1
     } else {
-      high = pivot
+      hi = mid
     }
   }
-  return nums[low]
+  return nums[lo]
 }
 ```
