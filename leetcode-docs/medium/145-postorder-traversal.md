@@ -39,11 +39,11 @@ keywords:
  * @return {number[]}
  */
 var postorderTraversal = function (root) {
-  if (root === null) return []
+  const res = []
+  if (root === null) return res
 
   const stack1 = [root]
   const stack2 = []
-  const res = []
 
   while (stack1.length !== 0) {
     root = stack1.pop()
