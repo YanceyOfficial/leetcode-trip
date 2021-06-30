@@ -13,6 +13,7 @@ keywords:
 相关题目:
 
 - [112. 路径总和](/leetcode/easy/112-has-path-sum)
+
 :::
 
 ## 题目
@@ -83,39 +84,34 @@ function dfs(root, targetSum, arr, res) {
 ```ts
 var pathSum = function (root, targetSum) {
   // 1. 设置结果集
-  const result = []
+  const res = []
 
-  // 2. 深度优先搜索: root -> 树; track -> 路径; treeSum -> 当前路径和
-  const backtrack = (root, track, treeSum) => {
+  // 2. 深度优先搜索: root -> 树; track -> 路径; targetSum -> 剩余的总和
+  const backtrack = (root, track, targetSum) => {
     // 2.1 终止条件
-    if (!root) {
-      return
-    }
+    if (!root) return
 
-    // 2.2 路径添加一个元素
+    // 2.2 路径添加当前元素(回)
     track.push(root.val)
 
-    // 2.3 计算当前路径总和
-    treeSum += root.val
-
-    // 2.4 如果没有左子树和右子树(叶子节点)
+    // 2.3 如果没有左子树和右子树(叶子节点)
     if (!root.left && !root.right) {
-      // 2.5 如果结果等于目标结果
-      if (treeSum === targetSum) {
-        result.push(track.slice())
+      // 2.4 如果目标总数等于当前节点的值
+      if (targetSum - root.val === 0) {
+        res.push(track.slice())
       }
     } else {
-      // 2.6 进一步递归左子树和右子树
-      backtrack(root.left, track, treeSum)
-      backtrack(root.right, track, treeSum)
+      // 2.5 进一步递归左子树和右子树
+      backtrack(root.left, track, targetSum - root.val)
+      backtrack(root.right, track, targetSum - root.val)
     }
 
-    // 2.7 回溯
+    // 2.6 溯
     track.pop()
   }
-  backtrack(root, [], 0)
+  backtrack(root, [], targetSum)
 
   // 3. 返回结果
-  return result
+  return res
 }
 ```
