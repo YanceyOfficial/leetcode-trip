@@ -55,11 +55,11 @@ var rightSideView = function (root) {
   const queue = [root]
 
   while (queue.length !== 0) {
-    const len = queue.length
+    const n = queue.length
 
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i < n; i++) {
       const curr = queue.shift()
-      if (i === len - 1) {
+      if (i === n - 1) {
         res.push(curr.val)
       }
 
