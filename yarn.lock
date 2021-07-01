@@ -1372,10 +1372,10 @@
     postcss "^8.2.15"
     postcss-sort-media-queries "^3.10.11"
 
-"@docusaurus/lqip-loader@2.0.0-beta.2":
-  version "2.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@docusaurus/lqip-loader/-/lqip-loader-2.0.0-beta.2.tgz#379d9d834184c2928ff31c858315c694877cd6f6"
-  integrity sha512-B02zL9t7wtoaUCIYCngvOB9ZJCUXCe7swkDqcDlUxtknALnsXkD7cGj8cvmClG/oPwSpn4kEXLhneO6nWLQOKQ==
+"@docusaurus/lqip-loader@2.0.0-beta.3":
+  version "2.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@docusaurus/lqip-loader/-/lqip-loader-2.0.0-beta.3.tgz#1312e55f163c99fbc440832578dfea21f0256e5b"
+  integrity sha512-YrSP9jG+3WUyt6ln9DVLSnl0Fq/kID6juYbUdsq6H/QlyF/Tuu3acBpaYYQHWCAUZlqbnZ9uerKblY4+PN1SYA==
   dependencies:
     file-loader "^6.2.0"
     lodash "^4.17.20"
@@ -1502,14 +1502,14 @@
     "@docusaurus/core" "2.0.0-beta.3"
 
 "@docusaurus/plugin-ideal-image@^2.0.0-beta.1":
-  version "2.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@docusaurus/plugin-ideal-image/-/plugin-ideal-image-2.0.0-beta.2.tgz#7ad34cd5266be08dc9d997a87e56cec24880bf12"
-  integrity sha512-+VqEvrAQz75lY/F5/SUEgWrAOcQEMSQxZ0adlE0tBr48c++7IzDUehrJLpPuWafqxujNWYe/ov8qd3SjywyYJQ==
+  version "2.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@docusaurus/plugin-ideal-image/-/plugin-ideal-image-2.0.0-beta.3.tgz#b22f68e060bbf82a6863a3911f1f420b3cdf7ca8"
+  integrity sha512-OwyufquVmZSWOrZrYdIg7ArW2JTT4w3IOUlddzEMeG9gIGvI5/50sT+OaPKhZQ73rBiJjuRpF1CcBQa0RNxDOQ==
   dependencies:
-    "@docusaurus/core" "2.0.0-beta.2"
-    "@docusaurus/lqip-loader" "2.0.0-beta.2"
+    "@docusaurus/core" "2.0.0-beta.3"
+    "@docusaurus/lqip-loader" "2.0.0-beta.3"
     "@docusaurus/responsive-loader" "1.4.0"
-    "@docusaurus/types" "2.0.0-beta.2"
+    "@docusaurus/types" "2.0.0-beta.3"
     "@endiliey/react-ideal-image" "^0.0.11"
     react-waypoint "^10.1.0"
     sharp "^0.28.2"
