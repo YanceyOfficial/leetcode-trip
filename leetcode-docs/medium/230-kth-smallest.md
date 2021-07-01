@@ -42,7 +42,7 @@ keywords:
 - 若任意节点的右子树不空, 则右子树上所有节点的值均大于它的根节点的值;
 - 任意节点的左、右子树也分别为二叉查找树;
 - **BST 的中序遍历结果是有序的(升序).**
-:::
+  :::
 
 利用中序遍历去遍历 BST 到 k 次, 返回 root.val 即可.
 
@@ -67,6 +67,7 @@ var kthSmallest = function (root, k) {
     if (node !== null && k > 0) {
       // 先遍历左子树
       inOrderTraverseNode(node.left)
+
       // 然后根节点
       if (--k === 0) {
         res = node.val
