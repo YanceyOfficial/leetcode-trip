@@ -18,6 +18,7 @@ keywords:
 - [83. 删除排序链表中的重复元素](/leetcode/easy/83-delete-duplicates)
 - [141. 环形链表](/leetcode/easy/141-has-cycle)
 - [234. 回文链表](/leetcode/easy/234-is-palindrome)
+
 :::
 
 ## 题目
@@ -44,7 +45,7 @@ keywords:
 
 ## 题解
 
-### hash map 法
+### HashMap
 
 本题跟 [141. 环形链表](/leetcode/easy/141-has-cycle) 一样, 都可以使用 hash 表来解, 遍历一圈, 只要找到相同节点的引用, 就证明它为环形链表. 不过由于创建了一个 hash 表, 因此时间复杂度为 O(n).
 
@@ -104,6 +105,7 @@ var detectCycle = function (head) {
     fast = fast.next
   }
 
+  // 返回 fast 也一样
   return slow
 }
 ```

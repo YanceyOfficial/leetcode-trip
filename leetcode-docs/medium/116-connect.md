@@ -111,16 +111,15 @@ var connect = function (root) {
 
 一棵树中存在两种 next 类型(下面以 node 为 2 那个节点说明):
 
-1. **某个 node 节点的左子节点和左子节点连接**, 如 4, 5 两个节点, 它们其实是 2 的子节点, 如果连接的话, 即 `node.left.next = node.right`
+**某个 node 节点的左子节点和左子节点连接**, 如 4, 5 两个节点, 它们其实是 2 的子节点, 如果连接的话, 即 `node.left.next = node.right`
 
 ![116-connect-1](../../static/img/116-connect-1.png)
 
-2. **某个 node 节点的右子节点和另一个 node 节点的左子节点连接**, 如 5, 6 两个节点. 对于这种情况, 可以和上面结合起来一起看, 5 实际就是 `node.right`, 而 6 实际就是 `node.next.left` (注: node.next 是 3), 如果连接的话, 即 `node.right.next = node.next.left`
+**某个 node 节点的右子节点和另一个 node 节点的左子节点连接**, 如 5, 6 两个节点. 对于这种情况, 可以和上面结合起来一起看, 5 实际就是 `node.right`, 而 6 实际就是 `node.next.left` (注: node.next 是 3), 如果连接的话, 即 `node.right.next = node.next.left`
 
 ![116-connect-2](../../static/img/116-connect-2.png)
 
-时间复杂度: 和
-空间复杂度均为 O(n)
+时间复杂度和空间复杂度均为 O(n)
 
 ```ts
 var connect = function (root) {

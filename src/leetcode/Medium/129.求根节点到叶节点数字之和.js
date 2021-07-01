@@ -18,16 +18,15 @@
  * @return {number}
  */
 var sumNumbers = function (root) {
-  if (root === null) return 0
+  if (!root) return 0
   return dfs(root, root.val)
 }
 
-var dfs = function (root, num) {
-  if (root.left === null && root.right === null) return num
+var dfs = function (root, sum) {
+  if (!root.left && !root.right) return sum
 
-  return (
-    (root.left !== null ? dfs(root.left, num * 10 + root.left.val) : 0) +
-    (root.right !== null ? dfs(root.right, num * 10 + root.right.val) : 0)
-  )
+  const left = !root.left ? 0 : dfs(root.left, sum * 10 + root.left.val)
+  const right = !root.right ? 0 : dfs(root.right, sum * 10 + root.right.val)
+  return left + right
 }
 // @lc code=end

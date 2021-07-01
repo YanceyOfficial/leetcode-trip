@@ -59,11 +59,11 @@ var dfs = function (root, sum) {
   // 到了叶子节点返回
   if (root.left === null && root.right === null) return sum
 
-  return (
-    // 如果存在左边, 通过 sum * 10 + root.left.val 来生成新的 sum
-    (root.left !== null ? dfs(root.left, sum * 10 + root.left.val) : 0) +
-    // 如果存在右边, 通过 sum * 10 + root.right.val 来生成新的 sum
-    (root.right !== null ? dfs(root.right, sum * 10 + root.right.val) : 0)
-  )
+  // 如果存在左边, 通过 sum * 10 + root.left.val 来生成新的 sum
+  const left = !root.left ? 0 : dfs(root.left, sum * 10 + root.left.val)
+  // 如果存在右边, 通过 sum * 10 + root.right.val 来生成新的 sum
+  const right = !root.right ? 0 : dfs(root.right, sum * 10 + root.right.val)
+
+  return left + right
 }
 ```

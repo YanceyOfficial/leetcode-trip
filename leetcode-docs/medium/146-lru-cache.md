@@ -49,12 +49,11 @@ var LRUCache = function (capacity) {
  * @return {number}
  */
 LRUCache.prototype.get = function (key) {
-  const val = this.caches.get(key)
-
   // 如果不存在, 返回 -1
-  if (val === undefined) return -1
+  if (!this.caches.has(key)) return -1
 
   // 如果存在, 因为用过一次了, 就把它删除掉, 重新 set 一次
+  const val = this.caches.get(key)
   this.caches.delete(key)
   this.caches.set(key, val)
 
