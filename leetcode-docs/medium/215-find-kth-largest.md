@@ -49,7 +49,7 @@ var findKthLargest = function (nums, k) {
     maxHeap.offer(num)
   }
 
-  for (let j = 1; j < k; j++) {
+  while (--k > 0) {
     maxHeap.poll()
   }
 
@@ -97,7 +97,6 @@ function shuffle(arr) {
   }
   return arr
 }
-
 
 // 分区函数, 将 arr[high] 作为 pivot 分区点
 // i, j 两个指针, i 作为标记"已处理区间"和"未处理区间"的分界点, 也即 i 左边的 [low..i-1] 都是"已处理区".
