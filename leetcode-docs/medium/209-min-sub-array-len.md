@@ -1,5 +1,5 @@
 ---
-id: 209-min-sub-array-n
+id: 209-min-sub-array-len
 title: 长度最小的子数组
 sidebar_label: 209. 长度最小的子数组
 keywords:
