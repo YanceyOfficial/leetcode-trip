@@ -49,7 +49,7 @@ keywords:
 2. 先让 nums[end] 累加到 sum
 3. 如果 sum < target, 那继续让 end 指针往右滑
 4. 直到 sum >= target
-   1. 找到当前 totalLen 跟 end - start + 1 哪个更小, 将更小的那个值设为 totalLen
+   1. 找到当前 min 跟 end - start + 1 哪个更小, 将更小的那个值设为 min
    2. 然后让 sum 尝试减去 nums[start]
    3. 将 start++
 5. 将 end++
@@ -61,19 +61,19 @@ keywords:
  * @return {number}
  */
 var minSubArrayLen = function (target, nums) {
-  const len = nums.length
-  if (len === 0) return 0
+  const n = nums.length
+  if (n === 0) return 0
 
   let start = 0
   let end = 0
-  let totalLen = Number.MAX_SAFE_INTEGER
+  let min = Number.MAX_SAFE_INTEGER
   let sum = 0
 
-  while (end < len) {
+  while (end < n) {
     sum += nums[end]
 
     while (sum >= target) {
-      totalLen = Math.min(totalLen, end - start + 1)
+      min = Math.min(min, end - start + 1)
       sum -= nums[start]
       start++
     }
@@ -81,7 +81,7 @@ var minSubArrayLen = function (target, nums) {
     end++
   }
 
-  return totalLen == Number.MAX_SAFE_INTEGER ? 0 : totalLen
+  return min == Number.MAX_SAFE_INTEGER ? 0 : min
 }
 ```
 

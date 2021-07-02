@@ -10,14 +10,16 @@
  * @return {number}
  */
 var rob = function (nums) {
-  const len = nums.length
-  if (len === 0) return 0
-  const dp = new Array(len + 1)
-  dp[0] = 0
-  dp[1] = nums[0]
-  for (let i = 2; i <= len; i++) {
-    dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i - 1])
+  let rob = 0,
+    notRob = 0
+  const n = nums.length
+
+  for (let i = 0; i < n; i++) {
+    let preRob = rob,
+      preNotRob = notRob
+    rob = preNotRob + nums[i]
+    notRob = Math.max(preRob, preNotRob)
   }
-  return dp[len]
+  return Math.max(rob, notRob)
 }
 // @lc code=end
