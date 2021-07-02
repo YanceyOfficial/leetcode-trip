@@ -60,7 +60,7 @@ var combinationSum3 = function (k, n) {
     }
 
     // 使用 begin 来限制下一次选择的起点, 是基于本次的选择, 这样下一次就不会选到本次选择的同层左边的数.
-    for (let i = q; i < 10; i++) {
+    for (let i = begin; i < 10; i++) {
       // 同层相邻两个数不能相等, 当然要保证 i - 1 不越界, 且 i - 1 没被用过
       if (i - 1 === i && i - 1 >= 0 && !used[i - 1]) {
         continue
