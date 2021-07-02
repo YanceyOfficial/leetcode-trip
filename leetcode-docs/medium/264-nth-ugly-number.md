@@ -12,7 +12,7 @@ keywords:
 相关题目:
 
 - [263. 丑数](/leetcode/easy/263-is-ugly)
-:::
+  :::
 
 ## 题目
 
@@ -29,7 +29,7 @@ keywords:
 
 ## 题解
 
-TODO: 动态规划
+### 动态规划
 
 ```ts
 /**
@@ -47,18 +47,13 @@ var nthUglyNumber = function (n) {
     const num2 = dp[p2] * 2,
       num3 = dp[p3] * 3,
       num5 = dp[p5] * 5
-    dp[i] = Math.min(Math.min(num2, num3), num5)
+
+    dp[i] = Math.min(num2, num3, num5)
 
     // 最小的丑数已经找到了, 因此对应的指针需要 +1
-    if (dp[i] === num2) {
-      p2++
-    }
-    if (dp[i] === num3) {
-      p3++
-    }
-    if (dp[i] === num5) {
-      p5++
-    }
+    if (dp[i] === num2) p2++
+    if (dp[i] === num3) p3++
+    if (dp[i] === num5) p5++
   }
   return dp[n]
 }
