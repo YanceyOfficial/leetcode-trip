@@ -42,4 +42,23 @@ var singleNumber = function (nums) {
 
 ### 位运算
 
-TODO:
+```ts
+var singleNumber = function (nums) {
+  let AXORB = 0
+  for (let num of nums) {
+    AXORB ^= num
+  }
+
+  let bitFlag = AXORB & ~(AXORB - 1)
+  const res = []
+
+  for (let num of nums) {
+    if ((num & bitFlag) == 0) {
+      res[0] ^= num
+    } else {
+      res[1] ^= num
+    }
+  }
+  return res
+}
+```
