@@ -12,7 +12,8 @@ keywords:
 相关题目:
 
 - [263. 丑数](/leetcode/easy/263-is-ugly)
-  :::
+
+:::
 
 ## 题目
 
