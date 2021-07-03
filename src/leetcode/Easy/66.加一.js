@@ -12,21 +12,15 @@
 var plusOne = function (digits) {
   let n = digits.length - 1
 
-  if (digits[n] !== 9) {
-    digits[n] += 1
-    return digits
-  }
-
-  while (n >= 0) {
+  do {
     if (digits[n] === 9) {
       digits[n] = 0
-      if (!digits[n - 1]) digits.unshift(1)
+      if (n === 0) digits.unshift(1)
     } else {
       digits[n] += 1
       break
     }
-    --n
-  }
+  } while (n-- >= 0)
 
   return digits
 }

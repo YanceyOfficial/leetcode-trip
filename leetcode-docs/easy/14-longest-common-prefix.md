@@ -29,12 +29,12 @@ var longestCommonPrefix = function (strs) {
   if (strs.length === 0) return ''
 
   let prefix = strs[0]
-  let flag = false
+  let isFound = false
 
-  while (!flag) {
-    flag = strs.every((val) => val.indexOf(prefix) === 0)
+  while (!isFound) {
+    isFound = strs.every((val) => val.indexOf(prefix) === 0)
 
-    if (!flag) {
+    if (!isFound) {
       prefix = prefix.slice(0, -1)
     }
   }

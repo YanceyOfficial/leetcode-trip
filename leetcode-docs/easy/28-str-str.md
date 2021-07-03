@@ -12,7 +12,7 @@ sidebar_label: 28. 实现-str-str
 
 输入: haystack = "hello", needle = "ll"
 
-输出: needle = "ll"
+输出: 2
 :::
 
 ## 题解

@@ -33,8 +33,6 @@ keywords:
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
-
 ```ts
 /**
  * Definition for a binary tree node.
@@ -49,7 +47,6 @@ keywords:
  */
 var isMirror = function (p, q) {
   if (p === null && q === null) return true
-
   if (p === null || q === null) return false
 
   return (
