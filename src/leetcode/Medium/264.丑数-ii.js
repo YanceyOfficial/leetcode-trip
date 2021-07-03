@@ -20,7 +20,8 @@ var nthUglyNumber = function (n) {
     const num2 = dp[p2] * 2,
       num3 = dp[p3] * 3,
       num5 = dp[p5] * 5
-    dp[i] = Math.min(Math.min(num2, num3), num5)
+
+    dp[i] = Math.min(num2, num3, num5)
 
     // 最小的丑数已经找到了, 因此对应的指针需要 +1
     if (dp[i] === num2) {
