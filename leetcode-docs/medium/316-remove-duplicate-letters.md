@@ -66,7 +66,7 @@ var removeDuplicateLetters = function (s) {
         stack.length !== 0 &&
         // 如果栈尾元素比当前元素大, 栈尾元素就应该被当前元素替换
         stack[stack.length - 1].charCodeAt() > letter.charCodeAt() &&
-        // 当然如果栈尾元素再删就没了, 这个元素也不能被替换
+        // 当然如果栈尾元素的个数已经为零了, 这个元素也不能被替换
         remain.get(stack[stack.length - 1]) > 0
       ) {
         stack.pop()

@@ -117,7 +117,7 @@ module.exports = {
         },
         {
           href: 'https://github.com/YanceyOfficial/natsuha-weather',
-          label: 'Natsuha Weather ☁️',
+          label: 'Natsuha Weather',
           position: 'right',
           className: 'natsuha-weather',
         },

@@ -94,7 +94,7 @@ var coinChange = function (coins, amount) {
 }
 ```
 
-## DP table
+### DP table
 
 DP table 就是"自底而上"的解法了, **dp[i] = x 表示: 当目标金额为 i 时, 至少需要 x 枚硬币**. 值得注意的是, 题解将 dp 的每个元素初始化成 `amount + 1`, 这是因为硬币最小的面额是 `1`, 因此结果最多也就是需要 `amount` 个硬币, 因此可以使用 `amount + 1` 来代替 `Number.MAX_SAFE_INTEGER`, 此时的时间复杂度为 O(k \* n).
 
