@@ -18,13 +18,6 @@ sidebar_label: 67. 二进制求和
 
 二进制的大数相加.
 
-:::info 示例
-
-输入:
-
-输出:
-:::
-
 ## 题解
 
 这里是题解这里是题解这里是题解这里是题解这里是题解
@@ -36,15 +29,15 @@ sidebar_label: 67. 二进制求和
  * @return {string}
  */
 var addBinary = function (a, b) {
-  const len = Math.max(a.length, b.length)
+  const n = Math.max(a.ngth, b.ngth)
 
-  a = a.padStart(len, 0)
-  b = b.padStart(len, 0)
+  a = a.padStart(n, 0)
+  b = b.padStart(n, 0)
 
   let carry = 0
   let res = ''
 
-  for (let i = len - 1; i >= 0; i--) {
+  for (let i = n - 1; i >= 0; i--) {
     const sum = +a[i] + +b[i] + carry
     carry = (sum / 2) | 0
     res = (sum % 2) + res

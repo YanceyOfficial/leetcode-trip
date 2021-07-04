@@ -47,10 +47,9 @@ var addTwoNumbers = function (l1, l2) {
     let x = l1 === null ? 0 : l1.val
     let y = l2 === null ? 0 : l2.val
 
-    let sum = x + y + carry
+    const sum = x + y + carry
     carry = (sum / 10) | 0
-    sum = sum % 10
-    curr.next = new ListNode(sum)
+    curr.next = new ListNode(sum % 10)
     curr = curr.next
 
     if (l1 !== null) l1 = l1.next

@@ -29,7 +29,7 @@ keywords:
 
 ## 题解
 
-遇见括号问题先想到栈. 遍历字符串, 如果遇到 `(`, `{`, `[`, 压入栈底; 如果遇到 `)`, `}`, `]`, 看看栈底能不能找到对应的左括号, 如果找到, 就弹出栈底元素, 否则就匹配不上了. 最终如果是有效的括号, 栈在遍历完后应该是空的.
+遇见括号问题先想到栈. 遍历字符串, 如果遇到 `(`, `{`, `[`, 压入栈中; 如果遇到 `)`, `}`, `]`, 看看栈顶能不能找到对应的左括号, 如果找到, 就弹出栈顶元素, 否则就匹配不上了. 最终如果是有效的括号, 栈在遍历完后应该是空的.
 
 ```ts
 /**
@@ -37,14 +37,18 @@ keywords:
  * @return {boolean}
  */
 var isValid = function (s) {
+  const n = s.length
+  if (n % 2) return false
+
   let stack = []
-  for (let i = 0; i < s.length; i += 1) {
+  for (let i = 0; i < n; i += 1) {
     if (s[i] === '{' || s[i] === '[' || s[i] === '(') {
-      stack.unshift(s[i])
+      stack.push(s[i])
     } else {
-      if (stack[0] === '{' && s[i] === '}') stack.shift()
-      else if (stack[0] === '[' && s[i] === ']') stack.shift()
-      else if (stack[0] === '(' && s[i] === ')') stack.shift()
+      const top = stack[stack.length - 1]
+      if (top === '{' && s[i] === '}') stack.pop()
+      else if (top === '[' && s[i] === ']') stack.pop()
+      else if (top === '(' && s[i] === ')') stack.pop()
       else return false
     }
   }
