@@ -22,11 +22,11 @@ keywords:
 
 ```ts
 [
-"((()))",
-"(()())",
-"(())()",
-"()(())",
-"()()()"
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
 ]
 ```
 
@@ -41,9 +41,9 @@ keywords:
  */
 var generateParenthesis = function (n) {
   const res = []
-  let track = []
+  const track = []
 
-  let backtrack = (left, right, track) => {
+  const backtrack = (left, right, track) => {
     if (right < left) return // 因为每个 track 的子串, 都要保证 left >= right, 即 [剩下的 left] < [剩下的 right], 一定不符合
     if (left < 0 || right < 0) return // 假设 left 小于 0 了, 意味着 left 的数量大于 n 了, 一定不符合
     if (left === 0 && right === 0) {
