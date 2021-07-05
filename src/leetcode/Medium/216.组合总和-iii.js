@@ -31,7 +31,7 @@ var combinationSum3 = function (k, n) {
       if (used[i]) {
         continue
       }
-      if (sum < n) {
+      if (sum < n && track.length < k) {
         track.push(i)
         used[i] = true
         backtrack(i, track, sum + i)
