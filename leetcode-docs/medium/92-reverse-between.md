@@ -13,7 +13,8 @@ keywords:
 
 - [25. k-个一组翻转链表](/leetcode/hard/25-reverse-k-group)
 - [206. 反转链表](/leetcode/easy/206-reverse-list)
-  :::
+
+:::
 
 ## 题目
 

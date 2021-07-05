@@ -9,7 +9,7 @@
  * @param {string} s
  * @return {boolean}
  */
-var isPalindrome = function(s) {
+var isPalindrome = function (s) {
   const reg = /[A-Za-z0-9]/
   let i = 0
   let j = s.length - 1

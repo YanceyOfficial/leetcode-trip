@@ -10,7 +10,7 @@
  * @param {string} S
  * @return {number}
  */
-var numJewelsInStones = function(J, S) {
+var numJewelsInStones = function (J, S) {
   const set = new Set([...J])
 
   let count = 0

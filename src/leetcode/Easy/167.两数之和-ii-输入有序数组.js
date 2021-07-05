@@ -10,7 +10,7 @@
  * @param {number} target
  * @return {number[]}
  */
-var twoSum = function(numbers, target) {
+var twoSum = function (numbers, target) {
   let i = 0,
     j = numbers.length - 1
 

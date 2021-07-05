@@ -39,7 +39,7 @@ var isPalindrome = function (head) {
     left = left.next
     right = right.next
   }
-  
+
   return true
 }
 

@@ -26,7 +26,7 @@ var maxSlidingWindow = function (nums, k) {
       deque.pop()
     }
 
-     // 队尾弹入 i
+    // 队尾弹入 i
     deque.push(i)
 
     // 检测队首所对应的元素是否还在窗口中, 不在则弹出

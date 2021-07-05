@@ -16,7 +16,7 @@
     "clear": "docusaurus clear",
     "test": "jest --coverage",
     "lint": "eslint src --ext .ts,.js",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" \"__tests__/**/*.ts\"",
     "statistics": "node packages/lt-cli/bin/lt-cli statistics",
     "generator": "node packages/lt-cli/bin/lt-cli create"
   },

@@ -46,7 +46,7 @@ sidebar_label: 56. 合并区间
  * @return {number[][]}
  */
 var merge = function (intervals) {
-  const n = intervals.ngth
+  const n = intervals.length
   const res = []
   if (n === 0) return res
   intervals.sort((a, b) => a[0] - b[0])

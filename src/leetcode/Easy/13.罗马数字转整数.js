@@ -9,7 +9,7 @@
  * @param {string} s
  * @return {number}
  */
-var romanToInt = function(s) {
+var romanToInt = function (s) {
   const romaMap = {
     I: 1,
     V: 5,
@@ -31,6 +31,6 @@ var romanToInt = function(s) {
 // @lc code=end
 
 // 思路
-// 
+//
 // 先根据 6 种特殊情况将罗马数字切成数组
 // 再根据 romaMap 将所有的元素累加和

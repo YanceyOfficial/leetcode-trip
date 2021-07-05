@@ -9,7 +9,7 @@
  * @param {number[][]} grid
  * @return {number}
  */
-var orangesRotting = function(grid) {
+var orangesRotting = function (grid) {
   const map = {}
 
   for (let i = 0; i < grid.length; i++) {

@@ -9,7 +9,7 @@
  * @param {number[]} arr
  * @return {number}
  */
-var findSpecialInteger = function(arr) {
+var findSpecialInteger = function (arr) {
   const k = (arr.length / 4) | 0
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === arr[i + k]) return arr[i]

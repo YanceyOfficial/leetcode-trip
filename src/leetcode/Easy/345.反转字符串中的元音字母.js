@@ -9,9 +9,9 @@
  * @param {string} s
  * @return {string}
  */
-var isVowel = char => /(a|o|e|i|u)$/gi.test(char)
+var isVowel = (char) => /(a|o|e|i|u)$/gi.test(char)
 
-var reverseVowels = function(s) {
+var reverseVowels = function (s) {
   let i = 0,
     j = s.length - 1
 

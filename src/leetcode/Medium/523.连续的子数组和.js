@@ -34,6 +34,4 @@ var checkSubarraySum = function (nums, k) {
 }
 // @lc code=end
 
-console.log(checkSubarraySum([23, 2, 5, 6], 7))
-
-[0, 23, 25, 30, 36]
+console.log(checkSubarraySum([23, 2, 5, 6], 7))[(0, 23, 25, 30, 36)]

@@ -10,7 +10,7 @@
  * @param {string} str
  * @return {boolean}
  */
-var wordPattern = function(pattern, str) {
+var wordPattern = function (pattern, str) {
   const strArr = str.split(' ')
   const patternLen = pattern.length
 
@@ -21,7 +21,7 @@ var wordPattern = function(pattern, str) {
 
   while (i < patternLen) {
     const curr = map[pattern[i]]
-    
+
     if (curr !== undefined) {
       if (curr !== strArr[i]) return false
       i++

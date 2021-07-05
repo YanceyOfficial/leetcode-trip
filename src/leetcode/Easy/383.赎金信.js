@@ -10,7 +10,7 @@
  * @param {string} magazine
  * @return {boolean}
  */
-var canConstruct = function(ransomNote, magazine) {
+var canConstruct = function (ransomNote, magazine) {
   if (ransomNote === '') return true
 
   const map = new Map()

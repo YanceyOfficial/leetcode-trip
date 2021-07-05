@@ -9,7 +9,7 @@
  * @param {string} s
  * @return {number}
  */
-var firstUniqChar = function(s) {
+var firstUniqChar = function (s) {
   const map = {}
 
   for (let i = 0; i < s.length; i++) {
@@ -20,7 +20,7 @@ var firstUniqChar = function(s) {
     }
   }
 
-  const arr = Object.values(map).filter(val => val !== -1)
+  const arr = Object.values(map).filter((val) => val !== -1)
 
   return arr.length === 0 ? -1 : arr[0]
 }

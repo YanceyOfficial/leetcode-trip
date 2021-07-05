@@ -9,7 +9,7 @@
  * @param {number} c
  * @return {boolean}
  */
-var judgeSquareSum = function(c) {
+var judgeSquareSum = function (c) {
   let a = 0
   let b = Math.sqrt(c) | 0
   while (a <= b) {
@@ -26,7 +26,7 @@ var judgeSquareSum = function(c) {
 }
 // @lc code=end
 
-var judgeSquareSum = function(c) {
+var judgeSquareSum = function (c) {
   for (let a = 0; a <= Math.sqrt(c); a++) {
     const b = Math.sqrt(c - a * a)
 
