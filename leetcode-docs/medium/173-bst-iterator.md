@@ -1,0 +1,94 @@
+---
+id: 173-bst-iterator
+title: 二叉搜索树迭代器
+sidebar_label: 173. 二叉搜索树迭代器
+keywords:
+  - Tree
+---
+
+:::success Tips
+题目类型: Tree
+:::
+
+## 题目
+
+实现一个二叉搜索树迭代器类 BSTIterator, 表示一个按中序遍历二叉搜索树(BST)的迭代器:
+
+- BSTIterator(TreeNode root) 初始化 BSTIterator 类的一个对象. BST 的根节点 root 会作为构造函数的一部分给出. 指针应初始化为一个不存在于 BST 中的数字, 且该数字小于 BST 中的任何元素.
+- boolean hasNext() 如果向指针右侧遍历存在数字, 则返回 true; 否则返回 false.
+- int next()将指针向右移动, 然后返回指针处的数字.
+
+:::info 示例
+
+```ts
+输入
+["BSTIterator", "next", "next", "hasNext", "next", "hasNext", "next", "hasNext", "next", "hasNext"]
+[[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]
+输出
+[null, 3, 7, true, 9, true, 15, true, 20, false]
+
+解释
+BSTIterator bSTIterator = new BSTIterator([7, 3, 15, null, null, 9, 20]);
+bSTIterator.next();    // 返回 3
+bSTIterator.next();    // 返回 7
+bSTIterator.hasNext(); // 返回 True
+bSTIterator.next();    // 返回 9
+bSTIterator.hasNext(); // 返回 True
+bSTIterator.next();    // 返回 15
+bSTIterator.hasNext(); // 返回 True
+bSTIterator.next();    // 返回 20
+bSTIterator.hasNext(); // 返回 False
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ */
+var BSTIterator = function (root) {
+  this.idx = 0
+  this.arr = []
+  this.inorderTraversal(root, this.arr)
+}
+
+/**
+ * @return {number}
+ */
+BSTIterator.prototype.next = function () {
+  return this.arr[this.idx++]
+}
+
+/**
+ * @return {boolean}
+ */
+BSTIterator.prototype.hasNext = function () {
+  return this.idx < this.arr.length
+}
+
+BSTIterator.prototype.inorderTraversal = function (root, arr) {
+  if (!root) {
+    return
+  }
+  this.inorderTraversal(root.left, arr)
+  arr.push(root.val)
+  this.inorderTraversal(root.right, arr)
+}
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * var obj = new BSTIterator(root)
+ * var param_1 = obj.next()
+ * var param_2 = obj.hasNext()
+ */
+```
