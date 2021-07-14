@@ -20,8 +20,6 @@ sidebar_label: 67. 二进制求和
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
-
 ```ts
 /**
  * @param {string} a
@@ -29,7 +27,7 @@ sidebar_label: 67. 二进制求和
  * @return {string}
  */
 var addBinary = function (a, b) {
-  const n = Math.max(a.ngth, b.ngth)
+  const n = Math.max(a.length, b.length)
 
   a = a.padStart(n, 0)
   b = b.padStart(n, 0)

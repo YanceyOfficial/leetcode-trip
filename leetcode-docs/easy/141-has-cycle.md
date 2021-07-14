@@ -42,9 +42,9 @@ var hasCycle = function (head) {
 
   // while 循环要保证 fast 和 fast.next 不为 null
   while (fast !== null && fast.next !== null) {
-    // 快指针一次走两个
+    // 快指针一次走两格
     fast = fast.next.next
-    // 慢指针一次走两一个
+    // 慢指针一次走一格
     slow = slow.next
 
     // 如果相遇了, 证明是环形链表

@@ -45,15 +45,15 @@ keywords:
 var jump = function (nums) {
   const n = nums.length
   let end = 0
-  let farthest = 0
+  let max = 0
   let steps = 0
   for (let i = 0; i < n - 1; i++) {
     // 不断计算能跳到的最远距离
-    farthest = Math.max(farthest, i + nums[i])
+    max = Math.max(max, i + nums[i])
 
     // 如果恰好为最后一个位置, 需要增加一次 step, 以越过最后一个
     if (i === end) {
-      end = farthest
+      end = max
       steps++
     }
   }

@@ -51,8 +51,8 @@ keywords:
 
 ![61-rotate-right](../../static/img/61-rotate-right.jpeg)
 
-1. 首先获取整个链表 head 的长度 len
-2. 通过 `k = k % len` 获取最小旋转的 k, 因为题目有的 k 超过了总长度
+1. 首先获取整个链表 head 的长度 n
+2. 通过 `k = k % n` 获取最小旋转的 k, 因为题目有的 k 超过了总长度
 3. 通过快慢指针的方法找到**倒数第 k 个节点**
 4. 通过 `slow.next` 获取 `newHead`
 5. 因为 fast 指向了链表的最后, 所以让 `fast.next = head`
@@ -76,13 +76,13 @@ var rotateRight = function (head, k) {
   if (k === 0) return head
 
   let curr = head
-  let len = 0
+  let n = 0
   while (curr) {
     curr = curr.next
-    len++
+    n++
   }
 
-  k = k % len
+  k = k % n
 
   let fast = head,
     slow = head
