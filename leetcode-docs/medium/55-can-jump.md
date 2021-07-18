@@ -41,7 +41,7 @@ keywords:
 
 我们把这个题转化一下, 变成: 按照题目的规则, 最多能跳多远, 如果能越过最后一个, 返回 true, 否则返回 false. 因此这道题就变成了动态规划, 因为是在求最值嘛.
 
-什么是贪心算法呢: 每一步都计算一下从当前位置最远能够跳到哪里, 然后和一个全局最优的最远位置 farthest 做对比, 通过每一步的最优解, 更新全局最优解, 这就是贪心.
+什么是贪心算法呢: 每一步都计算一下从当前位置最远能够跳到哪里, 然后和一个全局最优的最远位置 max 做对比, 通过每一步的最优解, 更新全局最优解, 这就是贪心.
 
 ```ts
 /**
@@ -50,15 +50,15 @@ keywords:
  */
 var canJump = function (nums) {
   const n = nums.length
-  let farthest = 0
+  let max = 0
 
   for (let i = 0; i < n - 1; i++) {
     // 不断计算能跳到的最远距离
-    farthest = Math.max(farthest, i + nums[i])
+    max = Math.max(max, i + nums[i])
     // 可能碰到了 0, 卡住跳不动了
-    if (farthest <= i) return false
+    if (max <= i) return false
   }
 
-  return farthest >= n - 1
+  return max >= n - 1
 }
 ```

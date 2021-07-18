@@ -37,11 +37,7 @@ keywords:
 
 ## 题解
 
-好了我已经吐了, 这个题其实是 [39. 组合数字](/leetcode/medium/39-combination-sum) 和 [47. 全排列 II](/leetcode/medium/47-permute) 的综合体.
-
-- `candidates 中的每个数字在每个组合中只能使用一次`: 其实就对标第 47 题, 即使用 **同层相邻不能相等** 和 **used 数组** 的剪枝策略.
-
-- `解集不能包含重复的组合`: 其实就对标第 39 题, 通过 `begin` 来限制下一次选择的起点, 是基于本次的选择, 这样下一次就不会选到本次选择的同层左边的数.
+好了我已经吐了, 回溯, 回溯, 回溯.
 
 ```js
 /**
@@ -51,7 +47,6 @@ keywords:
  */
 var combinationSum3 = function (k, n) {
   const res = []
-  const used = new Array(k).fill(false)
 
   const backtrack = (begin, track, sum) => {
     if (track.length === k && sum === n) {
@@ -59,24 +54,11 @@ var combinationSum3 = function (k, n) {
       return
     }
 
-    // 使用 begin 来限制下一次选择的起点, 是基于本次的选择, 这样下一次就不会选到本次选择的同层左边的数.
     for (let i = begin; i < 10; i++) {
-      // 同层相邻两个数不能相等, 当然要保证 i - 1 不越界, 且 i - 1 没被用过
-      if (i - 1 === i && i - 1 >= 0 && !used[i - 1]) {
-        continue
-      }
-
-      // 如果这个数被用过, 跳过
-      if (used[i]) {
-        continue
-      }
-
-      if (sum < n) {
+      if (sum < n && !track.includes(i)) {
         track.push(i)
-        used[i] = true
         backtrack(i, track, sum + i)
         track.pop()
-        used[i] = false
       }
     }
   }
