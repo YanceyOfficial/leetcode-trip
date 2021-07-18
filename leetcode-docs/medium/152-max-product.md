@@ -1,0 +1,63 @@
+---
+id: 152-max-product
+title: 乘积最大子数组
+sidebar_label: 152. 乘积最大子数组
+---
+
+:::success Tips
+相关题目:
+
+- [53. 最大子序和](/leetcode/easy/53-max-sub-array)
+
+:::
+
+## 题目
+
+给你一个整数数组 nums, 请你找出数组中乘积最大的连续子数组(该子数组中至少包含一个数字), 并返回该子数组所对应的乘积.
+
+:::info 示例
+
+```ts
+输入: [2, 3, -2, 4]
+输出: 6
+解释: 子数组 [2, 3] 有最大乘积 6.
+```
+
+```ts
+输入: [-2, 0, -1]
+输出: 0
+解释: 结果不能为 2, 因为 [-2, -1] 不是子数组.
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxProduct = function (nums) {
+  const n = nums.length
+  if (n === 0) return 0
+  let max = -Infinity
+  let _max = 1
+  let _min = 1
+
+  for (const num of nums) {
+    if (num < 0) {
+      const temp = _max
+      _max = _min
+      _min = temp
+    }
+
+    _max = Math.max(_max * num, num)
+    _min = Math.min(_min * num, num)
+
+    max = Math.max(max, _max)
+  }
+
+  return max
+}
+```
