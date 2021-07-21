@@ -1588,10 +1588,10 @@
   resolved "https://registry.npmjs.org/@endiliey/react-ideal-image/-/react-ideal-image-0.0.11.tgz"
   integrity sha512-QxMjt/Gvur/gLxSoCy7VIyGGGrGmDN+VHcXkN3R2ApoWX0EYUE+hMgPHSW/PV6VVebZ1Nd4t2UnGRBDihu16JQ==
 
-"@eslint/eslintrc@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-0.4.2.tgz"
-  integrity sha512-8nmGq/4ycLpIwzvhI4tNDmQztZ8sp+hI7cyG8i1nQDhkAbRzHpXPidRAHlNvCZQpJTKw5ItIpMw9RSToGF00mg==
+"@eslint/eslintrc@^0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.3.tgz#9e42981ef035beb3dd49add17acb96e8ff6f394c"
+  integrity sha512-J6KFFz5QCYUJq3pf0mjEcCJVERbzv71PUIDczuh9JkwGEzced6CO5ADLHB1rbf/+oPBtoPfMYNOpGDzCANlbXw==
   dependencies:
     ajv "^6.12.4"
     debug "^4.1.1"
@@ -6198,12 +6198,12 @@ eslint-visitor-keys@^2.0.0:
   integrity sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==
 
 eslint@^7.23.0:
-  version "7.30.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.30.0.tgz#6d34ab51aaa56112fd97166226c9a97f505474f8"
-  integrity sha512-VLqz80i3as3NdloY44BQSJpFw534L9Oh+6zJOUaViV4JPd+DaHwutqP7tcpkW3YiXbK6s05RZl7yl7cQn+lijg==
+  version "7.31.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.31.0.tgz#f972b539424bf2604907a970860732c5d99d3aca"
+  integrity sha512-vafgJpSh2ia8tnTkNUkwxGmnumgckLh5aAbLa1xRmIn9+owi8qBNGKL+B881kNKNTy7FFqTEkpNkUvmw0n6PkA==
   dependencies:
     "@babel/code-frame" "7.12.11"
-    "@eslint/eslintrc" "^0.4.2"
+    "@eslint/eslintrc" "^0.4.3"
     "@humanwhocodes/config-array" "^0.5.0"
     ajv "^6.10.0"
     chalk "^4.0.0"
@@ -9099,9 +9099,9 @@ lines-and-columns@^1.1.6:
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
 lint-staged@^11.0.0:
-  version "11.0.0"
-  resolved "https://registry.npmjs.org/lint-staged/-/lint-staged-11.0.0.tgz"
-  integrity sha512-3rsRIoyaE8IphSUtO1RVTFl1e0SLBtxxUOPBtHxQgBHS5/i6nqvjcUfNioMa4BU9yGnPzbO+xkfLtXtxBpCzjw==
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-11.0.1.tgz#1b8ae8ed5a52ed87252db95fe008c2618c85f55a"
+  integrity sha512-RkTA1ulE6jAGFskxpGAwxfVRXjHp7D9gFg/+KMARUWMPiVFP0t28Em2u0gL8sA0w3/ck3TC57F2v2RNeQ5XPnw==
   dependencies:
     chalk "^4.1.1"
     cli-truncate "^2.1.0"
@@ -10290,15 +10290,15 @@ nth-check@^2.0.0:
     boolbase "^1.0.0"
 
 nuka-carousel@^4.7.7:
-  version "4.7.8"
-  resolved "https://registry.npmjs.org/nuka-carousel/-/nuka-carousel-4.7.8.tgz"
-  integrity sha512-+eaG7V2sxjQCIFG6mWoinCQgPbILFGzT/pMSOlkCpYsC/kptIh6yJVke3LwBDyVhPGxAuPxhH4q9qM7WhLir0Q==
+  version "4.7.9"
+  resolved "https://registry.yarnpkg.com/nuka-carousel/-/nuka-carousel-4.7.9.tgz#6d7aaba6380e260e7eece1e50ddb7bd79aadcc22"
+  integrity sha512-n5QuCvaiNH1KQJk2B82GmSWihBQ+6+hpDssh85Lmes5isd98I2+17gQiqsLWcdFPJzB1A+dcrzRz6Z9R4EyhHA==
   dependencies:
     csstype "^2.6.6"
     d3-ease "^1.0.3"
     exenv "^1.2.0"
     prop-types "^15.6.0"
-    react-move "^6.1.0"
+    react-move "^6.5.0"
     wicg-inert "^3.1.0"
 
 number-is-nan@^1.0.0:
@@ -11758,9 +11758,9 @@ react-loadable@^5.5.0:
   dependencies:
     prop-types "^15.5.0"
 
-react-move@^6.1.0:
+react-move@^6.5.0:
   version "6.5.0"
-  resolved "https://registry.npmjs.org/react-move/-/react-move-6.5.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-move/-/react-move-6.5.0.tgz#4b337d75987f9266426193f80e982604d49e97ff"
   integrity sha512-tl8zwCqtXXWfmrUJGnkyPMNhx8DUTy1NugEuPW/JTMp2TGSEC819aMXGYMG8FWFzV9I6jy4kbgoZJnBpmZRktA==
   dependencies:
     "@babel/runtime" "^7.14.5"
