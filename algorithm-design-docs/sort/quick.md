@@ -30,7 +30,6 @@ export function quickSort(arr: number[]) {
   }
   return quickSort(low).concat([pivot], quickSort(high))
 }
-}
 ```
 
 ### 另一种更加细化的实现
