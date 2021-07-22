@@ -27,12 +27,13 @@ sidebar_label: 5. 最长回文子串
  * @return {string}
  */
 var longestPalindrome = function (s) {
-  if (s.length < 2) return s
+  const len = s.length
+  if (len < 2) return s
 
   let l = 0
   let r = 0
 
-  for (let i = 0; i < s.length; i++) {
+  for (let i = 0; i < len; i++) {
     // 回文子串长度是奇数
     helper(i, i)
     // 回文子串长度是偶数
@@ -40,7 +41,7 @@ var longestPalindrome = function (s) {
   }
 
   function helper(m, n) {
-    while (m >= 0 && n < s.length && s[m] === s[n]) {
+    while (m >= 0 && n < len && s[m] === s[n]) {
       m--
       n++
     }
