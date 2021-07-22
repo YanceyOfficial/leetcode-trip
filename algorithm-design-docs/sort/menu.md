@@ -8,6 +8,9 @@ sidebar_label: Menu
 - [堆排序](/algorithm-design/sort/heap)
 - [快速排序](/algorithm-design/sort/quick)
 - [归并排序](/algorithm-design/sort/merge)
+- [插入排序](/algorithm-design/sort/insert)
+- [选择排序](/algorithm-design/sort/selection)
+- [希尔排序](/algorithm-design/sort/shell)
 
 ## 稳定性
 
