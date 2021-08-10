@@ -24,17 +24,24 @@ sidebar_label: 45. 把数组排成最小的数
 
 ## 题解
 
-x 尼玛, 面美团被问到了这题, 不会做. 其实就是一个快排的变体, 直接看注释.
+x 尼玛, 面美团被问到了这题, 不会做, 当时只刷了 leetcode, 没刷剑指 offer. 其实就是一个快排的变体, 直接看注释.
 
 ```ts
+/**
+ * @param {number[]} nums
+ * @return {string}
+ */
+var minNumber = function (nums) {
+  return quickSort(nums).join('')
+}
+
 function quickSort(arr) {
-  if (arr.length <= 1) {
-    return arr
-  }
-  const pivotIndex = Math.floor(arr.length / 2)
+  if (arr.length < 2) return arr
+
+  const pivotIndex = arr.length >> 1
   const pivot = arr.splice(pivotIndex, 1)[0]
-  const low = []
-  const high = []
+  const lows = []
+  const highs = []
 
   for (let i = 0; i < arr.length; i++) {
     // 核心在这里
@@ -43,17 +50,13 @@ function quickSort(arr) {
     const a = `${arr[i]}${pivot}`
     const b = `${pivot}${arr[i]}`
 
-    if (+a < +b) {
-      low.push(arr[i])
+    if (a <= b) {
+      lows.push(arr[i])
     } else {
-      high.push(arr[i])
+      highs.push(arr[i])
     }
   }
 
-  return quickSort(low).concat([pivot], quickSort(high))
-}
-
-function minNumber(nums) {
-  return quickSort(nums).join('')
+  return quickSort(lows).concat([pivot], quickSort(highs))
 }
 ```
