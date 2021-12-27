@@ -105,7 +105,7 @@ module.exports = {
           activeBaseRegex: '/algorithm-design/',
         },
         {
-          to: '/data-structure/stack/stack',
+          to: '/data-structure/stack',
           label: 'Data Structure',
           position: 'left',
           activeBaseRegex: '/data-structure/',
