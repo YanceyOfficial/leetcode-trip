@@ -32,7 +32,7 @@ or using yarn:
 
 `yarn global add @yancey-inc/lt-cli`
 
-![lt-cli](https://static.yancey.app/lt-cli.gif)
+![lt-cli](https://edge.yancey.app/beg/lt-cli.gif)
 
 ## Contributing
 
