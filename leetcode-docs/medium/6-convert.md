@@ -14,7 +14,7 @@ A P L S I I G
 Y   I   R
 ```
 
-之后, 你的输出需要从左往右逐行读取, 产生出一个新的字符串, 比如："PAHNAPLSIIGYIR".
+之后, 你的输出需要从左往右逐行读取, 产生出一个新的字符串, 比如: "PAHNAPLSIIGYIR".
 
 :::info 示例
 

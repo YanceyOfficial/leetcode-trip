@@ -70,4 +70,4 @@ var countPrimes = function (n) {
 
 时间复杂度: O(nloglogn)
 
-空间复杂度：O(n). 我们需要 O(n) 的空间记录每个数是否为质数.
+空间复杂度: O(n). 我们需要 O(n) 的空间记录每个数是否为质数.
