@@ -112,14 +112,8 @@ module.exports = {
         },
         {
           href: 'https://yanceyleo.com',
-          label: 'Blog',
+          label: 'Official Blog',
           position: 'right',
-        },
-        {
-          href: 'https://github.com/YanceyOfficial/natsuha-weather',
-          label: 'Natsuha Weather',
-          position: 'right',
-          className: 'natsuha-weather',
         },
         {
           href: 'https://js.yanceyleo.com',
