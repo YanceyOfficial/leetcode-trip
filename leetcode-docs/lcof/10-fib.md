@@ -22,17 +22,16 @@ F(N) = F(N - 1) + F(N - 2), 其中 N > 1.
  */
 var fib = function (n) {
   const MOD = 1000000007
-  if (n < 2) {
-    return n
-  }
-  let p = 0,
-    q = 0,
-    r = 1
+  if (n < 2) return n
+  let prev = 0,
+    curr = 0,
+    sum = 1
   for (let i = 2; i <= n; ++i) {
-    p = q
-    q = r
-    r = (p + q) % MOD
+    prev = curr
+    curr = sum
+    sum = (prev + curr) % MOD
   }
-  return r
+  return sum
 }
+
 ```
