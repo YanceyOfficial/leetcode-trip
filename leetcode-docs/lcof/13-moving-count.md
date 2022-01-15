@@ -1,0 +1,55 @@
+---
+id: 13-moving-count
+title: 机器人的运动范围
+sidebar_label: 13. 机器人的运动范围
+keywords:
+  - Backtrack
+  - DFS
+---
+
+:::success Tips
+题目类型: Backtrack, DFS
+:::
+
+## 题目
+
+地上有一个 m 行 n 列的方格, 从坐标 [0,0] 到坐标 [m-1,n-1]. 一个机器人从坐标 [0, 0] 的格子开始移动, 它每次可以向左, 右, 上, 下移动一格(不能移动到方格外), 也不能进入行坐标和列坐标的数位之和大于 k 的格子. 例如, 当 k 为 18 时, 机器人能够进入方格 [35, 37] , 因为 3+5+3+7=18. 但它不能进入方格 [35, 38], 因为 3+5+3+8=19. 请问该机器人能够到达多少个格子?
+
+:::info 示例
+
+输入: m = 2, n = 3, k = 1
+
+输出: 3
+
+:::
+
+## 题解
+
+注意题解中的 sum 函数, 可以用来计算数位和. 该题本质就是一个回溯, col 和 row 分别向下向右探索, 剪枝的那些情况为数组越界的, 加和大于 k 的, 已经被访问过的.
+
+```ts
+/**
+ * @param {number} m
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ */
+var movingCount = function (m, n, k) {
+  const visited = new Array(m)
+  for (let i = 0; i < m; i++) {
+    visited[i] = new Array(n).fill(false)
+  }
+
+  const sum = (a, b) => (a % 10) + ((a / 10) | 0) + (b % 10) + ((b / 10) | 0)
+
+  const dfs = (i, j) => {
+    if (i >= m || j >= n || sum(i, j) > k || visited[i][j]) return 0
+
+    visited[i][j] = true
+
+    return dfs(i + 1, j) + dfs(i, j + 1) + 1
+  }
+
+  return dfs(0, 0)
+}
+```
