@@ -16,4 +16,4 @@ LeetCode Trip comes with a built-in CLI which can be used to generate template m
 
 - `lt-cli upgrade`: To upgrade lt-cli.
 
-![lt-cli](https://static.yancey.app/lt-cli.gif)
+![lt-cli](https://edge.yancey.app/beg/lt-cli.gif)
