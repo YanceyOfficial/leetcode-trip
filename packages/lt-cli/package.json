@@ -27,7 +27,7 @@
   "dependencies": {
     "chalk": "^5.0.1",
     "clear": "^0.1.0",
-    "commander": "^8.3.0",
+    "commander": "^9.4.1",
     "compare-versions": "^4.1.4",
     "figlet": "^1.5.2",
     "inquirer": "^8.2.4",
