@@ -30,7 +30,7 @@
     "commander": "^8.3.0",
     "compare-versions": "^4.1.4",
     "figlet": "^1.5.2",
-    "inquirer": "^8.2.4",
+    "inquirer": "^9.1.2",
     "inquirer-autocomplete-prompt": "^1.4.0",
     "leven": "^4.0.0",
     "node-fetch": "^3.2.10",
