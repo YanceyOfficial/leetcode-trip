@@ -57,7 +57,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "husky": "^4.3.8",
+    "husky": "^8.0.1",
     "jest": "^27.5.1",
     "lerna": "^4.0.0",
     "lint-staged": "^12.5.0",
