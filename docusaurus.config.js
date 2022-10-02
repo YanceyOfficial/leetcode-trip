@@ -1,10 +1,10 @@
-/**
- * Copyright (c) Yancey, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
+// @ts-check
+// Note: type annotations allow type checking and IDEs autocompletion
 
+const lightCodeTheme = require('prism-react-renderer/themes/github')
+const darkCodeTheme = require('prism-react-renderer/themes/dracula')
+
+/** @type {import('@docusaurus/types').Config} */
 module.exports = {
   title: 'LeetCode Trip',
   tagline: 'LeetCode Trip',
@@ -64,6 +64,10 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    prism: {
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
+    },
     liveCodeBlock: {
       playgroundPosition: 'bottom',
     },
@@ -75,10 +79,6 @@ module.exports = {
       id: 'referral-traffic',
       content:
         '⭐️ Want more technical articles? Please visit my <a target="_blank" rel="noopener noreferrer" href="https://yanceyleo.com">official website</a>! ⭐️',
-    },
-    googleAnalytics: {
-      trackingID: 'UA-193598199-1',
-      anonymizeIP: true,
     },
     algolia: {
       apiKey: '428e3094afa3248dffafdbd793d4ea9d',
@@ -135,6 +135,7 @@ module.exports = {
   presets: [
     [
       '@docusaurus/preset-classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
@@ -147,6 +148,10 @@ module.exports = {
         },
         theme: {
           customCss: require.resolve('./static/css/custom.css'),
+        },
+        googleAnalytics: {
+          trackingID: 'UA-193598199-1',
+          anonymizeIP: true,
         },
       },
     ],
