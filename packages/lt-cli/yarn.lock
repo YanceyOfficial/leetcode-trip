@@ -2273,9 +2273,9 @@ yallist@^4.0.0:
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
 yancey-js-util@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/yancey-js-util/-/yancey-js-util-3.0.0.tgz#0cc39f948c1451b43b9da878b459a231efb50d14"
-  integrity sha512-M+66hnYBnnGsA6Fhs+F7nC/LrQR99Ug5i/9iLcRo8jeX7ml1DihZFG4xnZnEUVF5flsPysA580A9yyrJdJtMzw==
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/yancey-js-util/-/yancey-js-util-3.1.0.tgz#3a849207d309db9b52d2eb672f68c57c06bfc801"
+  integrity sha512-e9NoVFpoUnmTjPXEAhWaZhBiwzZL4lM59XA1Mx+dKz4QuZH2WxWhaXeomWA4RAc1zH64YsdlgrqQZkbBRCZQrQ==
 
 yocto-queue@^0.1.0:
   version "0.1.0"
