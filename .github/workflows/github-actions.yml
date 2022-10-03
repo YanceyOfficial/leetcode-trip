@@ -1,4 +1,4 @@
-name: GitHub Actions
+name: LeetCode Trip
 
 on: [push, pull_request]
 
