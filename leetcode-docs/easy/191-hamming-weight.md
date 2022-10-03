@@ -1,7 +1,7 @@
 ---
 id: 191-hamming-weight
-title: 位1的个数
-sidebar_label: 191. 位1的个数
+title: 位 1 的个数
+sidebar_label: 191. 位 1 的个数
 ---
 
 :::success Tips
@@ -11,6 +11,7 @@ sidebar_label: 191. 位1的个数
 
 - [136. 只出现一次的数字](/leetcode/easy/136-single-number)
 - [231. 2 的幂](/leetcode/easy/231-is-power-of-two)
+- [338. 比特位计数](/leetcode/easy/338-count-bits)
 
 :::
 

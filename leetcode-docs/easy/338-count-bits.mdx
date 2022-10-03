@@ -1,7 +1,9 @@
 ---
-id: 3-count-bits
-title: 前 n 个数字二进制中 1 的个数
-sidebar_label: 3. 前 n 个数字二进制中 1 的个数
+id: 338-count-bits
+title: 比特位计数
+sidebar_label: 338. 比特位计数
+keywords:
+  - DP, 位运算
 ---
 
 :::success Tips
@@ -41,9 +43,15 @@ sidebar_label: 3. 前 n 个数字二进制中 1 的个数
 
 ## 题解
 
-### 思路一: Brian Kernighan 算法
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-一般看到二进制统计 1 的个数先想到 Brian Kernighan 算法, 也就是 `n & (n - 1)`. 关于使用 n & (n - 1), 这里不再赘述, 可访问 [位运算的一些技巧](/algorithm-design/bit-manipulation#n--n---1).
+<Tabs>
+  <TabItem value="Brian Kernighan 算法" label="Brian Kernighan 算法" default>
+
+:::success Tips
+一般看到二进制统计 1 的个数先想到 Brian Kernighan 算法, 也就是 `n & (n - 1)`. 关于使用 n & (n - 1), 这里不再赘述, 可访问[位运算的一些技巧](/algorithm-design/bit-manipulation#n--n---1).
+:::
 
 ```ts
 /**
@@ -73,13 +81,15 @@ var computeZero = function (n) {
 }
 ```
 
-### 思路一: 复杂度分析
+### 复杂度分析
 
 时间复杂度: **O(nlogn)**, 一趟循环是 n, 计算从 0 到 n 的每个整数的**一比特数**的时间都不会超过 O(logn), 整体就是 **O(nlogn)**.
 
 空间复杂度: **O(1)**, 除了返回的数组以外, 空间复杂度为常数.
 
-### 思路二: 动态规划
+</TabItem>
+
+<TabItem value="orange" label="Orange">
 
 :::success Tips
 要求 O(n) 复杂度又是输出方案的题, 通常就是递推的 DP 题.
@@ -128,8 +138,11 @@ var countBits = function (n) {
 }
 ```
 
-### 思路二: 复杂度分析
+### 复杂度分析
 
 时间复杂度: **O(n)**, 仅仅一趟循环.
 
 空间复杂度: **O(1)**, 除了返回的数组以外, 空间复杂度为常数.
+
+</TabItem>
+</Tabs>
