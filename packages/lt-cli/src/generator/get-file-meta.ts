@@ -11,7 +11,7 @@ export const getFileMeta = (
   const file = readFileSync(path, { encoding: 'utf-8' })
   const [serial, title] = fileName.split('.')
   const { functionName, functionBody } = parseFile(file)
-  const outPath = `${docPath}/${dirName.toLowerCase()}/${serial}-${functionName}.md`
+  const outPath = `${docPath}/${dirName.toLowerCase()}/${serial}-${functionName}.mdx`
 
   if (existsSync(outPath)) {
     return '文件已存在, 请重新选择.'

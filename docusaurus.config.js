@@ -21,7 +21,7 @@ module.exports = {
         path: 'leetcode-docs',
         editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         routeBasePath: 'leetcode',
-        sidebarPath: require.resolve('./sidebarsLeetcode.js'),
+        sidebarPath: require.resolve('./sidebars/sidebarsLeetcode.js'),
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
       },
@@ -33,7 +33,7 @@ module.exports = {
         path: 'algorithm-design-docs',
         editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         routeBasePath: 'algorithm-design',
-        sidebarPath: require.resolve('./sidebarsAlgorithmDesign.js'),
+        sidebarPath: require.resolve('./sidebars/sidebarsAlgorithmDesign.js'),
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
       },
@@ -45,7 +45,7 @@ module.exports = {
         path: 'data-structure-docs',
         editUrl: 'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         routeBasePath: 'data-structure',
-        sidebarPath: require.resolve('./sidebarsDataStructure.js'),
+        sidebarPath: require.resolve('./sidebars/sidebarsDataStructure.js'),
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
       },
@@ -131,7 +131,7 @@ module.exports = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve('./sidebars/sidebars'),
           editUrl:
             'https://github.com/YanceyOfficial/leetcode-trip/edit/master',
         },
