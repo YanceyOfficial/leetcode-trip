@@ -1,3 +1,4 @@
+import inquirer from 'inquirer'
 export declare const dirSelect: () => Promise<any> & {
-    ui: import("inquirer/lib/ui/prompt");
-};
+  ui: inquirer.ui.Prompt<any>
+}

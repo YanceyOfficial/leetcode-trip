@@ -17,7 +17,7 @@ interface Tag {
 
 export const getLatestVersion = async () => {
   const res = await fetch(tagsAPI)
-  const data: Tag[] = await res.json()
+  const data = (await res.json()) as Tag[]
 
   const versionMatcher = data[0].name.match(/\d+\.\d+\.\d+/g)
 
