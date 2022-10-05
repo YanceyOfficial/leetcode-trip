@@ -19,7 +19,7 @@ sidebar_label: 15. 三数之和
 
 ### 从泛化的两数之和到三数之和
 
-首先贴一个两数之和等于 target 的例子, 基本的模型就是先给数组进行排序, 并用左右两个指针往中间夹, 如果它俩的和大于 target, 意味着右指针得往左走; 如果它俩的和小于 target, 意味着左指针得往右走, 直到 `sum === target`, 将两个数字塞到 res 里, 然后让左右指针继续游走.
+首先实现一个**两数之和等于 target** 的例子: 它的思路就是先给数组进行排序, 并用左右两个指针往中间夹, 如果它俩的和大于 target, 意味着右指针得往左走; 如果它俩的和小于 target, 意味着左指针得往右走, 直到 `sum === target`, 将两个数字塞到 res 里, 然后让左右指针继续游走.
 
 ```js
 function twoSumTarget(nums, target) {
@@ -44,7 +44,7 @@ function twoSumTarget(nums, target) {
 }
 ```
 
-但上面代码的操蛋之处在于可能会出现重复, 以 nums = [1, 1, 1, 2, 2, 3, 3], target = 4 为例子, 第一个数 1 和最后一个数 3 之和等于了 4, 然后两个指针往中间夹一步, 此时又遇见了 1 和 3, 在没有任何保护措施的情况下, 就会造成重复. 因此你需要在每次比较时, 遍历一次将重复的值过滤掉.
+但这段代码的问题在于可能会出现**重复**, 以 `nums = [1, 1, 1, 2, 2, 3, 3]`, `target = 4` 为例子, 第一个数 1 和最后一个数 3 之和等于了 4, 然后两个指针往中间夹一步, 此时又遇见了 1 和 3, 在没有任何保护措施的情况下, 就会造成重复. 因此你需要在每次比较时, 遍历一次将重复的值过滤掉.
 
 ```js
 function twoSumTarget(nums, target) {
@@ -59,15 +59,20 @@ function twoSumTarget(nums, target) {
     const sum = left + right
 
     if (sum < target) {
+      // sum < target 说明左指针需要往右移动, 但为了防止 nums[low] 与 left 相同,
+      // 需要通过 while 循环将相同的值过滤掉
       while (low < high && nums[low] === left) {
         low++
       }
     } else if (sum > target) {
+      // sum > target 同理
       while (low < high && nums[high] === right) {
         high--
       }
     } else {
       res.push([left, right])
+
+      // 即便取到了一对 left 和 right, 也要左右指针往中间夹, 来过滤重复的值
       while (low < high && nums[low] === left) {
         low++
       }
@@ -95,14 +100,14 @@ function twoSumTarget(nums, start, target) {
 
   return res
 }
+
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
 var threeSum = function (nums, target) {
-  let res = []
+  const res = []
   const len = nums.length
-
   nums.sort((a, b) => a - b) // 排序
 
   for (let i = 0; i < len; i++) {
@@ -113,11 +118,13 @@ var threeSum = function (nums, target) {
       item.push(nums[i])
       res.push(item)
     }
+
     // 跳过第一个数字重复的情况, 否则会出现重复结果
     while (i < len - 1 && nums[i] === nums[i + 1]) {
       i++
     }
   }
+
   return res
 }
 ```
@@ -139,9 +146,9 @@ var nSumTarget = function (nums, n, start, target) {
     let lo = start,
       hi = len - 1
     while (lo < hi) {
-      const sum = nums[lo] + nums[hi]
       const left = nums[lo],
-        right = nums[hi]
+        right = nums[hi],
+        sum = left + right
 
       if (sum < target) {
         while (lo < hi && nums[lo] === left) lo++
@@ -162,7 +169,9 @@ var nSumTarget = function (nums, n, start, target) {
         item.push(nums[i])
         res.push(item)
       }
-      while (i < len - 1 && nums[i] === nums[i + 1]) i++
+      while (i < len - 1 && nums[i] === nums[i + 1]) {
+        i++
+      }
     }
   }
 

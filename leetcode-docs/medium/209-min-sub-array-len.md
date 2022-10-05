@@ -39,8 +39,6 @@ keywords:
 
 :::success Tip
 涉及连续子数组的问题, 通常有两种思路: 一是滑动窗口, 二是前缀和(TODO:).
-
--- 鲁迅
 :::
 
 使用滑动窗口来解决:
@@ -81,7 +79,7 @@ var minSubArrayLen = function (target, nums) {
     end++
   }
 
-  return min == Number.MAX_SAFE_INTEGER ? 0 : min
+  return min === Number.MAX_SAFE_INTEGER ? 0 : min
 }
 ```
 

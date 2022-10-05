@@ -1,18 +1,19 @@
 ---
 id: 560-subarray-sum
-title: 和为k的子数组
-sidebar_label: 560. 和为k的子数组
+title: 和为 k 的子数组
+sidebar_label: 560. 和为 k 的子数组
 keywords:
   - 前缀和
 ---
 
 :::success Tips
-题目类型: 前缀和
+题目类型: 前缀和 + HashMap
 
 相关题目:
 
 - [1. 两数之和](/leetcode/easy/1-two-sum)
 - [523. 连续的子数组和](/leetcode/medium/523-check-subarray-sum)
+- [525. 连续数组](/leetcode/medium/525-find-max-length)
 - [724. 寻找数组的中心下标](/leetcode/easy/724-pivot-index)
 - [930. 和相同的二元子数组](/leetcode/medium/930-num-subarrays-with-sum)
 - [974. 和可被-k-整除的子数组](/leetcode/medium/974-subarrays-div-by-k)
@@ -26,16 +27,27 @@ keywords:
 
 :::info 示例
 
+```bash
 输入: nums = [1, 1, 1], k = 2
-
 输出: 2
-
 解释: [1, 1] 与 [1, 1] 为两种不同的情况.
+```
+
+```bash
+输入: nums = [1, 2, 3], k = 3
+输出: 2
+解释: 结果为 [1, 2] 与 [3]
+```
+
 :::
 
 ## 题解
 
-### 暴力法 🐸
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="暴力法 🐸" label="暴力法 🐸">
 
 暴力法核心就是整个双循环穷尽所有子数组, 如果这个子数组的和等于 k, 那就让 count++, 直到循环完毕.
 
@@ -56,16 +68,14 @@ var subarraySum = function (nums, k) {
 }
 ```
 
-### 暴力前缀和 🐸
+</TabItem>
+
+<TabItem value="暴力前缀和 🐸" label="暴力前缀和 🐸">
 
 这道题的核心是**前缀和**, 前缀和的代码如下, 如果我们想求 nums[i] 到 nums[j] 的和, 可以使用 `preSum[j + 1] - preSum[i]` 得出.
 
 ```ts
-nums = [3, 5, 2, -2, 4, 1]
-preSum = [0, 3, 8, 10, 8, 12, 13]
-```
-
-```ts
+// num = [3, 5, 2, -2, 4, 1]
 var getPreSum = function (nums) {
   const len = nums.length
   const preSum = new Array(len + 1).fill(0)
@@ -75,7 +85,7 @@ var getPreSum = function (nums) {
     preSum[i + 1] = preSum[i] + nums[i]
   }
 
-  return preSum
+  return preSum // [0, 3, 8, 10, 8, 12, 13]
 }
 ```
 
@@ -111,10 +121,12 @@ var subarraySum = function (nums, k) {
 }
 ```
 
-### 前缀和 + HashMap
+</TabItem>
+  
+<TabItem value="前缀和 + HashMap" label="前缀和 + HashMap" default>
 
 - 设 `pre[i]` 为 `pre[0..i]` 所有元素的和, 那么 `pre[i] = pre[i - 1] + nums[i]`, 因为 `pre[i]` 可以由 `pre[i - 1]` 递推过来
-- 同理, **pre[j..i] 这个子数组和为 k** 这个条件可以转化为 `pre[i] - pre[j - 1] = k`
+- 同理, **`pre[j..i]` 这个子数组和为 k** 这个条件可以转化为 `pre[i] = pre[j - 1] + k`
 - 上面的公式也就是 `pre[j - 1] = pre[i] - k`
 
 ![560-subarray-sum](../../static/img/560-subarray-sum-0.png)
@@ -158,3 +170,6 @@ var subarraySum = function (nums, k) {
   return count
 }
 ```
+
+  </TabItem>
+</Tabs>

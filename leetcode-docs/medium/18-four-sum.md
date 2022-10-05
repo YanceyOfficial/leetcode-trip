@@ -30,9 +30,9 @@ var nSumTarget = function (nums, n, start, target) {
     let lo = start,
       hi = len - 1
     while (lo < hi) {
-      const sum = nums[lo] + nums[hi]
       const left = nums[lo],
-        right = nums[hi]
+        right = nums[hi],
+        sum = left + right
 
       if (sum < target) {
         while (lo < hi && nums[lo] === left) lo++

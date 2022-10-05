@@ -16,7 +16,7 @@ keywords:
 - [560. 和为 k 的子数组](/leetcode/medium/560-subarray-sum)
 - [724. 寻找数组的中心下标](/leetcode/easy/724-pivot-index)
 - [974. 和可被-k-整除的子数组](/leetcode/medium/974-subarrays-div-by-k)
-- [1248. 统计「优美子数组」](/leetcode/medium/1248-number-of-subarrays)\
+- [1248. 统计「优美子数组」](/leetcode/medium/1248-number-of-subarrays)
 
 :::
 

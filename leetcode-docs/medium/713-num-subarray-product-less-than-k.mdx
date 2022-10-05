@@ -1,0 +1,95 @@
+---
+id: 713-num-subarray-product-less-than-k
+title: 乘积小于-k-的子数组
+sidebar_label: 713. 乘积小于-k-的子数组
+keywords:
+  - Sliding Window
+---
+
+:::success Tips
+题目类型: 滑动窗口
+
+相关题目:
+
+- [3. 无重复字符的最长子串](/leetcode/medium/3-length-of-longest-substring)
+- [76. 最小覆盖子串](/leetcode/hard/76-min-window)
+- [209. 长度最小的子数组](/leetcode/medium/209-min-sub-array-len)
+- [239. 滑动窗口最大值](/leetcode/hard/239-max-sliding-window)
+- [424. 替换后的最长重复字符](/leetcode/medium/424-character-replacement)
+- [438. 找到字符串中所有字母异位词](/leetcode/medium/438-find-anagrams)
+- [560. 和为k的子数组](/leetcode/medium/560-subarray-sum)
+- [567. 字符串的排列](/leetcode/medium/567-check-inclusion)
+
+:::
+
+## 题目
+
+给你一个整数数组 nums 和一个整数 k, 请你返回子数组内所有元素的乘积严格小于 k 的连续子数组的数目.
+
+- 1 <= nums.length <= 3 \* 10<sup>4</sup>
+- 1 <= nums[i] <= 1000
+- 0 <= k <= 10<sup>6</sup>
+
+:::info 示例
+
+```bash
+输入: nums = [10, 5, 2, 6], k = 100
+输出: 8
+解释: 8 个乘积小于 100 的子数组分别为: [10], [5], [2], [6], [10, 5], [5, 2], [2, 6], [5, 2, 6].
+
+需要注意的是 [10, 5, 2] 并不是乘积小于 100 的子数组.
+```
+
+```bash
+输入: nums = [1, 2, 3], k = 0
+输出: 0
+```
+
+:::
+
+## 题解
+
+比较精妙的是 `ans += end - start + 1`, 当时没想出来. 举个例子:
+
+- start = 0, end = 0 时, end - start + 1 就是取的 [10]
+- start = 0, end = 1 时, end - start + 1 就是取的 [10, 5] 和 [5]
+- start = 1, end = 2 时, end - start + 1 就是取的 [5, 2] 和 [2]
+- start = 1, end = 3 时, end - start + 1 就是取的 [5, 2, 6], [2, 6] 和 [2]
+
+其他的就是标准的滑动窗口模版了.
+
+```ts
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var numSubarrayProductLessThanK = function (nums, k) {
+  const n = nums.length
+
+  let product = 1,
+    start = 0,
+    end = 0,
+    ans = 0
+
+  while (end < n) {
+    product *= nums[end]
+
+    while (start <= end && product >= k) {
+      product /= nums[start]
+      start++
+    }
+
+    ans += end - start + 1
+    end++
+  }
+
+  return ans
+}
+```
+
+## 复杂度分析
+
+时间复杂度: O(n)
+
+空间复杂度: O(1)
