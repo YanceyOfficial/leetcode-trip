@@ -47,7 +47,7 @@ const p = `${process.cwd()}/src/leetcode`,
         }
         throw new Error('Can not get the function body string.')
       })(o),
-      d = `${$}/${e.toLowerCase()}/${s}-${u}.mdx`
+      d = `${$}/${e.toLowerCase()}/${s}-${u}.md`
     return a.existsSync(d)
       ? '文件已存在, 请重新选择.'
       : !!n || {
