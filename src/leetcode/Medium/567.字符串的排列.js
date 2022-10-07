@@ -11,45 +11,57 @@
  * @return {boolean}
  */
 var checkInclusion = function (s1, s2) {
-  const need = {}
-  const window = {}
+  const needMap = new Map()
 
   // 将 s1 的每个元素映射到 hashmap 中
-  for (const i of s1) {
-    need[i] ? (need[i] += 1) : (need[i] = 1)
+  for (const letter of s1) {
+    if (needMap.has(letter)) {
+      needMap.set(letter, needMap.get(letter) + 1)
+    } else {
+      needMap.set(letter, 1)
+    }
   }
 
-  const needLen = Object.keys(need).length
+  const needLen = needMap.size
+  const windowMap = new Map()
 
-  let left = 0,
-    right = 0
-
-  let valid = 0
+  let left = 0
+  let right = 0
+  let meetCount = 0
 
   while (right < s2.length) {
-    const c = s2[right]
+    const rightLetter = s2[right]
     right++
 
-    if (need[c]) {
-      window[c] ? (window[c] += 1) : (window[c] = 1)
+    if (needMap.has(rightLetter)) {
+      if (windowMap.has(rightLetter)) {
+        windowMap.set(rightLetter, windowMap.get(rightLetter) + 1)
+      } else {
+        windowMap.set(rightLetter, 1)
+      }
 
-      if (window[c] === need[c]) {
-        valid++
+      if (needMap.get(rightLetter) === windowMap.get(rightLetter)) {
+        meetCount++
       }
     }
 
+    // 缩小窗口的时机是窗口区间长度大于等于 s1 的长度, 这样才有可能将 s1 包含在内
+    // 即 right - left >= s1.length
     while (right - left >= s1.length) {
-      if (valid === needLen) return true
+      // 一旦 meetCount === needLen, 也就找到了子串, 此时直接返回 true 完活
+      if (meetCount === needLen) {
+        return true
+      }
 
-      const d = s2[left]
+      const leftLetter = s2[left]
       left++
 
-      if (need[d]) {
-        if (window[d] === need[d]) {
-          valid--
+      if (needMap.has(leftLetter)) {
+        if (needMap.get(leftLetter) === windowMap.get(leftLetter)) {
+          meetCount--
         }
 
-        window[d] -= 1
+        windowMap.set(leftLetter, windowMap.get(leftLetter) - 1)
       }
     }
   }
@@ -57,3 +69,4 @@ var checkInclusion = function (s1, s2) {
   return false
 }
 // @lc code=end
+console.log(checkInclusion('ab', 'eidboaoo'))
