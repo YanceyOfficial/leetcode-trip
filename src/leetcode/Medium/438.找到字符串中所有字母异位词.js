@@ -11,46 +11,56 @@
  * @return {number[]}
  */
 var findAnagrams = function (s, p) {
-  const need = {}
-  const window = {}
+  const res = []
+  const sLen = s.length
+  const pLen = p.length
+  const needMap = new Map()
 
-  for (const i of p) {
-    need[i] ? (need[i] += 1) : (need[i] = 1)
+  for (const letter of p) {
+    if (needMap.has(letter)) {
+      needMap.set(letter, needMap.get(letter) + 1)
+    } else {
+      needMap.set(letter, 1)
+    }
   }
 
-  const needLen = Object.keys(need).length
+  const needLen = needMap.size
+  const windowMap = new Map()
 
   let left = 0
   let right = 0
+  let meetedLen = 0
 
-  let valid = 0
-
-  const res = []
-
-  while (right < s.length) {
-    const c = s[right]
+  while (right < sLen) {
+    const rightLetter = s[right]
     right++
 
-    if (need[c]) {
-      window[c] ? (window[c] += 1) : (window[c] = 1)
+    if (needMap.has(rightLetter)) {
+      if (windowMap.has(rightLetter)) {
+        windowMap.set(rightLetter, windowMap.get(rightLetter) + 1)
+      } else {
+        windowMap.set(rightLetter, 1)
+      }
 
-      if (window[c] === need[c]) {
-        valid++
+      if (windowMap.get(rightLetter) === needMap.get(rightLetter)) {
+        meetedLen++
       }
     }
 
-    while (right - left >= p.length) {
-      if (valid === needLen) res.push(left)
+    while (right - left >= pLen) {
+      if (meetedLen === needLen) {
+        res.push(left)
+      }
 
-      const d = s[left]
+      const leftLetter = s[left]
       left++
 
-      if (need[d]) {
-        if (window[d] === need[d]) {
-          valid--
+      if (needMap.has(leftLetter)) {
+        if (windowMap.get(leftLetter) === needMap.get(leftLetter)) {
+          meetedLen--
         }
 
-        window[d] -= 1
+        windowMap.set(leftLetter, windowMap.get(leftLetter) - 1)
       }
     }
   }
