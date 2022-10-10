@@ -68,23 +68,24 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
  * @return {number}
  */
 var lengthOfLongestSubstring = function (s) {
-  const map = {}
+  const n = s.length
+  const map = new Map()
   let start = 0
   let end = 0
   let max = 0
 
-  while (end < s.length) {
-    const endVal = s[end++]
+  while (end < n) {
+    const endLetter = s[end++]
 
-    if (map[endVal]) {
-      map[endVal] += 1
+    if (map.has(endLetter)) {
+      map.set(endLetter, map.get(endLetter) + 1)
     } else {
-      map[endVal] = 1
+      map.set(endLetter, 1)
     }
 
-    while (map[endVal] > 1) {
-      const startVal = s[start++]
-      map[startVal] -= 1
+    while (map.get(endLetter) > 1) {
+      const startLetter = s[start++]
+      map.set(startLetter, map.get(startLetter) - 1)
     }
 
     max = Math.max(max, end - start)

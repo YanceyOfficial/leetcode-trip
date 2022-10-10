@@ -54,9 +54,8 @@ var NumMatrix = function (matrix) {
     // 遍历二维数组的每个元素, 添加到前缀和 preSum 中
     for (let i = 0; i < this.m; i++) {
       for (let j = 0; j < this.n; j++) {
-        const element = matrix[i][j]
         this.preSum[i * this.n + (j + 1)] =
-          this.preSum[i * this.n + j] + element
+          this.preSum[i * this.n + j] + matrix[i][j]
       }
     }
   }
