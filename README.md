@@ -6,6 +6,7 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 ![Code Style](https://camo.githubusercontent.com/c83b8df34339bd302b7fd3fbb631f99ba25f87f8/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f64655f7374796c652d70726574746965722d6666363962342e737667)
 [![Node](https://img.shields.io/badge/node-%3E%3Dv16.16.0-orange.svg)](https://nodejs.org/en/)
+[![Rust](https://img.shields.io/badge/rust-%3E%3Dv1.25.1-red.svg)](https://www.rust-lang.org/tools/install)
 [![DependaBot](https://camo.githubusercontent.com/1fe7004c016a5ab641008b9579409c784eaa1725/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446570656e6461626f742d656e61626c65642d626c75652e737667)](https://dependabot.com/)
 [![codecov](https://codecov.io/gh/YanceyOfficial/leetcode-trip/branch/master/graph/badge.svg)](https://codecov.io/gh/YanceyOfficial/leetcode-trip)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e0f64194d78841e38021984b6a52ef7b)](https://www.codacy.com/gh/YanceyOfficial/leetcode-trip/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=YanceyOfficial/leetcode-trip&amp;utm_campaign=Badge_Grade)
@@ -14,7 +15,7 @@
 
 ## Introduction
 
-Data structures and algorithms implemented in JavaScript with explanations. The algorithm questions include, but are not limited to LeetCode, _Coding Interviews: Questions, Analysis and Solutions_ and _Algorithms, 4th Edition_. Visit [LeetCode Trip](https://algorithm.yanceyleo.com/) for more information. The website is powered by [docusaurus](https://docusaurus.io/).
+Data structures and algorithms implemented in JavaScript and Rust with explanations. The algorithm questions include, but are not limited to LeetCode, _Coding Interviews: Questions, Analysis and Solutions_ and _Algorithms, 4th Edition_. Visit [LeetCode Trip](https://algorithm.yanceyleo.com/) for more information. The website is powered by [docusaurus](https://docusaurus.io/).
 
 ## lt-cli
 
