@@ -2,7 +2,18 @@
 id: 5-longest-palindrome
 title: 最长回文子串
 sidebar_label: 5. 最长回文子串
+keywords:
+  - 中心扩散法
 ---
+
+:::success Tips
+题目类型: 中心扩散法
+
+相关题目:
+
+- [647. 回文子串](/leetcode/medium/647-count-substrings)
+
+:::
 
 ## 题目
 
@@ -12,14 +23,29 @@ sidebar_label: 5. 最长回文子串
 
 输入: s = "babad"
 
-输出: "bab"
-
-解释: "aba" 同样是符合题意的答案
+输出: "bab" 或者 "aba" 都是符合题意的答案.
 :::
 
 ## 题解
 
-中心扩散法.
+该题的思路是中心扩散法. 所谓中心扩散法, 就是找到字符串的一个中点. 往两边扩散, 从少到多, 来判断各个子字符串是否是回文. 所以找中心扩散法的**中点**是重点.
+
+比如 ababa 这个字符串, 选择最中间的 a 作为中心点, 往两边扩散, 第一次扩散发现 left 指向的是 b, right 指向的也是 b, 所以是回文串, 继续扩散, 同理 ababa 也是回文串.
+
+可以看到我们选择中心的 a 左为中心点, 能扫描到 a, bab, ababa 这几个子字符串, 但它无法扫描到如 abab 这个子字符串的. 因此如果我们把 ba 看作中心点, 往左和右扫描, 就能扫描到 abab 这个子字符串了. 这启发我们中心点的长度可能为 1, 也可能为 2.
+
+因为我们找两个例子:
+
+- str = aba, 中心点应该为 a, b, a, ab, bab
+- str = abba, 中心点应该为 a, b, b, a, ab, bb, ba
+
+这样我们就找全了中心点, 也就能覆盖字符串的所有子串了. 我们可以得出规律, `centerCount = 2 * str.length - 1`. 具体实现直接看代码:
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -27,31 +53,71 @@ sidebar_label: 5. 最长回文子串
  * @return {string}
  */
 var longestPalindrome = function (s) {
-  const len = s.length
-  if (len < 2) return s
+  let n = s.length
+  let maxArr = ''
 
-  let l = 0
-  let r = 0
+  for (let i = 0; i < 2 * n - 1; i++) {
+    // 上面说到中心点可能有一个(i 为偶数), 也可能为两个(i 为奇数)
+    // 故通过如下代码找到中心点
+    let left = (i / 2) | 0
+    let right = left + (i % 2)
 
-  for (let i = 0; i < len; i++) {
-    // 回文子串长度是奇数
-    helper(i, i)
-    // 回文子串长度是偶数
-    helper(i, i + 1)
-  }
+    // 要保证中心点不越界, 并且要从中心点起, 判断左右字符是否相等
+    while (left < n && right < n && s[left] === s[right]) {
+      // 取当前子回文串跟 maxArr 对比即可
+      const currPalindrome = s.slice(left, right + 1)
+      maxArr = maxArr.length < currPalindrome.length ? currPalindrome : maxArr
 
-  function helper(m, n) {
-    while (m >= 0 && n < len && s[m] === s[n]) {
-      m--
-      n++
-    }
-    // 注意此处 m, n 的值循环完后
-    // 是恰好不满足循环条件的时刻, 如果此轮询得到回文串长度大于之前记录, 记录此轮循边界
-    if (n - m > r - l) {
-      l = m
-      r = n
+      // 往两边扩散
+      left--
+      right++
     }
   }
-  return s.slice(l + 1, r)
+
+  return maxArr
 }
 ```
+
+</TabItem>
+
+<TabItem value="Rust" label="Rust">
+
+:::success Tips
+纪念一下, 第一次用 Rust 刷题. -- 2022/10/11
+:::
+
+```rust
+impl Solution {
+    pub fn longest_palindrome(s: String) -> String {
+        let len = s.len();
+        let center_count = len * 2 - 1;
+        let s_byte = s.as_bytes();
+        let mut max_str = "";
+
+        for i in 0..center_count {
+            let mut left = i / 2;
+            let mut right = left + i % 2;
+
+            while left < len && right < len && s_byte[left] == s_byte[right] {
+                let curr_str = &s[left..right + 1];
+                if curr_str.len() > max_str.len() {
+                    max_str = curr_str;
+                }
+
+                left -= 1;
+                right += 1;
+            }
+        }
+
+        max_str.to_string()
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## 复杂度分析
+
+- 时间复杂度: O(n<sup>2</sup>)
+- 空间复杂度: O(n)

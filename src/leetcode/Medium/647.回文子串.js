@@ -11,23 +11,21 @@
  */
 
 var countSubstrings = function (s) {
-  const len = s.length
-  let total = 0
-  for (let i = 0; i < len; i++) {
-    total += helpers(i, i)
-    total += helpers(i, i + 1)
-  }
+  let n = s.length
+  let ans = 0
 
-  function helpers(m, n) {
-    let count = 0
-    while (m >= 0 && n < len && s[m] === s[n]) {
-      count++
-      m--
-      n++
+  for (let center = 0; center < 2 * n - 1; center++) {
+    let left = (center / 2) | 0
+    let right = left + (center % 2)
+
+    while (left >= 0 && right < n && s[left] === s[right]) {
+      left--
+      right++
+      ans++
     }
-    return count
   }
 
-  return total
+  return ans
 }
 // @lc code=end
+console.log(countSubstrings('abba'))

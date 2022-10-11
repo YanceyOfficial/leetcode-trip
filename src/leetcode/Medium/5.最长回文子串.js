@@ -10,29 +10,23 @@
  * @return {string}
  */
 var longestPalindrome = function (s) {
-  if (s.length < 2) return s
+  let n = s.length
+  let maxArr = ''
 
-  let l = 0
-  let r = 0
-  for (let i = 0; i < s.length; i++) {
-    // 回文子串长度是奇数
-    helper(i, i)
-    // 回文子串长度是偶数
-    helper(i, i + 1)
-  }
+  for (let center = 0; center < 2 * n - 1; center++) {
+    let left = (center / 2) | 0
+    let right = left + (center % 2)
 
-  function helper(m, n) {
-    while (m >= 0 && n < s.length && s[m] === s[n]) {
-      m--
-      n++
-    }
-    // 注意此处 m, n 的值循环完后
-    // 是恰好不满足循环条件的时刻, 如果此轮询得到回文串长度大于之前记录, 记录此轮循边界
-    if (n - m > r - l) {
-      l = m
-      r = n
+    while (left >= 0 && right < n && s[left] === s[right]) {
+      const currPalindrome = s.slice(left, right + 1)
+      maxArr = maxArr.length < currPalindrome.length ? currPalindrome : maxArr
+
+      left--
+      right++
+      ans++
     }
   }
-  return s.slice(l + 1, r)
+
+  return ans
 }
 // @lc code=end

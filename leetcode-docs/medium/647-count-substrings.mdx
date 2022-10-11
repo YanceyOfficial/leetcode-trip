@@ -3,11 +3,11 @@ id: 647-count-substrings
 title: 回文子串
 sidebar_label: 647. 回文子串
 keywords:
-  - Dynamic Programming
+  - 中心扩散法
 ---
 
 :::success Tips
-题目类型: Dynamic Programming
+题目类型: 中心扩散法
 
 相关题目:
 
@@ -37,30 +37,69 @@ keywords:
 
 ## 题解
 
+思路参考 [5. 最长回文子串](/leetcode/medium/5-longest-palindrome).
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
-/**
- * @param {string} s
- * @return {number}
- */
-
 var countSubstrings = function (s) {
-  const len = s.length
-  let total = 0
-  for (let i = 0; i < len; i++) {
-    total += helpers(i, i)
-    total += helpers(i, i + 1)
-  }
+  let n = s.length
+  let ans = 0
 
-  function helpers(m, n) {
-    let count = 0
-    while (m >= 0 && n < len && s[m] === s[n]) {
-      count++
-      m--
-      n++
+  for (let i = 0; i < 2 * n - 1; i++) {
+    let left = (i / 2) | 0
+    let right = left + (i % 2)
+
+    while (left < n && right < n && s[left] === s[right]) {
+      left--
+      right++
+      ans++
     }
-    return count
   }
 
-  return total
+  return ans
 }
 ```
+
+</TabItem>
+
+<TabItem value="Rust" label="Rust">
+
+```rust
+impl Solution {
+    pub fn count_substrings(s: String) -> i32 {
+        let len = s.len();
+        let center_count = len * 2 - 1;
+        let s_byte = s.as_bytes();
+        let mut ans = 0;
+
+        for i in 0..center_count {
+            let mut left = i / 2;
+            let mut right = left + i % 2;
+
+            // let left_el = s.chars().nth(left).unwrap();
+            // let right_el = s.chars().nth(right).unwrap();
+
+            while left < len && right < len && s_byte[left] == s_byte[right] {
+                left -= 1;
+                right += 1;
+                ans += 1;
+            }
+        }
+
+        ans
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
+## 复杂度分析
+
+- 时间复杂度: O(n<sup>2</sup>)
+- 空间复杂度: O(n)

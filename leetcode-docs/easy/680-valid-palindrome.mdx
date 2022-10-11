@@ -1,0 +1,75 @@
+---
+id: 680-valid-palindrome
+title: 验证回文串-ii
+sidebar_label: 680. 验证回文串-ii
+---
+
+:::success Tips
+相关题目:
+
+- [125. 验证回文串](/leetcode/easy/125-is-palindrome)
+
+:::
+
+## 题目
+
+给定一个非空, 且均为小写字母的字符串 s, 请判断如果**最多**从字符串中删除一个字符能否得到一个回文字符串.
+
+:::info 示例
+
+```bash
+输入: s = "aba"
+输出: true
+```
+
+```bash
+输入: s = "abca"
+输出: true
+解释: 可以删除 "c" 字符 或者 "b" 字符
+```
+
+```bash
+输入: s = "abc"
+输出: false
+```
+
+:::
+
+## 题解
+
+举个例子好了, 以 `s = 'acebbea'` 为例.
+
+- 在 while 循环里, 首先首尾两个 a 相同, 遂两个指针往中间游走
+- 然后遇到了 c 和 e, 因为不相同, 所以尝试忽略一个字符
+  - 比如忽略 c, 即左指针往右游走一位是 e, 和右边相同了, 由于**只允许最多略过一个字符**, 故以此为基础校验剩下的子字符串是否为回文即可
+  - 忽略右边和忽略左边相同, 不再赘述
+
+```ts
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var validPalindrome = function (s) {
+  let left = 0
+  let right = s.length - 1
+
+  var isPalindrome = (left, right) => {
+    for (let i = left, j = right; i < j; i++, j--) {
+      if (s[i] !== s[j]) return false
+    }
+    return true
+  }
+
+  while (left < right) {
+    if (s[left] === s[right]) {
+      left++
+      right--
+    } else {
+      // 尝试计算忽略一位, 剩下的子串是否为回文
+      return isPalindrome(left + 1, right) || isPalindrome(left, right - 1)
+    }
+  }
+
+  return true
+}ß
+```

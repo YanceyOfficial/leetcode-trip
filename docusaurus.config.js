@@ -64,6 +64,7 @@ module.exports = {
     prism: {
       // eslint-disable-next-line global-require
       theme: require('prism-react-renderer/themes/vsDark'),
+      additionalLanguages: ['rust'],
     },
     liveCodeBlock: {
       playgroundPosition: 'bottom',
