@@ -37,6 +37,12 @@ sidebar_label: 680. 验证回文串-ii
 
 ## 题解
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 举个例子好了, 以 `s = 'acebbea'` 为例.
 
 - 在 while 循环里, 首先首尾两个 a 相同, 遂两个指针往中间游走
@@ -71,5 +77,47 @@ var validPalindrome = function (s) {
   }
 
   return true
-}ß
+}
 ```
+
+</TabItem>
+
+<TabItem value="Rust" label="Rust">
+
+```rust
+impl Solution {
+  pub fn valid_palindrome(s: String) -> bool {
+    let s_bytes = s.as_bytes();
+    let (mut left, mut right) = (0, s.len() - 1);
+
+    let is_palindrome = |left: usize, right: usize| {
+        let (mut i, mut j) = (left, right);
+
+        while i < j {
+            if s_bytes[left] != s_bytes[right] {
+                return false;
+            }
+
+            i += 1;
+            j -= 1;
+        }
+
+        true
+    };
+
+    while left < right {
+        if s_bytes[left] == s_bytes[right] {
+            left += 1;
+            right -= 1;
+        } else {
+            return is_palindrome(left + 1, right) || is_palindrome(left, right - 1);
+        }
+    }
+
+    true
+  }
+}
+```
+
+</TabItem>
+</Tabs>
