@@ -20,7 +20,7 @@
   "homepage": "https://github.com/YanceyOfficial/leetcode-trip#readme",
   "description": "a command-line interface for LeetCode Trip",
   "bin": {
-    "lt-cli": "./bin/lt-cli"
+    "lt-cli": "./bin/lt-cli.js"
   },
   "scripts": {
     "build": "rimraf lib && rollup -c"
