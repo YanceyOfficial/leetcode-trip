@@ -60,6 +60,8 @@
   },
   "files": [
     "/bin",
-    "/lib"
+    "/lib",
+    "LICENSE",
+    "README.md"
   ]
 }
