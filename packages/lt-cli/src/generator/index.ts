@@ -4,9 +4,9 @@ import figlet from 'figlet'
 import { dirSelect } from './dir-selector'
 import { getFileList } from './get-file-list'
 import { fileSelect } from './file-selector'
-import { generateMarkdownFile } from './generate-md-file'
+import { generateMarkdownFile } from './generate-mdx-file'
 
-const bootstrap = async () => {
+export const bootstrap = async () => {
   clear()
 
   console.log(

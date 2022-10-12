@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import fetch from 'node-fetch'
-import compareVersions from 'compare-versions'
+import { compareVersions } from 'compare-versions'
 import chalk from 'chalk'
 import { tagsAPI } from './constants'
 

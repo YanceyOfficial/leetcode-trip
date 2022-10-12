@@ -13,4 +13,6 @@ const statistics = [
   { category: 'Total', count: totcal },
 ]
 
-console.table(statistics)
+export const showStatistics = () => {
+  console.table(statistics)
+}

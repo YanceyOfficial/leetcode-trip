@@ -36,7 +36,25 @@ keywords:
 
 这里是题解这里是题解这里是题解这里是题解这里是题解
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 \`\`\`ts
 ${functionBody}
 \`\`\`
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+\`\`\`rust
+impl Solution {
+  
+}
+\`\`\`
+
+</TabItem>
+</Tabs>
 `

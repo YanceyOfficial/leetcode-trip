@@ -1,10 +1,11 @@
 #!/usr/bin/env node
+import { Command } from 'commander'
+import chalk from 'chalk'
+import leven from 'leven'
+import packages from '../package.json' assert { type: 'json' }
+import { bootstrap, showStatistics, upgrade } from '../lib/index.js'
 
-const { program } = require('commander')
-const chalk = require('chalk')
-const leven = require('leven')
-const packages = require('../package.json')
-const { upgrade } = require('../lib/upgrade')
+const program = new Command()
 
 function suggestCommands(unknownCommand) {
   const availableCommands = program.commands.map((cmd) => cmd._name)
@@ -30,21 +31,21 @@ program
   .command('create')
   .description('创建模版')
   .action(() => {
-    require('../lib/generator.js')
+    bootstrap()
   })
 
 program
   .command('statistics')
   .description('查看做题统计')
   .action(() => {
-    require('../lib/statistics.js')
+    showStatistics()
   })
 
 program
   .command('upgrade')
   .description('升级脚手架')
   .action(() => {
-    upgrade('npm install -g @yancey-inc/lt-cli@latest', packages.version)
+    upgrade('pnpm install -g @yancey-inc/lt-cli@latest', packages.version)
   })
 
 // output help information on unknown commands
