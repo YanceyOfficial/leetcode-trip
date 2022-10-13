@@ -9,7 +9,7 @@
 [![Rust](https://img.shields.io/badge/rust-%3E%3Dv1.25.1-red.svg)](https://www.rust-lang.org/tools/install)
 [![DependaBot](https://camo.githubusercontent.com/1fe7004c016a5ab641008b9579409c784eaa1725/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446570656e6461626f742d656e61626c65642d626c75652e737667)](https://dependabot.com/)
 [![codecov](https://codecov.io/gh/YanceyOfficial/leetcode-trip/branch/master/graph/badge.svg)](https://codecov.io/gh/YanceyOfficial/leetcode-trip)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e0f64194d78841e38021984b6a52ef7b)](https://www.codacy.com/gh/YanceyOfficial/leetcode-trip/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=YanceyOfficial/leetcode-trip&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e0f64194d78841e38021984b6a52ef7b)](https://www.codacy.com/gh/YanceyOfficial/leetcode-trip/dashboard?utm_source=github.com&utm_medium=referral&utm_content=YanceyOfficial/leetcode-trip&utm_campaign=Badge_Grade)
 
 ⭐️ _Found it cool? Want more updates?_ [**Show your support by giving a ⭐️**](https://github.com/YanceyOfficial/leetcode-trip/stargazers)
 
@@ -57,13 +57,20 @@ LeetCode Trip follows the [Angular Team's Commit Message Guidelines](https://git
 
 ### Algolia Search
 
-Unfortunately, LeetCode Trip is [not compliant with algolia's checklist](https://docsearch.algolia.com/docs/who-can-apply), we must run the crawler by ourselves. Please create `.env` in root path and read the [document](https://docsearch.algolia.com/docs/run-your-own) to build your own docker crawler system.
+Unfortunately, LeetCode Trip is [not compliant with algolia's checklist](https://docsearch.algolia.com/docs/who-can-apply), we must [run the crawler by ourselves](https://docsearch.algolia.com/docs/run-your-own).
+Please create `.env` in root path.
 
 ```bash
 # DO NOT UPLOAD THIS FILE TO PUBLIC!!!
 # .env
 APPLICATION_ID=YOUR_ALGOLIA_APP_ID
 API_KEY=YOUR_ALGOLIA_API_KEY
+```
+
+After a successful build, execute the following script.
+
+```bash
+docker run --env-file=.env -e "CONFIG=$(cat ./algolia-config.json | jq -r tostring)" algolia/docsearch-scraper
 ```
 
 ## License
