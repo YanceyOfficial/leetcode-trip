@@ -6,5 +6,4 @@ export declare enum Category {
 }
 export declare const srcPath: string
 export declare const docPath: string
-export declare const tagsAPI =
-  'https://api.github.com/repos/YanceyOfficial/leetcode-trip/tags'
+export declare const npmAPI = 'https://registry.npmjs.org/@yancey-inc/lt-cli'
