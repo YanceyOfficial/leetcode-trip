@@ -1,9 +1,9 @@
 import { readdirSync } from 'fs'
-import { srcPath, Category } from '../shared/constants'
+import { javascriptPath, Category } from '../shared/constants'
 
-const easyCount = readdirSync(`${srcPath}/${Category.Easy}`).length
-const mediumCount = readdirSync(`${srcPath}/${Category.Medium}`).length
-const hardCount = readdirSync(`${srcPath}/${Category.Hard}`).length
+const easyCount = readdirSync(`${javascriptPath}/${Category.Easy}`).length
+const mediumCount = readdirSync(`${javascriptPath}/${Category.Medium}`).length
+const hardCount = readdirSync(`${javascriptPath}/${Category.Hard}`).length
 const totcal = easyCount + mediumCount + hardCount
 
 const statistics = [

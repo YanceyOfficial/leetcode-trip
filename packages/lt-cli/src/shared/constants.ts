@@ -1,12 +1,13 @@
 // eslint-disable-next-line no-shadow
 export enum Category {
-  Easy = 'Easy',
-  Medium = 'Medium',
-  Hard = 'Hard',
-  Others = 'Others',
+  Easy = 'easy',
+  Medium = 'medium',
+  Hard = 'hard',
 }
 
-export const srcPath = `${process.cwd()}/src/leetcode`
+export const javascriptPath = `${process.cwd()}/src/leetcode/javascript`
+
+export const rustPath = `${process.cwd()}/src/leetcode/rust`
 
 export const docPath = `${process.cwd()}/leetcode-docs`
 

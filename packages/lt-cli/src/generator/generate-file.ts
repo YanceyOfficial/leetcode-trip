@@ -2,12 +2,11 @@ import ora from 'ora'
 import { writeFileSync } from 'fs'
 import { sleep } from 'yancey-js-util'
 import { getFileMeta } from './get-file-meta'
-import { generateTemplate } from './template'
+import { generateMarkdownTemplate } from './markdown-template'
+import { generateRustTemplate } from './rust-template'
+import { rustPath } from '../shared/constants'
 
-export const generateMarkdownFile = async (
-  dirName: string,
-  fileName: string,
-) => {
+export const generateFile = async (dirName: string, fileName: string) => {
   const fileMeta = getFileMeta(dirName, fileName)
   if (typeof fileMeta !== 'object') return
 
@@ -20,7 +19,11 @@ export const generateMarkdownFile = async (
   await sleep()
   writeFileSync(
     outPath,
-    generateTemplate(serial, title, functionName, functionBody),
+    generateMarkdownTemplate(serial, title, functionName, functionBody),
+  )
+  writeFileSync(
+    `${rustPath}/src/${dirName}/${serial}.${title}.rs`,
+    generateRustTemplate(),
   )
   spinner.stop()
   ora().succeed('模版创建成功!')

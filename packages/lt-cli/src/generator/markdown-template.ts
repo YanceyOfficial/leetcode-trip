@@ -1,4 +1,4 @@
-export const generateTemplate = (
+export const generateMarkdownTemplate = (
   serial: string,
   title: string,
   functionName: string,

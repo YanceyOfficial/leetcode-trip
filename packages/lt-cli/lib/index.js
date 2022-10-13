@@ -17,21 +17,14 @@ import d from 'node-fetch'
 import { compareVersions as f } from 'compare-versions'
 var y
 !(function (t) {
-  ;(t.Easy = 'Easy'),
-    (t.Medium = 'Medium'),
-    (t.Hard = 'Hard'),
-    (t.Others = 'Others')
+  ;(t.Easy = 'easy'), (t.Medium = 'medium'), (t.Hard = 'hard')
 })(y || (y = {}))
-const g = `${process.cwd()}/src/leetcode`,
-  $ = `${process.cwd()}/leetcode-docs`,
-  h = [
-    { name: y.Easy },
-    { name: y.Medium },
-    { name: y.Hard },
-    { name: y.Others },
-  ],
-  b = (t, n, e) => {
-    const o = r(`${g}/${t}/${n}`, { encoding: 'utf-8' }),
+const $ = `${process.cwd()}/src/leetcode/javascript`,
+  g = `${process.cwd()}/src/leetcode/rust`,
+  h = `${process.cwd()}/leetcode-docs`,
+  b = [{ name: y.Easy }, { name: y.Medium }, { name: y.Hard }],
+  w = (t, n, e) => {
+    const o = r(`${$}/${t}/${n}`, { encoding: 'utf-8' }),
       [a, i] = n.split('.'),
       { functionName: c, functionBody: l } = ((t) => {
         const n = t.match(/\/\/ @lc code=start([\s\S]*)?\/\/ @lc code=end/im)
@@ -46,7 +39,7 @@ const g = `${process.cwd()}/src/leetcode`,
         }
         throw new Error('Can not get the function body string.')
       })(o),
-      u = `${$}/${t.toLowerCase()}/${a}-${c}.mdx`
+      u = `${h}/${t.toLowerCase()}/${a}-${c}.mdx`
     return s(u)
       ? '文件已存在, 请重新选择.'
       : !!e || {
@@ -55,7 +48,7 @@ const g = `${process.cwd()}/src/leetcode`,
         }
   }
 o.registerPrompt('autocomplete', c)
-const w = async () => {
+const v = async () => {
     n(),
       console.log(
         t.blue(
@@ -66,9 +59,9 @@ const w = async () => {
         ),
       )
     const { dir: r } = await o.prompt([
-        { type: 'list', message: '请选择难度: ', name: 'dir', choices: h },
+        { type: 'list', message: '请选择难度: ', name: 'dir', choices: b },
       ]),
-      s = a(`${g}/${r}`).sort((t, n) => +t.split('.')[0] - +n.split('.')[0])
+      s = a(`${$}/${r}`).sort((t, n) => +t.split('.')[0] - +n.split('.')[0])
     const { file: c } = await ((t, n) =>
       o.prompt([
         {
@@ -77,11 +70,11 @@ const w = async () => {
           name: 'file',
           pageSize: 20,
           source: (t, e) => n.filter((t) => t.includes(e || '')),
-          validate: (n) => b(t, n.name || '', !0),
+          validate: (n) => w(t, n.name || '', !0),
         },
       ]))(r, s)
     await (async (t, n) => {
-      const e = b(t, n)
+      const e = w(t, n)
       if ('object' != typeof e) return
       const {
           outPath: o,
@@ -99,24 +92,25 @@ const w = async () => {
             s,
           ),
         ),
+        i(`${g}/src/${t}/${a}.${r}.rs`, 'pub fn foo() -> i32 {}'),
         m.stop(),
         l().succeed('模版创建成功!')
     })(r, c)
   },
-  T = a(`${g}/${y.Easy}`).length,
-  v = a(`${g}/${y.Medium}`).length,
-  E = a(`${g}/${y.Hard}`).length,
-  H = T + v + E,
-  I = [
+  T = a(`${$}/${y.Easy}`).length,
+  E = a(`${$}/${y.Medium}`).length,
+  I = a(`${$}/${y.Hard}`).length,
+  S = T + E + I,
+  H = [
     { category: y.Easy, count: T },
-    { category: y.Medium, count: v },
-    { category: y.Hard, count: E },
-    { category: 'Total', count: H },
+    { category: y.Medium, count: E },
+    { category: y.Hard, count: I },
+    { category: 'Total', count: S },
   ],
   M = () => {
-    console.table(I)
+    console.table(H)
   },
-  S = async (n) => {
+  j = async (n) => {
     const e = await (async () => {
         const t = await d('https://registry.npmjs.org/@yancey-inc/lt-cli'),
           n = await t.json(),
@@ -133,9 +127,9 @@ const w = async () => {
       o
     )
   },
-  j = async (n) => {
+  x = async (n) => {
     const e = l('正在检索最新版本...').start(),
-      o = await S(n)
+      o = await j(n)
     e.stop(),
       o &&
         (await (async () => {
@@ -154,4 +148,4 @@ const w = async () => {
           }
         })())
   }
-export { w as bootstrap, M as showStatistics, j as upgrade }
+export { v as bootstrap, M as showStatistics, x as upgrade }

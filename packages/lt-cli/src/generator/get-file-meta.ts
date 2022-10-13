@@ -1,13 +1,13 @@
 import { readFileSync, existsSync } from 'fs'
 import { parseFile } from './parse-file'
-import { srcPath, docPath } from '../shared/constants'
+import { javascriptPath, docPath } from '../shared/constants'
 
 export const getFileMeta = (
   dirName: string,
   fileName: string,
   isValidate?: boolean,
 ) => {
-  const path = `${srcPath}/${dirName}/${fileName}`
+  const path = `${javascriptPath}/${dirName}/${fileName}`
   const file = readFileSync(path, { encoding: 'utf-8' })
   const [serial, title] = fileName.split('.')
   const { functionName, functionBody } = parseFile(file)

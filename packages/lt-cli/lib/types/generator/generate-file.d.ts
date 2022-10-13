@@ -1,4 +1,4 @@
-export declare const generateMarkdownFile: (
+export declare const generateFile: (
   dirName: string,
   fileName: string,
 ) => Promise<void>

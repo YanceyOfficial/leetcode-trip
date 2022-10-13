@@ -4,7 +4,7 @@ import figlet from 'figlet'
 import { dirSelect } from './dir-selector'
 import { getFileList } from './get-file-list'
 import { fileSelect } from './file-selector'
-import { generateMarkdownFile } from './generate-mdx-file'
+import { generateFile } from './generate-file'
 
 export const bootstrap = async () => {
   clear()
@@ -21,5 +21,5 @@ export const bootstrap = async () => {
   const files = getFileList(dir)
   const { file } = await fileSelect(dir, files)
 
-  await generateMarkdownFile(dir, file)
+  await generateFile(dir, file)
 }

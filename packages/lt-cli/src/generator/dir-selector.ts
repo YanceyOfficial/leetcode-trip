@@ -5,7 +5,6 @@ const choices = [
   { name: Category.Easy },
   { name: Category.Medium },
   { name: Category.Hard },
-  { name: Category.Others },
 ]
 
 export const dirSelect = () =>
