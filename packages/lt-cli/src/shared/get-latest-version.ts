@@ -2,30 +2,21 @@
 import fetch from 'node-fetch'
 import { compareVersions } from 'compare-versions'
 import chalk from 'chalk'
-import { tagsAPI } from './constants'
+import { npmAPI } from './constants'
 
 interface Tag {
-  name: string
-  zipball_url: string
-  tarball_url: string
-  commit: {
-    sha: string
-    url: string
+  'dist-tags': {
+    latest: string
   }
-  node_id: string
 }
 
 export const getLatestVersion = async () => {
-  const res = await fetch(tagsAPI)
-  const data = (await res.json()) as Tag[]
+  const res = await fetch(npmAPI)
+  const data = (await res.json()) as Tag
 
-  const versionMatcher = data[0].name.match(/\d+\.\d+\.\d+/g)
+  const { latest } = data['dist-tags']
 
-  if (versionMatcher) {
-    return versionMatcher[0]
-  }
-
-  return ''
+  return latest
 }
 
 export const needUpgrade = async (currVersion: string) => {

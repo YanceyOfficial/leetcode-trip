@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@antfu/install-pkg': ^0.1.1
   '@docusaurus/core': ^2.1.0
   '@docusaurus/module-type-aliases': ^2.1.0
   '@docusaurus/plugin-ideal-image': ^2.1.0
@@ -30,6 +31,7 @@ specifiers:
   yancey-js-util: ^3.1.0
 
 dependencies:
+  '@antfu/install-pkg': 0.1.1
   '@docusaurus/core': 2.1.0_5554e69a4d39a664ede5db357afde890
   '@docusaurus/plugin-ideal-image': 2.1.0_c5a15ffec8fb706a5b58ac25b88c88d2
   '@docusaurus/preset-classic': 2.1.0_54a91d3f75b8cbcf18291de21e6fb59c
@@ -183,6 +185,13 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.1.1
       '@jridgewell/trace-mapping': 0.3.15
+
+  /@antfu/install-pkg/0.1.1:
+    resolution: {integrity: sha512-LyB/8+bSfa0DFGC06zpCEfs89/XoWZwws5ygEa5D+Xsm3OfI+aXQ86VgVG7Acyef+rSZ5HE7J8rrxzrQeM3PjQ==}
+    dependencies:
+      execa: 5.1.1
+      find-up: 5.0.0
+    dev: false
 
   /@babel/code-frame/7.18.6:
     resolution: {integrity: sha512-TDCmlK5eOvH+eH7cdAFlNXeVJqWIQ7gW9tY1GJIpUtFb6CmjVyq2VM3u71bOyR8CRihcCgMUYoDNyLXao3+70Q==}

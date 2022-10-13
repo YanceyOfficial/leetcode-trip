@@ -1,29 +1,32 @@
-import childProcess from 'child_process'
+import { execa } from 'execa'
+import chalk from 'chalk'
 import ora from 'ora'
 import { needUpgrade } from '../shared/get-latest-version'
 
-function execPromise(command: string) {
-  return new Promise((resolve, reject) => {
-    childProcess.exec(command, (error, stdout) => {
-      if (error) {
-        reject(error)
-        return
-      }
-
-      resolve(stdout.trim())
-    })
-  })
+const execCommand = async () => {
+  const upgradeSpinner = ora('正在升级...').start()
+  try {
+    await execa(
+      'pnpm',
+      ['install', '@yancey-inc/lt-cli@latest', '-g', '--verbose'],
+      {
+        stdio: 'inherit',
+      },
+    )
+    ora().succeed('升级成功!')
+  } catch (e) {
+    console.log(chalk.red(e))
+  } finally {
+    upgradeSpinner.stop()
+  }
 }
 
-export const upgrade = async (shell: string, currVersion: string) => {
+export const upgrade = async (currVersion: string) => {
   const searchSpinner = ora('正在检索最新版本...').start()
   const shouldUpgrade = await needUpgrade(currVersion)
   searchSpinner.stop()
 
   if (shouldUpgrade) {
-    const upgradeSpinner = ora('正在升级...').start()
-    await execPromise(shell)
-    upgradeSpinner.stop()
-    ora().succeed('升级成功!')
+    await execCommand()
   }
 }

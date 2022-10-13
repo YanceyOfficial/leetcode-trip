@@ -45,7 +45,7 @@ program
   .command('upgrade')
   .description('升级脚手架')
   .action(() => {
-    upgrade('pnpm install -g @yancey-inc/lt-cli@latest', packages.version)
+    upgrade(packages.version)
   })
 
 // output help information on unknown commands

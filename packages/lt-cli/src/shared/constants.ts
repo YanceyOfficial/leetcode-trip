@@ -10,5 +10,4 @@ export const srcPath = `${process.cwd()}/src/leetcode`
 
 export const docPath = `${process.cwd()}/leetcode-docs`
 
-export const tagsAPI =
-  'https://api.github.com/repos/YanceyOfficial/leetcode-trip/tags'
+export const npmAPI = 'https://registry.npmjs.org/@yancey-inc/lt-cli'

@@ -23,5 +23,3 @@ export const bootstrap = async () => {
 
   await generateMarkdownFile(dir, file)
 }
-
-bootstrap()
