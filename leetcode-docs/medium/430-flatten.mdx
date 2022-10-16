@@ -1,0 +1,86 @@
+---
+id: 430-flatten
+title: 扁平化多级双向链表
+sidebar_label: 430. 扁平化多级双向链表
+keywords:
+  - LinkedList
+---
+
+:::success Tips
+题目类型: LinkedList
+:::
+
+## 题目
+
+多级双向链表中, 除了指向下一个节点和前一个节点指针之外, 它还有一个子链表指针, 可能指向单独的双向链表. 这些子列表也可能会有一个或多个自己的子项, 依此类推, 生成多级数据结构, 如下面的示例所示.
+
+给定位于列表第一级的头节点, 请扁平化列表, 即将这样的多级双向链表展平成普通的双向链表, 使所有结点出现在单级双链表中.
+
+:::info 示例
+
+输入:
+
+![430-flatten](../../static/img/430-flatten-1.png)
+
+输出:
+
+![430-flatten](../../static/img/430-flatten-2.png)
+:::
+
+## 题解
+
+本题解决方式很多, 比如基于递归的深度优先遍历. 这里写一种个人好理解的方式: **栈 + 迭代**.
+
+```ts
+/**
+ * // Definition for a Node.
+ * function Node(val,prev,next,child) {
+ *    this.val = val;
+ *    this.prev = prev;
+ *    this.next = next;
+ *    this.child = child;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @return {Node}
+ */
+var flatten = function (head) {
+  let curr = head
+  const stack = []
+
+  while (curr) {
+    // 当有 child 节点时
+    if (curr.child) {
+      // 把 curr.next 推入栈中
+      // 注意 curr.next 有可能为 null, 就无需推入栈中了
+      if (curr.next) {
+        stack.push(curr.next)
+      }
+
+      // 下面三句话就是建立 curr 和 child 的新联系
+      curr.next = curr.child
+      curr.child.prev = curr
+      curr.child = null
+    }
+
+    // 下面这个判断, 说明当前链通过展平已经到头了
+    // 以示例为例, 就是 1 -> 2 -> 3 -> 7 -> 8 -> 11 -> 12 到头了
+    // 此时需要在 12 的基础上, 接上栈顶的链表, 即 9 -> 10, 继续遍历
+    if (!curr.next && stack.length > 0) {
+      const tmp = stack.pop()
+      curr.next = tmp
+      tmp.prev = curr
+    }
+
+    curr = curr.next
+  }
+
+  return head
+}
+```
+
+时间复杂度: O(n)
+
+空间复杂度: O(n)

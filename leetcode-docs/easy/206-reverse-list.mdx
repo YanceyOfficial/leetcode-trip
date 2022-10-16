@@ -40,6 +40,12 @@ prev = curr
 
 但是 `curr.next = prev` 这句会导致 `curr.next` 丢失了, 因为它已经被赋值给了 `prev`, 因此需要先将 `curr.next` 存储下来, 反转之后将 `curr.next` 赋值给 `curr`.
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * Definition for singly-linked list.
@@ -98,15 +104,42 @@ var reverseList = function (head) {
 
 空间复杂度: O(n), 其中 n 是链表的长度. 空间复杂度主要取决于递归调用的栈空间, 最多为 n 层.
 
-## 附: The testing LinkedList instance
+</TabItem>
+<TabItem value="Rust" label="Rust">
 
-```ts
-function ListNode(val) {
-  this.val = val
-  this.next = null
+```rust
+// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option<Box<ListNode>>
+// }
+//
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -> Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
+impl Solution {
+    pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut prev = None;
+        let mut curr = head;
+
+        while curr.is_some() {
+            let mut tmp = curr.take().unwrap();
+            curr = tmp.next;
+            tmp.next = prev;
+            prev = Some(tmp);
+        }
+
+        prev
+    }
 }
-
-const linkedList = new ListNode(1)
-linkedList.next = new ListNode(2)
-linkedList.next.next = new ListNode(3)
 ```
+
+</TabItem>
+</Tabs>

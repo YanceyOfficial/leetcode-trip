@@ -28,6 +28,12 @@ sidebar_label: 876. 链表的中间结点
 
 使用快慢指针. 对于奇数链表, fast 会走到链表尾部, 此时 fast.next 为 null, slow 即为中间节点; 对于偶数链表, fast 会走到链表尾部的前一个, 此时 slow 为第一个中间节点, 然后 fast 再走一次, 此时 fast 为 null, slow 即为第二个中间节点.
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * @param {ListNode} head
@@ -45,3 +51,43 @@ var middleNode = function (head) {
   return slow
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+由于 Rust 的所有权限制, 使用快慢指针时应使用只读引用, 最后再提取 slow 引用的内容拷贝, 有效降低内存.
+
+```rust
+// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option<Box<ListNode>>
+// }
+//
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -> Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
+impl Solution {
+    pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut fast = &head;
+        let mut slow = &head;
+
+        while fast.is_some() && fast.as_ref().unwrap().next.is_some() {
+            fast = &fast.as_ref().unwrap().next.as_ref().unwrap().next;
+            slow = &slow.as_ref().unwrap().next;
+        }
+
+        slow.clone()
+    }
+}
+```
+
+</TabItem>
+</Tabs>

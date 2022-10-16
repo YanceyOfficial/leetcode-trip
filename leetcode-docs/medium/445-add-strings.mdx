@@ -23,6 +23,12 @@ sidebar_label: 445. 两数相加 II(链表版)
 2. 对两个栈进行 pop, 得到的数字即为相同位置的数字
 3. 剩下的就是大数相加和栈的基本操作了
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```js
 /**
  * @param {ListNode} l1
@@ -47,11 +53,9 @@ var addTwoNumbers = function (l1, l2) {
   let carry = 0
 
   while (stack1.length !== 0 || stack2.length !== 0 || carry !== 0) {
-    let sum = 0
     const val1 = stack1.length === 0 ? 0 : stack1.pop()
     const val2 = stack2.length === 0 ? 0 : stack2.pop()
-    sum = val1 + val2 + carry
-
+    const sum = val1 + val2 + carry
     carry = (sum / 10) | 0
 
     const tmp = new ListNode(sum % 10)
@@ -62,3 +66,73 @@ var addTwoNumbers = function (l1, l2) {
   return head.next
 }
 ```
+
+</TabItem>
+
+<TabItem value="Rust" label="Rust">
+
+```rust
+// Definition for singly-linked list.
+// #[derive(PartialEq, Eq, Clone, Debug)]
+// pub struct ListNode {
+//   pub val: i32,
+//   pub next: Option<Box<ListNode>>
+// }
+//
+// impl ListNode {
+//   #[inline]
+//   fn new(val: i32) -> Self {
+//     ListNode {
+//       next: None,
+//       val
+//     }
+//   }
+// }
+impl Solution {
+    pub fn add_two_numbers(
+        l1: Option<Box<ListNode>>,
+        l2: Option<Box<ListNode>>,
+    ) -> Option<Box<ListNode>> {
+        let mut a = Vec::new();
+        let mut b = Vec::new();
+
+        let mut ll = l1;
+        while let Some(x) = ll {
+            a.push(x.val);
+            ll = x.next;
+        }
+
+        let mut ll = l2;
+        while let Some(x) = ll {
+            b.push(x.val);
+            ll = x.next;
+        }
+
+        let mut carry = 0;
+        let mut head = ListNode::new(0);
+        while a.len() > 0 || b.len() > 0 || carry != 0 {
+            let mut a_num = 0;
+            let mut b_num = 0;
+            if a.len() > 0 {
+                a_num = a.pop().unwrap();
+            }
+            if b.len() > 0 {
+                b_num = b.pop().unwrap();
+            }
+
+            let sum = a_num + b_num + carry;
+
+            let mut tmp = ListNode::new(sum % 10);
+            tmp.next = head.next.clone();
+            head.next = Some(Box::new(tmp));
+
+            carry = sum / 10;
+        }
+
+        head.next
+    }
+}
+```
+
+</TabItem>
+</Tabs>

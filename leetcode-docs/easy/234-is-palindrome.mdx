@@ -34,33 +34,38 @@ keywords:
 
 ## 题解
 
-### 菜 🐔 解法
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-将链表的值整到一个数组里, 然后用左右双指针判断是否为回文.
+<Tabs>
+  <TabItem value="朴素解法" label="朴素解法">
+
+将链表的值整到一个字符串里, 然后用左右双指针判断是否为回文.
 
 ```ts
 var isPalindrome = function (head) {
-  const arr = []
+  let str = ''
 
   while (head) {
-    arr.push(head.val)
+    str += head.val
     head = head.next
   }
 
   let i = 0,
-    j = arr.length - 1
+    j = str.length - 1
 
   while (i <= j) {
-    if (arr[i] !== arr[j]) return false
-    i++
-    j--
+    if (str[i++] !== str[j--]) return false
   }
 
   return true
 }
 ```
 
-### 使用递归
+</TabItem>
+<TabItem value="递归" label="递归">
+
+###
 
 ```ts
 var isPalindrome = function (head) {
@@ -79,9 +84,10 @@ var isPalindrome = function (head) {
 }
 ```
 
-### 快慢指针
+</TabItem>
+<TabItem value="快慢指针" label="快慢指针" default>
 
-快慢指针的的作用是**找到中点**, 具体看注释.
+和第 [143. 重排链表](/leetcode/medium/143-reorder-list)类似, 先拿到链表的中点, 然后对右半部分反转链表, 最后让两个链表对比即可.
 
 ```ts
 /**
@@ -98,25 +104,10 @@ var isPalindrome = function (head) {
 var isPalindrome = function (head) {
   if (head === null || head.next === null) return true
 
-  let slow = head,
-    fast = head
-
-  // 通过快慢指针找中点
-  while (fast !== null && fast.next !== null) {
-    slow = slow.next
-    fast = fast.next.next
-  }
-
-  // 如果 fast 指针没有指向 null, 说明链表长度为奇数, slow 还要再前进一步
-  if (fast !== null) {
-    slow = slow.next
-  }
-
+  const mid = midNode(head)
   let left = head
-  // 将右边的进行反转
-  let right = reverse(slow)
+  let right = reverseList(mid)
 
-  // 左右对比即可
   while (right !== null) {
     if (left.val !== right.val) return false
     left = left.next
@@ -126,8 +117,19 @@ var isPalindrome = function (head) {
   return true
 }
 
-// 仍然是 206 题那个反转链表的代码
-var reverse = function (head) {
+var midNode = function (head) {
+  let slow = head,
+    fast = head
+
+  while (fast !== null && fast.next !== null) {
+    fast = fast.next.next
+    slow = slow.next
+  }
+
+  return slow
+}
+
+var reverseList = function (head) {
   let prev = null,
     curr = head
 
@@ -145,3 +147,6 @@ var reverse = function (head) {
 时间复杂度: O(n)
 
 空间复杂度: O(1)
+
+</TabItem>
+</Tabs>

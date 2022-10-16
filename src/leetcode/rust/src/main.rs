@@ -1,6 +1,5 @@
 fn main() {
-    let head = Some(Box::new(ListNode::new(1)));
-    remove_nth_from_end(head, 2);
+    // reorder_list();
 }
 
 // Definition for singly-linked list.
@@ -16,22 +15,31 @@ impl ListNode {
         ListNode { next: None, val }
     }
 }
-pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
-    let mut dummy = ListNode::new(0);
-    dummy.next = head;
-    let mut dummy = Box::new(dummy);
-    let mut fast = dummy.clone();
-    let mut slow = dummy.as_mut();
-    // move fast n forward
-    for _ in 0..n {
-        fast = fast.next.unwrap();
+
+pub fn reorder_list(head: &mut Option<Box<ListNode>>) {}
+
+pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    let mut fast = &head;
+    let mut slow = &head;
+
+    while fast.is_some() && fast.as_ref().unwrap().next.is_some() {
+        fast = &fast.as_ref().unwrap().next.as_ref().unwrap().next;
+        slow = &slow.as_ref().unwrap().next;
     }
 
-    while fast.next.is_some() {
-        fast = fast.next.unwrap();
-        slow = slow.next.as_mut().unwrap();
+    slow.clone()
+}
+
+pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    let mut prev = None;
+    let mut curr = head;
+
+    while curr.is_some() {
+        let mut tmp = curr.take().unwrap();
+        curr = tmp.next;
+        tmp.next = prev;
+        prev = Some(tmp);
     }
-    let next = slow.next.as_mut().unwrap();
-    slow.next = next.next.clone();
-    dummy.next
+
+    prev
 }

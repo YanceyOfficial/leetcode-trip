@@ -19,20 +19,9 @@
 var isPalindrome = function (head) {
   if (head === null || head.next === null) return true
 
-  let slow = head,
-    fast = head
-
-  while (fast !== null && fast.next !== null) {
-    slow = slow.next
-    fast = fast.next.next
-  }
-
-  if (fast !== null) {
-    slow = slow.next
-  }
-
+  const mid = midNode(head)
   let left = head
-  let right = reverse(slow)
+  let right = reverseList(mid)
 
   while (right !== null) {
     if (left.val !== right.val) return false
@@ -43,7 +32,19 @@ var isPalindrome = function (head) {
   return true
 }
 
-var reverse = function (head) {
+var midNode = function (head) {
+  let slow = head,
+    fast = head
+
+  while (fast !== null && fast.next !== null) {
+    fast = fast.next.next
+    slow = slow.next
+  }
+
+  return slow
+}
+
+var reverseList = function (head) {
   let prev = null,
     curr = head
 
