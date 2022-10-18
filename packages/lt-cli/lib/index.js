@@ -71,7 +71,7 @@ const v = async (t, n) => {
       ((t) => {
         const n = a(`${g}/src/${t}`)
           .filter((t) => 'mod.rs' !== t)
-          .map((t) => `mod ${t.replace('.rs', '')};`)
+          .map((t) => `pub mod ${t.replace('.rs', '')};`)
         c(`${g}/src/${t}/mod.rs`, n.join('\n'))
       })(t),
       p.stop(),
