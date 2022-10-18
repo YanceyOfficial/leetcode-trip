@@ -1,16 +1,6 @@
 use rand::Rng;
 use std::collections::HashMap;
 
-fn main() {
-    let mut rs = RandomizedSet::new();
-    rs.insert(1);
-    rs.insert(2);
-    rs.insert(3);
-    rs.remove(2);
-
-    println!("{:?}", rs);
-}
-
 #[derive(Debug)]
 struct RandomizedSet {
     map: HashMap<i32, usize>,
@@ -61,3 +51,11 @@ impl RandomizedSet {
         self.nums[rand::thread_rng().gen_range(0..self.nums.len())]
     }
 }
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * let obj = RandomizedSet::new();
+ * let ret_1: bool = obj.insert(val);
+ * let ret_2: bool = obj.remove(val);
+ * let ret_3: i32 = obj.get_random();
+ */
