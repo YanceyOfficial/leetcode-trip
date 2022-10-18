@@ -33,7 +33,15 @@ instance.get(4) // 返回 4
 
 ## 题解
 
-直接看注释.
+这道题用 JavaScript 比较讨巧, 因为通过 `this.caches.keys().next().value` 可以拿到最老的 key, 而其他语言没这个功能, 这是因为 JavaScript 中的 HashMap 是一个 LinkedHashMap, 它是 HashMap + LinkedHashMap 的组合, 既使用 HashMap 操作数据结构, 又使用 LinkedList 维护插入元素的先后顺序. 
+
+该题的标准做法是维护一个双向链表, 来代替 LinkedHashMap.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -72,14 +80,14 @@ LRUCache.prototype.put = function (key, value) {
     this.caches.delete(key)
   }
 
-  // 新增 k-v
-  this.caches.set(key, value)
-
-  // 如果超过了容量, 就把 Map 最老的那个删除掉
-  if (this.caches.size > this.capacity) {
+  // 如果缓存大小恰好等于了容量, 就把 Map 最老的那个删除掉
+  if (this.caches.size === this.capacity) {
     // 这里用到了迭代器的语法, 很优雅
     this.caches.delete(this.caches.keys().next().value)
   }
+
+  // 新增 k-v
+  this.caches.set(key, value)
 }
 
 /**
@@ -89,3 +97,69 @@ LRUCache.prototype.put = function (key, value) {
  * obj.put(key,value)
  */
 ```
+
+</TabItem>
+
+<TabItem value="Rust" label="Rust">
+
+```rust
+use linked_hash_map::LinkedHashMap;
+
+#[derive(Debug)]
+struct LRUCache {
+    cache: LinkedHashMap<i32, i32>,
+    capacity: i32,
+}
+
+/**
+ * `&self` means the method takes an immutable reference.
+ * If you need a mutable reference, change it to `&mut self` instead.
+ */
+impl LRUCache {
+    fn new(capacity: i32) -> Self {
+        LRUCache {
+            cache: LinkedHashMap::with_capacity(capacity as usize),
+            capacity,
+        }
+    }
+
+    fn get(&mut self, key: i32) -> i32 {
+        if !self.cache.contains_key(&key) {
+            -1
+        } else {
+            let value = *self.cache.get(&key).unwrap();
+            self.cache.remove(&key);
+            self.cache.insert(key, value);
+            value
+        }
+    }
+
+    fn put(&mut self, key: i32, value: i32) {
+        if self.cache.contains_key(&key) {
+            self.cache.remove(&key);
+        }
+
+        if self.cache.len() == self.capacity as usize {
+            let oldest_key = *self.cache.keys().next().unwrap();
+            self.cache.remove(&oldest_key);
+        }
+
+        self.cache.insert(key, value);
+    }
+}
+
+// /**
+//  * Your LRUCache object will be instantiated and called as such:
+//  * let obj = LRUCache::new(capacity);
+//  * let ret_1: i32 = obj.get(key);
+//  * obj.put(key, value);
+//  */
+```
+
+</TabItem>
+</Tabs>
+
+## 复杂度分析
+
+- 时间复杂度: O(n)
+- 空间复杂度: O(n)

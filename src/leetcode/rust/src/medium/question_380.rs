@@ -52,10 +52,10 @@ impl RandomizedSet {
     }
 }
 
-/**
- * Your RandomizedSet object will be instantiated and called as such:
- * let obj = RandomizedSet::new();
- * let ret_1: bool = obj.insert(val);
- * let ret_2: bool = obj.remove(val);
- * let ret_3: i32 = obj.get_random();
- */
+// /**
+//  * Your RandomizedSet object will be instantiated and called as such:
+//  * let obj = RandomizedSet::new();
+//  * let ret_1: bool = obj.insert(val);
+//  * let ret_2: bool = obj.remove(val);
+//  * let ret_3: i32 = obj.get_random();
+//  */

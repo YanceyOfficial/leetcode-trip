@@ -18,12 +18,11 @@ var LRUCache = function (capacity) {
  * @return {number}
  */
 LRUCache.prototype.get = function (key) {
-  const val = this.caches.get(key)
-
   // 如果不存在, 返回 -1
-  if (val === undefined) return -1
+  if (!this.caches.has(key)) return -1
 
   // 如果存在, 因为用过一次了, 就把它删除掉, 重新 set 一次
+  const val = this.caches.get(key)
   this.caches.delete(key)
   this.caches.set(key, val)
 
@@ -42,13 +41,14 @@ LRUCache.prototype.put = function (key, value) {
     this.caches.delete(key)
   }
 
-  // 新增 k-v
-  this.caches.set(key, value)
-
-  // 如果超过了容量, 就把 Map 最老的那个删除掉
-  if (this.caches.size > this.capacity) {
+  // 如果缓存大小恰好等于了容量, 就把 Map 最老的那个删除掉
+  if (this.caches.size === this.capacity) {
+    // 这里用到了迭代器的语法, 很优雅
     this.caches.delete(this.caches.keys().next().value)
   }
+
+  // 新增 k-v
+  this.caches.set(key, value)
 }
 
 /**

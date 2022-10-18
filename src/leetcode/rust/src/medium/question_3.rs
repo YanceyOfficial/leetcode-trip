@@ -1,3 +1,5 @@
+use std::{collections::HashMap, cmp};
+
 pub fn length_of_longest_substring(s: String) -> i32 {
   let s_bytes = s.as_bytes();
   let mut max_len = 0;

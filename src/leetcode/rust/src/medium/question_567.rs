@@ -1,18 +1,19 @@
-pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
+use std::collections::HashMap;
+
+pub fn check_inclusion(s1: String, s2: String) -> bool {
     let mut need_map: HashMap<u8, i32> = HashMap::new();
 
-    for letter in p.as_bytes() {
+    for letter in s1.as_bytes() {
         need_map.entry(*letter).and_modify(|e| *e += 1).or_insert(1);
     }
 
-    let mut res = Vec::new();
     let need_map_len = need_map.len();
     let mut meeted_count = 0;
     let mut window_map: HashMap<u8, i32> = HashMap::new();
     let (mut start, mut end) = (0, 0);
 
-    while end < s.len() {
-        let end_letter = s.as_bytes()[end];
+    while end < s2.len() {
+        let end_letter = s2.as_bytes()[end];
         end += 1;
 
         if need_map.contains_key(&end_letter) {
@@ -26,12 +27,12 @@ pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
             }
         }
 
-        while end - start >= p.len() {
+        while end - start >= s1.len() {
             if need_map_len == meeted_count {
-                res.push(start as i32);
+                return true;
             }
 
-            let start_letter = s.as_bytes()[start];
+            let start_letter = s2.as_bytes()[start];
             start += 1;
 
             if need_map.contains_key(&start_letter) {
@@ -44,5 +45,5 @@ pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
         }
     }
 
-    res
+    false
 }
