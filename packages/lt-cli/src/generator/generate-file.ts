@@ -4,6 +4,7 @@ import { sleep } from 'yancey-js-util'
 import { getFileMeta } from './get-file-meta'
 import { generateMarkdownTemplate } from './markdown-template'
 import { generateRustTemplate } from './rust-template'
+import { updateRustModeFile } from './update-rust-mod-file'
 import { rustPath } from '../shared/constants'
 
 export const generateFile = async (dirName: string, fileName: string) => {
@@ -22,9 +23,10 @@ export const generateFile = async (dirName: string, fileName: string) => {
     generateMarkdownTemplate(serial, title, functionName, functionBody),
   )
   writeFileSync(
-    `${rustPath}/src/${dirName}/${serial}.${title}.rs`,
+    `${rustPath}/src/${dirName}/question_${serial}.rs`,
     generateRustTemplate(),
   )
+  updateRustModeFile(dirName)
   spinner.stop()
   ora().succeed('模版创建成功!')
 }

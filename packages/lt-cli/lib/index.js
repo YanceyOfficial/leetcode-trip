@@ -6,9 +6,9 @@ import {
   readdirSync as a,
   readFileSync as r,
   existsSync as s,
-  writeFileSync as i,
+  writeFileSync as c,
 } from 'node:fs'
-import c from 'inquirer-autocomplete-prompt'
+import i from 'inquirer-autocomplete-prompt'
 import { paramCase as m } from 'param-case'
 import l from 'ora'
 import { sleep as u } from 'yancey-js-util'
@@ -25,8 +25,8 @@ const $ = `${process.cwd()}/src/leetcode/javascript`,
   b = [{ name: y.Easy }, { name: y.Medium }, { name: y.Hard }],
   w = (t, n, e) => {
     const o = r(`${$}/${t}/${n}`, { encoding: 'utf-8' }),
-      [a, i] = n.split('.'),
-      { functionName: c, functionBody: l } = ((t) => {
+      [a, c] = n.split('.'),
+      { functionName: i, functionBody: l } = ((t) => {
         const n = t.match(/\/\/ @lc code=start([\s\S]*)?\/\/ @lc code=end/im)
         if (Array.isArray(n)) {
           const t = n[1],
@@ -39,16 +39,45 @@ const $ = `${process.cwd()}/src/leetcode/javascript`,
         }
         throw new Error('Can not get the function body string.')
       })(o),
-      u = `${h}/${t.toLowerCase()}/${a}-${c}.mdx`
+      u = `${h}/${t.toLowerCase()}/${a}-${i}.mdx`
     return s(u)
       ? '文件已存在, 请重新选择.'
       : !!e || {
           outPath: u,
-          meta: { serial: a, title: i, functionName: c, functionBody: l },
+          meta: { serial: a, title: c, functionName: i, functionBody: l },
         }
   }
-o.registerPrompt('autocomplete', c)
-const v = async () => {
+o.registerPrompt('autocomplete', i)
+const v = async (t, n) => {
+    const e = w(t, n)
+    if ('object' != typeof e) return
+    const {
+        outPath: o,
+        meta: { serial: r, title: s, functionBody: i, functionName: m },
+      } = e,
+      p = l('正在创建中...').start()
+    await u(),
+      c(
+        o,
+        ((t, n, e, o) =>
+          `---\nid: ${t}-${e}\ntitle: ${n}\nsidebar_label: ${t}. ${n}\nkeywords:\n  - HashMap\n---\n\n:::success Tips\n题目类型: HashMap\n\n相关题目:\n\n- [1. 两数之和](/leetcode/easy/1-two-sum)\n\n:::\n\n## 题目\n\n这里是题目这里是题目这里是题目这里是题目这里是题目\n\n:::info 示例\n\n输入:\n\n输出:\n:::\n\n## 题解\n\n这里是题解这里是题解这里是题解这里是题解这里是题解\n\nimport Tabs from '@theme/Tabs'\nimport TabItem from '@theme/TabItem'\n\n<Tabs>\n  <TabItem value="JavaScript" label="JavaScript" default>\n\n\`\`\`ts\n${o}\n\`\`\`\n\n</TabItem>\n<TabItem value="Rust" label="Rust">\n\n\`\`\`rust\nimpl Solution {\n  \n}\n\`\`\`\n\n</TabItem>\n</Tabs>\n`)(
+          r,
+          s,
+          m,
+          i,
+        ),
+      ),
+      c(`${g}/src/${t}/question_${r}.rs`, 'pub fn foo() -> () {}'),
+      ((t) => {
+        const n = a(`${g}/src/${t}`)
+          .filter((t) => 'mod.rs' !== t)
+          .map((t) => `mod ${t.replace('.rs', '')};`)
+        c(`${g}/src/${t}/mod.rs`, n.join('\n'))
+      })(t),
+      p.stop(),
+      l().succeed('模版创建成功!')
+  },
+  T = async () => {
     n(),
       console.log(
         t.blue(
@@ -73,44 +102,22 @@ const v = async () => {
           validate: (n) => w(t, n.name || '', !0),
         },
       ]))(r, s)
-    await (async (t, n) => {
-      const e = w(t, n)
-      if ('object' != typeof e) return
-      const {
-          outPath: o,
-          meta: { serial: a, title: r, functionBody: s, functionName: c },
-        } = e,
-        m = l('正在创建中...').start()
-      await u(),
-        i(
-          o,
-          ((t, n, e, o) =>
-            `---\nid: ${t}-${e}\ntitle: ${n}\nsidebar_label: ${t}. ${n}\nkeywords:\n  - HashMap\n---\n\n:::success Tips\n题目类型: HashMap\n\n相关题目:\n\n- [1. 两数之和](/leetcode/easy/1-two-sum)\n\n:::\n\n## 题目\n\n这里是题目这里是题目这里是题目这里是题目这里是题目\n\n:::info 示例\n\n输入:\n\n输出:\n:::\n\n## 题解\n\n这里是题解这里是题解这里是题解这里是题解这里是题解\n\nimport Tabs from '@theme/Tabs'\nimport TabItem from '@theme/TabItem'\n\n<Tabs>\n  <TabItem value="JavaScript" label="JavaScript" default>\n\n\`\`\`ts\n${o}\n\`\`\`\n\n</TabItem>\n<TabItem value="Rust" label="Rust">\n\n\`\`\`rust\nimpl Solution {\n  \n}\n\`\`\`\n\n</TabItem>\n</Tabs>\n`)(
-            a,
-            r,
-            c,
-            s,
-          ),
-        ),
-        i(`${g}/src/${t}/${a}.${r}.rs`, 'pub fn foo() -> i32 {}'),
-        m.stop(),
-        l().succeed('模版创建成功!')
-    })(r, c)
+    await v(r, c)
   },
-  T = a(`${$}/${y.Easy}`).length,
-  E = a(`${$}/${y.Medium}`).length,
-  I = a(`${$}/${y.Hard}`).length,
-  S = T + E + I,
+  E = a(`${$}/${y.Easy}`).length,
+  I = a(`${$}/${y.Medium}`).length,
+  S = a(`${$}/${y.Hard}`).length,
+  j = E + I + S,
   H = [
-    { category: y.Easy, count: T },
-    { category: y.Medium, count: E },
-    { category: y.Hard, count: I },
-    { category: 'Total', count: S },
+    { category: y.Easy, count: E },
+    { category: y.Medium, count: I },
+    { category: y.Hard, count: S },
+    { category: 'Total', count: j },
   ],
   M = () => {
     console.table(H)
   },
-  j = async (n) => {
+  x = async (n) => {
     const e = await (async () => {
         const t = await d('https://registry.npmjs.org/@yancey-inc/lt-cli'),
           n = await t.json(),
@@ -127,9 +134,9 @@ const v = async () => {
       o
     )
   },
-  x = async (n) => {
+  A = async (n) => {
     const e = l('正在检索最新版本...').start(),
-      o = await j(n)
+      o = await x(n)
     e.stop(),
       o &&
         (await (async () => {
@@ -148,4 +155,4 @@ const v = async () => {
           }
         })())
   }
-export { v as bootstrap, M as showStatistics, x as upgrade }
+export { T as bootstrap, M as showStatistics, A as upgrade }
