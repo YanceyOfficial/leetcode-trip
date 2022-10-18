@@ -1,0 +1,101 @@
+---
+id: 807-insert
+title: 排序的循环链表
+sidebar_label: 807. 排序的循环链表
+keywords:
+  - LinkedList
+---
+
+:::success Tips
+题目类型: LinkedList
+:::
+
+## 题目
+
+给定一个**增序**循环链表如下, 和一个值 insertVal, 要求插入之后, 仍是一个循环链表. 注意给定的 head 不一定是最小的节点, 比如下面的例子, head 指向 3.
+
+```bash
+
+1 → 3 → 4
+↑       ↓
+← ← ← ← ↓
+
+```
+
+:::info 示例
+
+```bash
+
+输入: head 指向 3; insertVal = 2
+
+3 → → → 4
+↑       ↓
+← ← ← ← 1
+
+输出: 3 -> 4 -> 1 -> 2 (2 的 next 连接到 3)
+
+3 → → → 4
+↑       ↓
+2 ← ← ← 1
+```
+
+:::
+
+## 题解
+
+先把 `const node = new Node(insertVal)` 建起来, 然后需要分情况讨论:
+
+1. 如果 head 为 null, 那么就让 node 作为自循环节点, 然后返回
+2. 如果 head.next - head, 说明 head 就一个节点, 此时把 node 加上即可
+3. 当 head 的节点数大于等于 2:
+    - 如果 insertVal 大于等于当前节点, 并且小于等于下个节点, 说明把 node 放到 curr 和 next 之间即可, 举个例子 insertVal 是 2, 那么 2 是可以放在 curr 和 next 之间, 也就是 1 和 3 之间, 此时组成 3 -> 4 -> 1 -> 2 (其中 3 和 2 连接, 递增序列是 1234)
+    - 如果 curr 大于 next, 说明 curr 和 next 处于临界点, 也就是 curr 处于整个循环链表的最大值, next 处于整个循环链表的最小值, 在示例中, curr 是 4, next 是 1. 这里有两种情况:
+      - 如果 curr 小于 insertVal, 举个例子 insertVal 是 5, 那么 5 是可以放在 curr 和 next 之间的, 此时组成 3 -> 4 -> 5 -> 1 (其中 3 和 1 连接, 递增序列是 1345)
+      - 如果 curr 大于 insertVal, 举个例子 insertVal 是 0, 那么 0 是可以放在 curr 和 next 之间的, 此时组成 3 -> 4 -> 0 -> 1 (其中 3 和 1 连接, 递增序列是 0134)
+
+```ts
+/**
+ * // Definition for a Node.
+ * function Node(val, next) {
+ *     this.val = val;
+ *     this.next = next;
+ * };
+ */
+
+/**
+ * @param {Node} head
+ * @param {number} insertVal
+ * @return {Node}
+ */
+var insert = function (head, insertVal) {
+  const node = new Node(insertVal)
+  if (!head) {
+    node.next = node
+    return node
+  }
+
+  if (head.next === head) {
+    head.next = node
+    node.next = head
+    return head
+  }
+
+  let curr = head,
+    next = head.next
+  // 注意这里一定是 head !== next
+  // 而不能是 curr !== next, 因为 next 永远都是 curr.next, 两者不会相遇
+  while (head !== next) {
+    if (curr.val <= insertVal && insertVal <= next.val) break
+    if (curr.val > next.val) {
+      if (curr.val < insertVal || next.val > insertVal) break
+    }
+
+    curr = curr.next
+    next = next.next
+  }
+
+  curr.next = node
+  node.next = next
+  return head
+}
+```
