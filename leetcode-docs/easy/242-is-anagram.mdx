@@ -1,0 +1,103 @@
+---
+id: 242-is-anagram
+title: 有效的字母异位词
+sidebar_label: 242. 有效的字母异位词
+keywords:
+  - HashMap
+---
+
+:::success Tips
+题目类型: HashMap
+:::
+
+## 题目
+
+给定两个字符串 s 和 t, 编写一个函数来判断 t 是否是 s 的字母异位词. 若 s 和 t 中每个字符出现的次数都相同, 则称 s 和 t 互为字母异位词.
+
+:::info 示例
+
+输入: s ="anagram", t = "nagaram"
+
+输出: true
+
+:::
+
+## 题解
+
+很简单没啥说的, 两个哈希表搞下即可.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) return false
+
+  const map = new Map()
+
+  for (const item of s) {
+    if (map.has(item)) {
+      map.set(item, map.get(item) + 1)
+    } else {
+      map.set(item, 1)
+    }
+  }
+
+  for (const item of t) {
+    if (!map.has(item)) return false
+
+    if (map.get(item) > 1) {
+      map.set(item, map.get(item) - 1)
+    } else {
+      map.delete(item)
+    }
+  }
+
+  return map.size === 0
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::collections::HashMap;
+
+pub fn is_anagram(s: String, t: String) -> bool {
+    if s.len() != t.len() {
+        return false;
+    }
+
+    let mut map: HashMap<u8, i32> = HashMap::new();
+
+    for item in s.as_bytes().iter() {
+        map.entry(*item).and_modify(|e| *e += 1).or_insert(1);
+    }
+
+    for item in t.as_bytes().iter() {
+        if !map.contains_key(item) {
+            return false;
+        }
+
+        if map.get(item).unwrap() == &1 {
+            map.remove(item);
+        } else {
+            map.entry(*item).and_modify(|e| *e -= 1);
+        }
+
+    }
+
+    return map.len() == 0;
+}
+```
+
+</TabItem>
+</Tabs>
