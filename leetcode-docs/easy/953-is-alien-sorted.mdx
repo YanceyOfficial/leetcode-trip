@@ -101,9 +101,9 @@ impl Solution {
         //     indexes[(letter - b'a') as usize] = idx;
         // }
 
-        let indexes = order.as_bytes().iter().enumerate().fold(vec![0; 26], |mut indexes, (i, b)| {
+        let indexes = order.as_bytes().iter().enumerate().fold(vec![0; 26], |mut indexes, (i, letter)| {
             // 注意一下求 ascii 码的方式
-            indexes[(b - b'a') as usize] = i;
+            indexes[(letter - b'a') as usize] = i;
             indexes
         });
 
