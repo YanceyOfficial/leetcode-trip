@@ -33,9 +33,13 @@ instance.get(4) // 返回 4
 
 ## 题解
 
-这道题用 JavaScript 比较讨巧, 因为通过 `this.caches.keys().next().value` 可以拿到最老的 key, 而其他语言没这个功能, 这是因为 JavaScript 中的 HashMap 是一个 LinkedHashMap, 它是 HashMap + LinkedHashMap 的组合, 既使用 HashMap 操作数据结构, 又使用 LinkedList 维护插入元素的先后顺序. 
+这道题用 JavaScript 比较讨巧, 因为通过 `this.caches.keys().next().value` 可以拿到最老的 key, 而其他语言没这个功能, 这是因为 JavaScript 中的 HashMap 是一个 LinkedHashMap, 它是 HashMap + LinkedList 的组合, 既使用 HashMap 操作数据结构, 又使用 LinkedList 维护插入元素的先后顺序. 
 
-该题的标准做法是维护一个双向链表, 来代替 LinkedHashMap.
+:::info
+该题的标准做法是维护一个双向链表和一个哈希表, 来代替 LinkedHashMap. 
+
+先留个 TODO: 这周末写.
+:::
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'

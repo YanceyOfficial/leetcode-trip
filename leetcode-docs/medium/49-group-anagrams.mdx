@@ -1,0 +1,105 @@
+---
+id: 49-group-anagrams
+title: 字母异位词分组
+sidebar_label: 49. 字母异位词分组
+keywords:
+  - HashMap
+---
+
+:::success Tips
+题目类型: HashMap
+:::
+
+## 题目
+
+给你一个字符串数组, 请你将**字母异位词**组合在一起. 可以按任意顺序返回结果列表. **字母异位词**是由重新排列源单词的字母得到的一个新单词, 所有源单词中的字母通常恰好只用一次, 本题均为小写字母.
+
+:::info 示例
+
+```ts
+输入: strs = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat']
+
+输出: [['bat'], ['nat', 'tan'], ['ate', 'eat', 'tea']]
+```
+
+```ts
+输入: strs = ['']
+
+输出: [['']]
+```
+
+```ts
+输入: strs = ['a']
+
+输出: [['a']]
+```
+
+:::
+
+## 题解
+
+思路比较简单, 对于异位词, 它们字母的组成是固定的, 比如 abc, bac, cba 都是由 a, b, c 三个字母组成的. 因此, 将 abc, bac, cba 按字母
+顺序重新排列, 就都是 abc 了, 故**按字母顺序排列的字符串可以当作哈希表的 key**.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
+var groupAnagrams = function (strs) {
+  const map = new Map()
+
+  for (const str of strs) {
+    const orderStr = Array.from(str).sort().join()
+    if (map.has(orderStr)) {
+      map.set(orderStr, [...map.get(orderStr), str])
+    } else {
+      map.set(orderStr, [str])
+    }
+  }
+
+  return Array.from(map.values())
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::collections::HashMap;
+
+impl Solution {
+    pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
+        let mut map: HashMap<String, Vec<String>> = HashMap::with_capacity(strs.len());
+
+        for str in strs {
+            // 将字符串转为 Vec<u8>
+            let mut order_vec = str.as_bytes().to_vec();
+            // sort 会影响到原 vec, 所以要加 mut
+            order_vec.sort();
+            // vec 转字符串的小技巧
+            let order_str = format!("{:?}", order_vec);
+
+            map.entry(order_str)
+                // push 方法由于 self 就是 &mut self, 所以无需解引用
+                // 注意这里必须 clone 一下 str, 因为如果直接用 str, 所有权就被 and_modify 的闭包 move 走了,
+                // 导致下面 or_insert 就没法使用 str 了
+                .and_modify(|e| e.push(str.clone()))
+                .or_insert(vec![str]);
+        }
+
+        // 先记住这个语法好了, 还没搞懂
+        map.values().cloned().collect()
+    }
+}
+
+```
+
+</TabItem>
+</Tabs>
