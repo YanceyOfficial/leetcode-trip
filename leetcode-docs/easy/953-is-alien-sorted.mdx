@@ -1,0 +1,138 @@
+---
+id: 953-is-alien-sorted
+title: 验证外星语词典
+sidebar_label: 953. 验证外星语词典
+---
+
+## 题目
+
+某种外星语也使用英文小写字母, 但可能顺序 **order** 不同. 字母表的顺序(**order**)是一些小写字母的排列.
+
+给定一组用外星语书写的单词 **words**, 以及其字母表的顺序 **order**, 只有当给定的单词在这种外星语中按字典序排列时, 返回 **true**; 否则, 返回 **false**.
+
+在 words[i] 和 order 中的所有字符都是英文小写字母.
+
+:::info 示例
+
+```bash
+输入: words = ["hello", "leetcode"], order = "hlabcdefgijkmnopqrstuvwxyz"
+输出: true
+解释: 在该语言的字母表中, 'h' 位于 'l' 之前, 所以单词序列是按字典序排列的.
+```
+
+```bash
+输入: words = ["word","world","row"], order = "worldabcefghijkmnpqstuvxyz"
+输出: false
+解释: 在该语言的字母表中, 'd' 位于 'l' 之后, 那么 words[0] > words[1], 因此单词序列不是按字典序排列的.
+```
+
+```bash
+输入: words = ["apple","app"], order = "abcdefghijklmnopqrstuvwxyz"
+输出: false
+解释: 当前三个字符 "app" 匹配时, 第二个字符串相对短一些, 然后根据词典编纂规则 "apple" > "app", 因为 'l' > '∅', 其中 '∅' 是空白字符, 定义为比任何其他字符都小.
+```
+
+:::
+
+## 题解
+
+看一下字典序的概念, 这个问题就比较好解了:
+
+> 在英文字典中, 排列单词的顺序是先按照第一个字母以升序排列(即 a, b, c...z 的顺序); 如果第一个字母一样, 那么比较第二个, 第三个乃至后面的字母. 如果比到最后两个单词不一样长(比如, sigh 和 sight), 那么把短者排在前.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string[]} words
+ * @param {string} order
+ * @return {boolean}
+ */
+var isAlienSorted = function (words, order) {
+  const aCharCodeAt = 'a'.charCodeAt()
+  const indexes = new Array(26).fill(0)
+  for (let i = 0; i < 26; i++) {
+    // 先 format 出外星人的字典序
+    indexes[order[i].charCodeAt() - aCharCodeAt] = i
+  }
+
+  for (let i = 1; i < words.length; i++) {
+    let needCheckLength = true
+
+    for (let j = 0; j < Math.min(words[i - 1].length, j < words[i].length); j++) {
+      // 获取当前 word 和它的前一个 word 的 charCode
+      const prev = indexes[words[i - 1][j].charCodeAt() - aCharCodeAt]
+      const curr = indexes[words[i][j].charCodeAt() - aCharCodeAt]
+
+      // 如果 prev < curr, 说明这两个字符串是按照字典序排列的, 跳过这次循环就好了
+      if (prev < curr) {
+        // 也说明不用比到最后了(看长度), 因为这两个字符串已经是按照字典序排列的了
+        needCheckLength = false
+        break
+      }
+
+      // 如果 prev > curr, 说明不是按字典序排列的, 返回 false
+      if (prev > curr) return false
+    }
+
+    // 如果两个字符串前面几个字符都是相同的, 比如 sigh 和 sight 前四个字母相同
+    // 那么需要比两个字符串的长度了, 如果 prev 的长度比 curr 的长度大, 也不符合字典序规则, 返回 false
+    if (needCheckLength && words[i - 1].length > words[i].length) return false
+  }
+
+  return true
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::cmp;
+
+impl Solution {
+    pub fn is_alien_sorted(words: Vec<String>, order: String) -> bool {
+        // let mut indexes = [0; 26];
+        // for (idx, letter) in order.as_bytes().iter().enumerate() {
+        //     indexes[(letter - b'a') as usize] = idx;
+        // }
+
+        let indexes = order.as_bytes().iter().enumerate().fold(vec![0; 26], |mut indexes, (i, b)| {
+            // 注意一下求 ascii 码的方式
+            indexes[(b - b'a') as usize] = i;
+            indexes
+        });
+
+        for i in 1..words.len() {
+            let mut need_check_len = true;
+
+            for j in 0..cmp::min(words[i - 1].len(), words[i].len()) {
+                let prev = indexes[(words[i - 1].as_bytes()[j] - b'a') as usize];
+                let curr = indexes[(words[i].as_bytes()[j] - b'a') as usize];
+
+                if prev < curr {
+                    need_check_len = false;
+                    break;
+                }
+
+                if prev > curr {
+                    return false;
+                }
+            }
+
+            if need_check_len && words[i - 1].len() > words[i].len() {
+                return false;
+            }
+        }
+
+        true
+    }
+}
+```
+
+</TabItem>
+</Tabs>
