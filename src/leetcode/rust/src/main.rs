@@ -3,11 +3,11 @@ mod hard;
 mod medium;
 
 fn main() {
-    let res = easy::question_953::is_alien_sorted(vec![
-        String::from("eat"),
-        String::from("tea"),
-        String::from("tan"),
-    ], String::from("hlabcdefgijkmnopqrstuvwxyz"));
+    let res = medium::question_539::find_min_difference(vec![
+        String::from("00:00"),
+        String::from("01:00"),
+        String::from("23:59"),
+    ]);
 
     println!("{:?}", res);
 }

@@ -11,6 +11,9 @@
  */
 var findMinDifference = function (timePoints) {
   const n = timePoints.length
+  if (n > 24 * 60) {
+    return 0
+  }
   const minutes = timePoints.map((t) => parseTime(t)).sort((a, b) => a - b)
   let min = minutes[0] + 24 * 60 - minutes[n - 1]
 
