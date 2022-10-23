@@ -3,7 +3,7 @@ mod hard;
 mod medium;
 
 fn main() {
-    let res = medium::question_735::asteroid_collision(vec![5, 10, -5]);
+    let res = hard::question_84::largest_rectangle_area(vec![2, 1, 5, 6, 2, 3]);
 
     println!("{:?}", res);
 }
