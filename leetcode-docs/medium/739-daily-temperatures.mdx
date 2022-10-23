@@ -32,6 +32,12 @@ keywords:
 
 ## 题解
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 使用单调栈, `i - prevIndex` 即是距离.
 
 ```ts
@@ -55,6 +61,33 @@ var dailyTemperatures = function (T) {
   return res
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+impl Solution {
+    pub fn daily_temperatures(temperatures: Vec<i32>) -> Vec<i32> {
+        let n = temperatures.len();
+        let mut stack = vec![];
+        let mut res = vec![0; n];
+
+        for (i, temperature) in temperatures.iter().enumerate() {
+            while !stack.is_empty() && temperatures[stack[stack.len() - 1]] < *temperature {
+                let prev_index = stack.pop().unwrap();
+                res[prev_index] = (i - prev_index) as i32;
+            }
+
+            stack.push(i);
+        }
+
+        res
+    }
+}
+```
+
+</TabItem>
+</Tabs>
 
 时间复杂度: O(n), 其中 n 是温度列表的长度. 正向遍历温度列表一遍, 对于温度列表中的每个下标. 最多有一次进栈和出栈的操作.
 
