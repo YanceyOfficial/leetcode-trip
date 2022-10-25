@@ -9,7 +9,7 @@
     "target": "esnext",
     "sourceMap": true,
     "baseUrl": ".",
-    "outDir": "./src",
+    "outDir": "./lib",
     "incremental": true,
     "esModuleInterop": true,
     "strictNullChecks": true,
@@ -17,5 +17,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true
   },
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "lib/**/*"]
 }
