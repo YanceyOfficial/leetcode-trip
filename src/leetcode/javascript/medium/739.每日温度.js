@@ -10,13 +10,13 @@
  * @return {number[]}
  */
 var dailyTemperatures = function (T) {
-  const len = T.length
+  const n = T.length
   const stack = []
-  const res = new Array(len).fill(0)
+  const res = new Array(n).fill(0)
 
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < n; i++) {
     while (stack.length !== 0 && T[stack[stack.length - 1]] < T[i]) {
-      let prevIndex = stack.pop()
+      const prevIndex = stack.pop()
       res[prevIndex] = i - prevIndex
     }
     stack.push(i)

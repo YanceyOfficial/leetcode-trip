@@ -15,8 +15,7 @@ var removeKdigits = function (num, k) {
   const remain = num.length - k
 
   for (const digit of num) {
-    const len = stack.length
-    while (k && stack.length !== 0 && stack[stack.length - 1] > digit) {
+    while (k > 0 && stack.length > 0 && stack[stack.length - 1] > digit) {
       stack.pop()
       k--
     }
@@ -24,10 +23,7 @@ var removeKdigits = function (num, k) {
     stack.push(digit)
   }
 
-  console.log(stack)
-
   return stack.slice(0, remain).join('').replace(/^0+/, '') || '0'
 }
 // @lc code=end
-
 console.log(removeKdigits('14322192', 4))
