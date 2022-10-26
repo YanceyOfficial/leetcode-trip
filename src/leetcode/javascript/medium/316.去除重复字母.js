@@ -25,7 +25,7 @@ var removeDuplicateLetters = function (s) {
       while (
         stack.length > 0 &&
         stack[stack.length - 1].charCodeAt() > letter.charCodeAt() &&
-        remain.has(stack[stack.length - 1]) > 0
+        remain.get(stack[stack.length - 1]) > 0
       ) {
         stack.pop()
       }
@@ -39,4 +39,4 @@ var removeDuplicateLetters = function (s) {
   return stack.join('')
 }
 // @lc code=end
-console.log(removeDuplicateLetters('cbacdcbc'))
+console.log(removeDuplicateLetters('cbacdcbc')) // acdb
