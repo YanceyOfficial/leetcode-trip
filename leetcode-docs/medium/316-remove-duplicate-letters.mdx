@@ -43,6 +43,12 @@ keywords:
 1. 首先用 hashmap 收集 s 中每个元素的个数
 2. 使用单调栈, 具体看注释, 这道题去掉元素的方法跟 [402. 移掉 k 位数字](/leetcode/medium/402-remove-kdigits) 一致, 都是**栈尾元素比当前元素大, 栈尾元素就应该被当前元素替换**
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * @param {string} s
@@ -82,3 +88,41 @@ var removeDuplicateLetters = function (s) {
   return stack.join('')
 }
 ```
+
+</TabItem>
+
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::collections::HashMap;
+
+pub fn remove_duplicate_letters(s: String) -> String {
+    let mut remain = HashMap::new();
+
+    for char in s.as_bytes() {
+        remain.entry(char).and_modify(|e| *e += 1).or_insert(1);
+    }
+
+    let mut stack = vec![];
+
+    for char in s.as_bytes() {
+        if !stack.contains(char) {
+            while !stack.is_empty()
+                && stack[stack.len() - 1] > *char
+                && remain.get(&stack[stack.len() - 1]).unwrap() > &0
+            {
+                stack.pop();
+            }
+
+            stack.push(*char);
+        }
+
+        remain.entry(char).and_modify(|e| *e -= 1);
+    }
+
+    stack.iter().map(|&s| s as char).collect::<String>()
+}
+```
+
+</TabItem>
+</Tabs>
