@@ -62,6 +62,12 @@ keywords:
 
 这样来看, 我们实际上是在找**某个元素右边第一个比他小的元素**, 以代替该元素, 那自然就是单调栈了.
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * @param {string} num
@@ -87,3 +93,39 @@ var removeKdigits = function (num, k) {
   return stack.slice(0, remainCount).join('').replace(/^0+/, '') || '0'
 }
 ```
+
+</TabItem>
+
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn remove_kdigits(num: String, k: i32) -> String {
+    let mut stack = vec![];
+    let remain_count = num.len() - k as usize;
+    let mut k = k;
+
+    for char in num.as_bytes() {
+        while k > 0 && !stack.is_empty() && stack[stack.len() - 1] > *char {
+            stack.pop();
+            k -= 1;
+        }
+
+        stack.push(*char);
+    }
+
+    let res = stack[0..remain_count]
+        .iter()
+        .skip_while(|&&c| c == b'0')
+        .map(|&c| c as char)
+        .collect::<String>();
+
+    if res.len() == 0 {
+        return "0".into();
+    }
+
+    res
+}
+```
+
+</TabItem>
+</Tabs>
