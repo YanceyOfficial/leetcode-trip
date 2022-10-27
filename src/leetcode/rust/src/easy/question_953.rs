@@ -1,5 +1,6 @@
 use std::cmp;
 
+#[allow(unused)]
 pub fn is_alien_sorted(words: Vec<String>, order: String) -> bool {
     // let mut indexes = [0; 26];
     // for (idx, letter) in order.as_bytes().iter().enumerate() {

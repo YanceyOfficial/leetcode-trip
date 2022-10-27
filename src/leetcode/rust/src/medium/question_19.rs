@@ -14,6 +14,8 @@ impl ListNode {
     }
   }
 }
+
+#[allow(unused)]
 pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
     let mut dummy = ListNode::new(0);
     dummy.next = head;

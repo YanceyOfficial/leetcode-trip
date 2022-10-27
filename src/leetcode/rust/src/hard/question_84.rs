@@ -1,5 +1,6 @@
 use std::cmp;
 
+#[allow(unused)]
 pub fn largest_rectangle_area(heights: Vec<i32>) -> i32 {
     let n = heights.len();
     let mut left: Vec<isize> = vec![-1; n];

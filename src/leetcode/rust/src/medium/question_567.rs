@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+#[allow(unused)]
 pub fn check_inclusion(s1: String, s2: String) -> bool {
     let mut need_map: HashMap<u8, i32> = HashMap::new();
 

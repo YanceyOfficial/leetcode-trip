@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+#[allow(unused)]
 pub fn min_window(s: String, t: String) -> String {
     let mut need_map: HashMap<u8, i32> = HashMap::new();
 

@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn eval_rpn(tokens: Vec<String>) -> i32 {
     let mut stack = vec![];
 

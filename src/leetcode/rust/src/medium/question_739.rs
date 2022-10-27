@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn daily_temperatures(temperatures: Vec<i32>) -> Vec<i32> {
     let n = temperatures.len();
     let mut stack = vec![];

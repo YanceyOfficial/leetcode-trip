@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn asteroid_collision(asteroids: Vec<i32>) -> Vec<i32> {
     let mut stack = vec![];
     for asteroid in asteroids {

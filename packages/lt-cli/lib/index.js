@@ -60,14 +60,17 @@ const v = async (t, n) => {
       c(
         o,
         ((t, n, e, o) =>
-          `---\nid: ${t}-${e}\ntitle: ${n}\nsidebar_label: ${t}. ${n}\nkeywords:\n  - HashMap\n---\n\n:::success Tips\n题目类型: HashMap\n\n相关题目:\n\n- [1. 两数之和](/leetcode/easy/1-two-sum)\n\n:::\n\n## 题目\n\n这里是题目这里是题目这里是题目这里是题目这里是题目\n\n:::info 示例\n\n输入:\n\n输出:\n:::\n\n## 题解\n\n这里是题解这里是题解这里是题解这里是题解这里是题解\n\nimport Tabs from '@theme/Tabs'\nimport TabItem from '@theme/TabItem'\n\n<Tabs>\n  <TabItem value="JavaScript" label="JavaScript" default>\n\n\`\`\`ts\n${o}\n\`\`\`\n\n</TabItem>\n<TabItem value="Rust" label="Rust">\n\n\`\`\`rust\nimpl Solution {\n  \n}\n\`\`\`\n\n</TabItem>\n</Tabs>\n`)(
+          `---\nid: ${t}-${e}\ntitle: ${n}\nsidebar_label: ${t}. ${n}\nkeywords:\n  - HashMap\n---\n\n:::success Tips\n题目类型: HashMap\n\n相关题目:\n\n- [1. 两数之和](/leetcode/easy/1-two-sum)\n\n:::\n\n## 题目\n\n这里是题目这里是题目这里是题目这里是题目这里是题目\n\n:::info 示例\n\n输入:\n\n输出:\n:::\n\n## 题解\n\n这里是题解这里是题解这里是题解这里是题解这里是题解\n\nimport Tabs from '@theme/Tabs'\nimport TabItem from '@theme/TabItem'\n\n<Tabs>\n  <TabItem value="JavaScript" label="JavaScript" default>\n\n\`\`\`ts\n${o}\n\`\`\`\n\n</TabItem>\n<TabItem value="Rust" label="Rust">\n\n\`\`\`rust\npub fn foo() -> () {\n}\n\`\`\`\n\n</TabItem>\n</Tabs>\n`)(
           r,
           s,
           m,
           i,
         ),
       ),
-      c(`${g}/src/${t}/question_${r}.rs`, 'pub fn foo() -> () {}'),
+      c(
+        `${g}/src/${t}/question_${r}.rs`,
+        '#[allow(unused)]\npub fn foo() -> () {}\n',
+      ),
       ((t) => {
         const n = a(`${g}/src/${t}`)
           .filter((t) => 'mod.rs' !== t)
@@ -106,16 +109,16 @@ const v = async (t, n) => {
   },
   E = a(`${$}/${y.Easy}`).length,
   I = a(`${$}/${y.Medium}`).length,
-  S = a(`${$}/${y.Hard}`).length,
-  j = E + I + S,
-  H = [
+  j = a(`${$}/${y.Hard}`).length,
+  H = E + I + j,
+  M = [
     { category: y.Easy, count: E },
     { category: y.Medium, count: I },
-    { category: y.Hard, count: S },
-    { category: 'Total', count: j },
+    { category: y.Hard, count: j },
+    { category: 'Total', count: H },
   ],
-  M = () => {
-    console.table(H)
+  S = () => {
+    console.table(M)
   },
   x = async (n) => {
     const e = await (async () => {
@@ -155,4 +158,4 @@ const v = async (t, n) => {
           }
         })())
   }
-export { T as bootstrap, M as showStatistics, A as upgrade }
+export { T as bootstrap, S as showStatistics, A as upgrade }
