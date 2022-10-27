@@ -68,23 +68,21 @@ var dailyTemperatures = function (T) {
 <TabItem value="Rust" label="Rust">
 
 ```rust
-impl Solution {
-    pub fn daily_temperatures(temperatures: Vec<i32>) -> Vec<i32> {
-        let n = temperatures.len();
-        let mut stack = vec![];
-        let mut res = vec![0; n];
+pub fn daily_temperatures(temperatures: Vec<i32>) -> Vec<i32> {
+    let n = temperatures.len();
+    let mut stack = vec![];
+    let mut res = vec![0; n];
 
-        for (i, temperature) in temperatures.iter().enumerate() {
-            while !stack.is_empty() && temperatures[stack[stack.len() - 1]] < *temperature {
-                let prev_index = stack.pop().unwrap();
-                res[prev_index] = (i - prev_index) as i32;
-            }
-
-            stack.push(i);
+    for (i, temperature) in temperatures.iter().enumerate() {
+        while !stack.is_empty() && temperatures[stack[stack.len() - 1]] < *temperature {
+            let prev_index = stack.pop().unwrap();
+            res[prev_index] = (i - prev_index) as i32;
         }
 
-        res
+        stack.push(i);
     }
+
+    res
 }
 ```
 

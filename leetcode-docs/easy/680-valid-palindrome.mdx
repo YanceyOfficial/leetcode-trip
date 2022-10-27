@@ -84,8 +84,7 @@ var validPalindrome = function (s) {
 <TabItem value="Rust" label="Rust">
 
 ```rust
-impl Solution {
-  pub fn valid_palindrome(s: String) -> bool {
+pub fn valid_palindrome(s: String) -> bool {
     let s_bytes = s.as_bytes();
     let (mut left, mut right) = (0, s.len() - 1);
 
@@ -114,7 +113,6 @@ impl Solution {
     }
 
     true
-  }
 }
 ```
 
