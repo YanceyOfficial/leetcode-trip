@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+#[allow(unused)]
 pub fn remove_duplicate_letters(s: String) -> String {
     let mut remain = HashMap::new();
 

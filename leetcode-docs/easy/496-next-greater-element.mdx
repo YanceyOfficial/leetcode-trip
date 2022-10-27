@@ -45,7 +45,19 @@ nums1 中数字 x 的下一个更大元素是指 x 在 nums2 中对应位置的�
 
 ## 题解
 
-### 暴力解法 🐸
+:::success TIPS
+单调栈实际上就是栈, 使得每次新元素入栈后, 栈内的元素都保持有序(单调递增或单调递减).
+:::
+
+下面这个图很有启发, 把数组的元素想象成并列站立的人, 元素大小想象成人的身高. 以第一个 2 元素为例, 向后看去, 后面的 1 和 2 全被遮住了, 你只能看到 4, 因此 2 对应的**下一个更大元素**就是 4; 同理第二个元素 1 向后看去, 最先能看到 2, 因此 1 对应的**下一个更大元素**就是 2.
+
+![496-next-greater-element](../../static/img/496-next-greater-element.jpeg)
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="暴力解法" label="暴力解法">
 
 显然先对 num1 循环, 对于 num1 的每个元素 x, 找到 x 在 num2 的索引, 从而通过 `nums2.slice(nums2.indexOf(x) + 1)` 找到右边的数组 rigths, 然后再遍历 rigths, 找到第一个大于 x 的数字后, 即刻跳出循环. 然鹅 too young too simple sometimes naive. 这种解法的时间复杂度是 O(n<sup>2</sup>).
 
@@ -75,27 +87,20 @@ var nextGreaterElement = function (nums1, nums2) {
 }
 ```
 
-### 单调栈
-
-:::success TIPS
-单调栈实际上就是栈, 使得每次新元素入栈后, 栈内的元素都保持有序(单调递增或单调递减).
-:::
-
-下面这个图很有启发, 把数组的元素想象成并列站立的人, 元素大小想象成人的身高. 以第一个 2 元素为例, 向后看去, 后面的 1 和 2 全被遮住了, 你只能看到 4, 因此 2 对应的**下一个更大元素**就是 4; 同理第二个元素 1 向后看去, 最先能看到 2, 因此 1 对应的**下一个更大元素**就是 2.
-
-![496-next-greater-element](../../static/img/496-next-greater-element.jpeg)
+  </TabItem>
+  <TabItem value="单调栈 - JavaScript" label="单调栈 - JavaScript" default>
 
 ```ts
 var nextGreaterElement = function (nums1, nums2) {
   const map = new Map()
   const stack = []
 
-  for (const letter of nums2) {
-    while (stack.length > 0 && stack[stack.length - 1] < letter) {
-      map.set(stack.pop(), letter)
+  for (const num of nums2) {
+    while (stack.length > 0 && stack[stack.length - 1] < num) {
+      map.set(stack.pop(), num)
     }
 
-    stack.push(letter)
+    stack.push(num)
   }
 
   const n = nums1.length
@@ -110,3 +115,38 @@ var nextGreaterElement = function (nums1, nums2) {
   return res
 }
 ```
+
+</TabItem>
+<TabItem value="单调栈 - Rust" label="单调栈 - Rust">
+
+```rust
+use std::collections::HashMap;
+
+    pub fn next_greater_element(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
+        let mut map = HashMap::new();
+        let mut stack = vec![];
+
+        for num in nums2 {
+            while !stack.is_empty() && stack[stack.len() - 1] < num {
+                map.entry(stack[stack.len() - 1])
+                    .and_modify(|e| *e = num)
+                    .or_insert(num);
+                stack.pop();
+            }
+
+            stack.push(num);
+        }
+
+        let mut res = vec![-1; nums1.len()];
+        for (i, num) in nums1.iter().enumerate() {
+            if let Some(x) = map.get(&num) {
+                res[i] = *x;
+            }
+        }
+
+        res
+    }
+```
+
+</TabItem>
+</Tabs>

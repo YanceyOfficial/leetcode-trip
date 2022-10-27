@@ -5,6 +5,7 @@ pub struct ListNode {
     pub next: Option<Box<ListNode>>,
 }
 
+#[allow(unused)]
 impl ListNode {
     #[inline]
     fn new(val: i32) -> Self {
@@ -12,6 +13,7 @@ impl ListNode {
     }
 }
 
+#[allow(unused)]
 pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut prev = None;
     let mut curr = head;

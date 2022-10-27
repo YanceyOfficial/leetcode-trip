@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn count_substrings(s: String) -> i32 {
     let len = s.len();
     let center_count = len * 2 - 1;

@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn longest_palindrome(s: String) -> String {
     let len = s.len();
     let center_count = len * 2 - 1;

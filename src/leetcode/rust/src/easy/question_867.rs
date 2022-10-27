@@ -5,12 +5,15 @@ pub struct ListNode {
     pub next: Option<Box<ListNode>>,
 }
 
+#[allow(unused)]
 impl ListNode {
     #[inline]
     fn new(val: i32) -> Self {
         ListNode { next: None, val }
     }
 }
+
+#[allow(unused)]
 pub fn middle_node(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut fast = &head;
     let mut slow = &head;

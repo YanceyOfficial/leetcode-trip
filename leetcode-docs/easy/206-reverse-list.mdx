@@ -124,20 +124,19 @@ var reverseList = function (head) {
 //     }
 //   }
 // }
-impl Solution {
-    pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let mut prev = None;
-        let mut curr = head;
 
-        while curr.is_some() {
-            let mut tmp = curr.take().unwrap();
-            curr = tmp.next;
-            tmp.next = prev;
-            prev = Some(tmp);
-        }
+pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    let mut prev = None;
+    let mut curr = head;
 
-        prev
+    while curr.is_some() {
+        let mut tmp = curr.take().unwrap();
+        curr = tmp.next;
+        tmp.next = prev;
+        prev = Some(tmp);
     }
+
+    prev
 }
 ```
 

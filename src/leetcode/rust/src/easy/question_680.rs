@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn valid_palindrome(s: String) -> bool {
     let s_bytes = s.as_bytes();
     let (mut left, mut right) = (0, s.len() - 1);

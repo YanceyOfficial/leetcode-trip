@@ -8,6 +8,7 @@ fn parse_time(time: &String) -> i32 {
     hour * 60 + minute
 }
 
+#[allow(unused)]
 pub fn find_min_difference(time_points: Vec<String>) -> i32 {
     let n = time_points.len();
 

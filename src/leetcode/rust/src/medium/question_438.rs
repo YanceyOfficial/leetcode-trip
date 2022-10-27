@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+#[allow(unused)]
 pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
     let mut need_map: HashMap<u8, i32> = HashMap::new();
 
