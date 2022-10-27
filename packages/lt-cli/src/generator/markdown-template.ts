@@ -50,8 +50,7 @@ ${functionBody}
 <TabItem value="Rust" label="Rust">
 
 \`\`\`rust
-impl Solution {
-  
+pub fn foo() -> () {
 }
 \`\`\`
 

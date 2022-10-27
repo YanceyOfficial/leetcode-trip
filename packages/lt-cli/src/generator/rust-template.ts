@@ -1,1 +1,3 @@
-export const generateRustTemplate = () => 'pub fn foo() -> () {}'
+export const generateRustTemplate = () => `#[allow(unused)]
+pub fn foo() -> () {}
+`
