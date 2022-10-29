@@ -47,21 +47,20 @@ var twoSum = function (nums, target) {
 ```rust
 use std::collections::HashMap;
 
+#[allow(unused)]
 pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut map = HashMap::new();
 
     for (i, num) in nums.iter().enumerate() {
         let dif = target - num;
 
-        if map.contains_key(&dif) {
-            return vec![*map.get(&dif).unwrap(), i as i32];
+        if let Some(x) = map.get(&dif) {
+            return vec![*x, i as i32];
         }
 
         map.insert(*num, i as i32);
     }
 
-    // 注意虽然题目保证一定有两个数的和为 target 的情况
-    // 但由于 Rust 要求必须有完整的返回, 所以这里拿 panic 宏填充.
     panic!("")
 }
 ```

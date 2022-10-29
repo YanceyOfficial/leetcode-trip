@@ -7,8 +7,8 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     for (i, num) in nums.iter().enumerate() {
         let dif = target - num;
 
-        if map.contains_key(&dif) {
-            return vec![*map.get(&dif).unwrap(), i as i32];
+        if let Some(x) = map.get(&dif) {
+            return vec![*x, i as i32];
         }
 
         map.insert(*num, i as i32);
