@@ -14,6 +14,12 @@ keywords:
 
 创建一个哈希表, 遍历数组, 将元素存储到哈希表中, 如果 target - nums[i] 存在于哈希表中, 那么就找到了这两个相加等于 target 的元素.
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * @param {number[]} nums
@@ -34,6 +40,34 @@ var twoSum = function (nums, target) {
   }
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::collections::HashMap;
+
+pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
+    let mut map = HashMap::new();
+
+    for (i, num) in nums.iter().enumerate() {
+        let dif = target - num;
+
+        if map.contains_key(&dif) {
+            return vec![*map.get(&dif).unwrap(), i as i32];
+        }
+
+        map.insert(*num, i as i32);
+    }
+
+    // 注意虽然题目保证一定有两个数的和为 target 的情况
+    // 但由于 Rust 要求必须有完整的返回, 所以这里拿 panic 宏填充.
+    panic!("")
+}
+```
+
+</TabItem>
+</Tabs>
 
 ## 复杂度
 
