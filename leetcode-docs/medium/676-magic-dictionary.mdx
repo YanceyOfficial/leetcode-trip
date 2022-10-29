@@ -1,0 +1,200 @@
+---
+id: 676-magic-dictionary
+title: 实现一个魔法字典
+sidebar_label: 676. 实现一个魔法字典
+---
+
+## 题目
+
+设计一个使用单词列表进行初始化的数据结构, 单词列表中的单词**互不相同**. 如果给出一个单词, 请判定能否只将这个单词中一个字母换成另一个字母, 使得所形成的新单词存在于你构建的字典中.
+
+实现 `MagicDictionary` 类:
+
+- `MagicDictionary()` 初始化对象
+- `void buildDict(String[] dictionary)` 使用字符串数组 `dictionary` 设定该数据结构, `dictionary` 中的字符串互不相同
+- `bool search(String searchWord)` 给定一个字符串 `searchWord` , 判定能否**只将字符串中一个字母换成另一个字母**, 使得所形成的新字符串能够与字典中的任一字符串匹配. 如果可以, 返回 `true`; 否则, 返回 `false`.
+
+:::info 示例
+
+```ts
+MagicDictionary magicDictionary = new MagicDictionary();
+magicDictionary.buildDict(["hello", "leetcode"]);
+magicDictionary.search("hello"); // 返回 False
+magicDictionary.search("hhllo"); // 将第二个 'h' 替换为 'e' 可以匹配 "hello", 所以返回 True
+magicDictionary.search("hell"); // 返回 False
+magicDictionary.search("leetcoded"); // 返回 False
+```
+
+:::
+
+## 题解
+
+思路比较简单, 直接看注释.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * Initialize your data structure here.
+ */
+var MagicDictionary = function () {
+  this.map = new Map()
+}
+
+/**
+ * @param {string[]} dictionary
+ * @return {void}
+ */
+MagicDictionary.prototype.buildDict = function (dictionary) {
+  // 按照每个字符串的长度, 汇集到一个 HashMap 中
+  for (const d of dictionary) {
+    const n = d.length
+    if (this.map.has(n)) {
+      this.map.set(n, [...this.map.get(n), d])
+    } else {
+      this.map.set(n, [d])
+    }
+  }
+}
+
+/**
+ * @param {string} searchWord
+ * @return {boolean}
+ */
+MagicDictionary.prototype.search = function (searchWord) {
+  const n = searchWord.length
+
+  // 如果 searchWord 的长度不在 HashMap 中, 一定是 false
+  // 因为只有等长才有替换的可能
+  if (!this.map.has(n)) return false
+
+  // 然后找到了跟 searchWord 长度相同的字符串数组 equalLengthWords
+  // 注意要剔除 equalLengthWords 中跟 searchWord 一样的,
+  // 因为跟 searchWord 相同的字符串不符合`只将字符串中一个字母换成另一个字母`
+  const equalLengthWords = this.map.get(n).filter((d) => d !== searchWord)
+
+  // 如果 equalLengthWords 空了(这种情况就是 equalLengthWords 中的字符串全跟 searchWord 一样)
+  // 这种情况也是返回 false
+  if (equalLengthWords.length === 0) return false
+
+  // 对剩下的 equalLengthWords 进行遍历
+  for (const d of equalLengthWords) {
+    // 下面需要 d 和 searchWord 逐字符比对
+    // 如果在比对中, 仅有一处发生替换, 就说明找到了
+    let valid = false
+
+    for (let i = 0; i < n; i++) {
+      if (d[i] !== searchWord[i]) {
+        // 如果这次比对两边不同
+        // 并且 valid 已经是 true, 说明至少有两处不同, 不符合预期
+        // 故将 valid 还原, 且 break 掉这次循环
+        if (valid) {
+          valid = false
+          break
+        } else {
+          valid = true
+        }
+      }
+    }
+
+    if (valid) return true
+  }
+
+  return false
+}
+
+/**
+ * Your MagicDictionary object will be instantiated and called as such:
+ * var obj = new MagicDictionary()
+ * obj.buildDict(dictionary)
+ * var param_2 = obj.search(searchWord)
+ */
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::collections::HashMap;
+
+struct MagicDictionary {
+    map: HashMap<usize, Vec<String>>,
+}
+
+/**
+ * `&self` means the method takes an immutable reference.
+ * If you need a mutable reference, change it to `&mut self` instead.
+ */
+impl MagicDictionary {
+    /** Initialize your data structure here. */
+    fn new() -> Self {
+        MagicDictionary {
+            map: HashMap::new(),
+        }
+    }
+
+    fn build_dict(&mut self, dictionary: Vec<String>) {
+        for d in dictionary {
+            let n = d.len();
+            self.map
+                .entry(n)
+                .and_modify(|e| e.push(d.clone()))
+                .or_insert(vec![d]);
+        }
+    }
+
+    fn search(&self, search_word: String) -> bool {
+        let n = search_word.len();
+        if !self.map.contains_key(&n) {
+            return false;
+        }
+
+        let equal_len_words = self
+            .map
+            .get(&n)
+            .unwrap()
+            .iter()
+            .filter(|x| **x != search_word)
+            .collect::<Vec<&String>>();
+
+        if equal_len_words.len() == 0 {
+            return false;
+        }
+
+        for d in equal_len_words {
+            let mut valid = false;
+
+            for i in 0..n {
+                if d.as_bytes()[i] != search_word.as_bytes()[i] {
+                    if valid {
+                        valid = false;
+                        break;
+                    } else {
+                        valid = true;
+                    }
+                }
+            }
+
+            if valid {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+/**
+ * Your MagicDictionary object will be instantiated and called as such:
+ * let obj = MagicDictionary::new();
+ * obj.build_dict(dictionary);
+ * let ret_2: bool = obj.search(searchWord);
+ */
+```
+
+</TabItem>
+</Tabs>

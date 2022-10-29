@@ -13,5 +13,6 @@ pub mod question_503;
 pub mod question_539;
 pub mod question_567;
 pub mod question_647;
+pub mod question_676;
 pub mod question_735;
 pub mod question_739;

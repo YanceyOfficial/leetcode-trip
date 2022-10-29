@@ -63,28 +63,28 @@ var evalRPN = function (tokens) {
   const stack = []
 
   for (const token of tokens) {
-    if (/\d/.test(token)) {
-      stack.push(Number(token))
-    } else {
+    if (isNaN(token)) {
       const a = stack.pop()
       const b = stack.pop()
-
-      if (token === '+') {
-        stack.push(b + a)
-      }
-      if (token === '-') {
-        stack.push(b - a)
-      }
-      if (token === '*') {
-        stack.push(b * a)
-      }
-      if (token === '/') {
-        stack.push((b / a) | 0)
-      }
+      stack.push(calc(token, a, b))
+    } else {
+      // 注意题目给的是数字字符串, 记得先转成数字再推入栈中
+      stack.push(+token)
     }
   }
 
   return stack[0]
+}
+
+var calc = function (operator, a, b) {
+  const rules = {
+    '+': b + a,
+    '-': b - a,
+    '*': b * a,
+    '/': (b / a) | 0,
+  }
+
+  return rules[operator]
 }
 ```
 
@@ -98,8 +98,8 @@ pub fn eval_rpn(tokens: Vec<String>) -> i32 {
     let mut stack = vec![];
 
     #[inline]
-    fn calc(token: &str, a: i32, b: i32) -> i32 {
-        match token {
+    fn calc(operator: &str, a: i32, b: i32) -> i32 {
+        match operator {
             "*" => b * a,
             "/" => b / a,
             "+" => b + a,
@@ -113,7 +113,7 @@ pub fn eval_rpn(tokens: Vec<String>) -> i32 {
             Err(_) => {
                 let a = stack.pop().unwrap();
                 let b = stack.pop().unwrap();
-                stack.push(calc(token, a, b));
+                stack.push(calc(operator, a, b));
             }
         }
     }

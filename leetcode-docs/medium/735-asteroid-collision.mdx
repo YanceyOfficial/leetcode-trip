@@ -127,8 +127,10 @@ var asteroidCollision = function (asteroids) {
 
     while (
       alive &&
+      // 当前 asteroid 往左走
       asteroid < 0 &&
       stack.length > 0 &&
+      // 上一个往右走, 才会发生碰撞
       stack[stack.length - 1] > 0
     ) {
       const last = stack[stack.length - 1],
