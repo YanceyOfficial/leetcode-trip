@@ -64,6 +64,7 @@ var reorderList = function (head) {
   const mid = findMiddleNode(head)
   let l1 = head
   let l2 = mid.next
+  // 防止循环引用
   mid.next = null
   l2 = reverseLinkedList(l2)
   mergeLinkedList(l1, l2)

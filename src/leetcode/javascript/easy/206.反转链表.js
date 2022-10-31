@@ -17,15 +17,15 @@
  * @return {ListNode}
  */
 var reverseList = function (head) {
-  if (head === null || head.next === null) return head
+  let prev = null
 
-  const p = reverseList(head.next) // 递的过程: 找到尾部节点
+  while (head) {
+    const tmp = head.next
+    head.next = prev
+    prev = head
+    head = tmp
+  }
 
-  // 归的过程, 将尾部节点的 next 设为 head
-  head.next.next = head
-  // 并将 head 的 next 设为 null
-  head.next = null
-
-  return p
+  return prev
 }
 // @lc code=end

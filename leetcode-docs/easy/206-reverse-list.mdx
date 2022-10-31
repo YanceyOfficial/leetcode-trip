@@ -44,7 +44,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript" label="JavaScript" default>
+  <TabItem value="JavaScript - 迭代" label="JavaScript - 迭代" default>
 
 ```ts
 /**
@@ -62,10 +62,10 @@ var reverseList = function (head) {
   let prev = null
 
   while (head) {
-    const next = head.next
+    const tmp = head.next
     head.next = prev
     prev = head
-    head = next
+    head = tmp
   }
 
   return prev
@@ -76,7 +76,8 @@ var reverseList = function (head) {
 
 空间复杂度: O(1).
 
-### 递归法
+</TabItem>
+<TabItem value="JavaScript - 递归" label="JavaScript - 递归">
 
 ![206-reverse-list](../../static/img/206-reverse-list.png)
 

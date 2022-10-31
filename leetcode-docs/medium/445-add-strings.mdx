@@ -58,9 +58,9 @@ var addTwoNumbers = function (l1, l2) {
     const sum = val1 + val2 + carry
     carry = (sum / 10) | 0
 
-    const tmp = new ListNode(sum % 10)
-    tmp.next = head.next
-    head.next = tmp
+    const node = new ListNode(sum % 10)
+    node.next = head.next
+    head.next = node
   }
 
   return head.next
@@ -119,9 +119,9 @@ pub fn add_two_numbers(
 
         let sum = a_num + b_num + carry;
 
-        let mut tmp = ListNode::new(sum % 10);
-        tmp.next = head.next.clone();
-        head.next = Some(Box::new(tmp));
+        let mut node = ListNode::new(sum % 10);
+        node.next = head.next.clone();
+        head.next = Some(Box::new(node));
 
         carry = sum / 10;
     }

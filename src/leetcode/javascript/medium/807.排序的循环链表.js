@@ -47,6 +47,7 @@ var insert = function (head, insertVal) {
 
   curr.next = node
   node.next = next
+
   return head
 }
 // @lc code=end

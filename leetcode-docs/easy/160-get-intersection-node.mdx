@@ -30,7 +30,11 @@ b1 → b2 → b3 ↗
 
 ## 题解
 
-### 方案一
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 基本的原理就是当一条链表走到头了, 就把它换成另一条从头开始. 这样的目的是保证在两条链表置换后, 指针可以**齐头并进**, 比如示例中, 当两条链条都变化后, 一个指针就会在 a1, 另一个指针在 b2 上, 那这两个指针齐头并进. 就能找到交点.
 
@@ -49,8 +53,6 @@ b1 → b2 → b3 ↗
  * @return {ListNode}
  */
 var getIntersectionNode = function (headA, headB) {
-  if (headA === null || headB === null) return null
-
   let p = headA,
     q = headB
 
@@ -63,7 +65,8 @@ var getIntersectionNode = function (headA, headB) {
 }
 ```
 
-### 方案二
+</TabItem>
+<TabItem value="JavaScript - HashMap" label="JavaScript - HashMap">
 
 想必大家都能想到这个方法, 用 HashMap 嘛. 先遍历第一个链表, 将节点依次存到 HashMap 中, 再遍历第二个链表, 如果能在 HashMap 中找到引用, 就说明找到了相交节点呗; 如果第二个链表遍历到头了, 还没在 HashMap 中找到引用, 说明就不相交.
 
@@ -93,3 +96,6 @@ var getIntersectionNode = function (headA, headB) {
 时间复杂度: O(m + n)
 
 空间复杂度: O(n)
+
+</TabItem>
+</Tabs>
