@@ -45,7 +45,11 @@ keywords:
 
 ## 题解
 
-### HashMap
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - HashMap" label="JavaScript - HashMap">
 
 本题跟 [141. 环形链表](/leetcode/easy/141-has-cycle) 一样, 都可以使用 hash 表来解, 遍历一圈, 只要找到相同节点的引用, 就证明它为环形链表. 不过由于创建了一个 hash 表, 因此时间复杂度为 O(n).
 
@@ -68,7 +72,8 @@ var detectCycle = function (head) {
 }
 ```
 
-### 双指针法
+</TabItem>
+<TabItem value="JavaScript - 双指针解法" label="JavaScript - 双指针解法" default>
 
 第二种解法有点儿脑筋急转弯的意思:
 
@@ -109,3 +114,6 @@ var detectCycle = function (head) {
   return slow
 }
 ```
+
+</TabItem>
+</Tabs>

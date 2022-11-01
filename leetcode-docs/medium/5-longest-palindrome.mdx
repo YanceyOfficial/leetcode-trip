@@ -54,7 +54,7 @@ import TabItem from '@theme/TabItem'
  */
 var longestPalindrome = function (s) {
   let n = s.length
-  let maxArr = ''
+  let max = ''
 
   for (let i = 0; i < 2 * n - 1; i++) {
     // 上面说到中心点可能有一个(i 为偶数), 也可能为两个(i 为奇数)
@@ -64,9 +64,9 @@ var longestPalindrome = function (s) {
 
     // 要保证中心点不越界, 并且要从中心点起, 判断左右字符是否相等
     while (left < n && right < n && s[left] === s[right]) {
-      // 取当前子回文串跟 maxArr 对比即可
-      const currPalindrome = s.slice(left, right + 1)
-      maxArr = maxArr.length < currPalindrome.length ? currPalindrome : maxArr
+      // 取当前子回文串跟 max 对比即可
+      const curr = s.slice(left, right + 1)
+      max = max.length < curr.length ? curr : max
 
       // 往两边扩散
       left--
@@ -74,7 +74,7 @@ var longestPalindrome = function (s) {
     }
   }
 
-  return maxArr
+  return max
 }
 ```
 

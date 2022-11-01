@@ -21,9 +21,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript" label="JavaScript" default>
-
-### 朴素解法
+  <TabItem value="JavaScript - 朴素解法" label="JavaScript - 朴素解法">
 
 最朴素的解法是先遍历链表, 获取链表的长度, 从而根据**倒数第 n 个节点**算出该节点的 index; 然后使用删除链表节点的方法将该节点删除. 但是该方法会导致两趟循环, 不优雅.
 
@@ -57,7 +55,10 @@ var removeNthFromEnd = function (head, n) {
 }
 ```
 
-### 双指针解法
+</TabItem>
+<TabItem value="JavaScript - 双指针解法" label="JavaScript - 双指针解法" default>
+
+步骤如下:
 
 1. 先让快指针走到 n 的位置
 2. 如果此时快指针走到头了, 说明倒数第 n 个节点就是第一个节点, 直接用 `head.next` 删除头节点
@@ -76,13 +77,13 @@ var removeNthFromEnd = function (head, n) {
   let slow = head
 
   // 先让快指针走到 n 的位置
-  while (n-- > 0) {
+  while (n--) {
     fast = fast.next
   }
 
   if (fast === null) {
     // 如果此时快指针走到头了
-    // 说明倒数第 n 个节点就是第一个节点
+    // 说明倒数第 n 个节点就是第一个节点, 那么删除头节点相当于直接返回 head.next 即可
     return head.next
   }
 
