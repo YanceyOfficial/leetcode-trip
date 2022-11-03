@@ -1,0 +1,117 @@
+---
+id: 933-recent-counter
+title: 最近的请求次数
+sidebar_label: 933. 最近的请求次数
+---
+
+## 题目
+
+写一个 `RecentCounter` 类来计算特定时间范围内最近的请求.
+
+请实现 `RecentCounter` 类:
+
+- `RecentCounter()` 初始化计数器, 请求数为 `0`.
+- `int ping(int t)` 在时间 `t` 添加一个新请求, 其中 `t` 表示以毫秒为单位的某个时间, 并返回过去 `3000` 毫秒内发生的所有请求数(包括新请求). 确切地说, 返回在 `[t - 3000, t]` 内发生的请求数.
+
+**保证**每次对 `ping` 的调用都使用比之前更大的 `t` 值.
+
+- `1 <= t <= 109`
+- 保证每次对 `ping` 调用所使用的 `t` 值都**严格递增**
+- 至多调用 `ping` 方法 10<sup>4</sup>次
+
+:::info 示例
+
+```bash
+
+输入:
+["RecentCounter", "ping", "ping", "ping", "ping"]
+[[], [1], [100], [3001], [3002]]
+
+输出:
+[null, 1, 2, 3, 3]
+
+解释:
+RecentCounter recentCounter = new RecentCounter();
+recentCounter.ping(1);     // requests = [1], 范围是 [-2999, 1], 返回 1
+recentCounter.ping(100);   // requests = [1, 100], 范围是 [-2900, 100], 返回 2
+recentCounter.ping(3001);  // requests = [1, 100, 3001], 范围是 [1, 3001], 返回 3
+recentCounter.ping(3002);  // requests = [1, 100, 3001, 3002], 范围是 [2, 3002], 返回 3
+```
+
+:::
+
+## 题解
+
+这里是题解这里是题解这里是题解这里是题解这里是题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+var RecentCounter = function () {
+  this.queue = []
+}
+
+/**
+ * @param {number} t
+ * @return {number}
+ */
+RecentCounter.prototype.ping = function (t) {
+  this.queue.push(t)
+  while (this.queue[0] < t - 3000) {
+    this.queue.shift()
+  }
+  
+  return this.queue.length
+}
+
+/**
+ * Your RecentCounter object will be instantiated and called as such:
+ * var obj = new RecentCounter()
+ * var param_1 = obj.ping(t)
+ */
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+struct RecentCounter {
+    queue: Vec<i32>,
+}
+
+/**
+ * `&self` means the method takes an immutable reference.
+ * If you need a mutable reference, change it to `&mut self` instead.
+ */
+impl RecentCounter {
+    fn new() -> Self {
+        RecentCounter { queue: vec![] }
+    }
+
+    fn ping(&mut self, t: i32) -> i32 {
+        self.queue.push(t);
+        while self.queue[0] < t - 3000 {
+            self.queue.remove(0);
+        }
+
+        self.queue.len() as i32
+    }
+}
+
+/**
+ * Your RecentCounter object will be instantiated and called as such:
+ * let obj = RecentCounter::new();
+ * let ret_1: i32 = obj.ping(t);
+ */
+```
+
+</TabItem>
+</Tabs>
+
+时间复杂度: 均摊 O(1), 每个元素至多入队出队各一次.
+
+空间复杂度: O(L), 其中 L 为队列的最大元素个数.

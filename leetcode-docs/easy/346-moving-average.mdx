@@ -1,0 +1,117 @@
+---
+id: 346-moving-average
+title: 滑动窗口的平均值
+sidebar_label: 346. 滑动窗口的平均值
+---
+
+## 题目
+
+给定一个整数数据流和一个窗口大小, 根据该滑动窗口的大小, 计算滑动窗口里所有数字的平均值.
+
+实现 `MovingAverage` 类:
+
+`MovingAverage(int size)` 用窗口大小 `size` 初始化对象.
+`double next(int val)` 成员函数 `next` 每次调用的时候都会往滑动窗口增加一个整数, 请计算并返回数据流中最后 size 个值的移动平均值, 即滑动窗口里所有数字的平均值.
+
+:::info 示例
+
+```ts
+输入: 
+inputs = ["MovingAverage", "next", "next", "next", "next"]
+inputs = [[3], [1], [10], [3], [5]]
+
+输出: [null, 1.0, 5.5, 4.66667, 6.0]
+
+解释: 
+MovingAverage movingAverage = new MovingAverage(3);
+movingAverage.next(1); // 返回 1.0 = 1 / 1
+movingAverage.next(10); // 返回 5.5 = (1 + 10) / 2
+movingAverage.next(3); // 返回 4.66667 = (1 + 10 + 3) / 3
+movingAverage.next(5); // 返回 6.0 = (10 + 3 + 5) / 3
+```
+
+:::
+
+## 题解
+
+没啥可说的, 太简单了.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * Initialize your data structure here.
+ * @param {number} size
+ */
+var MovingAverage = function (size) {
+  this.size = size
+  this.queue = []
+}
+
+/**
+ * @param {number} val
+ * @return {number}
+ */
+MovingAverage.prototype.next = function (val) {
+  if (this.queue.length === this.size) {
+    this.queue.shift()
+  }
+
+  this.queue.push(val)
+
+  return this.queue.reduce((acc, val) => acc + val, 0) / this.queue.length
+}
+
+/**
+ * Your MovingAverage object will be instantiated and called as such:
+ * var obj = new MovingAverage(size)
+ * var param_1 = obj.next(val)
+ */
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+struct MovingAverage {
+    queue: Vec<i32>,
+    size: i32,
+}
+
+/**
+ * `&self` means the method takes an immutable reference.
+ * If you need a mutable reference, change it to `&mut self` instead.
+ */
+impl MovingAverage {
+    /** Initialize your data structure here. */
+    fn new(size: i32) -> Self {
+        MovingAverage {
+            queue: Vec::with_capacity(size as usize),
+            size,
+        }
+    }
+
+    fn next(&mut self, val: i32) -> f64 {
+        if self.queue.len() == self.size as usize {
+            self.queue.remove(0);
+        }
+
+        self.queue.push(val);
+        self.queue.iter().sum::<i32>() as f64 / self.queue.len() as f64
+    }
+}
+
+/**
+ * Your MovingAverage object will be instantiated and called as such:
+ * let obj = MovingAverage::new(size);
+ * let ret_1: f64 = obj.next(val);
+  */
+
+```
+
+</TabItem>
+</Tabs>
