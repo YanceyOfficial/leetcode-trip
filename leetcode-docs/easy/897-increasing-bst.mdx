@@ -1,0 +1,109 @@
+---
+id: 897-increasing-bst
+title: 递增顺序搜索树
+sidebar_label: 897. 递增顺序搜索树
+keywords:
+  - Tree
+---
+
+:::success Tips
+题目类型: Tree
+:::
+
+## 题目
+
+给你一棵二叉搜索树的 root, 请你按中序遍历将其重新排列为一棵递增顺序搜索树, 使树中最左边的节点成为树的根节点, 并且每个节点没有左子节点, 只有一个右子节点.
+
+:::info 示例
+![897-increasing-bst](../../static/img/897-increasing-bst.jpg)
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 朴素解法" label="JavaScript - 朴素解法" default>
+
+朴素解法很好理解, 首先一遍中序遍历, 把每个节点的值存到一个数组中, 然后根据这个数组构造一棵新的树即可. 构造新树的过程实际上跟链表没啥区别.
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var increasingBST = function (root) {
+  const values = []
+  inorder(root, values)
+
+  const dummy = new TreeNode(-1)
+  let curr = dummy
+  for (const value of values) {
+    curr.right = new TreeNode(value)
+    curr = curr.right
+  }
+
+  return dummy.right
+}
+
+var inorder = function (root, values) {
+  if (!root) return
+
+  inorder(root.left, values)
+  values.push(root.val)
+  inorder(root.right, values)
+}
+```
+
+</TabItem>
+<TabItem value="JavaScript - 在中序遍历的过程中改变节点指向" label="JavaScript - 在中序遍历的过程中改变节点指向">
+
+这个题的关键是让 `curr` 指向**最右的节点**, 举个例子, 第一个节点是 `1`, 于是把 `1` 放到 `curr(dummy)` 的 `right`, 然后让 `curr = root`, 即让 `curr` 指向最右节点, 也就是 `1`; 第二个节点是 `2`, 通过 `curr.right = root` 就可以把 `2` 放到 `1` 的右边了, 以此类推.
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var increasingBST = function (root) {
+  const dummy = new TreeNode(-1)
+  let curr = dummy
+
+  var inorder = function (root) {
+    if (!root) return
+
+    inorder(root.left)
+
+    root.left = null
+    curr.right = root
+    // 始终让 curr 指向最右节点
+    curr = root
+
+    inorder(root.right)
+  }
+
+  inorder(root)
+
+  return dummy.right
+}
+```
+
+</TabItem>
+</Tabs>
