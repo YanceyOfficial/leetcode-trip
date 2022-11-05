@@ -1,0 +1,54 @@
+---
+id: 814-prune-tree
+title: 二叉树剪枝
+sidebar_label: 814. 二叉树剪枝
+---
+
+## 题目
+
+给你二叉树的根结点 root, 此外树的每个结点的值要么是 0, 要么是 1 .
+
+返回移除了所有不包含 1 的子树的原二叉树.
+
+节点 node 的子树为 node 本身加上所有 node 的后代.
+
+:::info 示例
+
+![814-prune-tree](../../static/img/814-prune-tree-1.png)
+
+![814-prune-tree](../../static/img/814-prune-tree-2.png)
+
+![814-prune-tree](../../static/img/814-prune-tree-3.png)
+
+:::
+
+## 题解
+
+先确定边界条件, 当输入为空时, 即可返回空. 然后对左子树和右子树分别递归进行 pruneTree 操作. 
+
+递归完成后, 当**左子树为空, 右子树为空, 当前节点的值为 0** 这三个条件同时满足时, 才表示以当前节点为根的原二叉树的所有节点都为 0, 需要将这棵子树移除, 返回空. 有任一条件不满足时, 当前节点不应该移除, 返回当前节点.
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {TreeNode}
+ */
+var pruneTree = function (root) {
+  if (!root) return null
+
+  root.left = pruneTree(root.left)
+  root.right = pruneTree(root.right)
+
+  if (!root.left && !root.right && root.val === 0) return null
+
+  return root
+}
+```
