@@ -34,7 +34,7 @@ keywords:
 
 ## 题解
 
-其实就是层序遍历, 然后把右边一坨返回出来即可.
+思路很简单, 就是层序遍历. 并先将右节点入队, 再入队左节点, 这样就保证了**每层的队头元素就是最右节点**.
 
 ```ts
 /**
@@ -51,20 +51,19 @@ keywords:
  */
 var rightSideView = function (root) {
   const res = []
-  if (!root) return []
+  if (!root) return res
   const queue = [root]
 
-  while (queue.length !== 0) {
+  while (queue.length > 0) {
+    // 每层的队头元素就是最右节点
+    res.push(queue[0].val)
+
     const n = queue.length
-
     for (let i = 0; i < n; i++) {
-      const curr = queue.shift()
-      if (i === n - 1) {
-        res.push(curr.val)
-      }
+      const node = queue.shift()
 
-      if (curr.left) queue.push(curr.left)
-      if (curr.right) queue.push(curr.right)
+      if (node.right) queue.push(node.right)
+      if (node.left) queue.push(node.left)
     }
   }
 
