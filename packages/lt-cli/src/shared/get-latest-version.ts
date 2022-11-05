@@ -13,7 +13,6 @@ interface Tag {
 export const getLatestVersion = async () => {
   const res = await fetch(npmAPI)
   const data = (await res.json()) as Tag
-
   const { latest } = data['dist-tags']
 
   return latest
@@ -21,7 +20,6 @@ export const getLatestVersion = async () => {
 
 export const needUpgrade = async (currVersion: string) => {
   const latestVersion = await getLatestVersion()
-
   const shouldUpgrade = compareVersions(latestVersion, currVersion) === 1
 
   if (shouldUpgrade) {
