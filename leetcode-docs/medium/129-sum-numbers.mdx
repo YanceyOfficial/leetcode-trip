@@ -33,7 +33,7 @@ keywords:
 
 ## 题解
 
-要先把根节点的值当作 dfs 函数的第二个参数. 如果左右节点都为 null, 即到了叶子节点, 返回 sum 即可; 否则向左向右扩展, 以 4 9 5 这条链路为例, 每一次递归, 就变成了当前的 **sum \* 10 + 当前节点的值**.
+要先把**根节点的值**当作 dfs 函数的第二个参数. 如果左右节点都为 null, 即到了叶子节点, 返回 sum 即可; 否则向左向右扩展, 以 4 9 5 这条链路为例, 每一次递归, 就变成了当前的 **sum \* 10 + 当前节点的值**.
 
 ```ts
 /**
@@ -60,9 +60,9 @@ var dfs = function (root, sum) {
   if (root.left === null && root.right === null) return sum
 
   // 如果存在左边, 通过 sum * 10 + root.left.val 来生成新的 sum
-  const left = !root.left ? 0 : dfs(root.left, sum * 10 + root.left.val)
+  const left = root.left === null ? 0 : dfs(root.left, sum * 10 + root.left.val)
   // 如果存在右边, 通过 sum * 10 + root.right.val 来生成新的 sum
-  const right = !root.right ? 0 : dfs(root.right, sum * 10 + root.right.val)
+  const right = root.right === null ? 0 : dfs(root.right, sum * 10 + root.right.val)
 
   return left + right
 }

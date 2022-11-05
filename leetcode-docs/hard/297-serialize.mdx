@@ -19,8 +19,6 @@ keywords:
 序列化用个递归的前序遍历就 ok, 反序列化用个递归也 ok.
 
 ```ts
-const SEP = ','
-const NULL = '#'
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -29,29 +27,31 @@ const NULL = '#'
  * }
  */
 
+const SEP = ','
+const NULL = '#'
+
 /**
  * Encodes a tree to a single string.
  *
  * @param {TreeNode} root
  * @return {string}
  */
-// 序列化
 var serialize = function (root) {
-  let res = []
-  serializeHelper(root, res)
-  return res.join('')
+  const arr = []
+  serializeBuilder(root, arr)
+  return arr.join('')
 }
 
-var serializeHelper = function (root, res) {
-  if (root === null) {
-    res.push(`${NULL}${SEP}`)
+var serializeBuilder = function (root, arr) {
+  if (!root) {
+    arr.push(`${NULL}${SEP}`)
   } else {
-    res.push(`${root.val}${SEP}`)
-    serializeHelper(root.left, res)
-    serializeHelper(root.right, res)
+    arr.push(`${root.val}${SEP}`)
+    serializeBuilder(root.left, arr)
+    serializeBuilder(root.right, arr)
   }
 
-  return res
+  return arr
 }
 
 /**
@@ -60,20 +60,19 @@ var serializeHelper = function (root, res) {
  * @param {string} data
  * @return {TreeNode}
  */
-// 反序列化
 var deserialize = function (data) {
   const arr = data.split(SEP)
-  return deserializeHelper(arr)
+  return deserializeBuilder(arr)
 }
 
-var deserializeHelper = function (arr) {
+var deserializeBuilder = function (arr) {
   if (arr.length === 0) return null
-  const curr = arr.shift()
-  if (curr === NULL) return null
-  const root = new TreeNode(+curr)
+  const nodeVal = arr.shift()
+  if (nodeVal === NULL) return null
 
-  root.left = deserializeHelper(arr)
-  root.right = deserializeHelper(arr)
+  const root = new TreeNode(+nodeVal)
+  root.left = deserializeBuilder(arr)
+  root.right = deserializeBuilder(arr)
 
   return root
 }
