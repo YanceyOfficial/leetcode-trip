@@ -1,0 +1,61 @@
+---
+id: 653-find-target
+title: 两数之和-iv-输入二叉搜索树
+sidebar_label: 653. 两数之和-iv-输入二叉搜索树
+keywords:
+  - Tree
+---
+
+:::success Tips
+题目类型: Tree
+:::
+
+## 题目
+
+给定一个二叉搜索树 root 和一个目标结果 k, 如果二叉搜索树中存在两个元素且它们的和等于给定的目标结果, 则返回 true.
+
+:::info 示例
+
+输入: root = 如下, k = 9
+
+```ts
+    5
+   / \
+  3   6
+ / \   \
+2   4   7
+```
+
+输出: true
+:::
+
+## 题解
+
+没啥难的, 就是递归拿到 BST 的节点值, 然后存到 HashSet 中, 找一找是否存在 `k - root.val` 即可.
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {boolean}
+ */
+var findTarget = function (root, k) {
+  const set = new Set()
+  const helper = (root, k) => {
+    if (!root) return false
+    if (set.has(k - root.val)) return true
+    set.add(root.val)
+    return helper(root.left, k) || helper(root.right, k)
+  }
+
+  return helper(root, k)
+}
+```
