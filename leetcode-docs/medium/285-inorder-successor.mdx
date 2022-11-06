@@ -1,0 +1,125 @@
+---
+id: 285-inorder-successor
+title: 二叉搜索树中的中序后继
+sidebar_label: 285. 二叉搜索树中的中序后继
+keywords:
+  - Tree
+---
+
+:::success Tips
+题目类型: Tree
+:::
+
+## 题目
+
+给定一棵二叉搜索树和其中的一个节点 `p`, 找到该节点在树中的中序后继. 如果节点没有中序后继, 请返回 `null`.
+
+节点 `p` 的后继是值比 `p.val` 大的节点中键值最小的节点, 即按中序遍历的顺序节点 `p` 的下一个节点.
+
+:::info 示例
+
+输入: root = 如下, p = 2
+
+```ts
+      5
+     / \
+    3   6
+   / \
+  2   4
+ /
+1
+```
+
+输出: 3
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 菜鸡解法" label="JavaScript - 菜鸡解法" default>
+
+我们知道二叉搜索树的中序遍历的结果是有序的. 因此最土鳖的方式就是先用中序遍历把节点存到一个数组里, 然后用 findIndex 找到该节点的位置, 便可找到下个节点了.
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @return {TreeNode}
+ */
+var inorderSuccessor = function (root, p) {
+  const res = []
+  inorder(root, res)
+
+  const idx = res.findIndex((node) => node === p)
+  return res[idx + 1] || null
+}
+
+var inorder = function (root, res) {
+  if (!root) return null
+
+  inorder(root.left, res)
+  res.push(root)
+  inorder(root.right, res)
+}
+```
+
+</TabItem>
+<TabItem value="JavaScript - 利用 BST 的性质" label="JavaScript - 利用 BST 的性质">
+
+如果 p 有右节点 q, 那么 p 的下一个节点一定是以 q 为根节点的子树的最左边那个节点.
+
+如果 p 没有右节点, 便需要从头开始考察:
+
+- 如果 node 的值大于 p 的值, 那么 p 的中序后继节点可能是 node, 也可能是 node 的左子树.
+- 如果 node 的值小于等于 p 的值, 那么 p 的中序后继节点可能在 node 的右子树.
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @return {TreeNode}
+ */
+var inorderSuccessor = function (root, p) {
+  let successor = null
+
+  if (p.right) {
+    successor = p.right
+    while (successor.left) {
+      successor = successor.left
+    }
+    return successor
+  }
+
+  let node = root
+  while (node) {
+    if (node.val > p.val) {
+      successor = node
+      node = node.left
+    } else {
+      node = node.right
+    }
+  }
+
+  return successor
+}
+```
+
+</TabItem>
+</Tabs>
