@@ -1,0 +1,75 @@
+---
+id: 124-max-path-sum
+title: 二叉树中的最大路径和
+sidebar_label: 124. 二叉树中的最大路径和
+keywords:
+  - Tree
+---
+
+:::success Tips
+题目类型: Tree
+:::
+
+## 题目
+
+路径被定义为一条从树中任意节点出发, 沿父节点到子节点连接, 达到任意节点的序列. 同一个节点在一条路径序列中至多出现一次. 该路径至少包含一个节点, 且不一定经过根节点.
+
+路径和是路径中各节点值的总和.
+
+给你一个二叉树的根节点 root, 返回其最大路径和.
+
+:::info 示例
+
+输入: root = 如下
+
+```ts
+-10
+ / \
+9   20
+    / \
+  15   7
+```
+
+输出: 42, 即右下角 20, 15, 7 这个路径是最大的
+:::
+
+## 题解
+
+从一个节点出发, 可以向左, 也可以向右, 当然也可以选择既不向左也不向右扩展(比如左右都是负数, 还不如不去扩展), 故 `max = Math.max(max, root.val + leftMax + rightMax)`.
+
+由于从这个节点出发只能想左或者向右探寻, 不能走进一个分支又掉头回来走另一个分支, 所以最后 `return root.val + Math.max(leftMax, rightMax)`, 这句话意思就是取 leftMax 和 rightMax 的其中之一(当然如果左右都是负向的, 相当于一个都没取), 这样就保证了不会有路径重叠.
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxPathSum = function (root) {
+  let max = Number.MIN_SAFE_INTEGER
+
+  var dfs = function (root) {
+    if (!root) return 0
+
+    // 左子树, 如果左子树是负值, 不要也罢
+    const leftMax = Math.max(0, dfs(root.left))
+    // 右子树, 如果右子树是负值, 不要也罢
+    const rightMax = Math.max(0, dfs(root.right))
+    // 所以最大值就是当前节点 + leftMax + rightMax
+    max = Math.max(max, root.val + leftMax + rightMax)
+
+    // 每次选路你只能选左或者右, 所以每次递归返回的其实是当前节点可以为父节点提供的收益(因为是后序遍历, 左右父)
+    return root.val + Math.max(leftMax, rightMax)
+  }
+
+  dfs(root)
+  return max
+}
+```
