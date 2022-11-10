@@ -1,0 +1,144 @@
+---
+id: 373-k-smallest-pairs
+title: 查找和最小的-k-对数字
+sidebar_label: 373. 查找和最小的-k-对数字
+keywords:
+  - TopK
+---
+
+:::success Tips
+题目类型: TopK
+:::
+
+## 题目
+
+给定两个以**升序排列**的整数数组 nums1 和 nums2, 以及一个整数 k.
+
+定义一对值 (u, v), 其中第一个元素来自 nums1, 第二个元素来自 nums2.
+
+请找到和最小的 k 个数对 (u<sub>1</sub>, v<sub>1</sub>), (u<sub>2</sub>, v<sub>2</sub>) ... (u<sub>k</sub>, v<sub>k</sub>).
+
+:::info 示例
+
+```bash
+输入: nums1 = [1, 7, 11],  nums2 = [2, 4, 6],  k = 3
+输出: [1, 2], [1, 4], [1, 6]
+解释: 返回序列中的前 3 对数:
+    [1, 2], [1, 4], [1, 6], [7, 2], [7, 4], [11, 2], [7, 6], [11, 4], [11, 6]
+```
+
+```bash
+输入: nums1 = [1, 1, 2],  nums2 = [1, 2, 3],  k = 2
+输出: [1, 1], [1, 1]
+解释: 返回序列中的前 2 对数:
+     [1, 1], [1, 1], [1, 2], [2, 1], [1, 2], [2, 2], [1, 3], [1, 3], [2, 3]
+```
+
+```bash
+输入: nums1 = [1, 2],  nums2 = [3],  k = 3
+输出: [1, 3], [2, 3]
+解释: 也可能序列中所有的数对都被返回:
+     [1, 3], [2, 3]
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @param {number} k
+ * @return {number[][]}
+ */
+var kSmallestPairs = function (nums1, nums2, k) {
+  const pq = new MinHeap()
+  const ans = new Array()
+
+  // 因为两个数组的第一个元素和一定是最小的
+  // 所以可以先把 nums1 所有元素跟 nums2 的第一个元素相加, 放到优先队列中
+  for (let i = 0; i < Math.min(k, nums1.length); i++) {
+    pq.offer([nums1[i] + nums2[0], i, 0])
+  }
+
+  while (pq.size > 0 && k-- > 0) {
+    // 第一个 curr 肯定是最小的(nums1[0] + nums2[0]), 可以放到最终 ans 中
+    const curr = pq.poll()
+    ans.push([nums1[curr[1]], nums2[curr[2]]])
+
+    // 对于后面的, 将 nums2 的第二个元素与 nums1 的元素加一遍, 将 nums2 的第三个元素与 nums1 的元素加一遍...
+    // 这样随着 k 的减少就可以筛出前 k 个, 这样也保证了不用把 nums1 和 nums2 每个元素都加和一遍
+    if (curr[2] < nums2.length - 1) {
+      pq.offer([nums1[curr[1]] + nums2[curr[2] + 1], curr[1], curr[2] + 1])
+    }
+  }
+
+  return ans
+}
+
+class MinHeap {
+  constructor(compare = (a, b) => a[0] - b[0] < 0) {
+    this.data = []
+    this.size = 0
+    this.compare = compare
+  }
+
+  peek() {
+    return this.size === 0 ? null : this.data[0]
+  }
+
+  offer(val) {
+    this.data.push(val)
+    this._shifUp(this.size++)
+  }
+
+  poll() {
+    if (this.size === 0) {
+      return null
+    }
+    this._swap(0, --this.size)
+    this._shifDown(0)
+    return this.data.pop()
+  }
+
+  _parent(index) {
+    return (index - 1) >> 1
+  }
+
+  _child(index) {
+    return (index << 1) + 1
+  }
+
+  _shifDown(index) {
+    while (this._child(index) < this.size) {
+      let child = this._child(index)
+      if (
+        child + 1 < this.size &&
+        this.compare(this.data[child + 1], this.data[child])
+      ) {
+        child = child + 1
+      }
+      if (this.compare(this.data[index], this.data[child])) {
+        break
+      }
+      this._swap(index, child)
+      index = child
+    }
+  }
+
+  _shifUp(index) {
+    while (
+      this._parent(index) >= 0 &&
+      this.compare(this.data[index], this.data[this._parent(index)])
+    ) {
+      this._swap(index, this._parent(index))
+      index = this._parent(index)
+    }
+  }
+
+  _swap(a, b) {
+    ;[this.data[a], this.data[b]] = [this.data[b], this.data[a]]
+  }
+}
+```
