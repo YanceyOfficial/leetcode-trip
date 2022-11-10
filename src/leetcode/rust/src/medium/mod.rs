@@ -3,6 +3,7 @@ pub mod question_150;
 pub mod question_19;
 pub mod question_3;
 pub mod question_316;
+pub mod question_347;
 pub mod question_380;
 pub mod question_402;
 pub mod question_438;
