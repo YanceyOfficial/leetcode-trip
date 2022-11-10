@@ -1,0 +1,115 @@
+---
+id: 220-contains-nearby-almost-duplicate
+title: 存在重复元素-iii
+sidebar_label: 220. 存在重复元素-iii
+keywords:
+  - HashMap
+---
+
+:::success Tips
+题目类型: HashMap
+
+相关题目:
+
+- [217. 存在重复元素-i](/leetcode/easy/217-contains-duplicate)
+- [219. 存在重复元素-ii](/leetcode/easy/219-contains-nearby-duplicate)
+
+:::
+
+## 题目
+
+给你一个整数数组 `nums` 和两个整数 `k` 和 `t`. 请你判断是否存在**两个不同下标 `i` 和 `j`**, 使得 `abs(nums[i] - nums[j]) <= t`, 同时又满足 `abs(i - j) <= k`. 如果存在则返回 `true`, 不存在返回 `false`.
+
+:::info 示例
+
+```bash
+输入: nums = [1, 2, 3, 1], k = 3, t = 0
+输出: true
+```
+
+```bash
+输入: nums = [1, 0, 1, 1], k = 1, t = 2
+输出: true
+```
+
+```bash
+输入: nums = [1, 5, 9, 1, 5, 9], k = 2, t = 3
+输出: false
+```
+
+:::
+
+## 题解
+
+这里是题解这里是题解这里是题解这里是题解这里是题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 朴素滑动窗口" label="JavaScript - 朴素滑动窗口" default>
+
+```ts
+/**
+ * @param {number[]} nums
+ * @param {number} indexDiff
+ * @param {number} valueDiff
+ * @return {boolean}
+ */
+var containsNearbyAlmostDuplicate = function (nums, indexDiff, valueDiff) {
+  const n = nums.length
+
+  for (let i = 0; i < n; i++) {
+    const maxJ = i + indexDiff
+    let j = maxJ >= n ? n - 1 : maxJ
+
+    while (i < j) {
+      const currIndexDiff = Math.abs(i - j)
+      const currValueDiff = Math.abs(nums[i] - nums[j])
+      if (currIndexDiff <= indexDiff && currValueDiff <= valueDiff) return true
+      j--
+    }
+  }
+
+  return false
+}
+```
+
+</TabItem>
+<TabItem value="JavaScript - 桶排序" label="JavaScript - 桶排序">
+
+```ts
+var containsNearbyAlmostDuplicate = function (nums, k, t) {
+  const n = nums.length
+  const mp = new Map()
+  for (let i = 0; i < n; ++i) {
+    const x = nums[i]
+    const id = getID(x, t + 1)
+    if (mp.has(id)) {
+      return true
+    }
+    if (mp.has(id - 1) && Math.abs(x - mp.get(id - 1)) <= t) {
+      return true
+    }
+    if (mp.has(id + 1) && Math.abs(x - mp.get(id + 1)) <= t) {
+      return true
+    }
+    mp.set(id, x)
+    if (i >= k) {
+      mp.delete(getID(nums[i - k], t + 1))
+    }
+  }
+  return false
+}
+
+const getID = (x, w) => {
+  return x < 0 ? Math.floor((x + 1) / w) - 1 : Math.floor(x / w)
+}
+```
+
+- 时间复杂度: O(n), 其中 n 是给定数组的长度. 每个元素至多被插入哈希表和从哈希表中删除一次, 每次操作的时间复杂度均为 O(1).
+
+- 空间复杂度: O(min(n, k)), 其中 n 是给定数组的长度. 哈希表中至多包含 min(n, k + 1).
+
+</TabItem>
+</Tabs>
