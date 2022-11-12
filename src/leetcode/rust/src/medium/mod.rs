@@ -18,3 +18,4 @@ pub mod question_676;
 pub mod question_677;
 pub mod question_735;
 pub mod question_739;
+pub mod question_820;
