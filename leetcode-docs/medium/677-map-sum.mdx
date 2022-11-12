@@ -1,0 +1,124 @@
+---
+id: 677-map-sum
+title: 键值映射
+sidebar_label: 677. 键值映射
+---
+
+## 题目
+
+设计一个 map, 满足以下几点:
+
+- 字符串表示键, 整数表示值.
+- 返回具有前缀等于给定字符串的键的值的总和.
+
+实现一个 `MapSum` 类：
+
+- `MapSum()` 初始化 `MapSum` 对象
+- `void insert(String key, int val)` 插入 `key-val` 键值对, 字符串表示键 `key`, 整数表示值 `val`. 如果键 `key` 已经存在, 那么原来的键值对 `key-value` 将被替代成新的键值对.
+- `int sum(string prefix)` 返回所有以该前缀 `prefix` 开头的键 `key` 的值的总和.
+
+:::info 示例
+
+```java
+MapSum mapSum = new MapSum();
+mapSum.insert("apple", 3);
+mapSum.sum("ap");           // 返回 3 (apple = 3)
+mapSum.insert("app", 2);
+mapSum.sum("ap");           // 返回 5 (apple + app = 3 + 2 = 5)
+```
+
+:::
+
+## 题解
+
+比较简单, `HashMap` + `String.prototype.startsWith` 即可.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+var MapSum = function () {
+  this.map = new Map()
+}
+
+/**
+ * @param {string} key
+ * @param {number} val
+ * @return {void}
+ */
+MapSum.prototype.insert = function (key, val) {
+  this.map.set(key, val)
+}
+
+/**
+ * @param {string} prefix
+ * @return {number}
+ */
+MapSum.prototype.sum = function (prefix) {
+  let sum = 0
+  this.map.forEach((val, key) => {
+    if (key.startsWith(prefix)) {
+      sum += val
+    }
+  })
+
+  return sum
+}
+
+/**
+ * Your MapSum object will be instantiated and called as such:
+ * var obj = new MapSum()
+ * obj.insert(key,val)
+ * var param_2 = obj.sum(prefix)
+ */
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::collections::HashMap;
+
+struct MapSum {
+    map: HashMap<String, i32>,
+}
+
+/**
+ * `&self` means the method takes an immutable reference.
+ * If you need a mutable reference, change it to `&mut self` instead.
+ */
+impl MapSum {
+    fn new() -> Self {
+        MapSum {
+            map: HashMap::new(),
+        }
+    }
+
+    fn insert(&mut self, key: String, val: i32) {
+        self.map.insert(key, val);
+    }
+
+    fn sum(&self, prefix: String) -> i32 {
+        let mut sum = 0;
+        for (key, val) in &self.map {
+            if key.starts_with(&prefix) {
+                sum += val;
+            }
+        }
+        sum
+    }
+}
+
+/**
+ * Your MapSum object will be instantiated and called as such:
+ * let obj = MapSum::new();
+ * obj.insert(key, val);
+ * let ret_2: i32 = obj.sum(prefix);
+ */
+```
+
+</TabItem>
+</Tabs>
