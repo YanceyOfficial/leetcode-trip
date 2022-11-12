@@ -84,13 +84,15 @@ pub fn minimum_length_encoding(words: Vec<String>) -> i32 {
     let mut ans = 0;
 
     for (key, _) in reversed_words.iter().enumerate() {
-        if !(key < n - 1 && reversed_words[key + 1].starts_with(&reversed_words[key])) {
-            ans += reversed_words[key].len() + 1;
+        let curr_word = &reversed_words[key];
+        if !(key < n - 1 && reversed_words[key + 1].starts_with(curr_word)) {
+            ans += curr_word.len() + 1;
         }
     }
 
     ans as i32
 }
+
 ```
 
 </TabItem>
