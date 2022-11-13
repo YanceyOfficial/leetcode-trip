@@ -48,6 +48,7 @@ import TabItem from '@theme/TabItem'
  */
 var minimumLengthEncoding = function (words) {
   const n = words.length
+
   const reversedWords = []
   for (const word of words) {
     reversedWords.push(word.split('').reverse().join(''))
@@ -58,6 +59,7 @@ var minimumLengthEncoding = function (words) {
   for (let i = 0; i < n; i++) {
     const currWord = reversedWords[i]
     // 如果当前单词是下个单词的前缀, 这个单词就可以被吸收
+    // 否则这个长的字符加上 # 就作为目标字符串
     if (!(i < n - 1 && reversedWords[i + 1].startsWith(currWord))) {
       res += currWord.length + 1
     }
@@ -73,16 +75,14 @@ var minimumLengthEncoding = function (words) {
 ```rust
 pub fn minimum_length_encoding(words: Vec<String>) -> i32 {
     let n = words.len();
-    let mut reversed_words = Vec::with_capacity(n);
 
+    let mut reversed_words = Vec::with_capacity(n);
     for val in words {
         reversed_words.push(val.chars().rev().collect::<String>());
     }
-
     reversed_words.sort();
 
     let mut ans = 0;
-
     for (key, _) in reversed_words.iter().enumerate() {
         let curr_word = &reversed_words[key];
         if !(key < n - 1 && reversed_words[key + 1].starts_with(curr_word)) {
