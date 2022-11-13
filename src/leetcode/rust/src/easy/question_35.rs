@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
     let (mut low, mut high) = (0, nums.len() - 1);
 
@@ -9,7 +10,6 @@ pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
         } else if nums[mid] < target {
             low = mid + 1;
         } else {
-            
             if mid == 0 {
                 return mid as i32;
             }
