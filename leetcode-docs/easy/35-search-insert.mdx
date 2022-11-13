@@ -33,6 +33,12 @@ keywords:
 
 二分查找的基本框架. 如果 `nums[mid] < target`, 那 target 至少在 mid 的右边; 如果 `nums[mid] > target`, 那 target 至多在 mid 的左边. 嗯, 夹一下.
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * @param {number[]} nums
@@ -55,6 +61,54 @@ var searchInsert = function (nums, target) {
   return low
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
+    let (mut low, mut high) = (0, nums.len() - 1);
+
+    while low <= high {
+        let mid = (high + low) / 2;
+
+        if nums[mid] == target {
+            return mid as i32;
+        } else if nums[mid] < target {
+            low = mid + 1;
+        } else {
+            // 注意 Rust 索引不能溢出, 否则报错
+            if mid == 0 {
+                return mid as i32;
+            }
+            high = mid - 1;
+        }
+    }
+
+    low as i32
+}
+```
+
+</TabItem>
+
+<TabItem value="Rust - 自带 binary_search 方法" label="Rust - 自带 binary_search 方法">
+
+标准库中的二分法完美符合这道题的需要:
+
+`binary_search` 的返回值类型为 `Result<T,E>` 类型
+
+- 查找到, 会返回其索引, 类型对应 `Ok(usize)`
+- 未查到, 则会返回当该序列按顺序排列时, 应被插入的索引, 类型对应 `Err(usize)`
+
+
+```rust
+pub fn search_insert(nums: Vec<i32>, target: i32) -> i32 {
+    nums.binary_search(&target).unwrap_or_else(|x| x) as i32
+}
+```
+
+</TabItem>
+</Tabs>
 
 ## 复杂度分析
 
