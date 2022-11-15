@@ -17,6 +17,7 @@ var Solution = function (w) {
   }
   this.preSum = preSum
   this.total = w.reduce((acc, val) => acc + val)
+  console.log(this.preSum, this.total)
 }
 
 /**
@@ -49,3 +50,4 @@ Solution.prototype.binarySearch = function (val) {
  * var param_1 = obj.picki()
  */
 // @lc code=end
+const s = new Solution([3, 1, 2, 4])
