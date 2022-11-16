@@ -90,7 +90,6 @@ pub fn merge(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
     intervals.sort_by(|a, b| a[0].cmp(&b[0]));
     res.push(intervals[0].to_vec());
 
-
     for i in 1..n {
         let curr = &intervals[i];
         let mut peek = res.last_mut().unwrap();
