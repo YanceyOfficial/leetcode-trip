@@ -1,0 +1,142 @@
+---
+id: 875-min-eating-speed
+title: 爱吃香蕉的珂珂
+sidebar_label: 875. 爱吃香蕉的珂珂
+---
+
+## 题目
+
+珂珂喜欢吃香蕉. 这里有 `n` 堆香蕉, 第 `i` 堆中有 `piles[i]` 根香蕉. 警卫已经离开了, 将在 `h` 小时后回来.
+
+珂珂可以决定她吃香蕉的速度 `k` (单位: 根/小时). 每个小时, 她将会选择一堆香蕉, 从中吃掉 `k` 根. 如果这堆香蕉少于 `k` 根, 她将吃掉这堆的所有香蕉, 然后这一小时内不会再吃更多的香蕉.
+
+珂珂喜欢慢慢吃, 但仍然想在警卫回来前吃掉所有的香蕉.
+
+返回她可以在 `h` 小时内吃掉所有香蕉的最小速度 `k`(`k` 为整数).
+
+提示:
+
+- `1 <= piles.length <= 10⁴`
+- `piles.length <= h <= 10⁹`
+- `1 <= piles[i] <= 10⁹`
+
+:::info 示例
+
+```ts
+输入: (piles = [3, 6, 7, 11]), (h = 8)
+输出: 4
+```
+
+```ts
+输入: (piles = [30, 11, 23, 4, 20]), (h = 5)
+输出: 30
+```
+
+```ts
+输入: (piles = [30, 11, 23, 4, 20]), (h = 6)
+输出: 23
+```
+
+:::
+
+## 题解
+
+如果珂珂在 `h` 小时内吃掉所有香蕉的最小速度是每小时 `k` 个香蕉, 则当吃香蕉的速度大于每小时 `k` 个香蕉时一定可以在 `h` 小时内吃掉所有香蕉, 当吃香蕉的速度小于每小时 `k` 个香蕉时一定不能在 `h` 小时内吃掉所有香蕉.
+
+由于吃香蕉的速度和是否可以在规定时间内吃掉所有香蕉之间存在单调性, 因此可以使用二分查找的方法得到最小速度 `k`.
+
+由于每小时都要吃香蕉, 即每小时至少吃 `1` 个香蕉, 因此二分查找的下界是 `1`; 由于每小时最多吃一堆香蕉, 即每小时吃的香蕉数目不会超过最多的一堆中的香蕉数目, 因此二分查找的上界是最多的一堆中的香蕉数目.
+
+假设吃香蕉的速度是 `speed`, 则当一堆香蕉的个数是 `pile` 时, 吃掉这堆香蕉需要 `Math.ceil(pile / speed)` 小时. 由此可以计算出吃掉所有香蕉需要的时间. 如果在速度 `speed` 下可以在 `h` 小时内吃掉所有香蕉, 则最小速度一定小于或等于 `speed`, 因此将下界调整为 `speed + 1`.
+
+二分查找结束之后, 即可得到在 `h` 小时内吃掉所有香蕉的最小速度 `k`.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {number[]} piles
+ * @param {number} h
+ * @return {number}
+ */
+var minEatingSpeed = function (piles, h) {
+  let low = 1
+  let high = 0
+
+  // 找到二分的上界
+  for (const pile of piles) {
+    high = Math.max(high, pile)
+  }
+
+  // 当 k 为 high 时, 一定能吞下所有的香蕉, 所以作为 k 的初始值
+  let k = high
+  while (low < high) {
+    // mid 值, 也就是 speed
+    const speed = low + Math.floor((high - low) / 2)
+    // 计算通过该 speed, 吃下所有 pile 的总时间
+    const time = getTime(piles, speed)
+    // 如果这个时间小于等于 h, 说明当前 speed 就是最小, 或者还可以更小
+    if (time <= h) {
+      k = speed
+      high = speed
+      // 否则调整下界
+    } else {
+      low = speed + 1
+    }
+  }
+
+  return k
+}
+
+/**
+ * @param {number[]} piles
+ * @param {number} speed
+ * @return {number}
+ */
+var getTime = function (piles, speed) {
+  let time = 0
+  for (const pile of piles) {
+    time += Math.ceil(pile / speed)
+  }
+  return time
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn min_eating_speed(piles: Vec<i32>, h: i32) -> i32 {
+    let mut low = 1;
+    let mut high = *piles.iter().max().unwrap();
+
+    let mut k = high;
+    while low < high {
+        let speed = (low + high) / 2;
+        let time = get_time(&piles, speed);
+
+        if time <= h {
+            k = speed;
+            high = speed;
+        } else {
+            low = speed + 1;
+        }
+    }
+
+    k
+}
+
+fn get_time(piles: &Vec<i32>, speed: i32) -> i32 {
+    piles
+        .iter()
+        .map(|p| p / speed + if p % speed == 0 { 0 } else { 1 })
+        .sum::<i32>()
+}
+```
+
+</TabItem>
+</Tabs>
