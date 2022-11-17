@@ -1,7 +1,7 @@
 ---
 id: 215-find-kth-largest
-title: 数组中的第k个最大元素
-sidebar_label: 215. 数组中的第k个最大元素
+title: 数组中的第-k-个最大元素
+sidebar_label: 215. 数组中的第-k-个最大元素
 keywords:
   - topK
   - 二叉堆
@@ -24,16 +24,20 @@ keywords:
 
 :::info 示例
 
-输入: [3,2,1,5,6,4] 和 k = 2
+输入: [3, 2, 1, 5, 6, 4] 和 k = 2
 
 输出: 5
 :::
 
 ## 题解
 
-Top K 的问题首先可以用[优先队列](/data-structure/queue/priority-queue)解决.
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-### 大顶堆
+<Tabs>
+  <TabItem value="JavaScript - 大顶堆" label="JavaScript - 大顶堆" default>
+
+Top K 的问题首先可以用[优先队列](/data-structure/queue/priority-queue)解决.
 
 ```ts
 /**
@@ -57,7 +61,8 @@ var findKthLargest = function (nums, k) {
 }
 ```
 
-### 小顶堆
+</TabItem>
+<TabItem value="JavaScript - 小顶堆" label="JavaScript - 小顶堆">
 
 ```ts
 var findKthLargest = function (nums, k) {
@@ -75,7 +80,8 @@ var findKthLargest = function (nums, k) {
 }
 ```
 
-### 快速选择算法
+</TabItem>
+<TabItem value="JavaScript - 快速选择算法" label="JavaScript - 快速选择算法">
 
 我们在[快速排序](/algorithm-design/sort/quick)中了解到了 `partition` 函数, 它是用来找每个子区间的分界点 p, 以保证分界点的左侧都小于 p, 右边的都大于 p. 题目要求的是**第 k 个最大元素**, 这个元素其实就是 nums 升序排序后索引为 `nums.length - k` 的元素.
 
@@ -146,3 +152,6 @@ var findKthLargest = function (nums, k) {
   return -1
 }
 ```
+
+</TabItem>
+</Tabs>

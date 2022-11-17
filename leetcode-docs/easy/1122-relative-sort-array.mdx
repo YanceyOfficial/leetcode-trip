@@ -1,0 +1,117 @@
+---
+id: 1122-relative-sort-array
+title: 数组的相对排序
+sidebar_label: 1122. 数组的相对排序
+---
+
+## 题目
+
+给你两个数组, `arr1` 和 `arr2`, `arr2` 中的元素各不相同, `arr2` 中的每个元素都出现在 `arr1` 中.
+
+对 `arr1` 中的元素进行排序, 使 `arr1` 中项的相对顺序和 `arr2` 中的相对顺序相同. 未在 `arr2` 中出现过的元素需要按照升序放在 `arr1` 的末尾.
+
+提示:
+
+- `1 <= arr1.length, arr2.length <= 1000`
+- `0 <= arr1[i], arr2[i] <= 1000`
+- `arr2` 中的元素 `arr2[i]` 各不相同
+- `arr2` 中的每个元素 `arr2[i]` 都出现在 `arr1` 中
+
+:::info 示例
+
+```bash
+输入: arr1 = [2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19], arr2 = [2, 1, 4, 3, 9, 6]
+输出: [2, 2, 2, 1, 4, 3, 3, 9, 6, 7, 19]
+```
+
+```bash
+输入: arr1 = [28, 6, 22, 8, 44, 17], arr2 = [22, 28, 8, 6]
+输出: [22, 28, 8, 6, 17, 44]
+```
+
+:::
+
+## 题解
+
+这里是题解这里是题解这里是题解这里是题解这里是题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {number[]} arr1
+ * @param {number[]} arr2
+ * @return {number[]}
+ */
+var relativeSortArray = function (arr1, arr2) {
+  const res = []
+  const map = new Map()
+  for (const num of arr1) {
+    map.set(num, map.has(num) ? map.get(num) + 1 : 1)
+  }
+
+  for (const num of arr2) {
+    const count = map.get(num)
+    for (let i = 0; i < count; i++) {
+      res.push(num)
+    }
+    map.delete(num)
+  }
+
+  const remainNums = []
+  map.forEach((v, k) => {
+    for (let i = 0; i < v; i++) {
+      remainNums.push(k)
+    }
+  })
+  remainNums.sort((a, b) => a - b)
+
+  return [...res, ...remainNums]
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::collections::HashMap;
+
+pub fn relative_sort_array(arr1: Vec<i32>, arr2: Vec<i32>) -> Vec<i32> {
+    let mut res: Vec<i32> = Vec::with_capacity(arr1.len());
+    let mut map: HashMap<i32, i32> = HashMap::new();
+
+    for num in arr1 {
+        map.entry(num).and_modify(|e| *e += 1).or_insert(1);
+    }
+
+    for num in arr2 {
+        if let Some(x) = map.get(&num) {
+            for _ in 0..*x {
+                res.push(num);
+            }
+
+            map.remove(&num);
+        }
+    }
+
+    let mut remain_nums: Vec<i32> = vec![];
+    for (key, val) in map {
+        for _ in 0..val  {
+            remain_nums.push(key);
+        }
+    }
+    remain_nums.sort();
+
+    res.append(&mut remain_nums);
+    res
+
+}
+
+```
+
+</TabItem>
+</Tabs>
