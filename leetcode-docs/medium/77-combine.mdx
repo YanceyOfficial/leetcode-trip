@@ -21,6 +21,12 @@ keywords:
 
 好了我已经吐了, 这个题其实是 [40. 组合总数 II](/leetcode/medium/40-combination-sum) 的变体. 翻译过来就是: 候选项为 [1, n], 每个组合有 k 个数, 每个数字只能选一次, 且组合不能重复(即 [1, 2] 和 [2, 1] 视为同一个).
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```js
 /**
  * @param {number} n
@@ -49,3 +55,27 @@ var combine = function (n, k) {
   return res
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
+    let mut res: Vec<Vec<i32>> = vec![];
+    backtrack(0, &nums, &mut vec![], &mut res);
+    res
+}
+
+fn backtrack(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+    res.push(track.to_vec());
+
+    for i in begin..nums.len() {
+        track.push(nums[i]);
+        backtrack(i + 1, nums, track, res);
+        track.pop();
+    }
+}
+```
+
+</TabItem>
+</Tabs>

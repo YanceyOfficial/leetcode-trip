@@ -39,19 +39,25 @@ keywords:
 
 每次递归枚举的选项变少, 一直递归到没有可选的数字, 进入不了 for 循环, 就进入不了递归, 整个 DFS 结束. 我们没有显式地设置递归的出口, 而是通过控制循环的起点, 使得最后递归自然结束.
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```js
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
 var subsets = function (nums) {
-  const len = nums.length
+  const n = nums.length
   const res = []
 
   const backtrack = (begin, track) => {
     res.push(track.slice()) // 调用子递归前, 加入解集
 
-    for (let i = begin; i < len; i++) {
+    for (let i = begin; i < n; i++) {
       // 枚举出所有可选的数
       track.push(nums[i]) // 选这个数
       backtrack(i + 1, track) // 基于选这个数, 继续递归, 传入的是 i + 1
@@ -64,3 +70,27 @@ var subsets = function (nums) {
   return res
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
+    let mut res: Vec<Vec<i32>> = vec![];
+    backtrack(0, &nums, &mut vec![], &mut res);
+    res
+}
+
+fn backtrack(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+    res.push(track.to_vec());
+
+    for i in begin..nums.len() {
+        track.push(nums[i]);
+        backtrack(i + 1, nums, track, res);
+        track.pop();
+    }
+}
+```
+
+</TabItem>
+</Tabs>

@@ -29,7 +29,11 @@ keywords:
 
 ## 题解
 
-### 方法一: 优先队列
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 优先队列" label="JavaScript - 优先队列" default>
 
 完了, 现在写排序先想到的是优先队列, 这里用个小顶堆即可, 代码很简单, 直接看注释.
 
@@ -58,38 +62,12 @@ export function mergeKLists(lists) {
 }
 ```
 
-#### 测试数据
-
-```ts
-const l1 = new ListNode(1)
-l1.next = new ListNode(4)
-l1.next.next = new ListNode(5)
-
-const l2 = new ListNode(1)
-l2.next = new ListNode(3)
-l2.next.next = new ListNode(4)
-
-const l3 = new ListNode(2)
-l3.next = new ListNode(6)
-
-const res = mergeKLists([l1, l2, l3])
-
-console.log(res)
-console.log(res.next)
-console.log(res.next.next)
-console.log(res.next.next.next)
-console.log(res.next.next.next.next)
-console.log(res.next.next.next.next.next)
-console.log(res.next.next.next.next.next.next)
-console.log(res.next.next.next.next.next.next.next)
-console.log(res.next.next.next.next.next.next.next.next)
-```
-
-### 分治
+</TabItem>
+<TabItem value="JavaScript - 分治" label="JavaScript - 分治">
 
 这道题让我们合并 k 个有序链表, 但是不管合并几个, 基本还是要两两合并.
 
-那么首先考虑的方法是能不能利用[21. 合并两个有序链表](/leetcode/easy/21-merge-two-lists)的解法来解答此题. 答案是肯定的, 但是需要修改, 怎么修改呢, 最先想到的就是两两合并, 就是前两个先合并, 合并好了再跟第三个, 然后第四个直到第 k 个. 这样的思路是对的, 但是效率不高, 所以只能换一种思路.
+那么首先考虑的方法是能不能利用 [21. 合并两个有序链表](/leetcode/easy/21-merge-two-lists) 的解法来解答此题. 答案是肯定的, 但是需要修改, 怎么修改呢, 最先想到的就是两两合并, 就是前两个先合并, 合并好了再跟第三个, 然后第四个直到第 k 个. 这样的思路是对的, 但是效率不高, 所以只能换一种思路.
 
 这里就需要用到分治法(Divide and Conquer). 简单来说就是不停的对半划分, 比如 k 个链表先划分为合并两个 `k / 2` 个链表的任务, 再不停的往下划分, 直到划分成只有一个或两个链表的任务, 开始合并. 举个例子来说比如合并 6 个链表, 那么按照分治法, 首先分别合并 0 和 3, 1 和 4, 2 和 5. 这样下一次只需合并 3 个链表, 再合并 1 和 3, 最后和 2 合并就可以了.
 
@@ -140,3 +118,6 @@ var mergeTwoLists = function (l1, l2) {
 ```
 
 注意: `mergeTwoLists` 方法即是 [21. 合并两个有序链表](/leetcode/easy/21-merge-two-lists) 题的迭代版.
+
+</TabItem>
+</Tabs>

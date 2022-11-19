@@ -3,7 +3,7 @@ mod hard;
 mod medium;
 
 fn main() {
-    let res = easy::question_69::my_sqrt(2147395600);
+    let res = medium::question_78::subsets(vec![1, 2, 3]);
 
     println!("{:?}", res);
 }

@@ -23,6 +23,8 @@ pub mod question_676;
 pub mod question_677;
 pub mod question_735;
 pub mod question_739;
+pub mod question_77;
+pub mod question_78;
 pub mod question_820;
 pub mod question_852;
 pub mod question_875;
