@@ -23,24 +23,30 @@ keywords:
 
 本题为经典的[回溯算法](/algorithm-design/backtrack), 回溯算法的本质是遍历一颗决策树, 遍历过程中我们肯定会以一定的顺序, 比如先找 1, 再找 2, 最后只能找 3, 此时这这分支找完了, 就会退到上一层, 然后是 3, 最后只能找 2...
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```js
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
 var permute = function (nums) {
-  let n = nums.length
-  let res = []
-
-  let backtrack = (track) => {
+  const n = nums.length
+  const res = []
+  const backtrack = (track) => {
     if (track.length === n) {
-      res.push(track)
+      res.push(track.slice())
       return
     }
-    for (let i = 0; i < n; i++) {
-      if (!track.includes(nums[i])) {
-        track.push(nums[i])
-        backtrack(track.slice())
+
+    for (const num of nums) {
+      if (!track.includes(num)) {
+        track.push(num)
+        backtrack(track)
         track.pop()
       }
     }
@@ -50,3 +56,31 @@ var permute = function (nums) {
   return res
 }
 ```
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {
+    let mut res: Vec<Vec<i32>> = vec![];
+    backtrack(&nums, &mut vec![], &mut res);
+    res
+}
+
+fn backtrack(nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+    if track.len() == nums.len() {
+        res.push(track.to_vec());
+        return;
+    }
+
+    for num in nums {
+        if !track.contains(num) {
+            track.push(*num);
+            backtrack(nums, track, res);
+            track.pop();
+        }
+    }
+}
+```
+
+</TabItem>
+</Tabs>
