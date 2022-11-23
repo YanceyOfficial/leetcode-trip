@@ -21,18 +21,18 @@ keywords:
 输出:
 
 ```ts
-[
-  "((()))",
-  "(()())",
-  "(())()",
-  "()(())",
-  "()()()"
-]
+;['((()))', '(()())', '(())()', '()(())', '()()()']
 ```
 
 :::
 
 ## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -41,13 +41,18 @@ keywords:
  */
 var generateParenthesis = function (n) {
   const res = []
-  const track = []
 
   const backtrack = (left, right, track) => {
-    if (right < left) return // 因为每个 track 的子串, 都要保证 left >= right, 即 [剩下的 left] < [剩下的 right], 一定不符合
-    if (left < 0 || right < 0) return // 假设 left 小于 0 了, 意味着 left 的数量大于 n 了, 一定不符合
+    // 对于每个 track 子串, 都要保证 left >= right. 
+    // 比如 (() (), 都是左括号的数量大于或等于右括号的数量
+    // 即对于剩下的括号数量, 一定是 left <= right, 所以如果出现了 right < left, 一定不符合
+    if (right < left) return
+
+    // 假设 left 小于 0 了, 意味着 left 的数量大于 n 了, 一定不符合
+    if (left < 0 || right < 0) return
+
+    // 当两边括号都恰好为 0 了, 证明是一个合法的括号生成
     if (left === 0 && right === 0) {
-      // 当两边括号都恰好为 0 了, 证明是一个合法的括号生成
       res.push(track.join(''))
       return
     }
@@ -61,8 +66,45 @@ var generateParenthesis = function (n) {
     track.pop()
   }
 
-  backtrack(n, n, track)
+  backtrack(n, n, [])
 
   return res
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn generate_parenthesis(n: i32) -> Vec<String> {
+    let mut res: Vec<String> = vec![];
+    backtrack(n, n, &mut vec![], &mut res);
+    res
+}
+
+fn backtrack(left: i32, right: i32, track: &mut Vec<String>, res: &mut Vec<String>) {
+    if right < left {
+        return;
+    }
+
+    if left < 0 || right < 0 {
+        return;
+    }
+
+    if left == 0 && right == 0 {
+        res.push(track.join(""));
+        return;
+    }
+
+    track.push("(".to_string());
+    backtrack(left - 1, right, track, res);
+    track.pop();
+
+    track.push(")".to_string());
+    backtrack(left, right - 1, track, res);
+    track.pop();
+}
+```
+
+</TabItem>
+</Tabs>
