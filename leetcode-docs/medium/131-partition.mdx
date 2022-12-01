@@ -1,0 +1,285 @@
+---
+id: 131-partition
+title: 分割回文串
+sidebar_label: 131. 分割回文串
+keywords:
+  - backtrack
+---
+
+:::success Tips
+题目类型: backtrack
+:::
+
+## 题目
+
+给你一个字符串 `s`, 请你将 `s` 分割成一些子串, 使每个子串都是回文串. 返回 `s` 所有可能的分割方案.
+
+提示:
+
+- `1 <= s.length <= 16`
+- `s` 仅由小写英文字母组成
+
+:::info 示例
+
+```ts
+输入: s = 'google'
+输出: [
+  ['g', 'o', 'o', 'g', 'l', 'e'],
+  ['g', 'oo', 'g', 'l', 'e'],
+  ['goog', 'l', 'e'],
+]
+```
+
+```ts
+输入: s = 'aab'
+输出: [
+  ['a', 'a', 'b'],
+  ['aa', 'b'],
+]
+```
+
+```ts
+输入: s = 'a'
+输出: [['a']]
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 我的写法" label="JavaScript - 我的写法" default>
+
+直接拿回溯的框架一套, 啪的一下就把题解了. 暗自窃喜中, 发现提交后内存只击败了 `17.99%`.
+感觉不妙, 遂看了答案, 问题出现在每次回溯中执行一次 `validPalindrome` 过于浪费.
+
+更优雅的解法是使用**记忆化**或者**动态规划**, 当然这个解法无伤大雅, 直接看注释.
+
+```ts
+/**
+ * @param {string} s
+ * @return {string[][]}
+ */
+var partition = function (s) {
+  const n = s.length
+  const res = []
+
+  const backtrack = (begin, track) => {
+    // begin 走到头了, 说明一趟遍历完了, 可以收割
+    if (begin === n) {
+      res.push(track)
+      return
+    }
+
+    for (let i = begin; i < n; i++) {
+      const word = s.slice(begin, i + 1)
+
+      // 如果 word 是回文, 便加入 track 豪华午餐, 继续回溯
+      if (validPalindrome(word)) {
+        track.push(word)
+        backtrack(i + 1, track.slice())
+        track.pop()
+      }
+    }
+  }
+
+  backtrack(0, [])
+  return res
+}
+
+var validPalindrome = function (word) {
+  const n = word.length
+  let left = 0
+  let right = n - 1
+
+  while (left < right) {
+    if (word[left++] !== word[right--]) return false
+  }
+
+  return true
+}
+```
+
+</TabItem>
+<TabItem value="JavaScript - 记忆化" label="JavaScript - 记忆化">
+
+在回溯中, 先判断 `memo` 中是否已经求过了, 如果缓存中有, 就直接用缓存, 否则才去求 `validPalindrome`.
+
+```ts
+/**
+ * @param {string} s
+ * @return {string[][]}
+ */
+var partition = function (s) {
+  const n = s.length
+  const res = []
+  const memo = new Array(n)
+  for (let i = 0; i < n; i++) {
+    memo[i] = new Array(n)
+  }
+
+  const backtrack = (begin, track) => {
+    if (begin === n) {
+      res.push(track)
+      return
+    }
+
+    for (let i = begin; i < n; i++) {
+      // 注意这里一定是 memo[begin][i] === false
+      // 因为对于没有加进记忆里的, memo[begin][i] 是 undefined
+      // 对于这种是要走下面 validPalindrome 函数的
+      if (memo[begin][i] === false) {
+        continue
+      }
+
+      if (memo[begin][i] || validPalindrome(s, begin, i, memo)) {
+        track.push(s.slice(begin, i + 1))
+        backtrack(i + 1, track.slice())
+        track.pop()
+      }
+    }
+  }
+
+  backtrack(0, [])
+  return res
+}
+
+const validPalindrome = (s, left, right, memo) => {
+  while (left < right) {
+    if (s[left] !== s[right]) {
+      memo[left][right] = false
+      return false
+    }
+
+    left++
+    right--
+  }
+
+  memo[left][right] = true
+  return true
+}
+```
+
+</TabItem>
+<TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划">
+
+我们可以把所有子串是否回文, 提前求出来, 用二维数组存起来. 回溯时, 直接取 `dp` 数组中对应元素就好.
+
+`dp[i][j]` 为真的话, 包含以下情况:
+
+1. `i === j` 时, 子串只有一个字符, 肯定回文
+2. `j - i === 1` 时, 子串由两个字符组成, 字符必须相同 `s[i] === s[j]`
+3. `j - i > 1` 时, 子串由两个以上字符组成, `s[i] === s[j]`, 且 `dp[i + 1][j - 1]` 为 `true`, 即除去首尾字符的剩余子串也是回文子串.
+
+其中 1 和 2 是 base case, 不需要递推出来, 3 是状态转移方程.
+
+```js
+/**
+ * @param {string} s
+ * @return {string[][]}
+ */
+var partition = function (s) {
+  const n = s.length
+  const res = []
+  const dp = new Array(n)
+  for (let i = 0; i < n; i++) {
+    dp[i] = new Array(n)
+  }
+  for (let j = 0; j < n; j++) {
+    for (let i = 0; i <= j; i++) {
+      if (i === j) {
+        dp[i][j] = true
+      } else if (j - i === 1 && s[i] === s[j]) {
+        dp[i][j] = true
+      } else if (j - i > 1 && s[i] === s[j] && dp[i + 1][j - 1]) {
+        dp[i][j] = true
+      } else {
+        dp[i][j] = false
+      }
+    }
+  }
+
+  const backtrack = (begin, track) => {
+    if (begin === n) {
+      res.push(track)
+      return
+    }
+
+    for (let i = begin; i < n; i++) {
+      if (dp[begin][i]) {
+        track.push(s.slice(begin, i + 1))
+        backtrack(i + 1, track.slice())
+        track.pop()
+      }
+    }
+  }
+
+  backtrack(0, [])
+  return res
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+采用动态规划的解法, Rust 初始化多维数组太 tm 爽了.
+
+```rust
+pub fn partition(s: String) -> Vec<Vec<String>> {
+    let vec = s
+        .chars()
+        .enumerate()
+        .fold(vec![], |mut vec, (index, char)| {
+            vec.push(char.to_string());
+            vec
+        });
+    let n = s.len();
+    let mut res = vec![];
+    let mut dp = vec![vec![false; n]; n];
+
+    for j in 0..n {
+        for i in 0..=j {
+            if i == j
+                || j - i == 1 && vec[i] == vec[j]
+                || j - i > 1 && vec[i] == vec[j] && dp[i + 1][j - 1] == true
+            {
+                dp[i][j] = true;
+            } else {
+                dp[i][j] = false;
+            }
+        }
+    }
+
+    backtrack(0, n, &vec, &dp, &mut vec![], &mut res);
+
+    res
+}
+
+fn backtrack(
+    begin: usize,
+    n: usize,
+    vec: &Vec<String>,
+    dp: &Vec<Vec<bool>>,
+    track: &mut Vec<String>,
+    res: &mut Vec<Vec<String>>,
+) {
+    if begin == n {
+        res.push(track.to_vec());
+        return;
+    }
+
+    for i in begin..n {
+        if dp[begin][i] == true {
+            track.push(vec[begin..(i + 1)].join(""));
+            backtrack(i + 1, n, vec, dp, track, res);
+            track.pop();
+        }
+    }
+}
+```
+
+</TabItem>
+</Tabs>
