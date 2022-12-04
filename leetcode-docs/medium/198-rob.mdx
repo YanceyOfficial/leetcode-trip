@@ -36,7 +36,17 @@ keywords:
 
 ## 题解
 
-我们使用两个变量 rob 和 notRob, 其中 rob 表示抢当前的房子, notRob 表示不抢当前的房子, 那么在遍历的过程中, 先用两个变量 preRob 和 preNotRob 来分别记录更新之前的值, 由于 rob 是要抢当前的房子, 那么前一个房子一定不能抢, 所以使用 preNotRob 加上当前的数字赋给 rob, 然后 notRob 表示不能抢当前的房子, 那么之前的房子就可以抢也可以不抢, 所以将 preRob 和 preNotRob 中的较大值赋给 notRob, 参见代码如下.
+我们使用两个变量 `rob` 和 `notRob`, 其中 `rob` 表示抢当前的房子, `notRob` 表示不抢当前的房子.
+
+那么在遍历的过程中, 由于 `rob` 是要抢当前的房子, 那么**前一个房子一定不能抢**, 所以使用 `notRob` 加上当前的数字赋给 `rob`; `notRob` 表示不能抢当前的房子, 那么**前一个房子可抢可不抢**, 所以将 `temp` 和 `notRob` 中的较大值赋给 `notRob`.
+
+参见代码如下.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -44,16 +54,42 @@ keywords:
  * @return {number}
  */
 var rob = function (nums) {
-  let rob = 0,
-    notRob = 0
   const n = nums.length
 
+  let rob = 0,
+    notRob = 0
+
   for (let i = 0; i < n; i++) {
-    let preRob = rob,
-      preNotRob = notRob
-    rob = preNotRob + nums[i]
-    notRob = Math.max(preRob, preNotRob)
+    let temp = rob
+    // 如果抢当前的, 那么前一个一定不能抢
+    rob = notRob + nums[i]
+    // 如果不抢当前的, 那么前一个可抢可不抢, 选价值最高的即可
+    notRob = Math.max(temp, notRob)
   }
+
   return Math.max(rob, notRob)
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::cmp;
+
+pub fn rob(nums: Vec<i32>) -> i32 {
+    let mut rob = 0;
+    let mut not_rob = 0;
+
+    for i in 0..nums.len() {
+        let temp = rob;
+        rob = not_rob + nums[i];
+        not_rob = cmp::max(temp, not_rob);
+    }
+
+    cmp::max(rob, not_rob)
+}
+```
+
+</TabItem>
+</Tabs>
