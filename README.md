@@ -21,7 +21,7 @@ Data structures and algorithms implemented in JavaScript and Rust with explanati
 
 [![NPM](https://nodeico.herokuapp.com/@yancey-inc/lt-cli.svg)](https://npmjs.com/package/@yancey-inc/lt-cli)
 
-LeetCode Trip comes with a built-in CLI which can be used to generate template markdown files and do statistical analysis from the command line. While you can install lt-cli globally on your machine, it's much better to install it locally project by project. If you would like not to install it globally, use `pnpm generator` and `pnpm statistics` instead.
+LeetCode Trip comes with a built-in CLI which can be used to generate template markdown files, statistical analysis, upgrade itself. While you can install lt-cli globally on your machine, it's much better to install it locally project by project. If you would like not to install it globally, use `pnpm generator` and `pnpm statistics` instead.
 
 ### Install
 
