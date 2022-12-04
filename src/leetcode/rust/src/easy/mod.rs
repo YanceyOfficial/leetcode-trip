@@ -7,6 +7,7 @@ pub mod question_35;
 pub mod question_496;
 pub mod question_680;
 pub mod question_69;
+pub mod question_746;
 pub mod question_867;
 pub mod question_876;
 pub mod question_933;

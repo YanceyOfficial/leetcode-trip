@@ -1,0 +1,138 @@
+---
+id: 746-min-cost-climbing-stairs
+title: 使用最小花费爬楼梯
+sidebar_label: 746. 使用最小花费爬楼梯
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+:::
+
+## 题目
+
+给你一个整数数组 `cost`, 其中 `cost[i]` 是从楼梯第 `i` 个台阶向上爬需要支付的费用. 一旦你支付此费用, 即可选择向上爬一个或者两个台阶.
+
+你可以选择从下标为 `0` 或下标为 `1` 的台阶开始爬楼梯.
+
+请你计算并返回达到楼梯顶部的最低花费.
+
+:::info 示例
+
+```ts
+输入: cost = [10, 15, 20]
+输出: 15
+解释: 最低花费是从 cost[1] 开始, 然后走两步即可到阶梯顶, 一共花费 15.
+```
+
+```ts
+输入: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+输出: 6
+解释: 你将从下标为 0 的台阶开始.
+- 支付 1, 向上爬两个台阶, 到达下标为 2 的台阶.
+- 支付 1, 向上爬两个台阶, 到达下标为 4 的台阶.
+- 支付 1, 向上爬两个台阶, 到达下标为 6 的台阶.
+- 支付 1, 向上爬一个台阶, 到达下标为 7 的台阶.
+- 支付 1, 向上爬两个台阶, 到达下标为 9 的台阶.
+- 支付 1, 向上爬一个台阶, 到达楼梯顶部.
+总花费为 6 .
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+由于可以从第一台阶或者第二台阶往上爬, 因此 dp[0] 和 dp[1] 都是 0.
+
+在 `2 <= i <= n` 时, 可以通过下标 `i - 1` 使用 `cost[i - 1]` 到达下标 `i`; 或者通过下标 `i - 2` 使用 `cost[i - 2]` 到达下标 `i`, 因此状态转移方程为: 
+
+```ts
+dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2])
+```
+
+代码如下:
+
+```ts
+/**
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minCostClimbingStairs = function (cost) {
+  const n = cost.length
+  const dp = new Array(n).fill(0)
+
+  for (let i = 2; i <= n; i++) {
+    dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2])
+  }
+
+  return dp[n]
+}
+```
+
+- 时间复杂度: O(n)
+- 空间复杂度: O(n)
+
+</TabItem>
+<TabItem value="JavaScript - 不使用 dp 数组" label="JavaScript - 不使用 dp 数组">
+
+因为下一个是由前两个递推出来的, 因此可以不用 dp 数组, 维护 prev 和 curr 两个变量即可.
+
+```ts
+/**
+ * @param {number[]} cost
+ * @return {number}
+ */
+var minCostClimbingStairs = function (cost) {
+  const n = cost.length
+
+  let prev = 0,
+    curr = 0
+  for (let i = 2; i <= n; i++) {
+    const next = Math.min(curr + cost[i - 1], prev + cost[i - 2])
+    prev = curr
+    curr = next
+  }
+
+  return curr
+}
+```
+
+- 时间复杂度: O(n)
+- 空间复杂度: O(1)
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::cmp;
+
+pub fn min_cost_climbing_stairs(cost: Vec<i32>) -> i32 {
+    let mut prev = 0;
+    let mut curr = 0;
+
+    for i in 2..=cost.len() {
+        let next = cmp::min(curr + cost[i - 1], prev + cost[i - 2]);
+        prev = curr;
+        curr = next;
+    }
+
+    curr
+}
+
+// 当然如果写的函数式一点
+pub fn min_cost_climbing_stairs(cost: Vec<i32>) -> i32 {
+    cost.iter()
+        .fold((0, 0), |acc, x| (acc.1.min(acc.0 + x), acc.0 + x))
+        .0
+}
+```
+
+</TabItem>
+</Tabs>
