@@ -1,0 +1,102 @@
+---
+id: 256-min-cost
+title: 粉刷房子
+sidebar_label: 256. 粉刷房子
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+:::
+
+## 题目
+
+假如有一排房子, 共 `n` 个, 每个房子可以被粉刷成红色, 蓝色或者绿色这三种颜色中的一种, 你需要粉刷所有的房子并且使其相邻的两个房子颜色不能相同.
+
+当然, 因为市场上不同颜色油漆的价格不同, 所以房子粉刷成不同颜色的花费成本也是不同的. 每个房子粉刷成不同颜色的花费是以一个 `n x 3` 的正整数矩阵 `costs` 来表示的.
+
+例如, `costs[0][0]` 表示第 `0` 号房子粉刷成红色的成本花费; `costs[1][2]` 表示第 `1` 号房子粉刷成绿色的花费, 以此类推.
+
+请计算出粉刷完所有房子最少的花费成本.
+
+:::info 示例
+
+输入: `costs = [[17, 2, 17], [16, 16, 5], [14, 3, 19]]`
+
+输出: `10`
+
+解释: 将 `0` 号房子粉刷成蓝色; `1` 号房子粉刷成绿色; `2` 号房子粉刷成蓝色. 最少花费: `2 + 5 + 3 = 10`
+:::
+
+## 题解
+
+这是一道状态机 DP. 根据题意, 当前房子粉刷的颜色, 取决于上个房子涂的颜色, 比如上个房子涂的绿色, 当前房子就只能涂红色或者蓝色.
+
+因此可以先初始化第一个房子三种涂色价格, 记为 `a`, `b`, `c`. 对于下一间房子:
+
+- 如果要涂红色, 那么上一间一定是蓝色或者绿的最小值.
+- 如果要涂蓝色, 那么上一间一定是红色或者绿的最小值.
+- 如果要涂绿色, 那么上一间一定是红色或者蓝的最小值.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {number[][]} costs
+ * @return {number}
+ */
+var minCost = function (costs) {
+  const n = costs.length
+  let a = costs[0][0],
+    b = costs[0][1],
+    c = costs[0][2]
+
+  for (let i = 1; i < n; i++) {
+    const d = Math.min(b, c) + costs[i][0]
+    const e = Math.min(a, c) + costs[i][1]
+    const f = Math.min(a, b) + costs[i][2]
+
+    a = d
+    b = e
+    c = f
+  }
+
+  return Math.min(a, b, c)
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn min_cost(costs: Vec<Vec<i32>>) -> i32 {
+    let n = costs.len();
+    let mut a = costs[0][0];
+    let mut b = costs[0][1];
+    let mut c = costs[0][2];
+
+    for i in 1..n {
+        let d = cmp::min(b, c) + costs[i][0];
+        let e = cmp::min(a, c) + costs[i][1];
+        let f = cmp::min(a, b) + costs[i][2];
+
+        a = d;
+        b = e;
+        c = f;
+    }
+
+    cmp::min(a, cmp::min(b, c))
+}
+
+```
+
+</TabItem>
+</Tabs>
+
+- 时间复杂度: `O(n * C)`, 其中 `C` 为颜色数量
+- 空间复杂度: `O(1)`
