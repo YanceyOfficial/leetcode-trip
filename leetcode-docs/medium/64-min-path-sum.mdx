@@ -12,19 +12,43 @@ keywords:
 
 ## 题目
 
-给定一个包含非负整数的 `M x N` 网格 grid, 请找出一条从左上角到右下角的路径, 使得路径上的数字总和为最小.
+给定一个包含非负整数的 `M x N` 网格 `grid`, 请找出一条从左上角到右下角的路径, 使得路径上的数字总和为最小. 说明: **每次只能向下或者向右移动一步**.
 
-说明: 每次只能向下或者向右移动一步.
+提示:
+
+- `m === grid.length`
+- `n === grid[i].length`
+- `1 <= m, n <= 200`
+- `0 <= grid[i][j] <= 100`
 
 :::info 示例
-输入: grid = [[1,3,1],[1,5,1],[4,2,1]]
+输入: `grid = [[1, 3, 1], [1, 5, 1], [4, 2, 1]]`
 
-输出: 7
+输出: `7`
 
-解释: 因为路径 1→3→1→1→1 的总和最小.
+解释: 因为路径 `1 -> 3 -> 1 -> 1 -> 1` 的总和最小.
+
+![64-min-path-sum.jpg](../../static/img/64-min-path-sum.jpg)
 :::
 
 ## 题解
+
+由于路径的方向只能向下或者向右, 因此第一行只能从 `grid[0][0]` 走到 `grid[0][columns - 1]`; 第一列只能从 `grid[0][0]` 走到 `grid[row - 1][0]`. 由于此时的路径是唯一, 因此每个元素对应的
+最小路径和即为对应的路径上的数字总和.
+
+对于不在第一行和第一列的元素, 可以**从其上边相邻元素向下移动一步到达, 也可以从其左边相邻元素向右移动一步到达**, 至于怎么到达路径最短, 即**取上邻元素和左邻元素的最小值**.
+
+创建 dp 二维数组, base case 为 `dp[0][0] = grid[0][0],` 而状态转移方程如下:
+
+- 当 `i > 0` 且 `j = 0` 时, 即在第一列向下走, 有 `dp[i][0] = dp[i - 1][0] + grid[i][0]`
+- 当 `j > 0` 且 `i = 0` 时, 即在第一行向右走, 有 `dp[0][j] = dp[0][j - 1] + grid[0][j]`
+- 当 `i > 0` 且 `j > 0` 时, 有 `dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]`
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -38,7 +62,6 @@ var minPathSum = function (grid) {
   if (rows === 0 || columns === 0) return 0
 
   // 创建二维数组
-  // 我他妈真的不会用 JavaScript 创建二维数组
   const dp = []
   for (let i = 0; i < rows; i++) {
     dp.push(new Array(columns).fill(0))
@@ -47,17 +70,17 @@ var minPathSum = function (grid) {
   // dp[i][j] 表示从左下角走到 i, j 的最小路径和
   dp[0][0] = grid[0][0] // base case
 
-  // 一直往右走
+  // 一直往下走
   for (let i = 1; i < rows; i++) {
     dp[i][0] = dp[i - 1][0] + grid[i][0]
   }
 
-  // 一直往下走
+  // 一直往右走
   for (let j = 1; j < columns; j++) {
     dp[0][j] = dp[0][j - 1] + grid[0][j]
   }
 
-  // 左和右都走可能走, 比较值
+  // 可能往下走, 也可能往右走
   for (let i = 1; i < rows; i++) {
     for (let j = 1; j < columns; j++) {
       dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
@@ -67,3 +90,44 @@ var minPathSum = function (grid) {
   return dp[rows - 1][columns - 1]
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::cmp;
+
+pub fn min_path_sum(grid: Vec<Vec<i32>>) -> i32 {
+    let rows = grid.len();
+    let columns = grid[0].len();
+    if rows == 0 || columns == 0 {
+        return 0;
+    }
+
+    let mut dp = vec![vec![0; columns]; rows];
+    dp[0][0] = grid[0][0];
+
+    for i in 1..rows {
+        dp[i][0] = dp[i - 1][0] + grid[i][0];
+    }
+
+    for j in 1..columns {
+        dp[0][j] = dp[0][j - 1] + grid[0][j];
+    }
+
+    for i in 1..rows {
+        for j in 1..columns {
+            dp[i][j] = cmp::min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+        }
+    }
+
+    dp[rows - 1][columns - 1]
+}
+```
+
+</TabItem>
+</Tabs>
+
+## 复杂度
+
+时间复杂度和空间复杂度都为 `O(m * n)`
