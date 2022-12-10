@@ -1,0 +1,137 @@
+---
+id: 926-min-flips-mono-incr
+title: 将字符串翻转到单调递增
+sidebar_label: 926. 将字符串翻转到单调递增
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+:::
+
+## 题目
+
+如果一个二进制字符串, 是以一些 `0`(可能没有 `0`)后面跟着一些 `1`(也可能没有 `1`)的形式组成的, 那么该字符串是**单调递增**的.
+
+给你一个二进制字符串 `s`, 你可以将任何 `0` 翻转为 `1` 或者将 `1` 翻转为 `0`. 返回使 `s` 单调递增的最小翻转次数.
+
+:::info 示例
+
+```ts
+输入: s = "00110"
+输出: 1
+解释: 翻转最后一位得到 00111.
+```
+
+```ts
+输入: s = "010110"
+输出: 2
+解释: 翻转得到 011111, 或者是 000111.
+```
+
+```ts
+输入: s = "00011000"
+输出: 2
+解释: 翻转得到 00000000.
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 二维数组" label="JavaScript - 二维数组" default>
+
+根据题意, 因为有 `0` 和 `1` 两种状态, 故 dp 初始化为一个二维数组来记录每个字符的状况. `dp[i][0]` 表示第 `i` 个字符是 `0` 的变换次数,
+`dp[i][1]` 表示第 `i` 个字符是 `1` 的变换次数.
+
+我们知道, 若要保持单调性:
+
+- 当 `dp[i]` 为 `0`, 那么 `dp[i - 1]` 只能为 `0`, 且 `s[i]` 如果为 `1` 需要翻转
+- 当 `dp[i]` 为 `1`, 那么 `dp[i - 1]` 可以为 `0` 也可以为 `1`, 且 `s[i]` 如果为 `0` 需要翻转
+
+因此状态转移方程如下:
+
+- `dp[i][0] = dp[i - 1][0] + (s[i] === '0' ? 0 : 1)`
+- `dp[i][1] = Math.min(dp[i - 1][0], dp[i - 1][1]) + (s[i] === '0' ? 1 : 0)`
+
+```ts
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minFlipsMonoIncr = function (s) {
+  const n = s.length
+  const dp = new Array(n)
+  for (let i = 0; i < n; i++) {
+    dp[i] = [0, 0]
+  }
+
+  // base case, 如果当前是 0, 那 s[0] 是 1 的话需要翻转
+  dp[0][0] = s[0] === '0' ? 0 : 1
+
+  // base case, 如果当前是 1, 那 s[0] 是 0 的话需要翻转
+  dp[0][1] = s[0] === '0' ? 1 : 0
+
+  for (let i = 1; i < n; i++) {
+    // 如果当前是 0, 那前一个也得是 0, 且 s[i] 如果是 1 需要翻转
+    dp[i][0] = dp[i - 1][0] + (s[i] === '0' ? 0 : 1)
+
+    // 如果当前是 1, 那前一个 0 或 1 都可, 故取最小值, 且 s[i] 如果是 0 需要翻转
+    dp[i][1] = Math.min(dp[i - 1][0], dp[i - 1][1]) + (s[i] === '0' ? 1 : 0)
+  }
+
+  // 最后取翻转 0 或 1 的最小值
+  return Math.min(dp[n - 1][0], dp[n - 1][1])
+}
+```
+
+</TabItem>
+<TabItem value="JavaScript - 无需数组" label="JavaScript - 无需数组">
+
+由于 `dp[i]`只和 `dp[i - 1]` 有关系, 所以我们可以采用滚动数组的办法, 把空间复杂度降到 `O(1)`.
+
+```ts
+var minFlipsMonoIncr = function (s) {
+  const n = s.length
+  let dp0 = 0
+  let dp1 = 0
+
+  for (let i = 0; i < n; i++) {
+    const currDp0 = dp0 + (s[i] === '0' ? 0 : 1)
+    const currDp1 = Math.min(dp0, dp1) + (s[i] === '0' ? 1 : 0)
+
+    dp0 = currDp0
+    dp1 = currDp1
+  }
+
+  return Math.min(dp0, dp1)
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::cmp;
+
+pub fn min_flips_mono_incr(s: String) -> i32 {
+    let mut dp0 = 0;
+    let mut dp1 = 0;
+
+    for byte in s.as_bytes() {
+        dp1 = cmp::min(dp0, dp1) + (b'1' - byte) as i32;
+        dp0 += (byte - b'0') as i32;
+    }
+
+    cmp::min(dp0, dp1)
+}
+
+```
+
+</TabItem>
+</Tabs>
