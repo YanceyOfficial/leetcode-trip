@@ -43,7 +43,10 @@ keywords:
  */
 var canPartition = function (nums) {
   let sum = nums.reduce((acc, val) => acc + val)
+
+  // 如果和为奇数, 肯定无法切割成两个子数组
   if (sum % 2 === 1) return false
+
   const n = nums.length
   sum /= 2
 
@@ -61,7 +64,7 @@ var canPartition = function (nums) {
       } else {
         // 装入或不装入背包
         // 不装入: dp[i - 1][j]
-        // 装入: 如果装了第 i 个物品, 就要看背包的剩余重量 j - nums[i-1] 限制下是否能够被恰好装满
+        // 装入: 如果装了第 i 个物品, 就要看背包的剩余重量 j - nums[i - 1] 限制下是否能够被恰好装满
         dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - nums[i - 1]])
       }
     }
@@ -73,7 +76,7 @@ var canPartition = function (nums) {
 
 ### 一维数组解法
 
-`dp[i][j]` 都是通过上一行 `dp[i-1][..]` 转移过来的, 之前的数据都不会再使用了, 因此可以把 i 消去.
+`dp[i][j]` 都是通过上一行 `dp[i - 1][..]` 转移过来的, 之前的数据都不会再使用了, 因此可以把 i 消去.
 
 ```ts
 var canPartition = function (nums) {

@@ -25,7 +25,7 @@ keywords:
 
 ## 题解
 
-就一脑筋急转弯... 一般来讲, 我们删除某个节点 node, 是通过让它的前一个节点 prev.next = prev.next.next. 但本题目没有给 prev 节点, 因此我们可以通过将该节点 node 的下一个节点的 val 设为 node.val, 这样就保证了 node 和 node.next 的 val 相等了, 然后删除 node.next 这个节点就行. 可之谓实为删除 node, 却让 node.next 背了锅也.
+就一脑筋急转弯... 一般来讲, 我们删除某个节点 node, 是通过让它的前一个节点 prev.next = prev.next.next. 但本题目没有给 prev 节点, 因此我们可以通过将该节点 node 的下一个节点的 val 设为 node.val, 这样就保证了 node 和 node.next 的 val 相等了, 然后删除 node.next 这个节点就行. 可之谓实为删除 node, 却让 node.next 背了锅.
 
 ```ts
 /**
