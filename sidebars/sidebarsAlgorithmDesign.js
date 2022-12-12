@@ -27,7 +27,7 @@ module.exports = {
         'sort/heap',
         'sort/quick',
         'sort/merge',
-        'sort/insert',
+        'sort/insertion',
         'sort/selection',
         'sort/shell',
       ],
