@@ -1,0 +1,144 @@
+---
+id: 1143-longest-common-subsequence
+title: 最长公共子序列
+sidebar_label: 1143. 最长公共子序列
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+:::
+
+## 题目
+
+给定两个字符串 `text1` 和 `text2`, 返回这两个字符串的最长**公共子序列**的长度. 如果不存在**公共子序列**, 返回 `0`.
+
+一个字符串的**子序列**是指这样一个新的字符串: 它是由原字符串在不改变字符的相对顺序的情况下删除某些字符(也可以不删除任何字符)后组成的新字符串.
+
+- 例如, `"ace"` 是 `"abcde"` 的子序列, 但 `"aec"` 不是 `"abcde"` 的子序列.
+
+两个字符串的**公共子序列**是这两个字符串所共同拥有的子序列.
+
+提示:
+
+- `1 <= text1.length, text2.length <= 1000`
+- `text1` 和 `text2` 仅由小写英文字符组成.
+
+:::info 示例
+
+```ts
+输入: text1 = "abcde", text2 = "ace"
+输出: 3
+解释: 最长公共子序列是 "ace", 它的长度为 3.
+```
+
+```ts
+输入: text1 = "abc", text2 = "abc"
+输出: 3
+解释: 最长公共子序列是 "abc", 它的长度为 3.
+```
+
+```ts
+输入: text1 = "abc", text2 = "def"
+输出: 0
+解释: 两个字符串没有公共子序列, 返回 0.
+```
+
+:::
+
+## 题解
+
+两个字符串 `s1`, `s2` 的动态规划问题通用思路:
+
+### 初始化 DP
+
+一般要构造如下 `dp` 二维数组, 即让 `dp[0][0]` 为 `0`. 那么从索引 `1` 开始, `dp[i][j]` 的含义就是: `s1[1..i]` 和 `s2[1..j]`, 它们的最长公共子序列是 `dp[i][j]`.
+
+对于下面这个例子, `dp[2][4]` 的含义就是对于 `ac` 和 `babc` 这两个子字符串, 它们的最长公共子序列是 `2`, 当然我们求这个题的结果即是求 `dp[3][6]`.
+
+![1143-longest-common-subsequence](../../static/img/1143-longest-common-subsequence.png)
+
+### 找 base case
+
+因为我们让索引为 0 的行和列表示空串, 那么它跟其他任何子字符串的最长公共子序列都为 0,
+即 `dp[0][..]` 和 `dp[..][0]` 都应该初始化为 `0`. 举个例子, `dp[0][3]` 代表着 `""` 和 `"bab"`, 显然它们的最长公共子序列是 `0`.
+
+### 找状态转移方程
+
+对于这个问题, 状态转移就是在做选择, 即求 `s1` 和 `s2` 的最长公共子序列 `lcs`. 那么对于 `s1` 和 `s2` 中的每个字符, 要么在 `lcs` 中, 要么不在. 
+因此, 如果某个字符应该在 `lcs` 中, 那么这个字符肯定同时存在于 `s1` 和 `s2` 中; 否则, 至少有一个不在 `lcs` 中,  此时取最大的那个. 因此状态转移方程为:
+
+- 如果 `s[i - 1] === s[j - 1]`, 那么有 `dp[i][j] = dp[i - 1][j - 1] + 1`
+- 否则, `dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])`
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string} text1
+ * @param {string} text2
+ * @return {number}
+ */
+var longestCommonSubsequence = function (text1, text2) {
+  const m = text1.length
+  const n = text2.length
+  const dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0))
+
+  for (let i = 1; i <= m; i++) {
+    const char1 = text1[i - 1]
+    for (let j = 1; j <= n; j++) {
+      const char2 = text2[j - 1]
+
+      if (char1 === char2) {
+        dp[i][j] = dp[i - 1][j - 1] + 1
+      } else {
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])
+      }
+    }
+  }
+
+  return dp[m][n]
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::cmp;
+
+pub fn longest_common_subsequence(text1: String, text2: String) -> i32 {
+    let text1 = text1.as_bytes();
+    let text2 = text2.as_bytes();
+    let m = text1.len();
+    let n = text2.len();
+    let mut dp = vec![vec![0; n + 1]; m + 1];
+
+    for i in 1..=m {
+        let byte1 = text1[i - 1];
+        for j in 1..=n {
+            let byte2 = text2[j - 1];
+
+            if byte1 == byte2 {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            } else {
+                dp[i][j] = cmp::max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+    }
+
+    dp[m][n]
+}
+
+```
+
+</TabItem>
+</Tabs>
+
+- 时间复杂度: `O(m * n)`
+- 空间复杂度: `O(m * n)`
