@@ -184,18 +184,16 @@ const validPalindrome = (s, left, right, memo) => {
 var partition = function (s) {
   const n = s.length
   const res = []
-  const dp = new Array(n).fill(false).map(() => new Array(n))
+  const dp = new Array(n).fill(false).map(() => new Array(n).fill(false))
 
-  for (let j = 0; j < n; j++) {
-    for (let i = 0; i <= j; i++) {
-      if (i === j) {
-        dp[i][j] = true
-      } else if (j - i === 1 && s[i] === s[j]) {
-        dp[i][j] = true
-      } else if (j - i > 1 && s[i] === s[j] && dp[i + 1][j - 1]) {
-        dp[i][j] = true
-      } else {
-        dp[i][j] = false
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j <= i; j++) {
+      if (
+        i - j === 0 ||
+        (i - j === 1 && s[i] === s[j]) ||
+        (i - j > 1 && s[i] === s[j] && dp[j + 1][i - 1])
+      ) {
+        dp[j][i] = true
       }
     }
   }
@@ -216,6 +214,7 @@ var partition = function (s) {
   }
 
   backtrack(0, [])
+  
   return res
 }
 ```
@@ -226,8 +225,9 @@ var partition = function (s) {
 采用动态规划的解法, Rust 初始化多维数组太 tm 爽了.
 
 ```rust
+#[allow(unused)]
 pub fn partition(s: String) -> Vec<Vec<String>> {
-    let vec = s
+    let s = s
         .chars()
         .enumerate()
         .fold(vec![], |mut vec, (index, char)| {
@@ -238,20 +238,18 @@ pub fn partition(s: String) -> Vec<Vec<String>> {
     let mut res = vec![];
     let mut dp = vec![vec![false; n]; n];
 
-    for j in 0..n {
-        for i in 0..=j {
-            if i == j
-                || j - i == 1 && vec[i] == vec[j]
-                || j - i > 1 && vec[i] == vec[j] && dp[i + 1][j - 1] == true
+    for i in 0..n {
+        for j in 0..=i {
+            if i == j || i - j == 1 && s[i] == s[j] || i - j > 1 && s[i] == s[j] && dp[j + 1][i - 1]
             {
-                dp[i][j] = true;
+                dp[j][i] = true;
             } else {
-                dp[i][j] = false;
+                dp[j][i] = false;
             }
         }
     }
 
-    backtrack(0, n, &vec, &dp, &mut vec![], &mut res);
+    backtrack(0, n, &s, &dp, &mut vec![], &mut res);
 
     res
 }

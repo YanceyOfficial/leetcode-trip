@@ -113,12 +113,12 @@ use std::{cmp, i32::MAX};
 
 pub fn min_cut(s: String) -> i32 {
     let n = s.len();
-    let s = s
+    let s =  s
         .chars()
         .enumerate()
-        .fold(Vec::with_capacity(n), |mut s, (i, v)| {
-            s.push(v.to_string());
-            s
+        .fold(vec![], |mut vec, (index, char)| {
+            vec.push(char.to_string());
+            vec
         });
 
     let mut is_palindrome = vec![vec![false; n]; n];

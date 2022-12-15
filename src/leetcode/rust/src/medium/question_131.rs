@@ -1,6 +1,6 @@
 #[allow(unused)]
 pub fn partition(s: String) -> Vec<Vec<String>> {
-    let vec = s
+    let s = s
         .chars()
         .enumerate()
         .fold(vec![], |mut vec, (index, char)| {
@@ -11,20 +11,18 @@ pub fn partition(s: String) -> Vec<Vec<String>> {
     let mut res = vec![];
     let mut dp = vec![vec![false; n]; n];
 
-    for j in 0..n {
-        for i in 0..=j {
-            if i == j
-                || j - i == 1 && vec[i] == vec[j]
-                || j - i > 1 && vec[i] == vec[j] && dp[i + 1][j - 1] == true
+    for i in 0..n {
+        for j in 0..=i {
+            if i == j || i - j == 1 && s[i] == s[j] || i - j > 1 && s[i] == s[j] && dp[j + 1][i - 1]
             {
-                dp[i][j] = true;
+                dp[j][i] = true;
             } else {
-                dp[i][j] = false;
+                dp[j][i] = false;
             }
         }
     }
 
-    backtrack(0, n, &vec, &dp, &mut vec![], &mut res);
+    backtrack(0, n, &s, &dp, &mut vec![], &mut res);
 
     res
 }

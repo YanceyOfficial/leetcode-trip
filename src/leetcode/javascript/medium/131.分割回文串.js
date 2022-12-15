@@ -12,20 +12,16 @@
 var partition = function (s) {
   const n = s.length
   const res = []
-  const dp = new Array(n)
+  const dp = new Array(n).fill(false).map(() => new Array(n).fill(false))
+
   for (let i = 0; i < n; i++) {
-    dp[i] = new Array(n)
-  }
-  for (let j = 0; j < n; j++) {
-    for (let i = 0; i <= j; i++) {
-      if (i == j) {
-        dp[i][j] = true
-      } else if (j - i == 1 && s[i] == s[j]) {
-        dp[i][j] = true
-      } else if (j - i > 1 && s[i] == s[j] && dp[i + 1][j - 1]) {
-        dp[i][j] = true
-      } else {
-        dp[i][j] = false
+    for (let j = 0; j <= i; j++) {
+      if (
+        i - j === 0 ||
+        (i - j === 1 && s[i] === s[j]) ||
+        (i - j > 1 && s[i] === s[j] && dp[j + 1][i - 1])
+      ) {
+        dp[j][i] = true
       }
     }
   }
@@ -46,10 +42,6 @@ var partition = function (s) {
   }
 
   backtrack(0, [])
+
   return res
 }
-
-// @lc code=end
-console.log(partition('google'))
-console.log(partition('aab'))
-console.log(partition('a'))
