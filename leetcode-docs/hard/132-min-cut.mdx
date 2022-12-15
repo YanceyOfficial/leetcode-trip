@@ -1,0 +1,157 @@
+---
+id: 132-min-cut
+title: 分割回文串-ii
+sidebar_label: 132. 分割回文串-ii
+keywords:
+  - Dynamic Programmming
+---
+
+:::success Tips
+题目类型: Dynamic Programmming
+:::
+
+## 题目
+
+给你一个字符串 `s`, 请你将 `s` 分割成一些子串, 使每个子串都是回文. 返回符合要求的**最少分割次数**.
+
+提示:
+
+`1 <= s.length <= 2000`
+`s` 仅由小写英文字母组成
+
+:::info 示例
+
+```ts
+输入: s = 'aab'
+输出: 1
+解释: 只需一次分割就可将 s 分割成 ["aa", "b"] 这样两个回文子串.
+```
+
+```ts
+输入: s = 'a'
+输出: 0
+```
+
+```ts
+输入: s = 'ab'
+输出: 1
+```
+
+:::
+
+## 题解
+
+这道题是 [131. 分割回文串](/leetcode/medium/131-partition) 的进阶版, 首先使用动态规划获取每个区间是否为回文.
+
+接下来就是计算分割次数, 我们定义 `dp[i]` 表示 `[0, i]` 最小分割数. `dp[i]` 可以从前面任何一个可以和 `i` 组成回文的 `j` 转移过来, 即 `dp[i] = Math.min(dp[j - 1] + 1, dp[i])`.
+需要额外注意的是, 如果 `isPalindrome[0][i]` 已经为 `true`, 说明 `[0, i]` 这个区间已经是回文了, 那么此时 `dp[i] = 0`. 因此状态转移方程如下:
+
+- `dp[i] = 0`, 当 `[0, i]` 已经为回文时, 无需分割, 此时为 `0`
+- `dp[i] = Math.min(dp[j - 1] + 1, dp[i])`, 当 `[0, i]` 不是回文时, 需要从左遍历, 如果有 `[j, i]` 区间为回文时, `dp[i]` 可由 `dp[j - 1] + 1` 推导出.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minCut = function (s) {
+  const n = s.length
+
+  // 这一段是 131 题原题, 不多说
+  const isPalindrome = new Array(n)
+    .fill(false)
+    .map(() => new Array(n).fill(false))
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j <= i; j++) {
+      if (
+        i - j === 0 ||
+        (i - j === 1 && s[i] === s[j]) ||
+        (i - j > 1 && s[i] === s[j] && isPalindrome[j + 1][i - 1])
+      ) {
+        isPalindrome[j][i] = true
+      }
+    }
+  }
+
+  // 创建一维数组, 因为是求最小值, 所以 dp 数组默认值为 MAX_SAFE_INTEGER
+  const dp = new Array(n).fill(Number.MAX_SAFE_INTEGER)
+
+  // dp[0] 代表着 isPalindrome[0][0], 显然是个回文, 无需分割, 故初始化 dp[0] = 0
+  dp[0] = 0
+
+  for (let i = 1; i < n; i++) {
+    // 如果 [0, i] 已经是回文了, 无需分割, 让 dp[i] = 0
+    if (isPalindrome[0][i]) {
+      dp[i] = 0
+    } else {
+      // 否则遍历 i 之前的子字符串区间
+      for (let j = 1; j <= i; j++) {
+        // 如果 [j, i] 是回文
+        if (isPalindrome[j][i]) {
+          // 那么 dp[i] 可由 dp[j - 1] + 1 推导出
+          dp[i] = Math.min(dp[i], dp[j - 1] + 1)
+        }
+      }
+    }
+  }
+
+  return dp[n - 1]
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::{cmp, i32::MAX};
+
+pub fn min_cut(s: String) -> i32 {
+    let n = s.len();
+    let s = s
+        .chars()
+        .enumerate()
+        .fold(Vec::with_capacity(n), |mut s, (i, v)| {
+            s.push(v.to_string());
+            s
+        });
+
+    let mut is_palindrome = vec![vec![false; n]; n];
+    for i in 0..n {
+        for j in 0..=i {
+            if i == j
+                || i - j == 1 && s[i] == s[j]
+                || i - j > 1 && s[i] == s[j] && is_palindrome[j + 1][i - 1]
+            {
+                is_palindrome[j][i] = true;
+            } else {
+                is_palindrome[j][i] = false;
+            }
+        }
+    }
+
+    let mut dp = vec![MAX; n];
+    dp[0] = 0;
+    for i in 1..n {
+        if is_palindrome[0][i] {
+            dp[i] = 0 as i32;
+        } else {
+            for j in 1..=i {
+                if is_palindrome[j][i] {
+                    dp[i] = cmp::min(dp[i], dp[j - 1] + 1);
+                }
+            }
+        }
+    }
+
+    dp[n - 1]
+}
+```
+
+</TabItem>
+</Tabs>
