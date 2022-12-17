@@ -1,0 +1,122 @@
+---
+id: 63-unique-paths-with-obstacles
+title: 不同路径-ii
+sidebar_label: 63. 不同路径-ii
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+:::
+
+## 题目
+
+一个机器人位于一个 `m x n` 网格的左上角(起始点在下图中标记为 `Start`). 机器人每次只能向下或者向右移动一步. 机器人试图达到网格的右下角(在下图中标记为 `Finish`).
+
+现在考虑网格中**有障碍物**. 那么从左上角到右下角将会有多少条不同的路径? 网格中的障碍物和空位置分别用 `1` 和 `0` 来表示.
+
+提示:
+
+- `m == obstacleGrid.length`
+- `n == obstacleGrid[i].length`
+- `1 <= m, n <= 100`
+- `obstacleGrid[i][j] 为 0 或 1`
+
+:::info 示例
+
+| Start |          |        |
+| ----- | -------- | ------ |
+|       | Obstacle |        |
+|       |          | Finish |
+
+输入: `obstacleGrid = [[0, 0, 0], [0, 1, 0], [0, 0, 0]]`
+
+输出: `2`
+
+解释: 从左上角到右下角一共有 2 条不同的路径:
+
+1. 向右 -> 向右 -> 向下 -> 向下
+2. 向下 -> 向下 -> 向右 -> 向右
+
+:::
+
+## 题解
+
+整体思路跟 [62. 不同路径](/leetcode/medium/62-unique-paths) 一样, 只不过是加上了障碍物, 那就遇到障碍物跳过即可.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {number[][]} obstacleGrid
+ * @return {number}
+ */
+var uniquePathsWithObstacles = function (obstacleGrid) {
+  const m = obstacleGrid.length
+  const n = obstacleGrid[0].length
+  const dp = new Array(m).fill(0).map(() => new Array(n).fill(0))
+
+  for (let i = 0; i < m && obstacleGrid[i][0] === 0; i++) {
+    dp[i][0] = 1
+  }
+
+  for (let j = 0; j < n && obstacleGrid[0][j] === 0; j++) {
+    dp[0][j] = 1
+  }
+
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      if (obstacleGrid[i][j] == 0) {
+        dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+      }
+    }
+  }
+
+  return dp[m - 1][n - 1]
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn unique_paths_with_obstacles(obstacle_grid: Vec<Vec<i32>>) -> i32 {
+    let m = obstacle_grid.len();
+    let n = obstacle_grid[0].len();
+    let mut dp = vec![vec![0; n]; m];
+
+    // Rust 不支持这种写法 for (let i = 0; i < m && obstacleGrid[i][0] === 0; i++)
+    // 需要手动用 match 来 break
+    for i in 0..m {
+        match obstacle_grid[i][0] == 0 {
+            true => dp[i][0] = 1,
+            false => break,
+        }
+    }
+
+    for j in 0..n {
+        match obstacle_grid[0][j] == 0 {
+            true => dp[0][j] = 1,
+            false => break,
+        }
+    }
+
+    for i in 1..m {
+        for j in 1..n {
+            if obstacle_grid[i][j] == 0 {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+    }
+
+    dp[m - 1][n - 1]
+}
+```
+
+</TabItem>
+</Tabs>
