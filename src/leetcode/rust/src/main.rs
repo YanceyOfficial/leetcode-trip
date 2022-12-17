@@ -3,7 +3,11 @@ mod hard;
 mod medium;
 
 fn main() {
-    let res = medium::question_93::restore_ip_addresses(String::from("25525511135"));
+    let res = medium::question_97::is_interleave(
+        String::from("db"),
+        String::from("b"),
+        String::from("cbb"),
+    );
 
     println!("{:?}", res);
 }
