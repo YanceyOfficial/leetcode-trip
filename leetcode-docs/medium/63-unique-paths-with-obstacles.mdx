@@ -90,13 +90,21 @@ pub fn unique_paths_with_obstacles(obstacle_grid: Vec<Vec<i32>>) -> i32 {
     let n = obstacle_grid[0].len();
     let mut dp = vec![vec![0; n]; m];
 
-    // Rust 不支持这种写法 for (let i = 0; i < m && obstacleGrid[i][0] === 0; i++)
-    // 需要手动用 match 来 break
-    for i in 0..m {
-        match obstacle_grid[i][0] == 0 {
-            true => dp[i][0] = 1,
+    // Rust 不支持这种写法: for (let i = 0; i < m && obstacleGrid[i][0] === 0; i++)
+    // 需要手动在 false 的时候 break 掉
+    for j in 0..n {
+        // 可以用 match
+        match obstacle_grid[0][j] == 0 {
+            true => dp[0][j] = 1,
             false => break,
         }
+
+        // 也可以直观地用 if...else
+        // if obstacle_grid[0][j] == 0 {
+        //     dp[0][j] = 1;
+        // } else {
+        //     break;
+        // }
     }
 
     for j in 0..n {
