@@ -8,6 +8,10 @@ keywords:
 
 :::success Tips
 题目类型: Dynamic Programming
+
+- [72. 编辑距离](/leetcode/hard/72-min-distance)
+- [115. 不同的子序列](/leetcode/hard/115-num-distinct)
+
 :::
 
 ## 题目
@@ -59,7 +63,7 @@ keywords:
 
 ![1143-longest-common-subsequence](../../static/img/1143-longest-common-subsequence.png)
 
-### 找 base case
+### 找 Base Case
 
 因为我们让索引为 0 的行和列表示空串, 那么它跟其他任何子字符串的最长公共子序列都为 0,
 即 `dp[0][..]` 和 `dp[..][0]` 都应该初始化为 `0`. 举个例子, `dp[0][3]` 代表着 `""` 和 `"bab"`, 显然它们的最长公共子序列是 `0`.
