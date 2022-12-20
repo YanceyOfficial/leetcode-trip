@@ -1,0 +1,114 @@
+---
+id: 583-min-distance
+title: 两个字符串的删除操作
+sidebar_label: 583. 两个字符串的删除操作
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+
+- [72. 编辑距离](/leetcode/hard/72-min-distance)
+- [115. 不同的子序列](/leetcode/hard/115-num-distinct)
+- [1143. 最长公共子序列](/leetcode/medium/1143-longest-common-subsequence)
+
+:::
+
+## 题目
+
+给定两个单词 `word1` 和 `word2`, 返回使得 `word1` 和 `word2` 相同所需的**最小步数**. 每步可以删除任意一个字符串中的一个字符.
+
+提示:
+
+- `1 <= word1.length, word2.length <= 500`
+- `word1` 和 `word2` 只包含小写英文字母
+
+:::info 示例
+
+```ts
+输入: word1 = "sea", word2 = "eat"
+输出: 2
+解释: 第一步将 "sea" 变为 "ea", 第二步将 "eat "变为 "ea"
+```
+
+```ts
+输入: (word1 = 'leetcode'), (word2 = 'etco')
+输出: 4
+```
+
+:::
+
+## 题解
+
+这道题是 [72. 编辑距离](/leetcode/hard/72-min-distance) 的简化版本, 去掉了**替换一个字符**的操作, 而保留了在每一步**可以删除任意一个字符串中的一个字符**的操作, 具体思路看那道题即可.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string} word1
+ * @param {string} word2
+ * @return {number}
+ */
+var minDistance = function (word1, word2) {
+  const m = word1.length
+  const n = word2.length
+  const dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0))
+
+  for (let i = 0; i <= m; i++) dp[i][0] = i
+  for (let j = 0; j <= n; j++) dp[0][j] = j
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (word1[i - 1] === word2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1]
+      } else {
+        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + 1
+      }
+    }
+  }
+
+  return dp[m][n]
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::cmp;
+
+pub fn min_distance(word1: String, word2: String) -> i32 {
+    let (word1, word2) = (word1.as_bytes(), word2.as_bytes());
+    let (m, n) = (word1.len(), word2.len());
+    let mut dp = vec![vec![0; n + 1]; m + 1];
+
+    for i in 0..=m {
+        dp[i][0] = i as i32;
+    }
+
+    for j in 0..=n {
+        dp[0][j] = j as i32;
+    }
+
+    for i in 1..=m {
+        for j in 1..=n {
+            if word1[i - 1] == word2[j - 1] {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = cmp::min(dp[i - 1][j], dp[i][j - 1]) + 1;
+            }
+        }
+    }
+
+    dp[m][n]
+}
+
+```
+
+</TabItem>
+</Tabs>
