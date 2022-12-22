@@ -1,0 +1,178 @@
+---
+id: 120-minimum-total
+title: 三角形最小路径和
+sidebar_label: 120. 三角形最小路径和
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+:::
+
+## 题目
+
+给定一个三角形 `triangle`, 找出自顶向下的最小路径和.
+
+每一步只能移动到下一行中相邻的结点上. **相邻的结点**在这里指的是**下标**与**上一层结点下标**相同或者等于**上一层结点下标 + 1 **的两个结点.
+也就是说, 如果正位于当前行的下标 `i`, 那么下一步可以移动到下一行的下标 `i` 或 `i + 1`.
+
+提示:
+
+- `1 <= triangle.length <= 200`
+- `triangle[0].length == 1`
+- `triangle[i].length == triangle[i - 1].length + 1`
+- `-10⁴ <= triangle[i][j] <= 10⁴`
+
+:::info 示例
+
+```ts
+输入: triangle = [[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]
+输出: 11
+解释:
+
+   2
+  3 4
+ 6 5 7
+4 1 8 3
+
+自顶向下的最小路径和为 11(即 2 + 3 + 5 + 1 = 11).
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 递归 / 记忆化递归" label="JavaScript - 递归 / 记忆化递归">
+
+```ts
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ */
+var minimumTotal = function (triangle) {
+  const n = triangle.length
+
+  const dfs = (i, j) => {
+    // 所有行已经扫描完了, 终止递归
+    if (i === n) return 0
+
+    // 从当前元素 triangle[i][j] 可以到达:
+    // 下一层相同下标元素, 即 triangle[i + 1][j]
+    // 也可以下一层下标元素加一的元素, 即 triangle[i + 1][j + 1]
+    return Math.min(dfs(i + 1, j), dfs(i + 1, j + 1)) + triangle[i][j]
+  }
+
+  return dfs(0, 0)
+}
+```
+
+通过使用 `memo` 来减少重复的递归, 初始化成 `Number.MAX_SAFE_INTEGER`. 当命中 `memo` 时就不用走递归, 直接返回缓存即可.
+
+```ts
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ */
+var minimumTotal = function (triangle) {
+  const n = triangle.length
+  const memo = new Array(n)
+    .fill(Number.MAX_SAFE_INTEGER)
+    .map(() => new Array(n).fill(Number.MAX_SAFE_INTEGER))
+
+  const dfs = (i, j) => {
+    if (i === n) return 0
+
+    if (memo[i][j] !== Number.MAX_SAFE_INTEGER) return memo[i][j]
+
+    return (memo[i][j] =
+      Math.min(dfs(i + 1, j), dfs(i + 1, j + 1)) + triangle[i][j])
+  }
+
+  return dfs(0, 0)
+}
+```
+
+- 时间复杂度: `O(n²)`, `n` 为三角形的行数
+- 空间复杂度: `O(n²)`, `n` 为三角形的行数
+
+</TabItem>
+<TabItem value="JavaScript - 动态规划二维 / 一维数组" label="JavaScript - 动态规划二维 / 一维数组" default>
+
+## 二维数组
+
+定义二维 `dp` 数组, 改为自底而上递推, `dp[i][j]` 表示点` (i, j)` 到底边的最小路径和. 状态转移方程如下:
+
+`dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j + 1]) + triangle[i][j]`
+
+```ts
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ */
+var minimumTotal = function (triangle) {
+  const n = triangle.length
+  const dp = new Array(n + 1).fill(0).map(() => new Array(n + 1).fill(0))
+
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = 0; j <= i; j++) {
+      dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j + 1]) + triangle[i][j]
+    }
+  }
+
+  return dp[0][0]
+}
+```
+
+- 时间复杂度: `O(n²)`, `n` 为三角形的行数
+- 空间复杂度: `O(n²)`, `n` 为三角形的行数
+
+## 一维数组
+
+在递推中我们发现, 计算 `dp[i][j]` 时, 只用到了下一行的 `dp[i + 1][j]` 和 `dp[i + 1][j + 1]`. 因此 `dp` 数组不需要定义 `n` 行, 只要定义**一行**就可以了, 这样空间复杂度就降到了 `O(n)`.
+
+```ts
+/**
+ * @param {number[][]} triangle
+ * @return {number}
+ */
+var minimumTotal = function (triangle) {
+  const n = triangle.length
+  const dp = new Array(n + 1).fill(0)
+
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = 0; j <= i; j++) {
+      dp[j] = Math.min(dp[j], dp[j + 1]) + triangle[i][j]
+    }
+  }
+
+  return dp[0]
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::cmp;
+
+pub fn minimum_total(triangle: Vec<Vec<i32>>) -> i32 {
+    let n = triangle.len();
+    let mut dp = vec![0; n + 1];
+
+    for i in (0..=n - 1).rev() {
+        for j in 0..=i {
+            dp[j] = cmp::min(dp[j], dp[j + 1]) + triangle[i][j];
+        }
+    }
+
+    dp[0]
+}
+```
+
+</TabItem>
+</Tabs>
