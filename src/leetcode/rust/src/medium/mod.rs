@@ -12,6 +12,7 @@ pub mod question_256;
 pub mod question_3;
 pub mod question_300;
 pub mod question_316;
+pub mod question_322;
 pub mod question_347;
 pub mod question_380;
 pub mod question_39;
