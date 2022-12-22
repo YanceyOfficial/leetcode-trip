@@ -21,22 +21,28 @@ keywords:
 
 :::info 示例
 
-输入: amount = 5, coins = [1, 2, 5]
+输入: `amount = 5`, `coins = [1, 2, 5]`
 
-输出: 4
+输出: `4`
 
 解释: 有四种方式可以凑成总金额:
 
-- 5=5
-- 5=2+2+1
-- 5=2+1+1+1
-- 5=1+1+1+1+1
+- `5 = 5`
+- `5 = 2 + 2 + 1`
+- `5 = 2 + 1 + 1 + 1`
+- `5 = 1 + 1 + 1 + 1 + 1`
 
 :::
 
 ## 题解
 
-`dp[i]` 代表装满容量为 j 的背包有几种硬币组合, 转移方程为 `dp[i] = dp[i] + dp[i - coin]`, 也就是当前填满 j 容量的方法数 = 之前填满 j 容量的硬币组合数 + 填满 j - coin 容量的硬币组合数.
+`dp[i]` 代表装满容量为 `i` 的背包有几种硬币组合, 转移方程为 `dp[i] = dp[i] + dp[i - coin]`, 也就是当前填满 `i` 容量的方法数等于之前填满 `i` 容量的硬币组合数加上填满 `i - coin` 容量的硬币组合数.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -47,8 +53,8 @@ keywords:
 var change = function (amount, coins) {
   const n = amount + 1
   const dp = new Array(n).fill(0)
-
   dp[0] = 1
+
   for (const coin of coins) {
     for (let i = coin; i < n; i++) {
       dp[i] += dp[i - coin]
@@ -57,3 +63,25 @@ var change = function (amount, coins) {
   return dp[amount]
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn change(amount: i32, coins: Vec<i32>) -> i32 {
+    let n = (amount + 1) as usize;
+    let mut dp = vec![0; n];
+    dp[0] = 1;
+
+    for coin in coins {
+        for i in (coin as usize)..n {
+            dp[i] += dp[i - coin as usize];
+        }
+    }
+
+    dp[amount as usize]
+}
+```
+
+</TabItem>
+</Tabs>
