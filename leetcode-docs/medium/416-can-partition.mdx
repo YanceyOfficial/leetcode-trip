@@ -32,7 +32,13 @@ keywords:
 
 ## 题解
 
-这道题可以转化成 [0-1 背包问题](/algorithm-design/dynamic-programming/pack#0-1-背包). 先给 `nums` 求和记为 `sum`, 因此这道题就变成了: 给你背包容量为 `sum / 2` 和 `n` 个物品, 每个物品的重量为 `nums[i]`, 现在让你装物品, 是否存在一种装法, 能够恰好将背包装满.
+这道题可以转化成 [0-1 背包问题](/algorithm-design/dynamic-programming/pack#0-1-背包). 先给 `nums` 求和记为 `weight`, 因此这道题就变成了: 给你背包容量为 `weight / 2` 和 `n` 个物品, 每个物品的重量为 `nums[i]`, 现在让你装物品, 是否存在一种装法, 能够恰好将背包装满.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 二维数组" label="JavaScript - 二维数组" default>
 
 ### 二维数组解法
 
@@ -42,22 +48,22 @@ keywords:
  * @return {boolean}
  */
 var canPartition = function (nums) {
-  let sum = nums.reduce((acc, val) => acc + val)
+  let weight = nums.reduce((acc, val) => acc + val)
 
   // 如果和为奇数, 肯定无法切割成两个子数组
-  if (sum % 2 === 1) return false
+  if (weight % 2 === 1) return false
+  weight /= 2
 
   const n = nums.length
-  sum /= 2
+  const dp = new Array(n + 1)
+    .fill(false)
+    .map(() => new Array(weight + 1).fill(false))
 
-  const dp = []
-  for (let i = 0; i <= n; i++) {
-    dp.push(new Array(sum + 1).fill(false))
-    dp[i][0] = true
-  }
+  // 重量为 0 时选择 0 个数字, 一定是 true
+  dp[0][0] = true
 
   for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= sum; j++) {
+    for (let j = 1; j <= weight; j++) {
       if (j - nums[i - 1] < 0) {
         // 背包容量不足, 不能装入第 i 个物品
         dp[i][j] = dp[i - 1][j]
@@ -65,37 +71,78 @@ var canPartition = function (nums) {
         // 装入或不装入背包
         // 不装入: dp[i - 1][j]
         // 装入: 如果装了第 i 个物品, 就要看背包的剩余重量 j - nums[i - 1] 限制下是否能够被恰好装满
-        dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - nums[i - 1]])
+        dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]]
       }
     }
   }
 
-  return dp[n][sum]
+  return dp[n][weight]
 }
 ```
 
-### 一维数组解法
+- 时间复杂度: `O(n * weight)`, 其中 `n` 是数组 `sum` 的长度, `weight` 是数组元素和的一半.
 
-`dp[i][j]` 都是通过上一行 `dp[i - 1][..]` 转移过来的, 之前的数据都不会再使用了, 因此可以把 i 消去.
+- 空间复杂度: `O(target * weight)`, 其中 `n` 是数组 `sum` 的长度, `weight` 是数组元素和的一半.
+
+</TabItem>
+<TabItem value="JavaScript - 一维数组" label="JavaScript - 一维数组">
+
+`dp[i][j]` 都是通过上一行 `dp[i - 1][..]` 转移过来的, 之前的数据都不会再使用了, 因此可以把 `i` 消去.
 
 ```ts
 var canPartition = function (nums) {
-  let sum = nums.reduce((acc, val) => acc + val)
-  if (sum % 2 === 1) return false
+  let weight = nums.reduce((acc, val) => acc + val)
+  if (weight % 2 === 1) return false
   const n = nums.length
-  sum /= 2
+  weight /= 2
 
-  const dp = new Array(sum + 1).fill(false)
+  const dp = new Array(weight + 1).fill(false)
   dp[0] = true
 
   for (let i = 1; i <= n; i++) {
-    for (let j = sum; j >= 0; j--) {
+    for (let j = weight; j >= 0; j--) {
       if (j - nums[i - 1] >= 0) {
         dp[j] = dp[j] || dp[j - nums[i - 1]]
       }
     }
   }
 
-  return dp[sum]
+  return dp[weight]
 }
 ```
+
+- 时间复杂度: `O(n * weight)`, 其中 `n` 是数组 `sum` 的长度, `weight` 是数组元素和的一半.
+
+- 空间复杂度: `O(target)`.
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn can_partition(nums: Vec<i32>) -> bool {
+    let n = nums.len();
+    let mut weight = nums.iter().sum::<i32>();
+    if (weight % 2 == 1) {
+        return false;
+    }
+    weight /= 2;
+
+    let mut dp = vec![vec![false; (weight + 1) as usize]; n + 1];
+    dp[0][0] = true;
+
+    for i in 1..=n {
+        for j in 1..=(weight as usize) {
+            if (j as i32) - nums[i - 1] < 0 {
+                dp[i][j] = dp[i - 1][j];
+            } else {
+                dp[i][j] = dp[i - 1][j] || dp[i - 1][((j as i32) - nums[i - 1]) as usize];
+            }
+        }
+    }
+
+    dp[n][weight as usize]
+}
+```
+
+</TabItem>
+</Tabs>
