@@ -6,7 +6,7 @@ module.exports = {
     'recursion',
     'union-find',
     'dfs-bfs',
-    'pre-sum',
+    'prefix-sum',
     'difference-array',
     'monotone-stack',
     'sliding-window',
@@ -17,6 +17,7 @@ module.exports = {
         'dynamic-programming/concept',
         'dynamic-programming/pack',
         'dynamic-programming/stock',
+        'dynamic-programming/string-matching',
       ],
     },
 
