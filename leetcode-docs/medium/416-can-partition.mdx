@@ -100,10 +100,8 @@ var canPartition = function (nums) {
   dp[0] = true
 
   for (let i = 1; i <= n; i++) {
-    for (let j = weight; j >= 0; j--) {
-      if (j - nums[i - 1] >= 0) {
-        dp[j] = dp[j] || dp[j - nums[i - 1]]
-      }
+    for (let j = weight; j >= nums[i - 1]; j--) {
+      dp[j] = dp[j] || dp[j - nums[i - 1]]
     }
   }
 
