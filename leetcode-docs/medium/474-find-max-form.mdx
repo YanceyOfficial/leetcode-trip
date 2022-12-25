@@ -1,0 +1,170 @@
+---
+id: 474-find-max-form
+title: 一和零
+sidebar_label: 474. 一和零
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+:::
+
+## 题目
+
+给你一个二进制字符串数组 `strs` 和两个整数 `m` 和 `n`. 请你找出并返回 `strs` 的最大子集的长度, 该子集中**最多**有 `m` 个 `0` 和 `n` 个 `1`. 如果 `x` 的所有元素也是 `y` 的元素, 集合 `x` 是集合 `y` 的**子集**.
+
+提示:
+
+- `1 <= strs.length <= 600`
+- `1 <= strs[i].length <= 100`
+- `strs[i]` 仅由 `'0'` 和 `'1'` 组成
+- `1 <= m, n <= 100`
+
+:::info 示例
+
+```ts
+输入: strs = ["10", "0001", "111001", "1", "0"], m = 5, n = 3
+输出: 4
+解释: 
+最多有 5 个 0 和 3 个 1 的最大子集是 {"10", "0001", "1", "0"}, 因此答案是 4.
+其他满足题意但较小的子集包括 {"0001", "1"} 和 {"10", "1", "0"}. 
+{"111001"} 不满足题意, 因为它含 4 个 1, 大于 n 的值 3.
+```
+
+```ts
+输入: strs = ["10", "0", "1"], m = 1, n = 1
+输出: 2
+解释: 最大的子集是 {"0", "1"}, 所以答案是 2.
+```
+
+:::
+
+## 题解
+
+典型的 [0-1 背包](/algorithm-design/dynamic-programming/pack) 问题, 只不过要写成三维 `dp`, 当然可以降到二维 `dp`.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 三维数组" label="JavaScript - 三维数组" default>
+
+```ts
+/**
+ * @param {string[]} strs
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var findMaxForm = function (strs, m, n) {
+  const len = strs.length
+
+  // 先计算 strs 每个元素中 0 和 1 的个数
+  const oArr = []
+  for (const str of strs) {
+    const subArr = new Array(2).fill(0)
+    const strArr = str.split('')
+    for (const char of strArr) {
+      subArr[char] += 1
+    }
+    oArr.push(subArr)
+  }
+
+  // 创建三维数组
+  const dp = new Array(len + 1)
+    .fill(0)
+    .map(() => new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0)))
+
+  // 基本的 0-1 背包套路
+  for (let i = 1; i <= len; i++) {
+    const [c0, c1] = oArr[i - 1]
+    for (let j = 0; j <= m; j++) {
+      for (let k = 0; k <= n; k++) {
+        if (j - c0 < 0 || k - c1 < 0) {
+          dp[i][j][k] = dp[i - 1][j][k]
+        } else {
+          dp[i][j][k] = Math.max(dp[i - 1][j][k], dp[i - 1][j - c0][k - c1] + 1)
+        }
+      }
+    }
+  }
+
+  return dp[len][m][n]
+}
+```
+
+</TabItem>
+<TabItem value="JavaScript - 二维数组" label="JavaScript - 二维数组">
+
+```ts
+/**
+ * @param {string[]} strs
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+var findMaxForm = function (strs, m, n) {
+  const oArr = []
+  for (const str of strs) {
+    const subArr = new Array(2).fill(0)
+    const strArr = str.split('')
+    for (const char of strArr) {
+      subArr[char] += 1
+    }
+    oArr.push(subArr)
+  }
+
+  const dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0))
+  for (let i = 1; i <= strs.length; i++) {
+    const [c0, c1] = oArr[i - 1]
+    for (let j = m; j >= c0; j--) {
+      for (let k = n; k >= c1; k--) {
+        dp[j][k] = Math.max(dp[j][k], dp[j - c0][k - c1] + 1)
+      }
+    }
+  }
+
+  return dp[m][n]
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::cmp;
+
+pub fn find_max_form(strs: Vec<String>, m: i32, n: i32) -> i32 {
+    let len = strs.len();
+    let m = m as usize;
+    let n = n as usize;
+    let arr = strs.iter().fold(vec![], |mut arr, str| {
+        let sub_arr = str.chars().fold((0, 0), |mut sub_arr, ch| {
+            if ch == '0' {
+                sub_arr.0 += 1;
+            } else {
+                sub_arr.1 += 1;
+            }
+            sub_arr
+        });
+        arr.push(sub_arr);
+        arr
+    });
+
+    let mut dp = vec![vec![0; n + 1]; m + 1];
+    for i in 1..=len {
+        let (c0, c1) = arr[i - 1];
+        for j in (c0..=m).rev() {
+            for k in (c1..=n).rev() {
+                dp[j][k] = cmp::max(dp[j][k], dp[j - c0][k - c1] + 1);
+            }
+        }
+    }
+
+    dp[m][n]
+}
+```
+
+</TabItem>
+</Tabs>

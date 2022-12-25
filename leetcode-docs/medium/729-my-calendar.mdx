@@ -135,9 +135,9 @@ MyCalendar.prototype.update = function (start, end, l, r, idx) {
 }
 ```
 
-- 时间复杂度: O(nlogC), 其中 n 为日程安排的数量。由于使用了线段树查询, 线段树的最大深度为 logC, 每次最多会查询 logC 个节点, 每次求最大的预订需的时间复杂度为 O(logC + logC), 因此时间复杂度为 O(nlogC), 在此 C 取固定值 10<sup>9</sup>.
+- 时间复杂度: O(nlogC), 其中 n 为日程安排的数量. 由于使用了线段树查询, 线段树的最大深度为 logC, 每次最多会查询 logC 个节点, 每次求最大的预订需的时间复杂度为 O(logC + logC), 因此时间复杂度为 O(nlogC), 在此 C 取固定值 10<sup>9</sup>.
 
-- 空间复杂度: O(nlogC), 其中 n 为日程安排的数量。由于该解法采用的为动态线段树, 线段树的最大深度为 logC, 每次预订最多会在线段树上增加 logC 个节点, 因此空间复杂度为 O(nlogC), 在此 C 取固定值 10<sup>9</sup>.
+- 空间复杂度: O(nlogC), 其中 n 为日程安排的数量由于该解法采用的为动态线段树, 线段树的最大深度为 logC, 每次预订最多会在线段树上增加 logC 个节点, 因此空间复杂度为 O(nlogC), 在此 C 取固定值 10<sup>9</sup>.
 
 </TabItem>
 </Tabs>
