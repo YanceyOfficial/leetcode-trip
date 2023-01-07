@@ -1,0 +1,166 @@
+---
+id: 10-is-match
+title: 正则表达式匹配
+sidebar_label: 10. 正则表达式匹配
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+
+相关题目:
+
+- [44. 通配符匹配](/leetcode/hard/44-is-match)
+- [72. 编辑距离](/leetcode/hard/72-min-distance)
+- [115. 不同的子序列](/leetcode/hard/115-num-distinct)
+- [583. 两个字符串的删除操作](/leetcode/medium/583-min-distance)
+- [1143. 最长公共子序列](/leetcode/medium/1143-longest-common-subsequence)
+
+:::
+
+## 题目
+
+给你一个字符串 `s` 和一个字符规律 `p`, 请你来实现一个支持 `'.'` 和 `'*'` 的正则表达式匹配.
+
+- `'.'` 匹配任意单个字符
+- `'*'` 匹配零个或多个前面的那一个元素
+
+所谓匹配, 是要涵盖**整个**字符串 `s` 的, 而不是部分字符串.
+
+提示:
+
+- `1 <= s.length <= 20`
+- `1 <= p.length <= 30`
+- `s` 只包含从 `a-z` 的小写字母.
+- `p` 只包含从 `a-z` 的小写字母, 以及字符 `.` 和 `*`.
+- 保证每次出现字符 `*` 时, 前面都匹配到有效的字符
+
+:::info 示例
+
+```ts
+输入: s = "aa", p = "a"
+输出: false
+解释: "a" 无法匹配 "aa" 整个字符串.
+```
+
+```ts
+输入: s = "aa", p = "a*"
+输出: true
+解释: 因为 '*' 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 'a'. 因此, 字符串 "aa" 可被视为 'a' 重复了一次.
+```
+
+```ts
+输入: s = "ab", p = ".*"
+输出: true
+解释: ".*" 表示可匹配零个或多个任意字符.
+```
+
+:::
+
+## 题解
+
+当 `p[j - 1] === s[i - 1] || p[j - 1] === '.'`, 即 `s` 和 `p` 字母匹配, 或者通过 `'.'` 匹配任意单个字符, 状态转移方程: `dp[i][j] = dp[i - 1][j - 1]`.
+
+主要理解 `'*'`, 它需要跟前面一个字符配合来使用, 比如 `a*`, 可以匹配:
+
+- `""`: (匹配 `0` 个 `a`)
+- `"a"`: (匹配 `1` 个 `a`)
+- `"aa"`: (匹配 `2` 个 `a`)
+- `"aaa"`: (匹配 `3` 个 `a`)
+
+即当 `s[i - 1] === p[j - 2]`, 有 `dp[i][j] = dp[i - 1][j]`.
+
+如果是 `'*'` 的前一个字符为 `'.'`, 那我们只需要看 `'.'` 的前面字符匹配情况, 状态转移过程为: `dp[i][j] = dp[i][j - 2]`.
+
+两者可以合起来, 即当 `s[i - 1] === p[j - 2] || p[j - 2] === '.'`, 有 `dp[i][j] = dp[i - 1][j] || dp[i][j - 2]`.
+
+对于其他情况, 如果没匹配上, 有 `dp[i][j] = dp[i][j - 2]`.
+
+初始化时, `dp[0][0]` 为 `true`, 这是因为当 `p` 为空, `s` 为空时, 肯定是匹配成功的. 此外, 当 `s` 为空, `p` 如果是 `'*'`, 有 `dp[0][j] = dp[0][j - 2]`.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {boolean}
+ */
+var isMatch = function (s, p) {
+  const m = s.length
+  const n = p.length
+  const dp = new Array(m + 1)
+    .fill(false)
+    .map(() => new Array(n + 1).fill(false))
+
+  // 初始化
+  dp[0][0] = true
+  for (let j = 1; j <= n; j++) {
+    if (p[j - 1] === '*') {
+      dp[0][j] = dp[0][j - 2]
+    }
+  }
+
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      // 字母匹配上了, 或者 p 此时为 . 可能任意匹配, 状态从前一个转移过来即可
+      if (p[j - 1] === s[i - 1] || p[j - 1] === '.') {
+        dp[i][j] = dp[i - 1][j - 1]
+        // 如果遇到 *, 需要关注 * 前面那个
+      } else if (p[j - 1] === '*') {
+        // 如果 s 和 * 前面那个匹配, 有 dp[i][j] = dp[i - 1][j]
+        // 如果 * 前面是个 . 有 dp[i][j] = dp[i][j - 2]
+        if (s[i - 1] === p[j - 2] || p[j - 2] === '.') {
+          dp[i][j] = dp[i - 1][j] || dp[i][j - 2]
+          // 没匹配上的话就跳过
+        } else {
+          dp[i][j] = dp[i][j - 2]
+        }
+      }
+    }
+  }
+
+  return dp[m][n]
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn is_match(s: String, p: String) -> bool {
+    let (s_bytes, p_bytes) = (s.as_bytes(), p.as_bytes());
+    let (m, n) = (s.len(), p.len());
+    let mut dp = vec![vec![false; n + 1]; m + 1];
+    dp[0][0] = true;
+    for j in 1..=n {
+        if p_bytes[j - 1] == b'*' {
+            dp[0][j] = dp[0][j - 2];
+        }
+    }
+
+    for i in 1..=m {
+        for j in 1..=n {
+            if s_bytes[i - 1] == p_bytes[j - 1] || p_bytes[j - 1] == b'.' {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else if p_bytes[j - 1] == b'*' {
+                if s_bytes[i - 1] == p_bytes[j - 2] || p_bytes[j - 2] == '.' {
+                    dp[i][j] = dp[i][j - 2] || dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i][j - 2];
+                }
+            }
+        }
+    }
+
+    dp[m][n]
+}
+```
+
+</TabItem>
+</Tabs>
