@@ -10,7 +10,6 @@ keywords:
 题目类型: HashMap
 :::
 
-
 ## 题目
 
 给你一个数组 `nums` 和一个整数 `target`, 数组中保证存在两个数的和为 `target`, 请你返回这两个数的索引.
@@ -32,9 +31,10 @@ import TabItem from '@theme/TabItem'
  * @return {number[]}
  */
 var twoSum = function (nums, target) {
+  const n = nums.length
   const map = new Map()
 
-  for (let i = 0; i < nums.length; i += 1) {
+  for (let i = 0; i < n; i++) {
     const dif = target - nums[i]
 
     if (map.has(dif)) {
@@ -72,6 +72,7 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
 </TabItem>
 </Tabs>
 
-## 复杂度
+## 复杂度分析
 
-时间复杂度和空间复杂度都为 O(n)
+- 时间复杂度: O(n)
+- 空间复杂度: O(n)
