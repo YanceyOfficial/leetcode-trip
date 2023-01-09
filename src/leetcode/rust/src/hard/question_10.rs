@@ -15,7 +15,7 @@ pub fn is_match(s: String, p: String) -> bool {
             if s_bytes[i - 1] == p_bytes[j - 1] || p_bytes[j - 1] == b'.' {
                 dp[i][j] = dp[i - 1][j - 1];
             } else if p_bytes[j - 1] == b'*' {
-                if s_bytes[i - 1] == p_bytes[j - 2] || p_bytes[j - 2] == '.' {
+                if s_bytes[i - 1] == p_bytes[j - 2] || p_bytes[j - 2] == b'.' {
                     dp[i][j] = dp[i][j - 2] || dp[i - 1][j];
                 } else {
                     dp[i][j] = dp[i][j - 2];
