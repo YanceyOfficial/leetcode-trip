@@ -1,18 +1,17 @@
 #[allow(unused)]
 pub fn longest_palindrome(s: String) -> String {
-    let len = s.len();
-    let center_count = len * 2 - 1;
+    let n = s.len();
     let s_byte = s.as_bytes();
-    let mut max_str = "";
+    let mut max = "";
 
-    for i in 0..center_count {
+    for i in 0..(n * 2 - 1) {
         let mut left = i / 2;
         let mut right = left + i % 2;
 
-        while left < len && right < len && s_byte[left] == s_byte[right] {
-            let curr_str = &s[left..right + 1];
-            if curr_str.len() > max_str.len() {
-                max_str = curr_str;
+        while left < n && right < n && s_byte[left] == s_byte[right] {
+            let curr = &s[left..=right];
+            if curr.len() > max.len() {
+                max = curr;
             }
 
             left -= 1;
@@ -20,5 +19,5 @@ pub fn longest_palindrome(s: String) -> String {
         }
     }
 
-    max_str.to_string()
+    max.to_string()
 }
