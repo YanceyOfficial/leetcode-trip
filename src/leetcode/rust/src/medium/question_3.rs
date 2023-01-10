@@ -3,7 +3,7 @@ use std::{collections::HashMap, cmp};
 #[allow(unused)]
 pub fn length_of_longest_substring(s: String) -> i32 {
   let s_bytes = s.as_bytes();
-  let mut max_len = 0;
+  let mut max = 0;
   let mut map: HashMap<u8, i32> = HashMap::with_capacity(26);
   let mut start = 0;
   let mut end = 0;
@@ -21,8 +21,8 @@ pub fn length_of_longest_substring(s: String) -> i32 {
           map.entry(start_letter).and_modify(|e| *e -= 1);
       }
 
-      max_len = cmp::max(end - start, max_len);
+      max = cmp::max(end - start, max);
   }
 
-  max_len as i32
+  max as i32
 }

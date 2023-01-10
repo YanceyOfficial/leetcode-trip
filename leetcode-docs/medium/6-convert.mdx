@@ -6,36 +6,58 @@ sidebar_label: 6. z-字形变换
 
 ## 题目
 
-将一个给定字符串 s 根据给定的行数 numRows, 以从上往下, 从左到右进行 Z 字形排列. 比如输入字符串为 "PAYPALISHIRING" 行数为 3 时, 排列如下:
+将一个给定字符串 `s` 根据给定的行数 `numRows`, 以从上往下, 从左到右进行 `Z` 字形排列. 比如输入字符串为 `"PAYPALISHIRING"` 行数为 `3` 时, 排列如下:
 
-```ts
+```bash
 P   A   H   N
 A P L S I I G
 Y   I   R
 ```
 
-之后, 你的输出需要从左往右逐行读取, 产生出一个新的字符串, 比如: "PAHNAPLSIIGYIR".
+之后, 你的输出需要从左往右逐行读取, 产生出一个新的字符串, 比如: `"PAHNAPLSIIGYIR"`.
 
 :::info 示例
 
-输入: s = "PAYPALISHIRING", numRows = 4
+输入: `s = "PAYPALISHIRING"`, `numRows = 4`
 
-输出: "PINALSIGYAHRPI"
+输出: `"PINALSIGYAHRPI"`
 
 解释:
 
-```ts
-P I N
-A L S I G
-Y A H R
-P I
+```bash
+P     I     N
+A   L S   I G
+Y A   H R
+P     I
 ```
 
 :::
 
 ## 题解
 
-逐行读取 Z 字形图案相同的顺序访问字符串.
+以 `s = "PAYPALISHIRING"`, `numRows = 4` 为例, 把 `Z` 字形数字转换成索引排列, 然后我们来找规律.
+
+```bash
+0       6        12
+1    5  7     11 13
+2  4    8  10
+3       9
+```
+
+我们从第一排可以看到循环的数字跟 `6` 有关, 因此可以以 `6` 为突破口试试:
+
+- 第一排 `0 % 6 = 0`; `6 % 6 = 0`; `12 % 6 = 0`. 可以看到取余都是 `0`, 即可根据余数判断这几个字母是第一排.
+- 第二排 `1 % 6 = 1`; `5 % 6 = 5`; `7 % 6 = 1`; `11 % 6 = 5`; `13 % 6 = 1`. 可以看到余数都是 `1` 或者 `5`, 对于 `5`, 可以通过 `6 - 5` 变成 `1`.
+- 第三排 `2 % 6 = 2`; `4 % 6 = 4`; `8 % 6 = 2`; `10 % 6 = 4`. 可以看到余数都是 `2` 或者 `4`, 对于 `4`, 可以通过 `6 - 4` 变成 `2`.
+- 第四排 `3 % 6 = 3`; `9 % 6 = 3`. 可以看到取余都是 `3`, 即可根据余数判断这几个字母都是第三排.
+
+当然这个 `6` 是怎么来的呢? 即 `(numRows - 1) * 2`.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -45,16 +67,73 @@ P I
  */
 var convert = function (s, numRows) {
   const n = s.length
+
+  // 如果 numRows 比 2 小, 是没法变成 Z 型的, 直接返回 s 即可
   if (numRows < 2) return s
 
-  const res = Array(n).fill('')
-  const cycleLen = (numRows - 1) * 2
+  // 初始化一个数组, 数组长度为 numRows
+  const res = Array(numRows).fill('')
+
+  // 循环, 也就是示例中的 6
+  const cycle = (numRows - 1) * 2
 
   for (let i = 0; i < n; i++) {
-    const carry = i % cycleLen
-    res[carry < numRows ? carry : cycleLen - carry] += s[i]
+    // 计算余数
+    const carry = i % cycle
+
+    // 如果余数小于 numRows, 那就用这个余数即可, 否则用循环数减去该余数
+    res[carry < numRows ? carry : cycle - carry] += s[i]
   }
 
+  // 最后把数组合并成字符串即可
   return res.join('')
 }
 ```
+
+</TabItem>
+
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn convert(s: String, num_rows: i32) -> String {
+    if num_rows < 2 {
+        return s;
+    }
+    let n = s.len();
+    let vec = s
+        .chars()
+        .collect::<Vec<char>>()
+        .iter()
+        .map(|&x| x.to_string())
+        .collect::<Vec<String>>();
+    let mut arr = vec![String::from(""); num_rows as usize];
+    let cycle = (num_rows - 1) * 2;
+
+    for i in 0..n {
+        let carry = (i as i32) % cycle;
+        let idx = if carry < num_rows {
+            carry
+        } else {
+            cycle - carry
+        };
+
+        // impl Add<&str> for String {
+        //     type Output = String;
+
+        //     #[inline]
+        //     fn add(mut self, other: &str) -> String {
+        //         self.push_str(other);
+        //         self
+        //     }
+        // }
+        // 注意字符串加法必须是 String + &str
+        arr[idx as usize] += &vec[i];
+    }
+
+    arr.join("")
+}
+
+```
+
+</TabItem>
+</Tabs>
