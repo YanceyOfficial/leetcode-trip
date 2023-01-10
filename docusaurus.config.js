@@ -21,7 +21,7 @@ module.exports = {
     },
   ],
   stylesheets: [
-    'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css',
+    'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css',
     '/css/gitalk.css',
   ],
   plugins: [
