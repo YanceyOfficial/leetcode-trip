@@ -22,26 +22,26 @@ keywords:
 
 ## 题目
 
-给你一个字符串 s 和 t, 请返回 s 中涵盖 t 所有字符的最小子串. 如果 s 中不存在涵盖 t 所有字符的子串, 则返回空字符串.
+给你一个字符串 `s` 和 `t`, 请返回 `s` 中涵盖 `t` 所有字符的最小子串. 如果 `s` 中不存在涵盖 `t` 所有字符的子串, 则返回空字符串.
 
-注意: 如果 s 中存在这样的子串, 我们保证它是唯一的答案.
+注意: 如果 `s` 中存在这样的子串, 我们保证它是唯一的答案.
 
 :::info 示例
 
-输入: s = "ADOBECODEBANC", t = "ABC"
+输入: `s = "ADOBECODEBANC"`, `t = "ABC"`
 
-输出: BANC
+输出: `BANC`
 :::
 
 ## 题解
 
 这是个很经典的滑动窗口问题, 该题跟 [438. 找到字符串中所有字母异位词](/leetcode/medium/438-find-anagrams) 解法一致.
 
-1. 首先创建一个名叫 needMapMap 的 hashmap, 用于映射 t 的每个元素
-2. 定义一个 meetedCount 的变量, 初始化为 0, 当 `window[s[right]] === needMap[s[right]]` 时, 让 meetedCount++
-3. 因此当 `meetedCount === needMap.size` 时, 就保证了 window 中已经覆盖了 t 字符串
-4. 接着就可以缩小窗口了, 缩小窗口的代码跟扩大窗口的代码相反, 即直到窗口中的字符串不再符合要求, left 不再继续移动
-5. 重复这个过程, 直到 right 到了最右边退出循环
+1. 首先创建一个名叫 `needMap` 的哈希表, 用于映射 `t` 的每个元素
+2. 定义一个 `meetedCount` 的变量, 初始化为 `0`, 当 `window[s[right]] === needMap[s[right]]` 时, 让 `meetedCount++`
+3. 因此当 `meetedCount === needMap.size` 时, 就保证了 `window` 中已经覆盖了 `t` 字符串
+4. 接着就可以缩小窗口了, 缩小窗口的代码跟扩大窗口的代码相反, 即直到窗口中的字符串不再符合要求, `left` 不再继续移动
+5. 重复这个过程, 直到 `right` 到了最右边退出循环
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -60,15 +60,15 @@ var minWindow = function (s, t) {
   const tLen = t.length
   let minStr = ''
 
-  const needMapMap = new Map()
+  const needMap = new Map()
   for (const letter of t) {
-    if (needMapMap.has(letter)) {
-      needMapMap.set(letter, needMapMap.get(letter) + 1)
+    if (needMap.has(letter)) {
+      needMap.set(letter, needMap.get(letter) + 1)
     } else {
-      needMapMap.set(letter, 1)
+      needMap.set(letter, 1)
     }
   }
-  const needMapLen = needMapMap.size
+  const needMapLen = needMap.size
   const windowMap = new Map()
   let start = 0
   let end = 0
@@ -78,14 +78,14 @@ var minWindow = function (s, t) {
     const endLetter = s[end]
     end++
 
-    if (needMapMap.has(endLetter)) {
+    if (needMap.has(endLetter)) {
       if (windowMap.has(endLetter)) {
         windowMap.set(endLetter, windowMap.get(endLetter) + 1)
       } else {
         windowMap.set(endLetter, 1)
       }
 
-      if (needMapMap.get(endLetter) === windowMap.get(endLetter)) {
+      if (needMap.get(endLetter) === windowMap.get(endLetter)) {
         meetedCount++
       }
     }
@@ -104,8 +104,8 @@ var minWindow = function (s, t) {
       const startLetter = s[start]
       start++
 
-      if (needMapMap.has(startLetter)) {
-        if (needMapMap.get(startLetter) === windowMap.get(startLetter)) {
+      if (needMap.has(startLetter)) {
+        if (needMap.get(startLetter) === windowMap.get(startLetter)) {
           meetedCount--
         }
 
