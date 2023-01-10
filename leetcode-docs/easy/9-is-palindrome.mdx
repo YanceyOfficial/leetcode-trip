@@ -10,9 +10,9 @@ sidebar_label: 9. 回文数
 
 :::info 示例
 
-输入: 12321
+输入: `12321`
 
-输出: true
+输出: `true`
 :::
 
 ## 题解
@@ -20,8 +20,14 @@ sidebar_label: 9. 回文数
 跟第 [7. 整数反转](/leetcode/easy/7-reverse) 题如出一辙, 都是使用**取模逆排法**, 即通过把数字看成**栈**, 来将它反转. 前提可以做几个边界判断:
 
 - 负数一定不是回文数
-- 0 ~ 9 一定是回文数
-- 10 的倍数一定不是回文数(除了 0)
+- `0 - 9` 一定是回文数
+- `10` 的倍数一定不是回文数(除了 `0`)
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -38,8 +44,41 @@ var isPalindrome = function (x) {
   while (x) {
     // 取模逆排法
     n = n * 10 + (x % 10)
-    x = (x - (x % 10)) / 10
+    x = (x / 10) | 0
   }
   return n === y
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn is_palindrome(x: i32) -> bool {
+    if (x < 0) {
+        return false;
+    }
+
+    if (x < 10) {
+        return true;
+    }
+
+    if (x % 10 == 0) {
+        return false;
+    }
+
+    let y = x;
+    let mut x = x;
+    let mut n = 0;
+
+    while x != 0 {
+        n = n * 10 + (x % 10);
+        x /= 10;
+    }
+
+    y == n
+}
+```
+
+</TabItem>
+</Tabs>
