@@ -13,6 +13,17 @@ module.exports = {
   organizationName: 'Yancey Inc.',
   projectName: 'leetcode-trip',
   themes: ['@docusaurus/theme-live-codeblock'],
+  scripts: [
+    'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js',
+    {
+      src: '/js/gitalk.js',
+      defer: true,
+    },
+  ],
+  stylesheets: [
+    'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css',
+    '/css/gitalk.css',
+  ],
   plugins: [
     [
       '@docusaurus/plugin-content-docs',
