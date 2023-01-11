@@ -10,7 +10,7 @@ function registerGitalk() {
     repo: 'leetcode-trip',
     owner: 'YanceyOfficial',
     admin: ['YanceyOfficial'],
-    id: window.location.pathname.split('/').pop(),
+    id: location.pathname,
     distractionFreeMode: false,
   })
 
