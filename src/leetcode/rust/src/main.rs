@@ -3,7 +3,7 @@ mod hard;
 mod medium;
 
 fn main() {
-    let res = medium::question_9::is_palindrome(121);
+    let res = medium::question_8::my_atoi(String::from("  -43"));
 
     println!("{:?}", res);
 }
