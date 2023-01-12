@@ -6,7 +6,7 @@ sidebar_label: 12. 整数转罗马数字
 
 ## 题目
 
-罗马数字包含以下七种字符:  `I`, `V`, `X`, `L`, `C`, `D` 和 `M`.
+罗马数字包含以下七种字符: `I`, `V`, `X`, `L`, `C`, `D` 和 `M`.
 
 | 字符 | 数组 |
 | ---- | ---- |
@@ -61,7 +61,7 @@ sidebar_label: 12. 整数转罗马数字
 
 ## 题解
 
-建立一个数值(`value`) - 符号(`symbol`)对的列表 `mapper`, 让数值**从大到小排列**, 遍历该 `mapper`, 若 `num` 大于等于 `value`, 让 `num` 不断减去 `value`, 并加入该 `symbol`, 直到 `num` 小于 `value`. 如若 `num` 为 `0` 了, 就跳出循环.
+建立一个**数值 - 符号**映射表, 让数值**从大到小排列**, 遍历该映射表, 若 `num` 大于等于 `value`, 让 `num` 不断减去 `value`, 并加入该 `symbol`, 直到 `num` 小于 `value`. 如若 `num` 为 `0` 了, 就跳出循环.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -75,7 +75,7 @@ import TabItem from '@theme/TabItem'
  * @return {string}
  */
 var intToRoman = function (num) {
-  let roma = ''
+  let roman = ''
   const map = [
     [1000, 'M'],
     [900, 'CM'],
@@ -95,13 +95,13 @@ var intToRoman = function (num) {
   for (const [value, symbol] of map) {
     while (num >= value) {
       num -= value
-      roma += symbol
+      roman += symbol
     }
 
     if (num === 0) break
   }
 
-  return roma
+  return roman
 }
 ```
 
@@ -111,7 +111,7 @@ var intToRoman = function (num) {
 ```rust
 pub fn int_to_roman(num: i32) -> String {
     let mut num = num;
-    let mut roma = String::from("");
+    let mut roman = String::from("");
     let map = [
         (1000, "M"),
         (900, "CM"),
@@ -131,7 +131,7 @@ pub fn int_to_roman(num: i32) -> String {
     for (val, symbol) in map {
         while num >= val {
             num -= val;
-            roma += symbol;
+            roman += symbol;
         }
 
         if num == 0 {
@@ -139,7 +139,7 @@ pub fn int_to_roman(num: i32) -> String {
         }
     }
 
-    roma
+    roman
 }
 ```
 
