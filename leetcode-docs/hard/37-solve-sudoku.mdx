@@ -1,0 +1,215 @@
+---
+id: 37-solve-sudoku
+title: 解数独
+sidebar_label: 37. 解数独
+keywords:
+  - backtrack
+---
+
+:::success Tips
+题目类型: backtrack
+:::
+
+## 题目
+
+编写一个程序, 通过填充空格来解决数独问题.
+
+数独的解法需遵循如下规则:
+
+- 数字 `1-9` 在每一行只能出现一次.
+- 数字 `1-9` 在每一列只能出现一次.
+- 数字 `1-9` 在每一个以粗实线分隔的 `3*3` 宫内只能出现一次.
+
+数独部分空格内已填入了数字, 空白格用 `'.'` 表示.
+
+提示:
+
+- `board.length == 9`
+- `board[i].length == 9`
+- `board[i][j]` 是一位数字或者 `'.'`
+- 题目数据**保证**输入数独仅有一个解
+
+:::info 示例
+
+![37-solve-sudoku](../../static/img/37-solve-sudoku-1.png)
+
+输入:
+
+```ts
+borad = [
+  ['5', '3', '.', '.', '7', '.', '.', '.', '.'],
+  ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
+  ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
+  ['8', '.', '.', '.', '6', '.', '.', '.', '3'],
+  ['4', '.', '.', '8', '.', '3', '.', '.', '1'],
+  ['7', '.', '.', '.', '2', '.', '.', '.', '6'],
+  ['.', '6', '.', '.', '.', '.', '2', '8', '.'],
+  ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
+  ['.', '.', '.', '.', '8', '.', '.', '7', '9'],
+]
+```
+
+输出:
+
+```ts
+borad = [
+  ['5', '3', '4', '6', '7', '8', '9', '1', '2'],
+  ['6', '7', '2', '1', '9', '5', '3', '4', '8'],
+  ['1', '9', '8', '3', '4', '2', '5', '6', '7'],
+  ['8', '5', '9', '7', '6', '1', '4', '2', '3'],
+  ['4', '2', '6', '8', '5', '3', '7', '9', '1'],
+  ['7', '1', '3', '9', '2', '4', '8', '5', '6'],
+  ['9', '6', '1', '5', '3', '7', '2', '8', '4'],
+  ['2', '8', '7', '4', '1', '9', '6', '3', '5'],
+  ['3', '4', '5', '2', '8', '6', '1', '7', '9'],
+]
+```
+
+![37-solve-sudoku](../../static/img/37-solve-sudoku-2.png)
+
+:::
+
+## 题解
+
+核心思路很好理解, 就是对每一个空着的格子穷举 `1` 到 `9`, 如果遇到不合法的数字(在同一行或同一列或同一个 `3*3` 的小九宫格中存在相同的数字)则跳过; 如果找到一个合法的数字, 则继续穷举下一个空格子.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {character[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
+var solveSudoku = function (board) {
+  const isValid = (ch, row, col) => {
+    for (let i = 0; i < 9; i++) {
+      // 纵向如果存在该数字, 就不能使用了, 返回 false
+      if (board[row][i] === ch) return false
+
+      // 横向如果存在该数字, 就不能使用了, 返回 false
+      if (board[i][col] === ch) return false
+
+      // 小的九宫格里如果存在该数字, 就不能使用了, 返回 false
+      if (
+        board[((row / 3) | 0) * 3 + ((i / 3) | 0)][
+          ((col / 3) | 0) * 3 + (i % 3)
+        ] === ch
+      )
+        return false
+    }
+
+    // 其他情况均是合法的
+    return true
+  }
+
+  const backtrack = (row, col) => {
+    // 当横向走到头了, 就换到下一行继续回溯
+    if (col === 9) return backtrack(row + 1, 0)
+
+    // 当纵向走到头了, 说明找到了一组数独解
+    if (row === 9) return true
+
+    // 双循环遍历每个元素
+    for (let i = row; i < 9; i++) {
+      for (let j = col; j < 9; j++) {
+        // 如果当前元素已经是数字了, 我们就不用管了, 直接回溯下一个元素
+        if (board[i][j] !== '.') return backtrack(i, j + 1)
+
+        // 如果当前元素是 '.'
+        // 那么就从 '0' 到 '9' 依次尝试
+        for (let k = 1; k <= 9; k++) {
+          const ch = k.toString();
+          
+          // 如果该 char 在横向/纵向/小九宫格都已经存在过了, 说明是不合法的, 跳过即可
+          if (!isValid(ch, i, j)) continue
+
+          // 下面就是基本的回溯框架了.
+          // 做选择:
+          board[i][j] = ch
+          // 回溯: 因为题目本身只有一个可行解, 因此找到就返回 true 即可, 这样就可以阻止后续的递归
+          if (backtrack(i, j + 1)) return true
+          // 撤销选择:
+          board[i][j] = '.'
+        }
+
+        // 没找到就返回 false
+        return false
+      }
+    }
+
+    // 这句在 JavaScript 可以不写, 但 Rust 需要
+    return true
+  }
+
+  // 回溯的初始值: row = 0, col = 0
+  backtrack(0, 0)
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn solve_sudoku(board: &mut Vec<Vec<char>>) {
+    backtrack(board, 0, 0);
+}
+
+fn backtrack(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
+    if col == 9 {
+        return backtrack(board, row + 1, 0);
+    }
+
+    if row == 9 {
+        return true;
+    }
+
+    for i in row..9 {
+        for j in col..9 {
+            if board[i][j] != '.' {
+                return backtrack(board, i, j + 1);
+            }
+
+            for ch in '1'..='9' {
+                if !is_valid(board, row, col, ch) {
+                    continue;
+                }
+
+                board[i][j] = ch;
+                if backtrack(board, i, j + 1) {
+                    return true;
+                }
+                board[i][j] = '.';
+            }
+
+            return false;
+        }
+    }
+
+    return true;
+}
+
+fn is_valid(board: &Vec<Vec<char>>, row: usize, col: usize, ch: char) -> bool {
+    for i in 0..9 {
+        if board[row][i] == ch {
+            return false;
+        }
+
+        if board[i][col] == ch {
+            return false;
+        }
+
+        if board[row / 3 * 3 + (i / 3)][col / 3 * 3 + (i % 3)] == ch {
+            return false;
+        }
+    }
+
+    return true;
+}
+```
+
+</TabItem>
+</Tabs>
