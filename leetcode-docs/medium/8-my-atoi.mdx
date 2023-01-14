@@ -95,9 +95,7 @@ var myAtoi = function (s) {
   let i = 0
 
   // 如果开头是空格, 跳过
-  while (s[i] === ' ') {
-    i++
-  }
+  while (s[i] === ' ') i++
 
   // 跳过开头的空格们后, 如果遇见负号, 记录一下
   // 至于为什么命名为 sign, 且如果是正数, sign 为 1; 如果是负数, sign 为 -1
