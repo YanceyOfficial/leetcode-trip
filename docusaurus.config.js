@@ -14,15 +14,26 @@ module.exports = {
   projectName: 'leetcode-trip',
   themes: ['@docusaurus/theme-live-codeblock'],
   scripts: [
-    'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js',
     {
-      src: '/js/gitalk.js',
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'YanceyOfficial/leetcode-trip',
+      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkxODkzNTcxMDg=',
+      'data-category': 'Q&A',
+      'data-category-id': 'DIC_kwDOC0lcNM4CS6Dj',
+      'data-mapping': 'title',
+      'data-strict': '0',
+      'data-reactions-enabled': '1',
+      'data-emit-metadata': '0',
+      'data-input-position': 'bottom',
+      'data-theme': 'preferred_color_scheme',
+      'data-lang': 'zh-CN',
+      crossorigin: 'anonymous',
+      async: true,
+    },
+    {
+      src: '/js/giscus.js',
       defer: true,
     },
-  ],
-  stylesheets: [
-    'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css',
-    '/css/gitalk.css',
   ],
   plugins: [
     [
