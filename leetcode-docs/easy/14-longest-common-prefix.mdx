@@ -6,7 +6,7 @@ sidebar_label: 14. 最长公共前缀
 
 ## 题目
 
-编写一个函数来查找字符串数组中的最长公共前缀. 如果不存在公共前缀, 返回空字符串 "".
+编写一个函数来查找字符串数组中的最长公共前缀. 如果不存在公共前缀, 返回空字符串 `""`.
 
 :::info 示例
 
@@ -17,24 +17,28 @@ sidebar_label: 14. 最长公共前缀
 
 ## 题解
 
-这个解法是我自己想出来的, 也不见得多优雅. 以第一个单词为 prefix, 如果 strs 里所有单词的前缀都是 prefix, 那就返回之; 否则使用 `prefix.slice(0, -1)` 将 prefix 变短, 直到找出前缀.
+先假设第一个单词为 `prefix`, 如果 `strs` 里所有单词的前缀都是 `prefix`, 那就返回之; 
+否则将 `prefix` 的最后一位删掉继续循环, 直到找出前缀.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
  * @param {string[]} strs
  * @return {string}
  */
-
 var longestCommonPrefix = function (strs) {
-  if (strs.length === 0) return ''
-
   let prefix = strs[0]
-  let isFound = false
+  let hasFound = false
 
-  while (!isFound) {
-    isFound = strs.every((val) => val.indexOf(prefix) === 0)
+  while (!hasFound) {
+    hasFound = strs.every((str) => str.startsWith(prefix))
 
-    if (!isFound) {
+    if (!hasFound) {
       prefix = prefix.slice(0, -1)
     }
   }
@@ -42,3 +46,26 @@ var longestCommonPrefix = function (strs) {
   return prefix
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn longest_common_prefix(strs: Vec<String>) -> String {
+    let mut prefix: &str = &strs[0];
+    let mut has_found = false;
+
+    while !has_found {
+        has_found = strs.iter().all(|str| str.starts_with(prefix));
+
+        if !has_found {
+            prefix = &prefix[0..prefix.len() - 1];
+        }
+    }
+
+    prefix.to_string()
+}
+```
+
+</TabItem>
+</Tabs>
