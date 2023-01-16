@@ -58,4 +58,6 @@ var fourSum = function (nums, target) {
 }
 // @lc code=end
 
-console.log(fourSum([1, 0, -1, 0, -2, 2], 0))
+console.log(
+  fourSum([1000000000, 1000000000, 1000000000, 1000000000], -294967296),
+)
