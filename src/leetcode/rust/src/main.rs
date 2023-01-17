@@ -3,10 +3,7 @@ mod hard;
 mod medium;
 
 fn main() {
-    let res = medium::question_18::four_sum(
-        vec![1000000000, 1000000000, 1000000000, 1000000000],
-        -294967296,
-    );
+    let res = medium::question_17::letter_combinations("23".to_string());
 
     println!("{:?}", res);
 }
