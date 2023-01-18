@@ -60,15 +60,15 @@ var letterCombinations = function (digits) {
     const letters = map[digits[n] - 2]
 
     // 遍历某个数字对应的字母, 比如 def, 进行回溯
-    for (let i = 0; i < letters.length; i++) {
-      track.push(letters[i])
+    for (const letter of letters) {
+      track.push(letter)
       backtrack(track.slice())
       track.pop()
     }
   }
 
   backtrack([])
-  
+
   return res
 }
 ```
