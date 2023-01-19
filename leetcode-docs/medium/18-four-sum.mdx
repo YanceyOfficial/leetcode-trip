@@ -18,6 +18,22 @@ sidebar_label: 18. 四数之和
 ## 题解
 
 ```ts
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var fourSum = function (nums, target) {
+  nums.sort((a, b) => a - b)
+  return nSum(nums, 4, 0, target)
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} n
+ * @param {number} start
+ * @param {number} target
+ * @return {number[][]}
+ */
 var nSum = function (nums, n, start, target) {
   const len = nums.length
   const res = []
@@ -55,20 +71,11 @@ var nSum = function (nums, n, start, target) {
         item.push(nums[i])
         res.push(item)
       }
-      
+
       while (i < len - 1 && nums[i] === nums[i + 1]) i++
     }
   }
 
   return res
-}
-
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
-var fourSum = function (nums, target) {
-  nums.sort((a, b) => a - b)
-  return nSum(nums, 4, 0, target)
 }
 ```
