@@ -6,9 +6,13 @@ keywords:
   - Stack
 ---
 
+:::success Tips
+题目类型: Stack
+:::
+
 ## 题目
 
-给定一个只包括 `(`, `)`, `{`, `}`, `[`, `]` 的字符串 s, 判断字符串是否有效. 有效字符串需满足:
+给定一个只包括 `(`, `)`, `{`, `}`, `[`, `]` 的字符串 `s`, 判断字符串是否有效. 有效字符串需满足:
 
 - 左括号必须用相同类型的右括号闭合
 - 左括号必须以正确的顺序闭合
@@ -31,6 +35,13 @@ keywords:
 
 遇见括号问题先想到栈. 遍历字符串, 如果遇到 `(`, `{`, `[`, 压入栈中; 如果遇到 `)`, `}`, `]`, 看看栈顶能不能找到对应的左括号, 如果找到, 就弹出栈顶元素, 否则就匹配不上了. 最终如果是有效的括号, 栈在遍历完后应该是空的.
 
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * @param {string} s
@@ -40,10 +51,11 @@ var isValid = function (s) {
   const n = s.length
   if (n % 2) return false
 
-  let stack = []
-  for (let i = 0; i < n; i += 1) {
-    if (s[i] === '{' || s[i] === '[' || s[i] === '(') {
-      stack.push(s[i])
+  const stack = []
+
+  for (const ch of s) {
+    if (ch === '{' || ch === '[' || ch === '(') {
+      stack.push(ch)
     } else {
       const top = stack[stack.length - 1]
       if (top === '{' && s[i] === '}') stack.pop()
@@ -56,3 +68,38 @@ var isValid = function (s) {
   return stack.length === 0
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn is_valid(s: String) -> bool {
+    let mut stack = vec![];
+    for ch in s.chars() {
+        match ch {
+            '(' | '[' | '{' => stack.push(ch),
+            ')' => {
+                if stack.pop() != Some('(') {
+                    return false;
+                }
+            }
+            ']' => {
+                if stack.pop() != Some('[') {
+                    return false;
+                }
+            }
+            '}' => {
+                if stack.pop() != Some('{') {
+                    return false;
+                }
+            }
+            _ => return false,
+        }
+    }
+
+    stack.is_empty()
+}
+```
+
+</TabItem>
+</Tabs>
