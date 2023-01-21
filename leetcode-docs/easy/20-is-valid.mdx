@@ -35,7 +35,6 @@ keywords:
 
 遇见括号问题先想到栈. 遍历字符串, 如果遇到 `(`, `{`, `[`, 压入栈中; 如果遇到 `)`, `}`, `]`, 看看栈顶能不能找到对应的左括号, 如果找到, 就弹出栈顶元素, 否则就匹配不上了. 最终如果是有效的括号, 栈在遍历完后应该是空的.
 
-
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
@@ -49,7 +48,9 @@ import TabItem from '@theme/TabItem'
  */
 var isValid = function (s) {
   const n = s.length
-  if (n % 2) return false
+
+  // 如果是奇数, 一定不是合法的括号
+  if (n % 2 == 1) return false
 
   const stack = []
 
@@ -58,6 +59,7 @@ var isValid = function (s) {
       stack.push(ch)
     } else {
       const top = stack[stack.length - 1]
+
       if (top === '{' && s[i] === '}') stack.pop()
       else if (top === '[' && s[i] === ']') stack.pop()
       else if (top === '(' && s[i] === ')') stack.pop()
@@ -75,6 +77,7 @@ var isValid = function (s) {
 ```rust
 pub fn is_valid(s: String) -> bool {
     let mut stack = vec![];
+    
     for ch in s.chars() {
         match ch {
             '(' | '[' | '{' => stack.push(ch),
