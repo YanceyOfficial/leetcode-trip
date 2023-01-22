@@ -65,12 +65,12 @@ var mergeTwoLists = function (l1, l2) {
 </TabItem>
 <TabItem value="JavaScript - 迭代版" label="JavaScript - 迭代版" default>
 
-迭代版的比较直观, 先建立一个伪节点 `head`, 然后进行迭代, 在迭代的过程中:
+迭代版的比较直观, 先建立一个伪节点 `curr`, 然后进行迭代, 在迭代的过程中:
 
-- 如果 `l1.val < l2.val`, 说明 `l1` 应该放在 `head.next`, 然后让 `l1` 往下走
-- 如果 `l1.val >= l2.val`, 说明 `l2` 应该放在 `head.next`, 然后让 `l2` 往下走
+- 如果 `l1.val < l2.val`, 说明 `l1` 应该放在 `curr.next`, 然后让 `l1` 往下走
+- 如果 `l1.val >= l2.val`, 说明 `l2` 应该放在 `curr.next`, 然后让 `l2` 往下走
 
-只要 `l1` 或者 `l2` 有一个到底了, 跳出循环. 此时某个链表可能还没走到头, 因为你没法保证两个链表长度一样. 不过没关系, 题目标注了两个链表是有序的, 所以直接把最后多出来的这一块链到 `head` 最后即可.
+只要 `l1` 或者 `l2` 有一个到底了, 跳出循环. 此时某个链表可能还没走到头, 因为你没法保证两个链表长度一样. 不过没关系, 题目标注了两个链表是有序的, 所以直接把最后多出来的这一块链到 `curr` 最后即可.
 
 ```ts
 /**
@@ -86,23 +86,23 @@ var mergeTwoLists = function (l1, l2) {
  * @return {ListNode}
  */
 var mergeTwoLists = function (l1, l2) {
-  let head = new ListNode(-1)
-  const dummy = head
+  const dummy = new ListNode(-1)
+  let curr = dummy
 
   while (l1 && l2) {
     if (l1.val < l2.val) {
-      head.next = l1
+      curr.next = l1
       l1 = l1.next
     } else {
-      head.next = l2
+      curr.next = l2
       l2 = l2.next
     }
 
-    head = head.next
+    curr = curr.next
   }
 
-  if (l1 !== null) head.next = l1
-  if (l2 !== null) head.next = l2
+  if (l1 !== null) curr.next = l1
+  if (l2 !== null) curr.next = l2
 
   return dummy.next
 }

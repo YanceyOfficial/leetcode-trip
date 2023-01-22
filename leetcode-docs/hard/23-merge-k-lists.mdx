@@ -4,11 +4,11 @@ title: 合并k个升序链表
 sidebar_label: 23. 合并k个升序链表
 keywords:
   - 链表
-  - Divide and Conquer
+  - 分治
 ---
 
 :::success Tips
-题目类型: 链表, 合并链表, Divide and Conquer
+题目类型: 链表, 合并链表, 分治
 
 相关题目:
 
@@ -22,9 +22,9 @@ keywords:
 
 :::info 示例
 
-输入: `[1->4->5, 1->3->4, 2->6]`
+输入: `[1 -> 4 -> 5, 1 -> 3 -> 4, 2 -> 6]`
 
-输出: `1->1->2->3->4->4->5->6`
+输出: `1 -> 1 -> 2 -> 3 -> 4 -> 4 -> 5 -> 6`
 :::
 
 ## 题解
@@ -33,7 +33,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 优先队列" label="JavaScript - 优先队列" default>
+  <TabItem value="JavaScript - 优先队列" label="JavaScript - 优先队列">
 
 完了, 现在写排序先想到的是优先队列, 这里用个小顶堆即可, 代码很简单, 直接看注释.
 
@@ -63,15 +63,15 @@ export function mergeKLists(lists) {
 ```
 
 </TabItem>
-<TabItem value="JavaScript - 分治" label="JavaScript - 分治">
+<TabItem value="JavaScript - 分治" label="JavaScript - 分治" default>
 
-这道题让我们合并 k 个有序链表, 但是不管合并几个, 基本还是要两两合并.
+这道题让我们合并 `k` 个有序链表, 但是不管合并几个, 基本还是要两两合并.
 
-那么首先考虑的方法是能不能利用 [21. 合并两个有序链表](/leetcode/easy/21-merge-two-lists) 的解法来解答此题. 答案是肯定的, 但是需要修改, 怎么修改呢, 最先想到的就是两两合并, 就是前两个先合并, 合并好了再跟第三个, 然后第四个直到第 k 个. 这样的思路是对的, 但是效率不高, 所以只能换一种思路.
+那么首先考虑的方法是能不能利用 [21. 合并两个有序链表](/leetcode/easy/21-merge-two-lists) 的解法来解答此题. 答案是肯定的, 但是需要修改, 怎么修改呢, 最先想到的就是两两合并, 就是前两个先合并, 合并好了再跟第三个, 然后第四个直到第 `k` 个. 这样的思路是对的, 但是效率不高, 所以只能换一种思路.
 
-这里就需要用到分治法(Divide and Conquer). 简单来说就是不停的对半划分, 比如 k 个链表先划分为合并两个 `k / 2` 个链表的任务, 再不停的往下划分, 直到划分成只有一个或两个链表的任务, 开始合并. 举个例子来说比如合并 6 个链表, 那么按照分治法, 首先分别合并 0 和 3, 1 和 4, 2 和 5. 这样下一次只需合并 3 个链表, 再合并 1 和 3, 最后和 2 合并就可以了.
+这里就需要用到分治法(`Divide and Conquer`). 简单来说就是不停的对半划分, 比如 `k` 个链表先划分为合并两个 `k / 2` 个链表的任务, 再不停的往下划分, 直到划分成只有一个或两个链表的任务, 开始合并. 举个例子来说比如合并 `6` 个链表, 那么按照分治法, 首先分别合并索引为 `0` 和 `3`, `1` 和 `4`, `2` 和 `5`; 这样下一次只需合并 `3` 个链表, 即合并索引 `0` 和 `2`; 最后和 `1` 合并就可以了.
 
-代码中的 k 是通过 `(n + 1) / 2` 计算的, 这里为啥要加 1 呢, 这是为了当 n 为奇数的时候, k 能始终从后半段开始, 比如当 n=5 时, 那么此时 k=3, 则 0 和 3 合并, 1 和 4 合并, 最中间的 2 空出来. 当 n 是偶数的时候, 加 1 也不会有影响, 比如当 n=4 时, 此时 k=2, 那么 0 和 2 合并, 1 和 3 合并, 参见代码如下:
+代码中的 `k` 是通过 `(n + 1) / 2` 计算的, 这里为啥要加 `1` 呢, 这是为了当 `n` 为奇数的时候, `k` 能始终从后半段开始, 比如当 `n = 5` 时, 那么此时 `k = 3`, 则索引 `0` 和 `3` 合并, `1` 和 `4` 合并, 最中间的 `2` 空出来. 当 `n` 是偶数的时候, 加 `1` 也不会有影响, 比如当 `n = 4` 时, 此时 `k = 2`, 那么索引 `0` 和  `2` 合并, `1` 和 `3` 合并, 参见代码如下:
 
 ```ts
 /**
@@ -87,37 +87,56 @@ export function mergeKLists(lists) {
  */
 var mergeKLists = function (lists) {
   let n = lists.length
+
   if (n === 0) return null
+
   while (n > 1) {
-    const k = Math.floor((n + 1) / 2)
-    for (let i = 0; i < Math.floor(n / 2); ++i) {
+    const k = ((n + 1) / 2) | 0
+
+    for (let i = 0; i < ((n / 2) | 0); i++) {
       lists[i] = mergeTwoLists(lists[i], lists[i + k])
     }
+
     n = k
   }
+
   return lists[0]
 }
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
 var mergeTwoLists = function (l1, l2) {
   const dummy = new ListNode(-1)
-  let cur = dummy
+  let curr = dummy
+
   while (l1 && l2) {
     if (l1.val < l2.val) {
-      cur.next = l1
+      curr.next = l1
       l1 = l1.next
     } else {
-      cur.next = l2
+      curr.next = l2
       l2 = l2.next
     }
-    cur = cur.next
+
+    curr = curr.next
   }
-  if (l1) cur.next = l1
-  if (l2) cur.next = l2
+
+  if (l1 !== null) curr.next = l1
+  if (l2 !== null) curr.next = l2
+
   return dummy.next
 }
 ```
-
-注意: `mergeTwoLists` 方法即是 [21. 合并两个有序链表](/leetcode/easy/21-merge-two-lists) 题的迭代版.
 
 </TabItem>
 </Tabs>
