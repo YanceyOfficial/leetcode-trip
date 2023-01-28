@@ -38,7 +38,7 @@ import TabItem from '@theme/TabItem'
 <Tabs>
   <TabItem value="JavaScript - 朴素解法" label="JavaScript - 朴素解法">
 
-最朴素的解法是将两个数组按照从小到大 merge 到一起, 然后取中值. 具体看代码注释.
+最朴素的解法是将两个数组按照从小到大合并到一起, 然后取中值. 具体看代码注释.
 
 ```ts
 /**
@@ -68,11 +68,13 @@ var findMedianSortedArrays = function (nums1, nums2) {
       arr.push(...nums2.slice(j))
       break
     }
+
     //  如果 j 已经走到头了, 需要把 nums1 剩下的元素放到 arr 最后
     if (j === n) {
       arr.push(...nums1.slice(i))
       break
     }
+
     if (nums1[i] < nums2[j]) {
       arr.push(nums1[i++])
     } else {

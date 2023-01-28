@@ -16,6 +16,7 @@
     "clear": "docusaurus clear",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
+    "typecheck": "tsc",
     "test": "jest --coverage",
     "lint": "eslint src --ext .ts,.js",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" \"__tests__/**/*.ts\"",
