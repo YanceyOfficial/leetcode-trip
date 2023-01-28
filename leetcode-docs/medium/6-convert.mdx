@@ -81,8 +81,10 @@ var convert = function (s, numRows) {
     // 计算余数
     const carry = i % cycle
 
-    // 如果余数小于 numRows, 那就用这个余数即可, 否则用循环数减去该余数
-    res[carry < numRows ? carry : cycle - carry] += s[i]
+    // 计算索引, 如果余数小于 numRows, 那就用这个余数即可, 否则用循环数减去该余数
+    const idx = carry < numRows ? carry : cycle - carry;
+
+    res[idx] += s[i]
   }
 
   // 最后把数组合并成字符串即可

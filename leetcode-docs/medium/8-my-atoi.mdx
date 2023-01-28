@@ -90,7 +90,7 @@ var myAtoi = function (s) {
   const INT_MAX = 2 ** 31 - 1
   const INT_MIN = (-2) ** 31
   const n = s.length
-  let res = 0
+  let ans = 0
   let sign = 1
   let i = 0
 
@@ -109,27 +109,27 @@ var myAtoi = function (s) {
   while (i < n && /[0-9]/.test(s[i])) {
     const num = Number(s[i])
 
-    // 注意这块比较有意思, 思路是通过 INT_MAX 逆过来(INT_MAX / 10), 来推断 res 是否溢出
+    // 注意这块比较有意思, 思路是通过 INT_MAX 逆过来(INT_MAX / 10), 来推断 ans 是否溢出
     // 首先注意 INT_MAX 是 2147483647
-    // 如果当前的 res 大于 INT_MAX / 10, 说明溢出了, 需要返回 INT_MAX 或者 INT_MIN
-    // 如果当前的 res 等于 INT_MAX / 10 后取整, 也就是 214748364, 但 num 仍大于 INT_MAX 取余, (其实就是 INT_MAX 的最后一位, 也就是 7), 也说明溢出了
+    // 如果当前的 ans 大于 INT_MAX / 10, 说明溢出了, 需要返回 INT_MAX 或者 INT_MIN
+    // 如果当前的 ans 等于 INT_MAX / 10 后取整, 也就是 214748364, 但 num 仍大于 INT_MAX 取余, (其实就是 INT_MAX 的最后一位, 也就是 7), 也说明溢出了
     if (
-      res > INT_MAX / 10 ||
-      (res === ((INT_MAX / 10) | 0) && num > INT_MAX % 10)
+      ans > INT_MAX / 10 ||
+      (ans === ((INT_MAX / 10) | 0) && num > INT_MAX % 10)
     ) {
       // 根据正负返回 INT_MAX 还是 INT_MIN
       return sign > 0 ? INT_MAX : INT_MIN
     }
 
-    // 如果是数字, 加入到 res 中
-    res = res * 10 + num
+    // 如果是数字, 加入到 ans 中
+    ans = ans * 10 + num
 
     // 指针往后走
     i++
   }
 
-  // 根据正负返回 res 还是 -res
-  return sign > 0 ? res : -res
+  // 根据正负返回 ans 还是 -ans
+  return sign > 0 ? ans : -ans
 }
 ```
 
@@ -141,7 +141,7 @@ pub fn my_atoi(s: String) -> i32 {
     let n = s.len();
     let s = s.as_bytes();
     let mut sign = 1;
-    let mut res = 0;
+    let mut ans = 0;
     let mut i = 0;
 
     // rust 注意时时刻刻要判断 i < n, 否则 s[i] 取到空指针会报错
@@ -163,7 +163,7 @@ pub fn my_atoi(s: String) -> i32 {
     while i < n && is_digit(s[i]) {
         // u8 转 i32 的小技巧
         let num = (s[i] - b'0') as i32;
-        if res > i32::MAX / 10 || (res == i32::MAX / 10 && num > i32::MAX % 10) {
+        if ans > i32::MAX / 10 || (ans == i32::MAX / 10 && num > i32::MAX % 10) {
             if sign < 0 {
                 return i32::MIN;
             } else {
@@ -171,14 +171,14 @@ pub fn my_atoi(s: String) -> i32 {
             }
         }
 
-        res = res * 10 + num;
+        ans = ans * 10 + num;
         i += 1;
     }
 
     if sign < 0 {
-        return -res;
+        return -ans;
     } else {
-        return res;
+        return ans;
     }
 }
 
