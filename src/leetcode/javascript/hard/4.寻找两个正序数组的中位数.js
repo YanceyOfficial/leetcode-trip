@@ -13,43 +13,37 @@
 var findMedianSortedArrays = function (nums1, nums2) {
   const m = nums1.length
   const n = nums2.length
-  let total = m + n
-
+  const total = m + n
   let isOdd = true
 
   if (total % 2 === 0) {
     isOdd = false
   }
 
-  total = (total / 2) | 0
-
+  const mid = (total / 2) | 0
   const arr = []
 
   let i = 0,
     j = 0
 
-  while (i + j <= total) {
+  while (i + j <= mid) {
+    // 如果 i 已经走到头了, 需要把 nums2 剩下的元素放到 arr 最后
     if (i === m) {
       arr.push(...nums2.slice(j))
       break
     }
+    //  如果 j 已经走到头了, 需要把 nums1 剩下的元素放到 arr 最后
     if (j === n) {
       arr.push(...nums1.slice(i))
       break
     }
     if (nums1[i] < nums2[j]) {
-      arr.push(nums1[i])
-      i++
+      arr.push(nums1[i++])
     } else {
-      arr.push(nums2[j])
-      j++
+      arr.push(nums2[j++])
     }
   }
 
-  if (isOdd) {
-    return arr[total]
-  } else {
-    return (arr[total] + arr[total - 1]) / 2
-  }
+  return isOdd ? arr[mid] : (arr[mid] + arr[mid - 1]) / 2
 }
 // @lc code=end

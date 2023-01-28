@@ -49,20 +49,20 @@ import TabItem from '@theme/TabItem'
 var findMedianSortedArrays = function (nums1, nums2) {
   const m = nums1.length
   const n = nums2.length
-  let total = m + n
+  const total = m + n
   let isOdd = true
 
   if (total % 2 === 0) {
     isOdd = false
   }
-  total = (total / 2) | 0
 
+  const mid = (total / 2) | 0
   const arr = []
 
   let i = 0,
     j = 0
 
-  while (i + j <= total) {
+  while (i + j <= mid) {
     // 如果 i 已经走到头了, 需要把 nums2 剩下的元素放到 arr 最后
     if (i === m) {
       arr.push(...nums2.slice(j))
@@ -80,7 +80,7 @@ var findMedianSortedArrays = function (nums1, nums2) {
     }
   }
 
-  return isOdd ? arr[total] : (arr[total] + arr[total - 1]) / 2
+  return isOdd ? arr[mid] : (arr[mid] + arr[mid - 1]) / 2
 }
 ```
 

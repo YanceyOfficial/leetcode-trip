@@ -2,19 +2,19 @@
 pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
     let (m, n) = (nums1.len(), nums2.len());
     let mut is_odd = true;
-    let mut total = m + n;
+    let total = m + n;
 
     if total % 2 == 0 {
         is_odd = false;
     }
 
-    total /= 2;
+    let mid = total / 2;
 
     let mut arr = vec![];
 
     let (mut i, mut j) = (0, 0);
 
-    while i + j <= total {
+    while i + j <= mid {
         if i == m {
             arr.append(&mut nums2[j..].to_vec());
             break;
@@ -34,12 +34,9 @@ pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
         }
     }
 
-    println!("{:?}", arr);
-    println!("{}", total);
-
     if is_odd {
-        arr[total] as f64
+        arr[mid] as f64
     } else {
-        (arr[total] + arr[total - 1]) as f64 / 2.0
+        (arr[mid] + arr[mid - 1]) as f64 / 2.0
     }
 }
