@@ -10,14 +10,18 @@
  * @return {number}
  */
 var reverse = function (x) {
+  const MAX = 2 ** 31 - 1
+  const MIN = (-2) ** 31
   let n = 0
 
   while (x) {
+    if (n > MAX / 10 || n < MIN / 10) return 0
+
     n = n * 10 + (x % 10)
-    x = (x - (x % 10)) / 10
+    x = (x / 10) | 0
   }
 
-  return n >= Math.pow(-2, 31) && n <= Math.pow(2, 31) - 1 ? n : 0
+  return n
 }
 // @lc code=end
 
