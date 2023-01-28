@@ -35,10 +35,10 @@ var twoSum = function (nums, target) {
   const map = new Map()
 
   for (let i = 0; i < n; i++) {
-    const dif = target - nums[i]
+    const complement = target - nums[i]
 
-    if (map.has(dif)) {
-      return [map.get(dif), i]
+    if (map.has(complement)) {
+      return [map.get(complement), i]
     }
 
     map.set(nums[i], i)
@@ -56,9 +56,9 @@ pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut map = HashMap::new();
 
     for (i, num) in nums.iter().enumerate() {
-        let dif = target - num;
+        let complement = target - num;
 
-        if let Some(x) = map.get(&dif) {
+        if let Some(x) = map.get(&complement) {
             return vec![*x, i as i32];
         }
 
