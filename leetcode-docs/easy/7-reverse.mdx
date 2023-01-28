@@ -44,12 +44,12 @@ import TabItem from '@theme/TabItem'
  * @return {number}
  */
 var reverse = function (x) {
-  const MAX = 2 ** 31 - 1
-  const MIN = (-2) ** 31
+  const INT_MAX = 2 ** 31 - 1
+  const INT_MIN = (-2) ** 31
   let n = 0
 
   while (x) {
-    if (n > MAX / 10 || n < MIN / 10) return 0
+    if (n > INT_MAX / 10 || n < INT_MIN / 10) return 0
 
     n = n * 10 + (x % 10)
     x = (x / 10) | 0
@@ -68,7 +68,7 @@ pub fn reverse(x: i32) -> i32 {
     let mut n = 0;
 
     while x != 0 {
-        if n > i32::MAX / 10 || n < i32::MIN / 10 {
+        if n > i32::INT_MAX / 10 || n < i32::INT_MIN / 10 {
             return 0;
         }
         n = n * 10 + (x % 10);
