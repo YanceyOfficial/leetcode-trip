@@ -58,29 +58,29 @@ function twoSumTarget(nums, target) {
     high = nums.length - 1
 
   while (low < high) {
-    const leftVal = nums[low],
-      rightVal = nums[high]
-    const sum = leftVal + rightVal
+    const lowVal = nums[low],
+      highVal = nums[high]
+    const sum = lowVal + highVal
 
     if (sum < target) {
-      // sum < target 说明左指针需要往右移动, 但为了防止 nums[low] 与 leftVal 相同,
+      // sum < target 说明左指针需要往右移动, 但为了防止 nums[low] 与 lowVal 相同,
       // 需要通过 while 循环将相同的值过滤掉
-      while (low < high && nums[low] === leftVal) {
+      while (low < high && nums[low] === lowVal) {
         low++
       }
     } else if (sum > target) {
       // sum > target 同理
-      while (low < high && nums[high] === rightVal) {
+      while (low < high && nums[high] === highVal) {
         high--
       }
     } else {
-      res.push([leftVal, rightVal])
+      res.push([lowVal, highVal])
 
-      // 即便取到了一对 leftVal 和 rightVal, 也要左右指针往中间夹, 来过滤重复的值
-      while (low < high && nums[low] === leftVal) {
+      // 即便取到了一对 lowVal 和 highVal, 也要左右指针往中间夹, 来过滤重复的值
+      while (low < high && nums[low] === lowVal) {
         low++
       }
-      while (low < high && nums[high] === rightVal) {
+      while (low < high && nums[high] === highVal) {
         high--
       }
     }
@@ -171,18 +171,18 @@ var nSum = function (nums, n, start, target) {
     let high = len - 1
 
     while (low < high) {
-      const leftVal = nums[low]
-      const rightVal = nums[high]
-      const sum = leftVal + rightVal
+      const lowVal = nums[low]
+      const highVal = nums[high]
+      const sum = lowVal + highVal
 
       if (sum < target) {
-        while (low < high && nums[low] === leftVal) low++
+        while (low < high && nums[low] === lowVal) low++
       } else if (sum > target) {
-        while (low < high && nums[high] === rightVal) high--
+        while (low < high && nums[high] === highVal) high--
       } else {
-        res.push([leftVal, rightVal])
-        while (low < high && nums[low] === leftVal) low++
-        while (low < high && nums[high] === rightVal) high--
+        res.push([lowVal, highVal])
+        while (low < high && nums[low] === lowVal) low++
+        while (low < high && nums[high] === highVal) high--
       }
     }
   } else {
@@ -228,24 +228,24 @@ fn n_sum(nums: &Vec<i32>, n: usize, start: usize, target: i32) -> Vec<Vec<i32>> 
         let (mut low, mut high) = (start, len - 1);
 
         while low < high {
-            let (left_val, right_val) = (nums[low], nums[high]);
-            let sum = left_val + right_val;
+            let (low_val, high_val) = (nums[low], nums[high]);
+            let sum = low_val + high_val;
 
             if sum < target {
-                while low < high && nums[low] == left_val {
+                while low < high && nums[low] == low_val {
                     low += 1;
                 }
             } else if sum > target {
-                while low < high && nums[high] == right_val {
+                while low < high && nums[high] == high_val {
                     high -= 1;
                 }
             } else {
-                res.push(vec![left_val, right_val]);
+                res.push(vec![low_val, high_val]);
 
-                while low < high && nums[low] == left_val {
+                while low < high && nums[low] == low_val {
                     low += 1;
                 }
-                while low < high && nums[high] == right_val {
+                while low < high && nums[high] == high_val {
                     high -= 1;
                 }
             }

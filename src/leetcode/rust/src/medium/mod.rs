@@ -8,7 +8,6 @@ pub mod question_15;
 pub mod question_150;
 pub mod question_16;
 pub mod question_17;
-pub mod question_18;
 pub mod question_19;
 pub mod question_198;
 pub mod question_213;

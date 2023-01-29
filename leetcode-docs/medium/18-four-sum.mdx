@@ -47,18 +47,18 @@ var nSum = function (nums, n, start, target) {
     let high = len - 1
 
     while (low < high) {
-      const leftVal = nums[low]
-      const rightVal = nums[high]
-      const sum = leftVal + rightVal
+      const lowVal = nums[low]
+      const highVal = nums[high]
+      const sum = lowVal + highVal
 
       if (sum < target) {
-        while (low < high && nums[low] === leftVal) low++
+        while (low < high && nums[low] === lowVal) low++
       } else if (sum > target) {
-        while (low < high && nums[high] === rightVal) high--
+        while (low < high && nums[high] === highVal) high--
       } else {
-        res.push([leftVal, rightVal])
-        while (low < high && nums[low] === leftVal) low++
-        while (low < high && nums[high] === rightVal) high--
+        res.push([lowVal, highVal])
+        while (low < high && nums[low] === lowVal) low++
+        while (low < high && nums[high] === highVal) high--
       }
     }
   } else {

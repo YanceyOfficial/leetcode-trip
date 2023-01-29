@@ -18,24 +18,24 @@ fn n_sum(nums: &Vec<i32>, n: usize, start: usize, target: i32) -> Vec<Vec<i32>> 
         let (mut low, mut high) = (start, len - 1);
 
         while low < high {
-            let (left_val, right_val) = (nums[low], nums[high]);
-            let sum = left_val + right_val;
+            let (low_val, high_val) = (nums[low], nums[high]);
+            let sum = low_val + high_val;
 
             if sum < target {
-                while low < high && nums[low] == left_val {
+                while low < high && nums[low] == low_val {
                     low += 1;
                 }
             } else if sum > target {
-                while low < high && nums[high] == right_val {
+                while low < high && nums[high] == high_val {
                     high -= 1;
                 }
             } else {
-                res.push(vec![left_val, right_val]);
+                res.push(vec![low_val, high_val]);
 
-                while low < high && nums[low] == left_val {
+                while low < high && nums[low] == low_val {
                     low += 1;
                 }
-                while low < high && nums[high] == right_val {
+                while low < high && nums[high] == high_val {
                     high -= 1;
                 }
             }
