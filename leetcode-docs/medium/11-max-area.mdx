@@ -39,10 +39,10 @@ var maxArea = function (height) {
     // 找出短板
     const min = Math.min(height[i], height[j])
 
-    // 短板乘以跨度即面积
+    // 短板乘以宽度即面积
     max = Math.max(min * (j - i), max)
 
-    // 以压缩跨度的代价来寻找最优短板
+    // 以压缩宽度的代价来寻找最优短板
     if (height[i] < height[j]) {
       i++
     } else {
