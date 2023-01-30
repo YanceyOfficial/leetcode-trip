@@ -39,9 +39,9 @@ import TabItem from '@theme/TabItem'
   <TabItem value="JavaScript - 迭代法" label="JavaScript - 迭代法" default>
 
 1. 创建一个 `dummy` 链表, 将它的 `next` 指向 `head`
-2. temp 表示当前到达的节点, 初始时 `temp = dummy`, 每次需要交换 `temp` 后面的两个节点
+2. `curr` 表示当前到达的节点, 初始时 `curr = dummy`, 每次需要交换 `curr` 后面的两个节点
 3. 如果下一个节点为 `null`, 意味着到头了; 抑或如果下下个节点为 `null`, 意味链表长度为奇数, 没法再做交换, 结束循环
-4. 交换之前的节点关系是 `temp -> node1 -> node2`, 交换之后的节点关系要变成 `temp -> node2 -> node1`
+4. 交换之前的节点关系是 `curr -> node1 -> node2`, 交换之后的节点关系要变成 `curr -> node2 -> node1`
 
 ```ts
 /**
@@ -51,14 +51,14 @@ import TabItem from '@theme/TabItem'
 var swapPairs = function (head) {
   const dummy = new ListNode(0)
   dummy.next = head
-  let temp = dummy
+  let curr = dummy
 
-  while (temp.next !== null && temp.next.next !== null) {
-    const first = temp.next
-    const second = temp.next.next
+  while (curr.next !== null && curr.next.next !== null) {
+    const first = curr.next
+    const second = curr.next.next
 
-    // 把 second 放到 temp.next 下
-    temp.next = second
+    // 把 second 放到 curr.next 下
+    curr.next = second
 
     // 把 second 的下一个放到 first 的下一个
     first.next = second.next
@@ -66,8 +66,8 @@ var swapPairs = function (head) {
     // second 的下一个指向 first
     second.next = first
 
-    // first 赋值给 temp, 实际上就是将 temp 往后走了两步
-    temp = first
+    // first 赋值给 curr, 实际上就是将 curr 往后走了两步
+    curr = first
   }
 
   return dummy.next
@@ -86,6 +86,7 @@ var swapPairs = function (head) {
   if (head === null || head.next === null) {
     return head
   }
+  
   const newHead = head.next
   head.next = swapPairs(newHead.next)
   newHead.next = head
