@@ -23,13 +23,13 @@ keywords:
 
 ## 题目
 
-给你一个**按升序的排列**数组 `nums`, 请你 **原地** 删除重复出现的元素, 使每个元素**只出现一次**, 返回删除后数组的新长度. 不要使用额外的数组空间, 你必须在 **原地** 修改输入数组 并在使用 O(1) 额外空间的条件下完成.
+给你一个**按升序的排列**数组 `nums`, 请你 **原地** 删除重复出现的元素, 使每个元素**只出现一次**, 返回删除后数组的新长度. 不要使用额外的数组空间, 你必须在 **原地** 修改输入数组 并在使用 `O(1)` 额外空间的条件下完成.
 
 :::info 示例
 
-输入: nums = [1, 1, 2]
+输入: `nums = [1, 1, 2]`
 
-输出: 2, 其中 nums 变成 [1, 2, 2]
+输出: `2`, 其中 `nums` 变成 `[1, 2, 2]`
 :::
 
 ## 题解
@@ -42,7 +42,7 @@ keywords:
 - 第三步: `fast`, `slow` 指向的都是 `2`, 因此只需 `fast` 向前走一步;
 - 第四步: `fast`, `slow` 指向的都是 `2`, 因此只需 `fast` 向前走一步;
 - 第五步: 此时 `fast`, `slow` 指向的值不同, 让 `slow + 1`, 并把 `fast` 指向的值赋值给 `slow` 指向的值, 然后 `fast` 向前走一步;
-- 第六步: `fast`, `slow` 指向的都是 `3`, 因此只需 `fast` 向前走一步, 此时 `fast > len`, 跳出循环, 返回 `show + 1` 即可.
+- 第六步: `fast`, `slow` 指向的都是 `3`, 因此只需 `fast` 向前走一步, 此时 `fast > n`, 跳出循环, 返回 `show + 1` 即可.
 
 ```ts
 fast              fast              fast              fast              fast              fast              fast
@@ -58,17 +58,19 @@ slow            slow              slow            slow            slow          
  * @return {number}
  */
 var removeDuplicates = function (nums) {
-  const len = nums.length
-  if (len === 0) return 0
+  const n = nums.length
+  if (n === 0) return 0
+
   // 双指针
   let slow = 0,
     fast = 0
 
-  while (fast < len) {
+  while (fast < n) {
     if (nums[fast] !== nums[slow]) {
       slow++
       nums[slow] = nums[fast]
     }
+    
     fast++
   }
 
