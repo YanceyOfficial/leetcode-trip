@@ -42,6 +42,12 @@ keywords:
 
 使用快慢指针, 题目跟 [26. 删除排序数组中的重复项](/leetcode/easy/26-remove-duplicates) 题类似.
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * @param {number[]} nums
@@ -50,6 +56,8 @@ keywords:
  */
 var removeElement = function (nums, val) {
   const n = nums.length
+  if (n === 0) return 0
+
   let slow = 0,
     fast = 0
 
@@ -65,3 +73,32 @@ var removeElement = function (nums, val) {
   return slow
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn remove_element(nums: &mut Vec<i32>, val: i32) -> i32 {
+    let n = nums.len();
+
+    if n == 0 {
+        return 0;
+    }
+
+    let (mut slow, mut fast) = (0, 0);
+
+    while fast < n {
+        if nums[fast] != val {
+            nums[slow] = nums[fast];
+            slow += 1;
+        }
+
+        fast += 1;
+    }
+
+    slow as i32
+}
+```
+
+</TabItem>
+</Tabs>
