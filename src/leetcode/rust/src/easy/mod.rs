@@ -5,6 +5,7 @@ pub mod question_14;
 pub mod question_20;
 pub mod question_206;
 pub mod question_242;
+pub mod question_26;
 pub mod question_346;
 pub mod question_35;
 pub mod question_496;
