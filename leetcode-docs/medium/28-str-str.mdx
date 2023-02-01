@@ -1,0 +1,81 @@
+---
+id: 28-str-str
+title: 实现-str-str
+sidebar_label: 28. 实现-str-str
+---
+
+## 题目
+
+给你两个字符串 `haystack` 和 `needle`, 请你在 `haystack` 字符串中找出 `needle` 字符串出现的第一个位置(下标从 `0` 开始). 如果不存在, 则返回 `-1`.
+
+:::info 示例
+
+输入: `haystack = "hello"`, `needle = "ll"`
+
+输出: `2`
+:::
+
+## 题解
+
+类似于游标卡尺, 先找好 `needle` 的长度, 然后通过该区间在 `haystack` 上从左到右游走(`haystack.slice(i, j)`).
+
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ */
+var strStr = function (haystack, needle) {
+  if (needle === '') return 0
+
+  let i = 0,
+    j = needle.length
+
+  while (j <= haystack.length) {
+    if (haystack.slice(i, j) === needle) {
+      return i
+    } else {
+      i++
+      j++
+    }
+  }
+
+  return -1
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn str_str(haystack: String, needle: String) -> i32 {
+    let n = needle.len();
+
+    if n == 0 {
+        return 0;
+    }
+
+    let (mut i, mut j) = (0, n);
+
+    while j <= haystack.len() {
+        if haystack[i..j] == needle {
+            return i as i32;
+        }
+
+        i += 1;
+        j += 1;
+    }
+
+    -1
+}
+```
+
+</TabItem>
+</Tabs>
