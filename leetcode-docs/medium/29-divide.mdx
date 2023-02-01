@@ -8,41 +8,34 @@ sidebar_label: 29. 两数相除
 
 将两数相除, 不能用乘法/除法/取余等操作.
 
-:::warning 注意
+注意:
 
-- 被除数和除数均为 32 位有符号整数;
-- 除数不为 0;
-- 假设我们的环境只能存储 32 位有符号整数, 其数值范围是 [-2<sup>31</sup>, 2<sup>31</sup> - 1]. 本题中, 如果除法结果溢出, 则返回 2<sup>31</sup> - 1.
-:::
+- 被除数和除数均为 `32` 位有符号整数;
+- 除数不为 `0`;
+- 假设我们的环境只能存储 `32` 位有符号整数, 其数值范围是 `[-2³¹, 2³¹ - 1]`. 本题中, 如果除法结果溢出, 则返回 `2³¹ - 1`.
 
 :::info 示例
 
-输入: dividend = 7, divisor = 3
+输入: `dividend = 7`, `divisor = 3`
 
-输出: 2
+输出: `2`
 :::
 
 ## 题解
 
-任何数字都等于 Math.pow(2, 0) + Math.pow(2, 1) + ... + Math.pow(2, i)
+任何数字都等于 `Math.pow(2, 0) + Math.pow(2, 1) + ... + Math.pow(2, i)`
 
-因为: 商 r \* 除数 divisor = 被除数 dividend
+因此反过来: `商(r) * 除数(divisor) = 被除数(dividend)`
 
-所以商 r 用 2 的次幂表示: (Math.pow(2, 0) + Math.pow(2, 1) + ... + Math.pow(2, i)) \* 除数 divisor = 被除数 dividend
+所以 `r` 用 `2` 的次幂表示: `(Math.pow(2, 0) + Math.pow(2, 1) + ... + Math.pow(2, i)) * divisor = dividend`
 
-所以该题就变成了求 i, 使 2 的次幂累加结果, 逼近 dividend
+所以该题就变成了求 `i`, 使 `2` 的次幂累加结果, 逼近 `dividend`.
 
-除数 divisor \* Math.pow(2, i) = divisor << i
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-(divisor << i) < 被除数 dividend, 这里指绝对值
-
-数值范围[-Math.pow(2, 31), Math.pow(2, 31) - 1], 所以: i <= 31
-
-当 i 为 31 时, 1 << 31 为 -2147483648, 符号与 1 不一致; --1 << 31 为 -2147483648, 符号始终一致, 所以: 只能使用负数计算
-
-为使 (divisor << i) 不逾界, 需保证 divisor < (-1 << (31 - i))
-
-因为是负数, 所以以上判断符号, < 变 >, > 变 <
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -50,23 +43,76 @@ sidebar_label: 29. 两数相除
  * @param {number} divisor
  * @return {number}
  */
-var divide = function (dividend, divisor, i = 0, r = 0, p = '') {
-  dividend > 0 ? (dividend = -dividend) : (p = '-')
-  divisor > 0 ? (divisor = -divisor) : (p = p ? '' : '-')
-  while (dividend) {
-    while (
-      i <= 31 &&
-      divisor >= -1 << (31 - i) &&
-      divisor << i >= dividend &&
-      ++i
-    ) {}
-    if (i === 0) {
-      break
+var divide = function (dividend, divisor) {
+  const INT_MAX = 2 ** 31 - 1
+  const INT_MIN = (-2) ** 31
+  const sign = (dividend < 0) ^ (divisor < 0) ? -1 : 1
+
+  dividend = Math.abs(dividend)
+  divisor = Math.abs(divisor)
+
+  let ans = 0
+  while (dividend >= divisor) {
+    let temp = divisor,
+      multiple = 1
+
+    // a << 1 相当于 a * 2
+    while (dividend >= temp << 1) {
+      temp <<= 1
+      multiple <<= 1
     }
-    dividend = dividend - (divisor << --i)
-    r += Math.pow(2, i)
-    i = 0
+    dividend -= temp
+    ans += multiple
   }
-  return parseInt(p + (!p && r >= 2147483648 ? 2147483647 : r))
+
+  const res = ans * sign
+  if (res < INT_MIN || res > INT_MAX) {
+    return INT_MAX
+  } else {
+    return res
+  }
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn divide(dividend: i32, divisor: i32) -> i32 {
+    let sign = if (dividend < 0) ^ (divisor < 0) {
+        -1
+    } else {
+        1
+    };
+
+    let mut dividend = dividend as i64;
+    let mut divisor = divisor as i64;
+
+    dividend = dividend.abs();
+    divisor = divisor.abs();
+
+    let mut ans: i64 = 0;
+    while dividend >= divisor {
+        let mut temp = divisor;
+        let mut multiple = 1;
+
+        while dividend >= temp << 1 {
+            temp <<= 1;
+            multiple <<= 1;
+        }
+
+        dividend -= temp;
+        ans += multiple;
+    }
+
+    let res = ans * sign;
+    if res < i32::MIN as i64 || res > i32::MAX as i64 {
+        i32::MAX
+    } else {
+        res as i32
+    }
+}
+```
+
+</TabItem>
+</Tabs>

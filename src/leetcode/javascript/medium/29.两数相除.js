@@ -10,24 +10,33 @@
  * @param {number} divisor
  * @return {number}
  */
-var divide = function (dividend, divisor, i = 0, r = 0, p = '') {
-  dividend > 0 ? (dividend = -dividend) : (p = '-')
-  divisor > 0 ? (divisor = -divisor) : (p = p ? '' : '-')
-  while (dividend) {
-    while (
-      i <= 31 &&
-      divisor >= -1 << (31 - i) &&
-      divisor << i >= dividend &&
-      ++i
-    ) {}
-    if (i === 0) {
-      break
-    }
-    dividend = dividend - (divisor << --i)
-    r += Math.pow(2, i)
-    i = 0
-  }
-  return parseInt(p + (!p && r >= 2147483648 ? 2147483647 : r))
-}
+var divide = function (dividend, divisor) {
+  const INT_MAX = 2 ** 31 - 1
+  const INT_MIN = (-2) ** 31
+  const sign = (dividend < 0) ^ (divisor < 0) ? -1 : 1
 
+  dividend = Math.abs(dividend)
+  divisor = Math.abs(divisor)
+
+  let ans = 0
+  while (dividend >= divisor) {
+    let temp = divisor,
+      multiple = 1
+
+    // a << 1 相当于 a * 2
+    while (dividend >= temp << 1) {
+      temp <<= 1
+      multiple <<= 1
+    }
+    dividend -= temp
+    ans += multiple
+  }
+
+  const res = ans * sign
+  if (res < INT_MIN || res > INT_MAX) {
+    return INT_MAX
+  } else {
+    return res
+  }
+}
 // @lc code=end
