@@ -3,7 +3,7 @@ mod hard;
 mod medium;
 
 fn main() {
-    let res = medium::question_29::divide(-2147483648, -1);
+    let res = medium::question_31::next_permutation(&mut vec![1, 2, 3]);
 
     println!("{:?}", res);
 }
