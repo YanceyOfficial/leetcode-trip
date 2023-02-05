@@ -2,13 +2,7 @@
 id: 30-find-substring
 title: 串联所有单词的子串
 sidebar_label: 30. 串联所有单词的子串
-keywords:
-  - Sliding Window
 ---
-
-:::success Tips
-题目类型: HashMap, Sliding Window
-:::
 
 ## 题目
 
@@ -61,12 +55,12 @@ s 中没有子串长度为 16 并且等于 words 的任何顺序排列的连接.
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-<Tabs>
-  <TabItem value="JavaScript - 朴素解法" label="JavaScript - 朴素解法" default>
-
 朴素解法的思路是先把 `words` 中的每个 `word` 放到哈希表 `map` 中, 值是其出现的数量. 然后从头遍历 `s`, 截取 `s.slice(i, i + n * w)` 子字符串记为 `subStr`,
 把 `subStr` 按照 `word` 的长度切割, 把每一份的子字符串存到一个新的哈希表 `subMap` 中, 和 `map` 一样, 值是其出现的数量. 最后比较 `subMap` 和 `map`, 如果相等, 说明 `words` 的某个组合
-使一个合法的串联子串.
+使一个合法的串联子串..
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -129,13 +123,6 @@ var isEqual = function (map1, map2) {
 
   return true
 }
-```
-
-</TabItem>
-<TabItem value="JavaScript - 滑动窗口" label="JavaScript - 滑动窗口">
-
-```ts
-// TODO:
 ```
 
 </TabItem>
