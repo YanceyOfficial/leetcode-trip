@@ -6,7 +6,7 @@ sidebar_label: 34. 在排序数组中查找元素的第一个和最后一个位�
 
 ## 题目
 
-在从小到大排序的数组 nums 中, 找出 target 的第一个和最后一个位置的索引的数组.
+在从小到大排序的数组 `nums` 中, 找出 `target` 的第一个和最后一个位置的索引的数组.
 
 :::info 示例
 
@@ -34,14 +34,20 @@ sidebar_label: 34. 在排序数组中查找元素的第一个和最后一个位�
 
 先写好二分查找的基本框架, 然后考察几个特例:
 
-- `nums = [4, 6, 8, 9, 10], target = 6`, 此时 nums[mid] 为 8, 大于 target, 那必然 right = mid - 1
-- `nums = [4, 6, 8, 9, 10], target = 9`, 此时 nums[mid] 为 8, 小于 target, 那必然 left = mid + 1
-- `nums = [4, 6, 8, 8, 9, 10], target = 8`, 此时 nums[mid] 为 8, 等于 target, 但我们要获取的是一个区间范围, 因此:
-  - 如果 nums[left] 小于了 target, 那就尝试让 left 往右走一步(夹逼准则, 挤挤更健康!!!)
-  - 如果 nums[right] 大于了 target, 那就尝试让 right 往左走一步(夹逼准则, 挤挤更健康!!!)
-  - 如果 nums[left] 和 nums[right] 同时都等于了 target, 我们也就找到了这个区间范围, 返回即可
-- `nums = [2], target = 0`, 此时 nums[mid] 为 2, 大于 target, 那必然 right = mid - 1, 而此时 right 就小于了 left, 退出循环, 返回 [-1, -1].
-- `nums = [2], target = 5`, 此时 nums[mid] 为 2, 小于 target, 那必然 left = mid + 1, 而此时 left 就大于了 right, 退出循环, 返回 [-1, -1].
+- `nums = [4, 6, 8, 9, 10], target = 6`, 此时 `nums[mid]` 为 `8`, 大于 `target`, 那必然 `right = mid - 1`
+- `nums = [4, 6, 8, 9, 10], target = 9`, 此时 `nums[mid]` 为 8, 小于 `target`, 那必然 `left = mid + 1`
+- `nums = [4, 6, 8, 8, 9, 10], target = 8`, 此时 `nums[mid]` 为 `8`, 等于 `target`, 但我们要获取的是一个区间范围, 因此:
+  - 如果 `nums[left]` 小于了 `target`, 那就尝试让 `left` 往右走一步(夹逼准则, 挤挤更健康!!!)
+  - 如果 `nums[right]` 大于了 `target`, 那就尝试让 `right` 往左走一步(夹逼准则, 挤挤更健康!!!)
+  - 如果 `nums[left]` 和 `nums[right]` 同时都等于了 `target`, 我们也就找到了这个区间范围, 返回即可
+- `nums = [2], target = 0`, 此时 `nums[mid]` 为 `2`, 大于 `target`, 那必然 `right = mid - 1`, 而此时 `right` 就小于了 `left`, 退出循环, 返回 `[-1, -1]`.
+- `nums = [2], target = 5`, 此时 `nums[mid]` 为 `2`, 小于 `target`, 那必然 `left = mid + 1`, 而此时 `left` 就大于了 `right`, 退出循环, 返回 `[-1, -1]`.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -54,7 +60,8 @@ var searchRange = function (nums, target) {
   let right = nums.length - 1
 
   while (left <= right) {
-    const mid = Math.floor((left + right) / 2)
+    const mid = ((left + right) / 2) | 0
+
     if (nums[mid] === target) {
       if (nums[left] < target) left++
       if (nums[right] > target) right--
@@ -67,6 +74,50 @@ var searchRange = function (nums, target) {
       right = mid - 1
     }
   }
+
   return [-1, -1]
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn search_range(nums: Vec<i32>, target: i32) -> Vec<i32> {
+    let (mut left, mut right) = (0, nums.len() - 1);
+
+    while left <= right {
+        // 注意下面 right -= 1 和 right = mid - 1 都有可能将 right 变为负数,
+        // 由于 right 是 uszie 类型, 因此一旦它变成负数, 会自动被转化成 usize::MAX,
+        // 这样后面的迭代中就会溢出, 需要过滤到这种情况
+        if (right > nums.len()) {
+            break;
+        }
+
+        let mid = (left + right) / 2;
+
+        if nums[mid] == target {
+            if nums[left] < target {
+                left += 1;
+            }
+
+            if nums[right] > target {
+                right -= 1;
+            }
+
+            if nums[left] == target && nums[right] == target {
+                return vec![left as i32, right as i32];
+            }
+        } else if nums[mid] < target {
+            left = mid + 1;
+        } else if nums[mid] > target {
+            right = mid - 1;
+        }
+    }
+
+    vec![-1, -1]
+}
+```
+
+</TabItem>
+</Tabs>

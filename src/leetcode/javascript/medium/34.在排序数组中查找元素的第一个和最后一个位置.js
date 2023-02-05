@@ -15,16 +15,11 @@ var searchRange = function (nums, target) {
   let right = nums.length - 1
 
   while (left <= right) {
-    const mid = Math.floor((left + right) / 2)
+    const mid = ((left + right) / 2) | 0
+
     if (nums[mid] === target) {
-      if (nums[left] < target) {
-        left += 1
-      }
-
-      if (nums[right] > target) {
-        right -= 1
-      }
-
+      if (nums[left] < target) left++
+      if (nums[right] > target) right--
       if (nums[left] === target && nums[right] === target) {
         return [left, right]
       }
@@ -34,6 +29,7 @@ var searchRange = function (nums, target) {
       right = mid - 1
     }
   }
+
   return [-1, -1]
 }
 // @lc code=end
