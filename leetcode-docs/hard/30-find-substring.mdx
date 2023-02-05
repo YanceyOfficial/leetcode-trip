@@ -84,7 +84,7 @@ var findSubstring = function (s, words) {
     // 因为 words 中的每个子元素长度相等, 因此串联子串的长度是 n * w
     const end = i + n * w
 
-    // 注意如果右边届超过 m 要终止循环
+    // 注意如果右边界超过 m 要终止循环
     if (end > m) break
 
     // 因此字符串切片就是 s.slice(i, i + n * w)
