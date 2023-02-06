@@ -120,7 +120,7 @@ var solveSudoku = function (board) {
         if (board[i][j] !== '.') return backtrack(i, j + 1)
 
         // 如果当前元素是 '.'
-        // 那么就从 '0' 到 '9' 依次尝试
+        // 那么就从 '1' 到 '9' 依次尝试
         for (let k = 1; k <= 9; k++) {
           const ch = k.toString();
           
