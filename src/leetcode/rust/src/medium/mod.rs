@@ -25,6 +25,7 @@ pub mod question_33;
 pub mod question_34;
 pub mod question_347;
 pub mod question_36;
+pub mod question_38;
 pub mod question_380;
 pub mod question_39;
 pub mod question_40;
