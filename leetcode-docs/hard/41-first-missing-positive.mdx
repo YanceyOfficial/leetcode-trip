@@ -29,40 +29,19 @@ sidebar_label: 41. 缺失的第一个正数
 
 ## 题解
 
-### 菜 🐔 解法
+思路是使用原地哈希, 即使用数字下标作为哈希.
 
-因为我比较菜, 所以先排个序. 让 `min` 初始化为 `1`, 因为最小正整数就是 `1` 了. 然后遍历数组, 如果 `num === min`, 说明 `min` 至少得加 `1`, 结束此轮循环; 如果 `num > min`, 此时的 `min` 就是缺失的最小的第一个正数了.
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 朴素解法" label="JavaScript - 朴素解法">
 
 ```ts
 /**
  * @param {number[]} nums
  * @return {number}
  */
-var firstMissingPositive = function (nums) {
-  const n = nums.length
-  let min = 1
-
-  nums.sort((a, b) => a - b)
-
-  for (const num of nums) {
-    if (num === min) {
-      min += 1
-      continue
-    }
-    if (num > min) {
-      break
-    }
-  }
-
-  return min
-}
-```
-
-### 原地哈希
-
-即使用数字下标作为哈希.
-
-```ts
 var firstMissingPositive = function (nums) {
   const n = nums.length
 
@@ -84,3 +63,31 @@ var firstMissingPositive = function (nums) {
   return n + 1
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn first_missing_positive(nums: Vec<i32>) -> i32 {
+    let mut nums = nums;
+    let n = nums.len();
+
+    for i in 0..n {
+        while nums[i] > 0 && nums[i] <= (n as i32) && nums[(nums[i] - 1) as usize] != nums[i] {
+            let j = (nums[i] - 1) as usize;
+            nums.swap(i, j);
+        }
+    }
+
+    for i in 0..n {
+        if nums[i] != i as i32 + 1 {
+            return i as i32 + 1;
+        }
+    }
+
+    n as i32 + 1
+}
+```
+
+</TabItem>
+</Tabs>
