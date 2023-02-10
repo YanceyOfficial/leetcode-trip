@@ -6,6 +6,10 @@ keywords:
   - backtrack
 ---
 
+:::success Tips
+题目类型: backtrack
+:::
+
 ## 题目
 
 给定一个**无重复元素**的数组 `candidates` 和一个目标数 `target`, 找出 `candidates` 中所有可以使数字和为 `target` 的组合. **`candidates` 中的数字可以无限制重复被选取**.
@@ -60,7 +64,7 @@ var combinationSum = function (candidates, target) {
   const n = candidates.length
   const res = []
 
-  const backtrack = (begin, track, sum) => {
+  const backtrack = (begin, sum, track) => {
     if (target === sum) {
       res.push(track.slice())
       return
@@ -72,7 +76,7 @@ var combinationSum = function (candidates, target) {
         track.push(candidates[i])
 
         // 基于当前这个数的继续选择, 传 i, 下一次就不会选到 i 左边的数
-        backtrack(i, track, sum + candidates[i])
+        backtrack(i, sum + candidates[i], track)
 
         // 撤销选择, 回到选择 candidates[i] 之前的状态, 继续尝试选同层右边的数
         track.pop()
@@ -80,7 +84,8 @@ var combinationSum = function (candidates, target) {
     }
   }
 
-  backtrack(0, [], 0)
+  backtrack(0, 0, [])
+
   return res
 }
 ```
