@@ -29,13 +29,17 @@ sidebar_label: 41. 缺失的第一个正数
 
 ## 题解
 
-思路是使用原地哈希, 即使用数字下标作为哈希.
+这道题的思路是使用原地哈希, 即如果数组中包含 `x ∈ [1, n]`, 那么恢复后, 数组的第 `x - 1` 个元素为 `x`.
+
+以示例 `nums = [3, 4, -1, 1]` 为例, 它会通过一次操作, 被转化成 `[1, -1, 3, 4]`. 然后再来一次遍历, 发现 `nums[1]` 不是 `2`, 即找出了缺失的数字是 `2`.
+
+那么我们如何将数组进行恢复呢? 我们可以对数组进行一次遍历, 如果对于遍历到的数 `nums[i]`, 我们记为 `x`, 在 `[1, n]` 这个闭区间内, 但没有在 `x - 1` 的位置, 那我们就将 `x` 和 `nums[x - 1]` 进行交换.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 朴素解法" label="JavaScript - 朴素解法">
+  <TabItem value="JavaScript" label="JavaScript">
 
 ```ts
 /**
@@ -45,21 +49,21 @@ import TabItem from '@theme/TabItem'
 var firstMissingPositive = function (nums) {
   const n = nums.length
 
+  // 数组恢复
   for (let i = 0; i < n; i++) {
     while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] !== nums[i]) {
-      // 满足在指定范围内, 并且没有放在正确的位置上, 才交换
-      // 例如: 数值 3 应该放在索引 2 的位置上
       ;[nums[nums[i] - 1], nums[i]] = [nums[i], nums[nums[i] - 1]]
     }
   }
 
-  // [1, -1, 3, 4]
   for (let i = 0; i < n; i++) {
+    // 预期 nums[i] 要等于 i + 1, 如果不相等即为缺失的数字
     if (nums[i] !== i + 1) {
       return i + 1
     }
   }
-  // 都正确则返回数组长度 + 1
+
+  // 如果在数组中间不存在缺失的数字, 则返回数组长度 + 1
   return n + 1
 }
 ```
