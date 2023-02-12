@@ -8,12 +8,12 @@ sidebar_label: 43. 字符串相乘(大数相乘)
 
 大数相乘, 本题为 [415-大数相加](/leetcode/easy/415-add-string) 的进阶版. 首先要明确一些规律:
 
-1. 两数相加的位数, 最多为**位数多的那个数的位数加一**, 即 `Math.max(len1, len2) + 1`
-2. 两数相乘的位数, 最多为**两个数的位数之和**, 即 `len1 + len2`
+1. 两数相加的位数, 最多为**位数多的那个数的位数加一**, 即 `Math.max(m, n) + 1`
+2. 两数相乘的位数, 最多为**两个数的位数之和**, 即 `m + n`
 
-平时我们计算乘法都是通过列竖式, 这里以 123 \* 64 为例. 不难发现, 形成中间 492 和 738 其实是一个双循环操作, 以保证每位都能乘在一起, 并在这个过程中处理**进位**; 然后再按位进行加和.
+平时我们计算乘法都是通过列竖式, 这里以 `123 * 64` 为例. 不难发现, 形成中间 `492` 和 `738` 其实是一个双循环操作, 以保证每位都能乘在一起, 并在这个过程中处理**进位**; 然后再按位进行加和.
 
-```js
+```bash
   1 2 3
     6 4
 -------
@@ -25,7 +25,7 @@ sidebar_label: 43. 字符串相乘(大数相乘)
 
 而如果用程序写, 我们可以双循环和按位加和一起做. 大抵思路如下:
 
-```js
+```bash
   1  2  3
      6  4
 ----------
@@ -35,9 +35,15 @@ sidebar_label: 43. 字符串相乘(大数相乘)
 6 16 26 12 => 处理进位问题
 ```
 
-然后我们再对 [6, 16, 26, 12] 使用大数相加的套路进行处理, 得到最终的字符串.
+然后我们再对 `[6, 16, 26, 12]` 使用大数相加的套路进行处理, 得到最终的字符串.
 
 ## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```js
 /**
@@ -49,19 +55,19 @@ var multiply = function (num1, num2) {
   // 排除等于 0 的情况, 就不往下折腾了
   if (num1 === '0' || num2 === '0') return '0'
 
-  const len1 = num1.length
-  const len2 = num2.length
+  const m = num1.length
+  const n = num2.length
 
   // 遵循上面的规律: 两数相乘的位数, 最多为两个数的位数之和
-  // 因此朴素的两数相乘位数为 len1 + len2 - 1
-  const len = len1 + len2 - 1
-  const res = new Array(len).fill(0)
+  // 因此朴素的两数相乘位数为 m + n - 1
+  const totalLen = m + n - 1
+  const arr = new Array(totalLen).fill(0)
 
   // 做双循环, 保证每个位置都能乘在一起
-  for (let i = 0; i < len2; i++) {
-    for (let j = 0; j < len1; j++) {
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
       // 按位加和, 注意这里的加和可能会超过 10, 甚至更多. 不过暂时不用 care, 下面再处理进位问题
-      res[i + j] += +num2[i] * +num1[j]
+      arr[i + j] += +num2[i] * +num1[j]
     }
   }
 
@@ -69,8 +75,8 @@ var multiply = function (num1, num2) {
   let carry = 0
 
   // 处理进位
-  for (let k = len - 1; k >= 0; k--) {
-    const sum = res[k] + carry
+  for (let k = totalLen - 1; k >= 0; k--) {
+    const sum = arr[k] + carry
 
     // 将小于 10 的部分作为最终该位的结果
     str = (sum % 10) + str
@@ -83,3 +89,41 @@ var multiply = function (num1, num2) {
   return carry > 0 ? carry + str : str
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn multiply(num1: String, num2: String) -> String {
+    if num1 == String::from("0") || num2 == String::from("0") {
+        return String::from("0");
+    }
+
+    let (m, n) = (num1.len(), num2.len());
+    let total_len = m + n - 1;
+    let mut arr = vec![0; total_len];
+
+    for (i, byte1) in num1.as_bytes().iter().enumerate() {
+        for (j, byte2) in num2.as_bytes().iter().enumerate() {
+            arr[i + j] += (byte1 - b'0') as i32 * (byte2 - b'0') as i32;
+        }
+    }
+
+    let mut str = String::from("");
+    let mut carry = 0;
+    for k in (0..=(total_len - 1)).rev() {
+        let sum = arr[k] + carry;
+        str = (sum % 10).to_string() + &str;
+        carry = sum / 10;
+    }
+
+    if carry != 0 {
+        carry.to_string() + &str
+    } else {
+        str
+    }
+}
+```
+
+</TabItem>
+</Tabs>
