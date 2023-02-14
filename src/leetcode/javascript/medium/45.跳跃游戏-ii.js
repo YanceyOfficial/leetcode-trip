@@ -24,3 +24,5 @@ var jump = function (nums) {
   return steps
 }
 // @lc code=end
+
+console.log(jump([2, 3, 1, 2, 4, 2, 3]))

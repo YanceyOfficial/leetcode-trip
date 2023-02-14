@@ -35,6 +35,7 @@ pub mod question_421;
 pub mod question_43;
 pub mod question_438;
 pub mod question_445;
+pub mod question_45;
 pub mod question_46;
 pub mod question_47;
 pub mod question_474;
