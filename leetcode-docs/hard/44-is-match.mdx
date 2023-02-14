@@ -105,11 +105,12 @@ import TabItem from '@theme/TabItem'
 var isMatch = function (s, p) {
   const m = s.length
   const n = p.length
+
   const dp = new Array(m + 1)
     .fill(false)
     .map(() => new Array(n + 1).fill(false))
-  dp[0][0] = true
 
+  dp[0][0] = true
   for (let j = 1; j <= n; j++) {
     if (p[j - 1] === '*') {
       dp[0][j] = true
