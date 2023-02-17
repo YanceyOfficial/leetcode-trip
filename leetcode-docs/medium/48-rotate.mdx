@@ -34,6 +34,15 @@ sidebar_label: 48. 旋转图像
 
 ## 题解
 
+题目给了 `n * n`, 说明这是一个方形矩阵. 具体的思路是先沿对角线替换, 以示例一为例, 让 `2` 和 `4` 交换, `3` 和 `7` 交换, `6` 和 `8` 交换. 得到如下新矩阵(中间).
+然后对着每一行进行反转, 就可以得到结果了.
+
+```bash
+1 2 3     斜对角线交换     1 4 7     逐行反转      7 4 1
+4 5 6  --------------->  2 5 8  ------------->  8 5 2
+7 8 9                    3 6 9                  9 6 3
+```
+
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
@@ -45,7 +54,19 @@ import TabItem from '@theme/TabItem'
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-var rotate = function (matrix) {}
+var rotate = function (matrix) {
+  const n = matrix.length
+
+  for (let i = 0; i < n; i++) {
+    for (let j = i; j < n; j++) {
+      ;[matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
+    }
+  }
+
+  for (let i = 0; i < n; i++) {
+    matrix[i].reverse()
+  }
+}
 ```
 
 </TabItem>
@@ -53,7 +74,19 @@ var rotate = function (matrix) {}
 
 ```rust
 pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
+    let n = matrix.len();
 
+    for i in 0..n {
+        for j in i..n {
+            let temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
+        }
+    }
+
+    for i in 0..n {
+        matrix[i].reverse();
+    }
 }
 ```
 
