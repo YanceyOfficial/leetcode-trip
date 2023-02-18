@@ -20,7 +20,7 @@ var exist = function (board, word) {
   }
 
   // row 和 col 当前点的坐标, i 当前考察的 word 字符索引
-  const backtrack = (row, col, i) => {
+  const backtracking = (row, col, i) => {
     // 递归的出口: i 越界了就返回 true
     if (i === len) return true
 
@@ -33,10 +33,10 @@ var exist = function (board, word) {
     used[row][col] = true
 
     const canFindRest =
-      backtrack(row + 1, col, i + 1) ||
-      backtrack(row - 1, col, i + 1) ||
-      backtrack(row, col + 1, i + 1) ||
-      backtrack(row, col - 1, i + 1)
+      backtracking(row + 1, col, i + 1) ||
+      backtracking(row - 1, col, i + 1) ||
+      backtracking(row, col + 1, i + 1) ||
+      backtracking(row, col - 1, i + 1)
 
     if (canFindRest) return true
 
@@ -47,7 +47,7 @@ var exist = function (board, word) {
 
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
-      if (board[i][j] === word[0] && backtrack(i, j, 0)) return true
+      if (board[i][j] === word[0] && backtracking(i, j, 0)) return true
     }
   }
 

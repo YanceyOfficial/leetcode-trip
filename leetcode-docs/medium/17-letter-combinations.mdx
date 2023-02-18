@@ -3,11 +3,11 @@ id: 17-letter-combinations
 title: 电话号码的字母组合
 sidebar_label: 17. 电话号码的字母组合
 keywords:
-  - backtrack
+  - Backtracking
 ---
 
 :::success Tips
-题目类型: backtrack
+题目类型: Backtracking
 :::
 
 ## 题目
@@ -46,7 +46,7 @@ var letterCombinations = function (digits) {
   // 写一个 map 来模拟手机键盘
   const map = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
 
-  const backtrack = (track) => {
+  const backtracking = (track) => {
     const n = track.length
 
     // 题目要求组合字母的长度要和 digits 的长度相同
@@ -62,12 +62,12 @@ var letterCombinations = function (digits) {
     // 遍历某个数字对应的字母, 比如 def, 进行回溯
     for (const letter of letters) {
       track.push(letter)
-      backtrack(track.slice())
+      backtracking(track.slice())
       track.pop()
     }
   }
 
-  backtrack([])
+  backtracking([])
 
   return res
 }
@@ -100,12 +100,12 @@ pub fn letter_combinations(digits: String) -> Vec<String> {
         vec!["w", "x", "y", "z"],
     ];
 
-    backtrack(&mut res, &mut vec![], &map, &digits);
+    backtracking(&mut res, &mut vec![], &map, &digits);
 
     res
 }
 
-fn backtrack(
+fn backtracking(
     res: &mut Vec<String>,
     track: &mut Vec<String>,
     map: &Vec<Vec<&str>>,
@@ -122,7 +122,7 @@ fn backtrack(
 
     for i in 0..letters.len() {
         track.push(letters[i].to_string());
-        backtrack(res, track, map, digits);
+        backtracking(res, track, map, digits);
         track.pop();
     }
 }

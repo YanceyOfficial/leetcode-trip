@@ -16,7 +16,7 @@ var permuteUnique = function (nums) {
   const used = new Array(len).fill(false)
   nums.sort((a, b) => a - b) // 升序排序
 
-  const backtrack = (track) => {
+  const backtracking = (track) => {
     if (track.length === len) {
       res.push(track)
       return
@@ -32,13 +32,13 @@ var permuteUnique = function (nums) {
       }
       track.push(nums[i]) // 做选择
       used[i] = true // 记录路径上做过的选择
-      backtrack(track.slice()) // 递归
+      backtracking(track.slice()) // 递归
       track.pop() // 撤销选择
       used[i] = false // 也要撤销一下对它的记录
     }
   }
 
-  backtrack(track)
+  backtracking(track)
   return res
 }
 // @lc code=end

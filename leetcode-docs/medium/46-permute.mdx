@@ -3,7 +3,7 @@ id: 46-permute
 title: 全排列
 sidebar_label: 46. 全排列
 keywords:
-  - backtrack
+  - Backtracking
 ---
 
 ## 题目
@@ -18,9 +18,9 @@ keywords:
 
 ## 题解
 
-![backtrack](../../static/img/backtrack.jpg)
+![backtracking](../../static/img/backtracking.jpg)
 
-本题为经典的[回溯算法](/algorithm-design/backtrack), 回溯算法的本质是遍历一颗决策树, 遍历过程中我们肯定会以一定的顺序, 比如先找 `1`, 再找 `2`, 最后只能找 `3`, 此时这这分支找完了, 就会退到上一层, 然后是 `3`, 最后只能找 `2`...
+本题为经典的[回溯算法](/algorithm-design/backtracking), 回溯算法的本质是遍历一颗决策树, 遍历过程中我们肯定会以一定的顺序, 比如先找 `1`, 再找 `2`, 最后只能找 `3`, 此时这这分支找完了, 就会退到上一层, 然后是 `3`, 最后只能找 `2`...
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -37,7 +37,7 @@ var permute = function (nums) {
   const n = nums.length
   const res = []
 
-  const backtrack = (track) => {
+  const backtracking = (track) => {
     if (track.length === n) {
       res.push(track.slice())
       return
@@ -46,13 +46,13 @@ var permute = function (nums) {
     for (const num of nums) {
       if (!track.includes(num)) {
         track.push(num)
-        backtrack(track)
+        backtracking(track)
         track.pop()
       }
     }
   }
 
-  backtrack([])
+  backtracking([])
   
   return res
 }
@@ -63,11 +63,11 @@ var permute = function (nums) {
 ```rust
 pub fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
-    backtrack(&nums, &mut vec![], &mut res);
+    backtracking(&nums, &mut vec![], &mut res);
     res
 }
 
-fn backtrack(nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn backtracking(nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     if track.len() == nums.len() {
         res.push(track.to_vec());
         return;
@@ -76,7 +76,7 @@ fn backtrack(nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     for num in nums {
         if !track.contains(num) {
             track.push(*num);
-            backtrack(nums, track, res);
+            backtracking(nums, track, res);
             track.pop();
         }
     }

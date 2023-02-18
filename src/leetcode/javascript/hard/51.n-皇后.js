@@ -13,7 +13,7 @@ var solveNQueens = function (n) {
   const res = []
   const board = new Array(n).fill('').map(() => new Array(n).fill('.'))
 
-  const backtrack = (row) => {
+  const backtracking = (row) => {
     if (row === n) {
       const formattedBoard = board.map((row) => row.join(''))
       res.push(formattedBoard)
@@ -24,12 +24,12 @@ var solveNQueens = function (n) {
       if (!isValid(board, row, col)) continue
 
       board[row][col] = 'Q'
-      backtrack(row + 1)
+      backtracking(row + 1)
       board[row][col] = '.'
     }
   }
 
-  backtrack(0)
+  backtracking(0)
 
   return res
 }

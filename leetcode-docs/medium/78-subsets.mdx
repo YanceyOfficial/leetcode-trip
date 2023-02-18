@@ -3,11 +3,11 @@ id: 78-subsets
 title: 子集
 sidebar_label: 78. 子集
 keywords:
-  - backtrack
+  - Backtracking
 ---
 
 :::success Tips
-题目类型: backtrack
+题目类型: Backtracking
 :::
 
 ## 题目
@@ -58,18 +58,18 @@ var subsets = function (nums) {
   const n = nums.length
   const res = []
 
-  const backtrack = (begin, track) => {
+  const backtracking = (begin, track) => {
     res.push(track.slice()) // 调用子递归前, 加入解集
 
     for (let i = begin; i < n; i++) {
       // 枚举出所有可选的数
       track.push(nums[i]) // 选这个数
-      backtrack(i + 1, track) // 基于选这个数, 继续递归, 传入的是 i + 1
+      backtracking(i + 1, track) // 基于选这个数, 继续递归, 传入的是 i + 1
       track.pop() // 撤销选这个数
     }
   }
 
-  backtrack(0, [])
+  backtracking(0, [])
 
   return res
 }
@@ -81,16 +81,16 @@ var subsets = function (nums) {
 ```rust
 pub fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
-    backtrack(0, &nums, &mut vec![], &mut res);
+    backtracking(0, &nums, &mut vec![], &mut res);
     res
 }
 
-fn backtrack(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn backtracking(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     res.push(track.to_vec());
 
     for i in begin..nums.len() {
         track.push(nums[i]);
-        backtrack(i + 1, nums, track, res);
+        backtracking(i + 1, nums, track, res);
         track.pop();
     }
 }

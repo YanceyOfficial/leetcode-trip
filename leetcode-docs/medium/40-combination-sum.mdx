@@ -3,11 +3,11 @@ id: 40-combination-sum
 title: 组合总数 II
 sidebar_label: 40. 组合总数 II
 keywords:
-  - backtrack
+  - Backtracking
 ---
 
 :::success Tips
-题目类型: backtrack
+题目类型: Backtracking
 :::
 
 ## 题目
@@ -65,7 +65,7 @@ var combinationSum2 = function (candidates, target) {
   const used = new Array(n).fill(false)
   candidates.sort((a, b) => a - b)
 
-  const backtrack = (begin, sum, track) => {
+  const backtracking = (begin, sum, track) => {
     if (sum === target) {
       res.push(track.slice())
       return
@@ -86,14 +86,14 @@ var combinationSum2 = function (candidates, target) {
       if (sum < target) {
         track.push(candidates[i])
         used[i] = true
-        backtrack(i, sum + candidates[i], track)
+        backtracking(i, sum + candidates[i], track)
         track.pop()
         used[i] = false
       }
     }
   }
 
-  backtrack(0, 0, [])
+  backtracking(0, 0, [])
 
   return res
 }
@@ -110,11 +110,11 @@ pub fn combination_sum2(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
     let mut used = vec![false; candidates.len()];
 
-    backtrack(0, 0, target, &candidates, &mut used, &mut vec![], &mut res);
+    backtracking(0, 0, target, &candidates, &mut used, &mut vec![], &mut res);
     res
 }
 
-fn backtrack(
+fn backtracking(
     begin: usize,
     sum: i32,
     target: i32,
@@ -140,7 +140,7 @@ fn backtrack(
         if sum < target {
             used[i] = true;
             track.push(candidates[i]);
-            backtrack(i, sum + candidates[i], target, candidates, used, track, res);
+            backtracking(i, sum + candidates[i], target, candidates, used, track, res);
             track.pop();
             used[i] = false;
         }

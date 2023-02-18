@@ -23,7 +23,7 @@ var pathSum = function (root, targetSum) {
   const res = []
 
   // 2. 深度优先搜索: root -> 树; track -> 路径; targetSum -> 剩余的总和
-  const backtrack = (root, track, targetSum) => {
+  const backtracking = (root, track, targetSum) => {
     // 2.1 终止条件
     if (!root) {
       return
@@ -40,14 +40,14 @@ var pathSum = function (root, targetSum) {
       }
     } else {
       // 2.5 进一步递归左子树和右子树
-      backtrack(root.left, track, targetSum - root.val)
-      backtrack(root.right, track, targetSum - root.val)
+      backtracking(root.left, track, targetSum - root.val)
+      backtracking(root.right, track, targetSum - root.val)
     }
 
     // 2.6 回溯
     track.pop()
   }
-  backtrack(root, [], targetSum)
+  backtracking(root, [], targetSum)
 
   // 3. 返回结果
   return res

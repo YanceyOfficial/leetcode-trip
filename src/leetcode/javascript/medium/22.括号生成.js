@@ -13,7 +13,7 @@ var generateParenthesis = function (n) {
   const res = []
   let track = []
 
-  let backtrack = (left, right, track) => {
+  let backtracking = (left, right, track) => {
     if (right < left) return // 因为每个 track 的子串, 都要保证 left >= right, 即 [剩下的 left] < [剩下的 right], 一定不符合
     if (left < 0 || right < 0) return // 假设 left 小于 0 了, 意味着 left 的数量大于 n 了, 一定不符合
     if (left === 0 && right === 0) {
@@ -23,15 +23,15 @@ var generateParenthesis = function (n) {
     }
 
     track.push('(')
-    backtrack(left - 1, right, track)
+    backtracking(left - 1, right, track)
     track.pop()
 
     track.push(')')
-    backtrack(left, right - 1, track)
+    backtracking(left, right - 1, track)
     track.pop()
   }
 
-  backtrack(n, n, track)
+  backtracking(n, n, track)
 
   return res
 }

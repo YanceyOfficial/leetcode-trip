@@ -1,11 +1,11 @@
 #[allow(unused)]
 pub fn solve_sudoku(board: &mut Vec<Vec<char>>) {
-    backtrack(board, 0, 0);
+    backtracking(board, 0, 0);
 }
 
-fn backtrack(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
+fn backtracking(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
     if col == 9 {
-        return backtrack(board, row + 1, 0);
+        return backtracking(board, row + 1, 0);
     }
 
     if row == 9 {
@@ -15,7 +15,7 @@ fn backtrack(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
     for i in row..9 {
         for j in col..9 {
             if board[i][j] != '.' {
-                return backtrack(board, i, j + 1);
+                return backtracking(board, i, j + 1);
             }
 
             for ch in '1'..='9' {
@@ -24,7 +24,7 @@ fn backtrack(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
                 }
 
                 board[i][j] = ch;
-                if backtrack(board, i, j + 1) {
+                if backtracking(board, i, j + 1) {
                     return true;
                 }
                 board[i][j] = '.';

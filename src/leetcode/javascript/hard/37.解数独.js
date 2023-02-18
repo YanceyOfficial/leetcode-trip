@@ -24,21 +24,21 @@ var solveSudoku = function (board) {
     return true
   }
 
-  const backtrack = (row, col) => {
-    if (col === 9) return backtrack(row + 1, 0)
+  const backtracking = (row, col) => {
+    if (col === 9) return backtracking(row + 1, 0)
     if (row === 9) return true
 
     for (let i = row; i < 9; i++) {
       for (let j = col; j < 9; j++) {
         if (board[i][j] !== '.') {
-          return backtrack(i, j + 1)
+          return backtracking(i, j + 1)
         }
 
         for (let k = 1; k <= 9; k++) {
           if (!isValid(k.toString(), i, j)) continue
 
           board[i][j] = k.toString()
-          if (backtrack(i, j + 1)) return true
+          if (backtracking(i, j + 1)) return true
           board[i][j] = '.'
         }
 
@@ -49,6 +49,6 @@ var solveSudoku = function (board) {
     return true
   }
 
-  backtrack(0, 0)
+  backtracking(0, 0)
 }
 // @lc code=end

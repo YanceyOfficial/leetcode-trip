@@ -15,7 +15,7 @@ var subsetsWithDup = function (nums) {
   const used = new Array(len).fill(false)
   nums.sort((a, b) => a - b)
 
-  const backtrack = (index, track) => {
+  const backtracking = (index, track) => {
     res.push(track.slice())
 
     for (let i = index; i < len; i++) {
@@ -24,13 +24,13 @@ var subsetsWithDup = function (nums) {
 
       track.push(nums[i])
       used[i] = true
-      backtrack(i + 1, track)
+      backtracking(i + 1, track)
       track.pop()
       used[i] = false
     }
   }
 
-  backtrack(0, [])
+  backtracking(0, [])
 
   return res
 }

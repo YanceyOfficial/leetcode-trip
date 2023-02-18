@@ -33,7 +33,7 @@ keywords:
 var findContinuousSequence = function (target) {
   const res = []
 
-  const backtrack = (begin, track, sum) => {
+  const backtracking = (begin, track, sum) => {
     if (sum === 0) {
       res.push(track.slice())
       return
@@ -43,13 +43,13 @@ var findContinuousSequence = function (target) {
       if (sum > 0) {
         if (i > 0 && i - track[track.length - 1] > 1) continue
         track.push(i)
-        backtrack(i + 1, track, sum - i)
+        backtracking(i + 1, track, sum - i)
         track.pop()
       }
     }
   }
 
-  backtrack(1, [], target)
+  backtracking(1, [], target)
 
   return res
 }
