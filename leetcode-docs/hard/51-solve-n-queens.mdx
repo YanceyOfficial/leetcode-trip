@@ -1,0 +1,199 @@
+---
+id: 51-solve-n-queens
+title: n-皇后
+sidebar_label: 51. n-皇后
+keywords:
+  - backtrack
+---
+
+:::success Tips
+题目类型: backtrack
+:::
+
+## 题目
+
+按照国际象棋的规则, 皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子. **n 皇后**问题研究的是如何将 `n` 个皇后放置在 `n * n` 的棋盘上, 并且使皇后彼此之间不能相互攻击.
+
+给你一个整数 `n` , 返回所有不同的 **n 皇后问题**的解决方案. 每一种解法包含一个不同的 **n 皇后问题**的棋子放置方案, 该方案中 `'Q'` 和 `'.'` 分别代表了皇后和空位.
+
+:::note 提示:
+
+- `1 <= n <= 9`
+
+:::
+
+:::info 示例
+
+![51-solve-n-queens](../../static/img/51-solve-n-queens.jpg)
+
+输入: `n = 4`
+
+输出: `[[".Q..","...Q","Q...","..Q."], ["..Q.","Q...","...Q",".Q.."]]`
+
+解释: 如上图所示, 4 皇后问题存在两个不同的解法。
+
+:::
+
+## 题解
+
+思路有点像 [37. 解数独](/leetcode/hard/37-solve-sudoku), 哦不, 简直就是一个思路. 首先要明确一个规律: **要想皇后不打架, 基线条件是每行只能放一个**.
+
+首先创建一个空的板子 `board`, 尝试在 `board[row][col]` 放上 `'Q'`, 由于这一行不能再放了, 便去 `board[row + 1]` 行逐列探寻,
+在这个过程中忽略掉不合法的(**同列不能有 `'Q'`, 左上斜线不能有 `'Q'`, 右上斜线不能有 `'Q'`**). 直到 `row === n`, 我们就找到了一个可行解.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {number} n
+ * @return {string[][]}
+ */
+var solveNQueens = function (n) {
+  const res = []
+
+  // 新建一个空板子
+  const board = new Array(n).fill('').map(() => new Array(n).fill('.'))
+
+  const backtrack = (row) => {
+    if (row === n) {
+      // 由于 board[row] 是数组, 而题目要求 board[row] 是字符串, 因此需要转一下
+      const _board = board.map((_row) => _row.join(''))
+      res.push(_board)
+      return
+    }
+
+    for (let col = 0; col < n; col++) {
+      if (!isValid(board, row, col)) continue
+
+      board[row][col] = 'Q'
+      backtrack(row + 1)
+      board[row][col] = '.'
+    }
+  }
+
+  backtrack(0)
+
+  return res
+}
+
+/**
+ * @param {string[][]} board
+ * @param {number} row
+ * @param {number} col
+ * @return {boolean}
+ */
+var isValid = function (board, row, col) {
+  const n = board.length
+
+  // 同列不能有 'Q'
+  for (let i = 0; i < row; i++) {
+    if (board[i][col] === 'Q') return false
+  }
+
+  // 右上斜线不能有 'Q'
+  for (let i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
+    if (board[i][j] === 'Q') return false
+  }
+
+  // 左上斜线不能有 'Q'
+  for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+    if (board[i][j] === 'Q') return false
+  }
+
+  return true
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn solve_n_queens(n: i32) -> Vec<Vec<String>> {
+    let mut res = vec![];
+    let mut board = vec![vec!['.'; n as usize]; n as usize];
+
+    backtrack(&mut board, &mut res, 0);
+
+    res
+}
+
+fn backtrack(board: &mut Vec<Vec<char>>, res: &mut Vec<Vec<String>>, row: usize) {
+    let n = board.len();
+
+    if row == n {
+        let _board = board
+            .iter()
+            .map(|_row| _row.iter().collect::<String>())
+            .collect();
+        res.push(_board);
+        return;
+    }
+
+    for col in 0..n {
+        if !is_valid(board, row, col) {
+            continue;
+        }
+
+        board[row][col] = 'Q';
+        backtrack(board, res, row + 1);
+        board[row][col] = '.';
+    }
+}
+
+fn is_valid(board: &mut Vec<Vec<char>>, row: usize, col: usize) -> bool {
+    let n = board.len();
+
+    for i in 0..row {
+        if board[i][col] == 'Q' {
+            return false;
+        }
+    }
+
+    let (mut i, mut j) = (row as i32 - 1, col as i32 + 1);
+    while i >= 0 && j < n as i32 {
+        if board[i as usize][j as usize] == 'Q' {
+            return false;
+        }
+
+        i -= 1;
+        j += 1;
+    }
+
+    let (mut i, mut j) = (row as i32 - 1, col as i32 - 1);
+    while i >= 0 && j >= 0 {
+        if board[i as usize][j as usize] == 'Q' {
+            return false;
+        }
+
+        i -= 1;
+        j -= 1;
+    }
+
+    true
+}
+```
+
+:::success Tips
+Rust 如果循环有多个参数, 可以考虑 `zip` 函数, 当然这个题不行, 因为 `row - 1` 可能直接越界
+
+```rust
+for (i, j) in (0..10).zip(0..10) {}
+```
+
+And... 老子学会用 `collect` 函数了嘻嘻.
+
+```rust
+let _board = board
+            .iter()
+            .map(|_row| _row.iter().collect::<String>())
+            .collect();
+```
+
+:::
+
+</TabItem>
+</Tabs>
