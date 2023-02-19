@@ -24,7 +24,11 @@ sidebar_label: 58. 最后一个单词的长度
 
 ## 题解
 
-### 解法一: API 小能手
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - API 小能手" label="JavaScript - API 小能手" default>
 
 先把两边的空格移除掉, 再按中间的空格切分成数组; 找数组的最后一个元素即可, 如果数组为空, 则返回 0. 不过这种方式创建了一个数组, 会导致空间复杂度变成 O(n).
 
@@ -43,7 +47,8 @@ var lengthOfLastWord = function (s) {
 }
 ```
 
-## 方法二
+</TabItem>
+<TabItem value="JavaScript - 从后往前遍历" label="JavaScript - 从后往前遍历">
 
 从后往前遍历, 如果没遇见空格, 就让 `count++`; 如果遇见了空格, 还要判断 count 是否为 0, 因为既然是单词, **至少得有一个字母**, 此时才可以跳出循环. 比起解法一, 该方法的空间复杂度仅为 O(1), 很优雅.
 
@@ -65,3 +70,13 @@ var lengthOfLastWord = function (s) {
   return count
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+
+```
+
+</TabItem>
+</Tabs>
