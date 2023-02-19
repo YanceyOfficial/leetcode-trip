@@ -27,6 +27,12 @@ keywords:
 
 sum 为局部(也就是子数组)的累加和, 如果 sum 为负数或 0, 说明以前的累加和应该被废弃(毕竟越加越小); `如果 sum > 0`, 前面的累加和就可以被复用. 让 `ans` 和 `sum` 比较, 找出最大的即可.
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * @param {number[]} nums
@@ -48,3 +54,12 @@ var maxSubArray = function (nums) {
   return ans
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+  
+```rust
+```
+
+</TabItem>
+</Tabs>
