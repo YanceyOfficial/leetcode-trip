@@ -5,12 +5,12 @@ pub fn permute_unique(nums: Vec<i32>) -> Vec<Vec<i32>> {
 
     let mut used = vec![false; nums.len()];
     let mut res: Vec<Vec<i32>> = vec![];
-    backtrack(&nums, &mut used, &mut vec![], &mut res);
+    backtracking(&nums, &mut used, &mut vec![], &mut res);
     res
 }
 
 #[allow(unused)]
-fn backtrack(nums: &Vec<i32>, used: &mut Vec<bool>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn backtracking(nums: &Vec<i32>, used: &mut Vec<bool>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     if track.len() == nums.len() {
         res.push(track.to_vec());
         return;
@@ -27,7 +27,7 @@ fn backtrack(nums: &Vec<i32>, used: &mut Vec<bool>, track: &mut Vec<i32>, res: &
 
         used[i] = true;
         track.push(nums[i]);
-        backtrack(nums, used, track, res);
+        backtracking(nums, used, track, res);
         track.pop();
         used[i] = false;
     }

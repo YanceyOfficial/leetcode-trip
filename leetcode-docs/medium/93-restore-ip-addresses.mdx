@@ -3,11 +3,11 @@ id: 93-restore-ip-addresses
 title: 复原-ip-地址
 sidebar_label: 93. 复原-ip-地址
 keywords:
-  - backtrack
+  - BackTracking
 ---
 
 :::success Tips
-题目类型: backtrack
+题目类型: BackTracking
 :::
 
 ## 题目
@@ -16,10 +16,12 @@ keywords:
 
 给定一个只包含数字的字符串 `s`, 用以表示一个 IP 地址, 返回所有可能的有效 IP 地址, 这些地址可以通过在 `s` 中插入 `'.'` 来形成. 你**不能**重新排序或删除 `s` 中的任何数字. 你可以按**任何顺序**返回答案.
 
-提示:
+:::note 提示:
 
 - `1 <= s.length <= 20`
 - `s` 仅由数字组成
+
+:::
 
 :::info 示例
 
@@ -50,7 +52,7 @@ keywords:
 
 下面是剪枝, 当 `segmentIdx` 不为 `4`, 但 `begin === n`, 说明字符串已经遍历完了, 但还没找齐 `4` 段, 剪掉.
 
-其次, 要考虑一个特殊情况, **如果前导字符为 0, 它只能独占一位**, 举个例子, `1.0.1.11` 这个 IP 地址是合法的, 但绝不可能出现 `1.01.1.1`, 即如果是前导 `0`, 它只能独占一位. 此时将该 `segment` 设为 `0`, 然后递归 `backtrack`, 来执行下一个 `segment`.
+其次, 要考虑一个特殊情况, **如果前导字符为 0, 它只能独占一位**, 举个例子, `1.0.1.11` 这个 IP 地址是合法的, 但绝不可能出现 `1.01.1.1`, 即如果是前导 `0`, 它只能独占一位. 此时将该 `segment` 设为 `0`, 然后递归 `backtracking`, 来执行下一个 `segment`.
 
 最后就是基本的枚举递归, 具体看代码.
 
@@ -73,7 +75,7 @@ var restoreIpAddresses = function (s) {
 
   if (n < 4 || n > 12) return res
 
-  const backtrack = (begin, segmentIdx, track) => {
+  const backtracking = (begin, segmentIdx, track) => {
     // 如果找到了 4 段 IP 地址并且遍历完了字符串, 那么就是一种答案
     if (segmentIdx === 4) {
       if (begin === n) {
@@ -88,7 +90,7 @@ var restoreIpAddresses = function (s) {
     // 由于不能有前导零, 如果当前数字为 0, 那么这一段 IP 地址只能为 0
     if (s[begin] === '0') {
       track[segmentIdx] = 0
-      backtrack(begin + 1, segmentIdx + 1, track)
+      backtracking(begin + 1, segmentIdx + 1, track)
     }
 
     // 一般情况, 枚举每一种可能性并递归
@@ -99,14 +101,14 @@ var restoreIpAddresses = function (s) {
       // 因为 0 是特殊的, 在上面已经处理了, 所以对于一般情况, 只要在 (0, 255] 这个前开后闭区间即可
       if (segment > 0 && segment <= 255) {
         track[segmentIdx] = segment
-        backtrack(i + 1, segmentIdx + 1, track)
+        backtracking(i + 1, segmentIdx + 1, track)
       } else {
         break
       }
     }
   }
 
-  backtrack(0, 0, [])
+  backtracking(0, 0, [])
 
   return res
 }
@@ -131,12 +133,12 @@ pub fn restore_ip_addresses(s: String) -> Vec<String> {
         return res;
     }
 
-    backtrack(0, 0, &arr, &mut vec![0; 4], &mut res);
+    backtracking(0, 0, &arr, &mut vec![0; 4], &mut res);
 
     res
 }
 
-fn backtrack(
+fn backtracking(
     begin: usize,
     segment_idx: usize,
     arr: &Vec<i32>,
@@ -163,7 +165,7 @@ fn backtrack(
 
     if arr[begin] == 0 {
         track[segment_idx] = 0;
-        backtrack(begin + 1, segment_idx + 1, arr, track, res);
+        backtracking(begin + 1, segment_idx + 1, arr, track, res);
     }
 
     let mut segment = 0;
@@ -172,7 +174,7 @@ fn backtrack(
 
         if segment > 0 && segment <= 255 {
             track[segment_idx] = segment;
-            backtrack(i + 1, segment_idx + 1, arr, track, res);
+            backtracking(i + 1, segment_idx + 1, arr, track, res);
         } else {
             break;
         }

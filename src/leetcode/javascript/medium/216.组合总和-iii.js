@@ -13,7 +13,7 @@
 var combinationSum3 = function (k, n) {
   const res = []
 
-  const backtrack = (begin, track, sum) => {
+  const backtracking = (begin, track, sum) => {
     if (track.length === k && sum === n) {
       res.push(track.slice())
       return
@@ -22,13 +22,13 @@ var combinationSum3 = function (k, n) {
     for (let i = begin; i < 10; i++) {
       if (sum < n && !track.includes(i)) {
         track.push(i)
-        backtrack(i, track, sum + i)
+        backtracking(i, track, sum + i)
         track.pop()
       }
     }
   }
 
-  backtrack(1, [], 0)
+  backtracking(1, [], 0)
 
   return res
 }

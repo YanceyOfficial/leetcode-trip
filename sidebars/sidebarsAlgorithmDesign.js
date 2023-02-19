@@ -1,6 +1,6 @@
 module.exports = {
   algorithmDesign: [
-    'backtrack',
+    'backtracking',
     'binary-search',
     'bit-manipulation',
     'recursion',

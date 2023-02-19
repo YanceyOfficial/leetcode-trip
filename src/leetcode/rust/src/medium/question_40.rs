@@ -6,12 +6,12 @@ pub fn combination_sum2(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
     let mut used = vec![false; candidates.len()];
 
-    backtrack(0, 0, target, &candidates, &mut used, &mut vec![], &mut res);
+    backtracking(0, 0, target, &candidates, &mut used, &mut vec![], &mut res);
     res
 }
 
 #[allow(unused)]
-fn backtrack(
+fn backtracking(
     begin: usize,
     sum: i32,
     target: i32,
@@ -37,7 +37,7 @@ fn backtrack(
         if sum < target {
             used[i] = true;
             track.push(candidates[i]);
-            backtrack(i, sum + candidates[i], target, candidates, used, track, res);
+            backtracking(i, sum + candidates[i], target, candidates, used, track, res);
             track.pop();
             used[i] = false;
         }

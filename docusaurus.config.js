@@ -97,7 +97,7 @@ module.exports = {
           activeBaseRegex: '/leetcode/',
         },
         {
-          to: '/algorithm-design/backtrack',
+          to: '/algorithm-design/backtracking',
           label: 'Algorithm Design',
           position: 'left',
           activeBaseRegex: '/algorithm-design/',

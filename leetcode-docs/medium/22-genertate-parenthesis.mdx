@@ -3,11 +3,11 @@ id: 22-genertate-parenthesis
 title: 括号生成
 sidebar_label: 22. 括号生成
 keywords:
-  - backtrack
+  - BackTracking
 ---
 
 :::success Tips
-题目类型: backtrack
+题目类型: BackTracking
 :::
 
 ## 题目
@@ -44,7 +44,7 @@ import TabItem from '@theme/TabItem'
 var generateParenthesis = function (n) {
   const res = []
 
-  const backtrack = (left, right, track) => {
+  const backtracking = (left, right, track) => {
     // 对于每个合法的 track 子串, 都要保证 left >= right, 即剩下的是 left <= right, 反之不合法
     if (right < left) return
 
@@ -58,15 +58,15 @@ var generateParenthesis = function (n) {
     }
 
     track.push('(')
-    backtrack(left - 1, right, track)
+    backtracking(left - 1, right, track)
     track.pop()
 
     track.push(')')
-    backtrack(left, right - 1, track)
+    backtracking(left, right - 1, track)
     track.pop()
   }
 
-  backtrack(n, n, [])
+  backtracking(n, n, [])
 
   return res
 }
@@ -78,11 +78,11 @@ var generateParenthesis = function (n) {
 ```rust
 pub fn generate_parenthesis(n: i32) -> Vec<String> {
     let mut res: Vec<String> = vec![];
-    backtrack(n, n, &mut vec![], &mut res);
+    backtracking(n, n, &mut vec![], &mut res);
     res
 }
 
-fn backtrack(left: i32, right: i32, track: &mut Vec<String>, res: &mut Vec<String>) {
+fn backtracking(left: i32, right: i32, track: &mut Vec<String>, res: &mut Vec<String>) {
     if right < left {
         return;
     }
@@ -97,11 +97,11 @@ fn backtrack(left: i32, right: i32, track: &mut Vec<String>, res: &mut Vec<Strin
     }
 
     track.push("(".to_string());
-    backtrack(left - 1, right, track, res);
+    backtracking(left - 1, right, track, res);
     track.pop();
 
     track.push(")".to_string());
-    backtrack(left, right - 1, track, res);
+    backtracking(left, right - 1, track, res);
     track.pop();
 }
 ```

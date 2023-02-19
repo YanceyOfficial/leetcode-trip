@@ -39,7 +39,7 @@ var triangleNumber = function (nums) {
 //   nums.sort((a, b) => a - b)
 //   const used = new Array(n).fill(false)
 
-//   const backtrack = (track, begin) => {
+//   const backtracking = (track, begin) => {
 //     if (track.length === 3) {
 //       if (track[0] + track[1] > track[2]) {
 //         res++
@@ -51,13 +51,13 @@ var triangleNumber = function (nums) {
 //       if (!used[i]) {
 //         track.push(nums[i])
 //         used[i] = true
-//         backtrack(track.slice(), i)
+//         backtracking(track.slice(), i)
 //         track.pop()
 //         used[i] = false
 //       }
 //     }
 //   }
 
-//   backtrack([], 0)
+//   backtracking([], 0)
 //   return res
 // }

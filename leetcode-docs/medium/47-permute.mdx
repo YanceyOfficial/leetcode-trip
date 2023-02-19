@@ -3,11 +3,11 @@ id: 47-permute
 title: 全排列 II
 sidebar_label: 47. 全排列 II
 keywords:
-  - backtrack
+  - BackTracking
 ---
 
 :::success Tips
-题目类型: backtrack
+题目类型: BackTracking
 :::
 
 ## 题目
@@ -51,7 +51,7 @@ var permuteUnique = function (nums) {
   const used = new Array(n).fill(false)
   nums.sort((a, b) => a - b) // 排序
 
-  const backtrack = (track) => {
+  const backtracking = (track) => {
     if (track.length === n) {
       res.push(track)
       return
@@ -71,13 +71,13 @@ var permuteUnique = function (nums) {
 
       track.push(nums[i]) // 做选择
       used[i] = true // 记录路径上做过的选择
-      backtrack(track.slice()) // 递归
+      backtracking(track.slice()) // 递归
       track.pop() // 撤销选择
       used[i] = false // 也要撤销一下对它的记录
     }
   }
 
-  backtrack([])
+  backtracking([])
   return res
 }
 ```
@@ -92,12 +92,12 @@ pub fn permute_unique(nums: Vec<i32>) -> Vec<Vec<i32>> {
 
     let mut used = vec![false; nums.len()];
     let mut res: Vec<Vec<i32>> = vec![];
-    backtrack(&nums, &mut used, &mut vec![], &mut res);
+    backtracking(&nums, &mut used, &mut vec![], &mut res);
     res
 }
 
 #[allow(unused)]
-fn backtrack(nums: &Vec<i32>, used: &mut Vec<bool>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn backtracking(nums: &Vec<i32>, used: &mut Vec<bool>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     if track.len() == nums.len() {
         res.push(track.to_vec());
         return;
@@ -114,7 +114,7 @@ fn backtrack(nums: &Vec<i32>, used: &mut Vec<bool>, track: &mut Vec<i32>, res: &
 
         used[i] = true;
         track.push(nums[i]);
-        backtrack(nums, used, track, res);
+        backtracking(nums, used, track, res);
         track.pop();
         used[i] = false;
     }

@@ -16,7 +16,7 @@ var combinationSum2 = function (candidates, target) {
   const used = new Array(len).fill(false)
   candidates.sort((a, b) => a - b)
 
-  const backtrack = (begin, track, sum) => {
+  const backtracking = (begin, track, sum) => {
     if (sum === target) {
       res.push(track.slice())
       return
@@ -37,14 +37,14 @@ var combinationSum2 = function (candidates, target) {
       if (sum < target) {
         track.push(candidates[i])
         used[i] = true
-        backtrack(i, track, sum + candidates[i])
+        backtracking(i, track, sum + candidates[i])
         track.pop()
         used[i] = false
       }
     }
   }
 
-  backtrack(0, [], 0)
+  backtracking(0, [], 0)
 
   return res
 }

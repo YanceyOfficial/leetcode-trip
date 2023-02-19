@@ -3,11 +3,11 @@ id: 77-combine
 title: 组合
 sidebar_label: 77. 组合
 keywords:
-  - backtrack
+  - BackTracking
 ---
 
 :::success Tips
-题目类型: backtrack
+题目类型: BackTracking
 :::
 
 ## 题目
@@ -40,7 +40,7 @@ import TabItem from '@theme/TabItem'
 var combine = function (n, k) {
   const res = []
 
-  const backtrack = function (begin, track) {
+  const backtracking = function (begin, track) {
     if (track.length === k) {
       res.push(track)
       return
@@ -49,13 +49,13 @@ var combine = function (n, k) {
     for (let i = begin; i <= n; i++) {
       if (!track.includes(i)) {
         track.push(i)
-        backtrack(i, track.slice())
+        backtracking(i, track.slice())
         track.pop()
       }
     }
   }
 
-  backtrack(1, [])
+  backtracking(1, [])
   return res
 }
 ```
@@ -66,16 +66,16 @@ var combine = function (n, k) {
 ```rust
 pub fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
-    backtrack(0, &nums, &mut vec![], &mut res);
+    backtracking(0, &nums, &mut vec![], &mut res);
     res
 }
 
-fn backtrack(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn backtracking(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     res.push(track.to_vec());
 
     for i in begin..nums.len() {
         track.push(nums[i]);
-        backtrack(i + 1, nums, track, res);
+        backtracking(i + 1, nums, track, res);
         track.pop();
     }
 }

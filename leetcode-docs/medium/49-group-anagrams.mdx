@@ -38,8 +38,7 @@ keywords:
 
 ## 题解
 
-思路比较简单, 对于异位词, 它们字母的组成是固定的, 比如 abc, bac, cba 都是由 a, b, c 三个字母组成的. 因此, 将 abc, bac, cba 按字母
-顺序重新排列, 就都是 abc 了, 故**按字母顺序排列的字符串可以当作哈希表的 key**.
+思路比较简单, 对于异位词, 它们字母的组成是固定的, 比如 `abc`, `bac`, `cba` 都是由 `a`, `b`, `c` 三个字母组成的. 因此可以将它们按字母顺序重新排列, 得到的都是 `abc`, 便用来当做哈希表的 `key`, 那么相同 `key` 的单词放到一个数组里即可.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -56,7 +55,8 @@ var groupAnagrams = function (strs) {
   const map = new Map()
 
   for (const str of strs) {
-    const orderStr = Array.from(str).sort().join()
+    const orderStr = str.split('').sort().join()
+
     if (map.has(orderStr)) {
       map.set(orderStr, [...map.get(orderStr), str])
     } else {
@@ -64,7 +64,7 @@ var groupAnagrams = function (strs) {
     }
   }
 
-  return Array.from(map.values())
+  return [...map.values()]
 }
 ```
 
@@ -75,25 +75,16 @@ var groupAnagrams = function (strs) {
 use std::collections::HashMap;
 
 pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
-    let mut map: HashMap<String, Vec<String>> = HashMap::with_capacity(strs.len());
+    let mut map: HashMap<String, Vec<String>> = HashMap::new();
 
     for str in strs {
-        // 将字符串转为 Vec<u8>
-        let mut order_vec = str.as_bytes().to_vec();
-        // sort 会影响到原 vec, 所以要加 mut
+        let mut order_vec = str.chars().collect::<Vec<char>>();
         order_vec.sort();
-        // vec 转字符串的小技巧
-        let order_str = format!("{:?}", order_vec);
+        let order_str = order_vec.iter().collect::<String>();
 
-        map.entry(order_str)
-            // push 方法由于 self 就是 &mut self, 所以无需解引用
-            // 注意这里必须 clone 一下 str, 因为如果直接用 str, 所有权就被 and_modify 的闭包 move 走了,
-            // 导致下面 or_insert 就没法使用 str 了
-            .and_modify(|e| e.push(str.clone()))
-            .or_insert(vec![str]);
+        map.entry(order_str).or_insert(Vec::new()).push(str);
     }
 
-    // 先记住这个语法好了, 还没搞懂
     map.values().cloned().collect()
 }
 ```

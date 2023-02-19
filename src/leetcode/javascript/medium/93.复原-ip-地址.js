@@ -14,7 +14,7 @@ var restoreIpAddresses = function (s) {
   const n = s.length
   const res = []
 
-  const backtrack = (begin, segmentIdx, track) => {
+  const backtracking = (begin, segmentIdx, track) => {
     // 如果找到了 4 段 IP 地址并且遍历完了字符串, 那么就是一种答案
     if (segmentIdx === 4) {
       if (begin === n) {
@@ -29,7 +29,7 @@ var restoreIpAddresses = function (s) {
     // 由于不能有前导零, 如果当前数字为 0, 那么这一段 IP 地址只能为 0
     if (s[begin] === '0') {
       track[segmentIdx] = 0
-      backtrack(begin + 1, segmentIdx + 1, track)
+      backtracking(begin + 1, segmentIdx + 1, track)
     }
 
     // 一般情况, 枚举每一种可能性并递归
@@ -38,14 +38,14 @@ var restoreIpAddresses = function (s) {
       segment = segment * 10 + Number(s[i])
       if (segment > 0 && segment <= 255) {
         track[segmentIdx] = segment
-        backtrack(i + 1, segmentIdx + 1, track)
+        backtracking(i + 1, segmentIdx + 1, track)
       } else {
         break
       }
     }
   }
 
-  backtrack(0, 0, [])
+  backtracking(0, 0, [])
 
   return res
 }
