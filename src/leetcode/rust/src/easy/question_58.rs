@@ -1,2 +1,4 @@
 #[allow(unused)]
-pub fn length_of_last_word(s: String) -> i32 {}
+pub fn length_of_last_word(s: String) -> i32 {
+    todo!()
+}
