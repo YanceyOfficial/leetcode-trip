@@ -55,6 +55,7 @@ var merge = function (intervals) {
   const n = intervals.length
   const res = []
   if (n === 0) return res
+
   intervals.sort((a, b) => a[0] - b[0])
   res.push(intervals[0])
 
@@ -81,12 +82,13 @@ var merge = function (intervals) {
 use std::cmp;
 
 pub fn merge(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-    let mut intervals = intervals;
     let n = intervals.len();
     let mut res: Vec<Vec<i32>> = vec![];
     if n == 0 {
         return res;
     }
+
+    let mut intervals = intervals;
     intervals.sort_by(|a, b| a[0].cmp(&b[0]));
     res.push(intervals[0].to_vec());
 
