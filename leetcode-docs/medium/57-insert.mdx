@@ -4,6 +4,10 @@ title: 插入区间
 sidebar_label: 57. 插入区间
 ---
 
+## 题目
+
+给你一个**无重叠的**, 按照区间起始端点排序的区间列表. 在列表中插入一个新的区间, 你需要确保列表中的区间仍然有序且不重叠(如果有必要的话, 可以合并区间).
+
 :::note 提示:
 
 - `0 <= intervals.length <= 10⁴`
@@ -14,10 +18,6 @@ sidebar_label: 57. 插入区间
 - `0 <= newInterval[0] <= newInterval[1] <= 10⁴`
 
 :::
-
-## 题目
-
-给你一个**无重叠的**, 按照区间起始端点排序的区间列表. 在列表中插入一个新的区间, 你需要确保列表中的区间仍然有序且不重叠(如果有必要的话, 可以合并区间).
 
 :::info 示例
 
@@ -51,7 +51,20 @@ sidebar_label: 57. 插入区间
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
+![57-insert](../../static/img/57-insert.png)
+
+朴素思路就是三段式考虑, 以上图为例:
+
+- `intervals[i]` 完全在 `newInterval` 的左侧
+- `intervals[i]` 和 `newInterval` 有交叉
+- `intervals[i]` 完全在 `newInterval` 的右侧
+
+因此我们根据三种情况, 使用一个指针 `i` 在 `intervals` 游走:
+
+- 首先会遇到 `intervals[i][1]` 完全在 `newInterval` 的左侧, 此时只需把 `intervals[i]` 放到新数组中即可
+- 接着会遇到重叠部分, 看上图, 只要 `intervals[i][0] <= newInterval[1]`, 就会发生重叠, 因此在这个条件下遍历,
+  **左端取蓝绿左索引的较小者, 右端取蓝绿右索引的较大者**, 来更新 `newInterval`, 这样在循环结束后, 就得到了合并区间, 然后放到新数组中即可
+- 对于剩下的部分, 自然完全是在 `newInterval` 的右侧, 逐一放到新数组中即可
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -65,14 +78,62 @@ import TabItem from '@theme/TabItem'
  * @param {number[]} newInterval
  * @return {number[][]}
  */
-var insert = function (intervals, newInterval) {}
+var insert = function (intervals, newInterval) {
+  const n = intervals.length
+  const newIntervals = []
+  let i = 0
+
+  while (i < n && intervals[i][1] < newInterval[0]) {
+    newIntervals.push(intervals[i])
+    i++
+  }
+
+  while (i < n && intervals[i][0] <= newInterval[1]) {
+    newInterval[0] = Math.min(newInterval[0], intervals[i][0])
+    newInterval[1] = Math.max(newInterval[1], intervals[i][1])
+    i++
+  }
+  newIntervals.push(newInterval)
+
+  while (i < n) {
+    newIntervals.push(intervals[i])
+    i++
+  }
+
+  return newIntervals
+}
 ```
 
 </TabItem>
 <TabItem value="Rust" label="Rust">
 
 ```rust
-pub fn foo() -> () {
+use std::cmp;
+
+pub fn insert(intervals: Vec<Vec<i32>>, new_interval: Vec<i32>) -> Vec<Vec<i32>> {
+    let n = intervals.len();
+    let mut new_interval = new_interval;
+    let mut new_intervals = vec![];
+    let mut i = 0;
+
+    while i < n && intervals[i][1] < new_interval[0] {
+        new_intervals.push(intervals[i].to_vec());
+        i += 1;
+    }
+
+    while i < n && intervals[i][0] <= new_interval[1] {
+        new_interval[0] = cmp::min(new_interval[0], intervals[i][0]);
+        new_interval[1] = cmp::max(new_interval[1], intervals[i][1]);
+        i += 1;
+    }
+    new_intervals.push(new_interval.to_vec());
+
+    while i < n {
+        new_intervals.push(intervals[i].to_vec());
+        i += 1;
+    }
+
+    new_intervals
 }
 ```
 
