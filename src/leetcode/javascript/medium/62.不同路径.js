@@ -23,10 +23,7 @@
 // @lc code=end
 
 var uniquePaths = function (m, n) {
-  const dp = []
-  for (let i = 0; i < m; i++) {
-    dp.push(new Array(n).fill(0))
-  }
+  const dp = new Array(m).fill(0).map(() => new Array(n).fill(0))
 
   for (let i = 0; i < m; i++) {
     dp[i][0] = 1
@@ -43,5 +40,3 @@ var uniquePaths = function (m, n) {
   }
   return dp[m - 1][n - 1]
 }
-
-console.log(uniquePaths(3, 7))

@@ -12,14 +12,14 @@ keywords:
 
 ## 题目
 
-一个机器人位于一个 `m x n` 网格的左上角(起始点在下图中标记为 "Start"). 机器人每次只能向下或者向右移动一步. 机器人试图达到网格的右下角(在下图中标记为 "Finish"). 问总共有多少条不同的路径?
+一个机器人位于一个 `m x n` 网格的左上角(起始点在下图中标记为 Start). 机器人每次只能向下或者向右移动一步. 机器人试图达到网格的右下角(在下图中标记为 Finish). 问总共有多少条不同的路径?
 
 ![62-unique-paths](../../static/img/62-unique-paths.jpg)
 
 :::info 示例
-输入: m = 3, n = 7
+输入: `m = 3`, `n = 7`
 
-输出: 28
+输出: `28`
 :::
 
 ## 题解
@@ -30,14 +30,11 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript" label="JavaScript">
+  <TabItem value="JavaScript - 二维数组" label="JavaScript - 二维数组">
 
 ```ts
 var uniquePaths = function (m, n) {
-  const dp = []
-  for (let i = 0; i < m; i++) {
-    dp.push(new Array(n).fill(0))
-  }
+  const dp = new Array(m).fill(0).map(() => new Array(n).fill(0))
 
   for (let i = 0; i < m; i++) {
     dp[i][0] = 1
