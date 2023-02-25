@@ -35,12 +35,11 @@ keywords:
 
 ## 题解
 
-由于路径的方向只能向下或者向右, 因此第一行只能从 `grid[0][0]` 走到 `grid[0][columns - 1]`; 第一列只能从 `grid[0][0]` 走到 `grid[row - 1][0]`. 由于此时的路径是唯一, 因此每个元素对应的
-最小路径和即为对应的路径上的数字总和.
+由于路径的方向只能向下或者向右, 因此第一行只能从 `grid[0][0]` 走到 `grid[0][columns - 1]`; 第一列只能从 `grid[0][0]` 走到 `grid[row - 1][0]`. 由于此时的路径是唯一, 因此每个元素对应的最小路径和即为对应的路径上的数字总和.
 
-对于不在第一行和第一列的元素, 可以**从其上边相邻元素向下移动一步到达, 也可以从其左边相邻元素向右移动一步到达**, 至于怎么到达路径最短, 即**取上邻元素和左邻元素的最小值**.
+对于不在第一行和第一列的元素, 可以**从其上边相邻元素向下移动一步到达, 也可以从其左边相邻元素向右移动一步到达**, 至于怎么到达路径最短, **取上邻元素和左邻元素的最小值**.
 
-创建 dp 二维数组, base case 为 `dp[0][0] = grid[0][0],` 而状态转移方程如下:
+创建 `dp` 数组, 初始化 `dp[0][0] = grid[0][0]`, 状态转移方程如下:
 
 - 当 `i > 0` 且 `j = 0` 时, 即在第一列向下走, 有 `dp[i][0] = dp[i - 1][0] + grid[i][0]`
 - 当 `j > 0` 且 `i = 0` 时, 即在第一行向右走, 有 `dp[0][j] = dp[0][j - 1] + grid[0][j]`
@@ -61,13 +60,8 @@ var minPathSum = function (grid) {
   const rows = grid.length
   const columns = grid[0].length
 
-  if (rows === 0 || columns === 0) return 0
-
   // 创建二维数组
-  const dp = []
-  for (let i = 0; i < rows; i++) {
-    dp.push(new Array(columns).fill(0))
-  }
+  const dp = new Array(rows).fill(0).map(() => new Array(columns).fill(0))
 
   // dp[i][j] 表示从左下角走到 i, j 的最小路径和
   dp[0][0] = grid[0][0] // base case
@@ -102,9 +96,6 @@ use std::cmp;
 pub fn min_path_sum(grid: Vec<Vec<i32>>) -> i32 {
     let rows = grid.len();
     let columns = grid[0].len();
-    if rows == 0 || columns == 0 {
-        return 0;
-    }
 
     let mut dp = vec![vec![0; columns]; rows];
     dp[0][0] = grid[0][0];
