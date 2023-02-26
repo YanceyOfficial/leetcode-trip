@@ -16,6 +16,11 @@ sidebar_label: 43. 字符串相乘(大数相乘)
 
 :::
 
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 首先要明确一些规律:
 
 1. 两数相加的位数, 最多为**位数多的那个数的位数加一**, 即 `Math.max(m, n) + 1`
@@ -46,11 +51,6 @@ sidebar_label: 43. 字符串相乘(大数相乘)
 ```
 
 然后我们再对 `[6, 16, 26, 12]` 使用大数相加的套路进行处理, 得到最终的字符串.
-
-## 题解
-
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
 
 <Tabs>
   <TabItem value="JavaScript" label="JavaScript" default>
