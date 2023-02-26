@@ -10,6 +10,14 @@ keywords:
 
 给定一个**没有重复**数字的序列, 返回其所有可能的全排列.
 
+:::note 提示:
+
+- `1 <= nums.length <= 6`
+- `-10 <= nums[i] <= 10`
+- `nums` 中的所有整数**互不相同**
+
+:::
+
 :::info 示例
 输入: `[1, 2, 3]`
 
@@ -53,10 +61,11 @@ var permute = function (nums) {
   }
 
   backtracking([])
-  
+
   return res
 }
 ```
+
 </TabItem>
 <TabItem value="Rust" label="Rust">
 
