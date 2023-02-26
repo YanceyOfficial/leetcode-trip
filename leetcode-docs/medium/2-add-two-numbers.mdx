@@ -56,7 +56,7 @@ var addTwoNumbers = function (l1, l2) {
     const x = l1 ? l1.val : 0
     const y = l2 ? l2.val : 0
     const sum = x + y + carry
-    
+
     carry = (sum / 10) | 0
     curr.next = new ListNode(sum % 10)
 
