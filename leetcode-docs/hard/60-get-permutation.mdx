@@ -12,11 +12,11 @@ keywords:
 
 ## 题目
 
-给出集合 [1,2,3,...,n], 其所有元素共有 n! 种排列.
+给出集合 `[1, 2, 3, ..., n]`, 其所有元素共有 `n!` 种排列.
 
-按大小顺序列出所有排列情况, 并一一标记, 如当 n = 3 时, 所有排列为: "123", "132", "213", "231", "312", "321"
+按大小顺序列出所有排列情况, 并一一标记, 如当 `n = 3` 时, 所有排列为: `"123"`, `"132"`, `"213"`, `"231"`, `"312"`, `"321"`
 
-给定 n 和 k, 返回第 k 个排列.
+给定 `n` 和 `k`, 返回第 `k` 个排列.
 
 :::info 示例
 
@@ -36,7 +36,13 @@ keywords:
 
 ## 题解
 
-该题为 [46. 全排列](/leetcode/medium/46-permute) 的变种, 只不过是在全排列的过程中, 获取第 k 个数即可.
+该题为 [46. 全排列](/leetcode/medium/46-permute) 的变种, 只不过是在全排列的过程中, 获取第 `k` 个数即可.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -51,8 +57,9 @@ var getPermutation = function (n, k) {
   const backtracking = (track) => {
     if (track.length === n) {
       count += 1
+
       if (count === k) {
-        res = track.slice().join('')
+        res = track.join('')
         return
       }
     }
@@ -71,3 +78,54 @@ var getPermutation = function (n, k) {
   return res
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+#[allow(unused)]
+pub fn get_permutation(n: i32, k: i32) -> String {
+    let mut res = String::new();
+    let mut count = 0;
+    let mut used = vec![false; n as usize];
+
+    // 注意 Rust 如果跟 JavaScript 的写法一样是会超时的
+    // 需要引入 used 函数规避一下
+    backtracking(n, k, &mut res, &mut count, &mut used, &mut vec![]);
+
+    res
+}
+
+fn backtracking(
+    n: i32,
+    k: i32,
+    res: &mut String,
+    count: &mut i32,
+    used: &mut Vec<bool>,
+    track: &mut Vec<i32>,
+) {
+    if track.len() == n as usize {
+        *count += 1;
+
+        if *count == k {
+            *res = track.iter().map(|x| x.to_string()).collect::<String>();
+            return;
+        }
+    }
+
+    for i in 0..(n as usize) {
+        if used[i] {
+            continue;
+        }
+
+        used[i] = true;
+        track.push(i as i32 + 1);
+        backtracking(n, k, res, count, used, track);
+        track.pop();
+        used[i] = false;
+    }
+}
+```
+
+</TabItem>
+</Tabs>

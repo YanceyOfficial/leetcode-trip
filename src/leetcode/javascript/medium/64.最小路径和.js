@@ -13,8 +13,6 @@ var minPathSum = function (grid) {
   const rows = grid.length
   const columns = grid[0].length
 
-  if (rows === 0 || columns === 0) return 0
-
   const dp = []
   for (let i = 0; i < rows; i++) {
     dp.push(new Array(columns).fill(0))

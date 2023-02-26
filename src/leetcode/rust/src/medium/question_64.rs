@@ -4,9 +4,6 @@ use std::cmp;
 pub fn min_path_sum(grid: Vec<Vec<i32>>) -> i32 {
     let rows = grid.len();
     let columns = grid[0].len();
-    if rows == 0 || columns == 0 {
-        return 0;
-    }
 
     let mut dp = vec![vec![0; columns]; rows];
     dp[0][0] = grid[0][0];

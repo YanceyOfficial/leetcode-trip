@@ -1,0 +1,116 @@
+---
+id: 59-generate-matrix
+title: 螺旋矩阵-ii
+sidebar_label: 59. 螺旋矩阵-ii
+---
+
+## 题目
+
+给你一个正整数 `n`, 生成一个包含 `1` 到 `n²` 所有元素, 且元素按顺时针顺序螺旋排列的 `n * n` 正方形矩阵 `matrix`.
+
+:::info 示例
+
+![59-generate-matrix](../../static/img/59-generate-matrix.jpg)
+
+输入: `n = 3`
+
+输出: `[[1, 2, 3], [8, 9, 4], [7, 6, 5]]`
+:::
+
+:::note 提示:
+
+- `1 <= n <= 20`
+
+:::
+
+## 题解
+
+跟 [54. 螺旋矩阵](/leetcode/medium/54-spiral-order) 的思路差不多, 通过模拟, 按照螺旋矩阵的路线进行遍历, 并给 `matrix` 的指定位置赋值即可.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {number} n
+ * @return {number[][]}
+ */
+var generateMatrix = function (n) {
+  const matrix = new Array(n).fill(0).map(() => new Array(n).fill(0))
+  
+  let top = 0,
+    right = n - 1,
+    bottom = n - 1,
+    left = 0
+
+  let val = 1
+
+  while (val <= n * n) {
+    for (let i = left; i <= right; i++, val++) matrix[top][i] = val
+    top++
+
+    for (let i = top; i <= bottom; i++, val++) matrix[i][right] = val
+    right--
+
+    for (let i = right; i >= left; i--, val++) matrix[bottom][i] = val
+    bottom--
+
+    for (let i = bottom; i >= top; i--, val++) matrix[i][left] = val
+    left++
+  }
+
+  return matrix
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn generate_matrix(n: i32) -> Vec<Vec<i32>> {
+    let n = n as usize;
+    let mut matrix = vec![vec![0; n]; n];
+    let (mut top, mut right, mut bottom, mut left) = (0, n - 1, n - 1, 0);
+    let mut val = 1;
+
+    while val <= (n * n) as i32 {
+        for i in left..=right {
+            matrix[top][i] = val;
+            val += 1;
+        }
+        top += 1;
+
+        for i in top..=bottom {
+            matrix[i][right] = val;
+            val += 1;
+        }
+        if right == 0 {
+            break;
+        }
+        right -= 1;
+
+        for i in (left..=right).rev() {
+            matrix[bottom][i] = val;
+            val += 1;
+        }
+        if bottom == 0 {
+            break;
+        }
+        bottom -= 1;
+
+        for i in (top..=bottom).rev() {
+            matrix[i][left] = val;
+            val += 1;
+        }
+        left += 1;
+    }
+
+    matrix
+}
+```
+
+</TabItem>
+</Tabs>

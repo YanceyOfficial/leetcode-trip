@@ -6,7 +6,7 @@ sidebar_label: 58. 最后一个单词的长度
 
 ## 题目
 
-给你一个字符串 s, 由若干单词组成, 单词之间用空格隔开. 返回字符串中最后一个单词的长度. 如果不存在最后一个单词, 请返回 0. **单词**是指仅由字母组成, 不包含任何空格字符的最大子字符串.
+给你一个字符串 `s`, 由若干单词组成, 单词之间用空格隔开. 返回字符串中最后一个单词的长度. 如果不存在最后一个单词, 请返回 `0`. **单词**是指仅由字母组成, 不包含任何空格字符的最大子字符串.
 
 :::info 示例
 
@@ -24,28 +24,14 @@ sidebar_label: 58. 最后一个单词的长度
 
 ## 题解
 
-### 解法一: API 小能手
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-先把两边的空格移除掉, 再按中间的空格切分成数组; 找数组的最后一个元素即可, 如果数组为空, 则返回 0. 不过这种方式创建了一个数组, 会导致空间复杂度变成 O(n).
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript">
 
-```ts
-/**
- * @param {string} s
- * @return {number}
- */
-var lengthOfLastWord = function (s) {
-  const sArr = s.trim().split(' ')
-  if (sArr.length > 0) {
-    return sArr[sArr.length - 1].length
-  }
-
-  return 0
-}
-```
-
-## 方法二
-
-从后往前遍历, 如果没遇见空格, 就让 `count++`; 如果遇见了空格, 还要判断 count 是否为 0, 因为既然是单词, **至少得有一个字母**, 此时才可以跳出循环. 比起解法一, 该方法的空间复杂度仅为 O(1), 很优雅.
+思路比较简单, 从后往前遍历, 如果没遇见空格, 就让 `count++`; 如果遇见了空格, 还要判断 `count` 是否大于 `0`, 
+因为既然是单词, **至少得有一个字母**. 如果满足, 就可以跳出循环了. 
 
 ```ts
 var lengthOfLastWord = function (s) {
@@ -65,3 +51,26 @@ var lengthOfLastWord = function (s) {
   return count
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn length_of_last_word(s: String) -> i32 {
+    let mut count = 0;
+    for ch in s.chars().rev() {
+        if ch == ' ' {
+            if count != 0 {
+                break;
+            }
+        } else {
+            count += 1;
+        }
+    }
+
+    count
+}
+```
+
+</TabItem>
+</Tabs>

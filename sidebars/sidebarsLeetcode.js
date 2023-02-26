@@ -11,7 +11,6 @@ module.exports = {
     Medium: getFiles('medium'),
     Hard: getFiles('hard'),
     '剑指 Offer': getFiles('lcof'),
-    // '剑指 Offer 专项突击版': getFiles('lcof-v2'),
     Others: getFiles('others'),
   },
 }
