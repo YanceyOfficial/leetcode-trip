@@ -33,7 +33,7 @@ keywords:
 
 :::info 示例
 
-```bash
+```ts
 输入:
 s = "aa"
 p = "a"
@@ -41,7 +41,7 @@ p = "a"
 解释: "a" 无法匹配 "aa" 整个字符串.
 ```
 
-```bash
+```ts
 输入:
 s = "aa"
 p = "*"
@@ -49,7 +49,7 @@ p = "*"
 解释: '*' 可以匹配任意字符串.
 ```
 
-```bash
+```ts
 输入:
 s = "cb"
 p = "?a"
@@ -57,7 +57,7 @@ p = "?a"
 解释: '?' 可以匹配 'c', 但第二个 'a' 无法匹配 'b'.
 ```
 
-```bash
+```ts
 输入:
 s = "adceb"
 p = "*a*b"
@@ -65,7 +65,7 @@ p = "*a*b"
 解释: 第一个 '*' 可以匹配空字符串, 第二个 '*' 可以匹配字符串 "dce".
 ```
 
-```bash
+```ts
 输入: s = 'acdcb'
 p = 'a*c?b'
 输出: false
@@ -96,7 +96,7 @@ import TabItem from '@theme/TabItem'
 <Tabs>
   <TabItem value="JavaScript" label="JavaScript" default>
 
-```bash
+```ts
 /**
  * @param {string} s
  * @param {string} p

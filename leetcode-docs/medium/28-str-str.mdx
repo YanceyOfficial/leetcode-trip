@@ -8,6 +8,13 @@ sidebar_label: 28. 实现-str-str
 
 给你两个字符串 `haystack` 和 `needle`, 请你在 `haystack` 字符串中找出 `needle` 字符串出现的第一个位置(下标从 `0` 开始). 如果不存在, 则返回 `-1`.
 
+:::note 提示:
+
+- `1 <= haystack.length, needle.length <= 10⁴`
+- `haystack` 和 `needle` 仅由小写英文字符组成
+
+:::
+
 :::info 示例
 
 输入: `haystack = "hello"`, `needle = "ll"`
@@ -18,7 +25,6 @@ sidebar_label: 28. 实现-str-str
 ## 题解
 
 类似于游标卡尺, 先找好 `needle` 的长度, 然后通过该区间在 `haystack` 上从左到右游走(`haystack.slice(i, j)`).
-
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'

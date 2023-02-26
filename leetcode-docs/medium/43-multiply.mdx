@@ -6,14 +6,29 @@ sidebar_label: 43. 字符串相乘(大数相乘)
 
 ## 题目
 
-大数相乘, 本题为 [415-大数相加](/leetcode/easy/415-add-string) 的进阶版. 首先要明确一些规律:
+大数相乘, 本题为 [415-大数相加](/leetcode/easy/415-add-string) 的进阶版.
+
+:::note 提示:
+
+- `1 <= num1.length, num2.length <= 200`
+- `num1` 和 `num2` 只能由数字组成
+- `num1` 和 `num2` 都不包含任何前导零, 除了数字 `0` 本身.
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+首先要明确一些规律:
 
 1. 两数相加的位数, 最多为**位数多的那个数的位数加一**, 即 `Math.max(m, n) + 1`
 2. 两数相乘的位数, 最多为**两个数的位数之和**, 即 `m + n`
 
 平时我们计算乘法都是通过列竖式, 这里以 `123 * 64` 为例. 不难发现, 形成中间 `492` 和 `738` 其实是一个双循环操作, 以保证每位都能乘在一起, 并在这个过程中处理**进位**; 然后再按位进行加和.
 
-```bash
+```ts
   1 2 3
     6 4
 -------
@@ -25,7 +40,7 @@ sidebar_label: 43. 字符串相乘(大数相乘)
 
 而如果用程序写, 我们可以双循环和按位加和一起做. 大抵思路如下:
 
-```bash
+```ts
   1  2  3
      6  4
 ----------
@@ -36,11 +51,6 @@ sidebar_label: 43. 字符串相乘(大数相乘)
 ```
 
 然后我们再对 `[6, 16, 26, 12]` 使用大数相加的套路进行处理, 得到最终的字符串.
-
-## 题解
-
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
 
 <Tabs>
   <TabItem value="JavaScript" label="JavaScript" default>

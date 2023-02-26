@@ -60,7 +60,7 @@ const v = async (t, n) => {
       c(
         o,
         ((t, n, e, o) =>
-          `---\nid: ${t}-${e}\ntitle: ${n}\nsidebar_label: ${t}. ${n}\nkeywords:\n  - HashMap\n---\n\n:::success Tips\n题目类型: HashMap\n\n相关题目:\n\n- [1. 两数之和](/leetcode/easy/1-two-sum)\n\n:::\n\n## 题目\n\n这里是题目这里是题目这里是题目这里是题目这里是题目\n\n:::info 示例\n\n输入:\n\n输出:\n:::\n\n## 题解\n\n这里是题解这里是题解这里是题解这里是题解这里是题解\n\nimport Tabs from '@theme/Tabs'\nimport TabItem from '@theme/TabItem'\n\n<Tabs>\n  <TabItem value="JavaScript" label="JavaScript" default>\n\n\`\`\`ts\n${o}\n\`\`\`\n\n</TabItem>\n<TabItem value="Rust" label="Rust">\n\n\`\`\`rust\npub fn foo() -> () {\n}\n\`\`\`\n\n</TabItem>\n</Tabs>\n`)(
+          `---\nid: ${t}-${e}\ntitle: ${n}\nsidebar_label: ${t}. ${n}\nkeywords:\n  - HashMap\n---\n\n:::success Tips\n题目类型: HashMap\n\n相关题目:\n\n- [1. 两数之和](/leetcode/easy/1-two-sum)\n\n:::\n\n## 题目\n\n这里是题目这里是题目这里是题目这里是题目这里是题目\n\n:::note 提示:\n\n- xxxxxxxxx\n\n:::\n\n:::info 示例\n\n输入:\n\n输出:\n:::\n\n## 题解\n\n这里是题解这里是题解这里是题解这里是题解这里是题解\n\nimport Tabs from '@theme/Tabs'\nimport TabItem from '@theme/TabItem'\n\n<Tabs>\n  <TabItem value="JavaScript" label="JavaScript" default>\n\n\`\`\`ts\n${o}\n\`\`\`\n\n</TabItem>\n<TabItem value="Rust" label="Rust">\n\n\`\`\`rust\npub fn foo() -> () {\n}\n\`\`\`\n\n</TabItem>\n</Tabs>\n`)(
           r,
           s,
           m,
@@ -107,20 +107,20 @@ const v = async (t, n) => {
       ]))(r, s)
     await v(r, c)
   },
-  E = a(`${$}/${y.Easy}`).length,
-  I = a(`${$}/${y.Medium}`).length,
-  j = a(`${$}/${y.Hard}`).length,
-  H = E + I + j,
-  M = [
-    { category: y.Easy, count: E },
-    { category: y.Medium, count: I },
-    { category: y.Hard, count: j },
-    { category: 'Total', count: H },
+  x = a(`${$}/${y.Easy}`).length,
+  E = a(`${$}/${y.Medium}`).length,
+  I = a(`${$}/${y.Hard}`).length,
+  j = x + E + I,
+  H = [
+    { category: y.Easy, count: x },
+    { category: y.Medium, count: E },
+    { category: y.Hard, count: I },
+    { category: 'Total', count: j },
   ],
-  S = () => {
-    console.table(M)
+  M = () => {
+    console.table(H)
   },
-  x = async (n) => {
+  S = async (n) => {
     const e = await (async () => {
         const t = await d('https://registry.npmjs.org/@yancey-inc/lt-cli'),
           n = await t.json(),
@@ -139,7 +139,7 @@ const v = async (t, n) => {
   },
   A = async (n) => {
     const e = l('正在检索最新版本...').start(),
-      o = await x(n)
+      o = await S(n)
     e.stop(),
       o &&
         (await (async () => {
@@ -158,4 +158,4 @@ const v = async (t, n) => {
           }
         })())
   }
-export { T as bootstrap, S as showStatistics, A as upgrade }
+export { T as bootstrap, M as showStatistics, A as upgrade }
