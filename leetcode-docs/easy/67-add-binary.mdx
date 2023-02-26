@@ -16,9 +16,23 @@ sidebar_label: 67. 二进制求和
 
 ## 题目
 
-二进制的大数相加.
+给你两个二进制字符串 `a` 和 `b`, 以二进制字符串的形式返回它们的和. 即二进制版的大数相加.
+
+:::note 提示:
+
+- `1 <= a.length, b.length <= 10⁴`
+- `a` 和 `b` 仅由字符 `'0'` 或 `'1'` 组成
+- 字符串如果不是 `"0"`, 就不含前导零
+
+:::
 
 ## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -45,7 +59,7 @@ var addBinary = function (a, b) {
 }
 ```
 
-## 附录
+:::tip
 
 ES10 出了一个新的基础类型 [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt).
 
@@ -54,3 +68,15 @@ var addBinary = function (a, b) {
   return (BigInt('0b' + a) + BigInt('0b' + b)).toString(2)
 }
 ```
+
+:::
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn add_binary(a: String, b: String) -> String {}
+```
+
+</TabItem>
+</Tabs>
