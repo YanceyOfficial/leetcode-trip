@@ -78,7 +78,7 @@ var uniquePaths = function (m, n) {
   const dp = new Array(n).fill(1)
   for (let i = 1; i < m; i++) {
     for (let j = 1; j < n; j++) {
-      dp[j] = dp[j - 1] + dp[j]
+      dp[j] = dp[j] + dp[j - 1]
     }
   }
   return dp[n - 1]
@@ -96,7 +96,7 @@ pub fn unique_paths(m: i32, n: i32) -> i32 {
 
     for i in 1..m {
         for j in 1..n {
-            dp[j] = dp[j - 1] + dp[j]
+            dp[j] = dp[j] + dp[j - 1];
         }
     }
 
@@ -107,6 +107,6 @@ pub fn unique_paths(m: i32, n: i32) -> i32 {
 </TabItem>
 </Tabs>
 
-## 复杂度
+## 复杂度分析
 
 时间复杂度和空间复杂度都为 `O(m * n)`
