@@ -12,8 +12,7 @@ keywords:
 
 ## 题目
 
-计算一个数字的平方根, **结果向下取整**. 如 24 的平方根返回 4.
-
+计算一个数字的平方根, **结果向下取整**. 如 `24` 的平方根返回 `4`.
 
 :::note 提示:
 
@@ -30,7 +29,7 @@ keywords:
 
 ## 题解
 
-因为平方根一定小于等于 x 的一半, 为减少遍历次数, 可先将 x 减半. 对于平方根此定律: `i * i <= x < (i + 1) * (i + 1)`, 直接套用即可.
+因为平方根一定小于等于 `x` 的一半, 为减少遍历次数, 可先将 `x` 减半. 对于平方根此定律: `i * i <= x < (i + 1) * (i + 1)`, 直接套用即可.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -46,7 +45,7 @@ import TabItem from '@theme/TabItem'
 var mySqrt = function (x) {
   if (x < 2) return x
 
-  const halfX = (x - (x % 2)) / 2
+  const half = (x / 2) | 0
   for (let i = 1; i <= halfX; i++) {
     if (i * i <= x && (i + 1) * (i + 1) > x) {
       return i
@@ -58,7 +57,7 @@ var mySqrt = function (x) {
 </TabItem>
 <TabItem value="Rust" label="Rust">
 
-Rust 版本需要注意的是 `(i + 1) * (i + 1)` 可能会突破 i32 的最大值, 因此你需要在 i64 的基础上完成这道题.
+Rust 版本需要注意的是 `(i + 1) * (i + 1)` 可能会突破 `i32` 的最大值, 因此你需要在 `i64` 的基础上完成这道题.
 
 ```rust
 #[allow(unused)]
@@ -67,14 +66,14 @@ pub fn my_sqrt(x: i32) -> i32 {
         return x;
     }
 
-    let half_x = (x / 2) as i64;
-    for i in 1..=half_x {
+    let half = (x / 2) as i64;
+    for i in 1..=half {
         if i * i <= x as i64 && (i + 1) * (i + 1) > x as i64 {
             return i as i32;
         }
     }
 
-    panic!("")
+   x
 }
 ```
 
