@@ -48,7 +48,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划" default>
+  <TabItem value="JavaScript - 动态规划一维数组" label="JavaScript - 动态规划一维数组">
 
 ```ts
 /**
@@ -57,19 +57,22 @@ import TabItem from '@theme/TabItem'
  */
 var climbStairs = function (n) {
   const dp = []
+
   dp[0] = 1
   dp[1] = 1
+
   for (let i = 2; i <= n; i++) {
     dp[i] = dp[i - 1] + dp[i - 2]
   }
+  
   return dp[n]
 }
 ```
 
 </TabItem>
-<TabItem value="JavaScript - 迭代" label="JavaScript - 迭代">
+<TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划" default>
 
-这道题跟求斐波那契数差不多, 只关心 n 的前两个状态, 因此只要存储前两个即可.
+这道题跟求斐波那契数差不多, 只关心 `n` 的前两个状态, 因此不需要额外声明一个数组, 只要存储前两个值即可.
 
 ```ts
 var climbStairs = function (n) {
@@ -83,20 +86,8 @@ var climbStairs = function (n) {
     prev = curr
     curr = sum
   }
+
   return curr
-}
-```
-
-</TabItem>
-<TabItem value="JavaScript - 递归" label="JavaScript - 递归">
-
-再来个递归嘻嘻, 不过超时了 TAT.
-
-```ts
-var climbStairs = function (n) {
-  if (n <= 2) return n
-
-  return climbStairs(n - 1) + climbStairs(n - 2)
 }
 ```
 
@@ -104,7 +95,18 @@ var climbStairs = function (n) {
 <TabItem value="Rust" label="Rust">
 
 ```rust
-pub fn climb_stairs(n: i32) -> i32 {}
+pub fn climb_stairs(n: i32) -> i32 {
+    let mut prev = 1;
+    let mut curr = 1;
+
+    for i in 2..=(n as usize) {
+        let sum = prev + curr;
+        prev = curr;
+        curr = sum;
+    }
+
+    curr
+}
 ```
 
 </TabItem>
