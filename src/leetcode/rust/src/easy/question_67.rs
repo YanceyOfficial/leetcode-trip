@@ -7,11 +7,11 @@ pub fn add_binary(a: String, b: String) -> String {
     let mut b = b;
 
     for i in 0..(n - a.len()) {
-        a += "0"
+        a.insert(0, '0');
     }
 
     for i in 0..(n - b.len()) {
-        b += "0"
+        b.insert(0, '0');
     }
 
     let a = a.as_bytes();
