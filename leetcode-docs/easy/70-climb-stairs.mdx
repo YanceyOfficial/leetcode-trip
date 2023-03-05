@@ -13,18 +13,42 @@ keywords:
 
 ## 题目
 
-假设你正在爬楼梯. 需要 n 阶你才能到达楼顶. 每次你可以爬 1 或 2 个台阶. 你有多少种不同的方法可以爬到楼顶呢?
+假设你正在爬楼梯. 需要 `n` 阶你才能到达楼顶. 每次你可以爬 `1` 或 `2` 个台阶. 你有多少种不同的方法可以爬到楼顶呢?
+
+:::note 提示:
+
+- `1 <= n <= 45`
+
+:::
 
 :::info 示例
 
-输入: 10
+```bash
+输入: n = 2
+输出: 2
+解释: 有两种方法可以爬到楼顶.
+1. 1 阶 + 1 阶
+2. 2 阶
+```
 
-输出: 89
+```bash
+输入: n = 3
+输出: 3
+解释: 有三种方法可以爬到楼顶.
+1. 1 阶 + 1 阶 + 1 阶
+2. 1 阶 + 2 阶
+3. 2 阶 + 1 阶
+```
+
 :::
 
 ## 题解
 
-### 动态规划
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 动态规划一维数组" label="JavaScript - 动态规划一维数组">
 
 ```ts
 /**
@@ -33,18 +57,22 @@ keywords:
  */
 var climbStairs = function (n) {
   const dp = []
+
   dp[0] = 1
   dp[1] = 1
+
   for (let i = 2; i <= n; i++) {
     dp[i] = dp[i - 1] + dp[i - 2]
   }
+  
   return dp[n]
 }
 ```
 
-### 迭代
+</TabItem>
+<TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划" default>
 
-这道题跟求斐波那契数差不多, 只关心 n 的前两个状态, 因此只要存储前两个即可.
+这道题跟求斐波那契数差不多, 只关心 `n` 的前两个状态, 因此不需要额外声明一个数组, 只要存储前两个值即可.
 
 ```ts
 var climbStairs = function (n) {
@@ -58,18 +86,28 @@ var climbStairs = function (n) {
     prev = curr
     curr = sum
   }
+
   return curr
 }
 ```
 
-### 递归
+</TabItem>
+<TabItem value="Rust" label="Rust">
 
-再来个递归嘻嘻, 不过超时了 TAT.
+```rust
+pub fn climb_stairs(n: i32) -> i32 {
+    let mut prev = 1;
+    let mut curr = 1;
 
-```ts
-var climbStairs = function (n) {
-  if (n <= 2) return n
+    for i in 2..=(n as usize) {
+        let sum = prev + curr;
+        prev = curr;
+        curr = sum;
+    }
 
-  return climbStairs(n - 1) + climbStairs(n - 2)
+    curr
 }
 ```
+
+</TabItem>
+</Tabs>

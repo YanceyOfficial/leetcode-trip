@@ -12,7 +12,7 @@ keywords:
 
 ## 题目
 
-给定一个包含非负整数的 `M x N` 网格 `grid`, 请找出一条从左上角到右下角的路径, 使得路径上的数字总和为最小. 说明: **每次只能向下或者向右移动一步**.
+给定一个包含非负整数的 `M * N` 网格 `grid`, 请找出一条从左上角到右下角的路径, 使得路径上的数字总和为最小. 说明: **每次只能向下或者向右移动一步**.
 
 :::note 提示:
 
@@ -35,7 +35,7 @@ keywords:
 
 ## 题解
 
-由于路径的方向只能向下或者向右, 因此第一行只能从 `grid[0][0]` 走到 `grid[0][columns - 1]`; 第一列只能从 `grid[0][0]` 走到 `grid[row - 1][0]`. 由于此时的路径是唯一, 因此每个元素对应的最小路径和即为对应的路径上的数字总和.
+由于路径的方向只能向下或者向右, 因此第一行只能从 `grid[0][0]` 走到 `grid[0][n - 1]`; 第一列只能从 `grid[0][0]` 走到 `grid[row - 1][0]`. 由于此时的路径是唯一, 因此每个元素对应的最小路径和即为对应的路径上的数字总和.
 
 对于不在第一行和第一列的元素, 可以**从其上边相邻元素向下移动一步到达, 也可以从其左边相邻元素向右移动一步到达**, 至于怎么到达路径最短, **取上邻元素和左邻元素的最小值**.
 
@@ -57,33 +57,33 @@ import TabItem from '@theme/TabItem'
  * @return {number}
  */
 var minPathSum = function (grid) {
-  const rows = grid.length
-  const columns = grid[0].length
+  const m = grid.length
+  const n = grid[0].length
 
   // 创建二维数组
-  const dp = new Array(rows).fill(0).map(() => new Array(columns).fill(0))
+  const dp = new Array(m).fill(0).map(() => new Array(n).fill(0))
 
   // dp[i][j] 表示从左下角走到 i, j 的最小路径和
   dp[0][0] = grid[0][0] // base case
 
   // 一直往下走
-  for (let i = 1; i < rows; i++) {
+  for (let i = 1; i < m; i++) {
     dp[i][0] = dp[i - 1][0] + grid[i][0]
   }
 
   // 一直往右走
-  for (let j = 1; j < columns; j++) {
+  for (let j = 1; j < n; j++) {
     dp[0][j] = dp[0][j - 1] + grid[0][j]
   }
 
   // 可能往下走, 也可能往右走
-  for (let i = 1; i < rows; i++) {
-    for (let j = 1; j < columns; j++) {
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
       dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
     }
   }
 
-  return dp[rows - 1][columns - 1]
+  return dp[m - 1][n - 1]
 }
 ```
 
@@ -94,27 +94,27 @@ var minPathSum = function (grid) {
 use std::cmp;
 
 pub fn min_path_sum(grid: Vec<Vec<i32>>) -> i32 {
-    let rows = grid.len();
-    let columns = grid[0].len();
+    let m = grid.len();
+    let n = grid[0].len();
 
-    let mut dp = vec![vec![0; columns]; rows];
+    let mut dp = vec![vec![0; n]; m];
     dp[0][0] = grid[0][0];
 
-    for i in 1..rows {
+    for i in 1..m {
         dp[i][0] = dp[i - 1][0] + grid[i][0];
     }
 
-    for j in 1..columns {
+    for j in 1..n {
         dp[0][j] = dp[0][j - 1] + grid[0][j];
     }
 
-    for i in 1..rows {
-        for j in 1..columns {
+    for i in 1..m {
+        for j in 1..n {
             dp[i][j] = cmp::min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
         }
     }
 
-    dp[rows - 1][columns - 1]
+    dp[m - 1][n - 1]
 }
 ```
 

@@ -12,8 +12,8 @@
 var mySqrt = function (x) {
   if (x < 2) return x
 
-  const halfX = (x - (x % 2)) / 2
-  for (let i = 1; i <= halfX; i++) {
+  const half = (x / 2) | 0
+  for (let i = 1; i <= half; i++) {
     if (i * i <= x && (i + 1) * (i + 1) > x) {
       return i
     }

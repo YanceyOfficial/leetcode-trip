@@ -1,0 +1,261 @@
+---
+id: 68-full-justify
+title: 文本左右对齐
+sidebar_label: 68. 文本左右对齐
+---
+
+## 题目
+
+给定一个单词数组 `words` 和一个长度 `maxWidth`, 重新排版单词, 使其成为每行恰好有 `maxWidth` 个字符, 且左右两端对齐的文本.
+
+你应该使用**贪心算法**来放置给定的单词; 也就是说, 尽可能多地往每行中放置单词. 必要时可用空格 `' '` 填充, 使得每行恰好有 `maxWidth` 个字符.
+
+要求尽可能均匀分配单词间的空格数量. 如果某一行单词间的空格不能均匀分配, 则左侧放置的空格数要多于右侧的空格数.
+
+文本的最后一行应为左对齐, 且单词之间不插入额外的空格.
+
+注意:
+
+- 单词是指由非空格字符组成的字符序列.
+- 每个单词的长度大于 `0`, 小于等于 `maxWidth`.
+- 输入单词数组 `words` 至少包含一个单词.
+
+:::note 提示:
+
+- `1 <= words.length <= 300`
+- `1 <= words[i].length <= 20`
+- `words[i]` 由小写英文字母和符号组成
+- `1 <= maxWidth <= 100`
+- `words[i].length <= maxWidth`
+
+:::
+
+:::info 示例
+
+```bash
+输入: words = ["This", "is", "an", "example", "of", "text", "justification."], maxWidth = 16
+输出:
+[
+  "This    is    an",
+  "example  of text",
+  "justification.  "
+]
+```
+
+```bash
+输入:words = ["What", "must", "be", "acknowledgment", "shall", "be"], maxWidth = 16
+输出:
+[
+  "What   must   be",
+  "acknowledgment  ",
+  "shall be        "
+]
+解释: 注意最后一行的格式应为 "shall be    " 而不是 "shall     be",
+     因为最后一行应为左对齐, 而不是左右两端对齐。
+     第二行同样为左对齐, 这是因为这行只包含一个单词。
+```
+
+```bash
+输入:words = ["Science", "is", "what", "we", "understand", "well", "enough",
+            "to", "explain", "to", "a", "computer.", "Art", "is", "everything",
+            "else", "we", "do"], maxWidth = 20
+输出:
+[
+  "Science  is  what we",
+  "understand      well",
+  "enough to explain to",
+  "a  computer.  Art is",
+  "everything  else  we",
+  "do                  "
+]
+```
+
+:::
+
+## 题解
+
+首先贪心地将 `word` 尽可能放到一行:
+
+1. 如果当前行是最后一行, 特殊处理为左对齐;
+2. 如果当前行只有一个单词, 特殊处理为左对齐;
+3. 其余为一般情况, 要尽可能均匀分配单词间的空格数量. 如果某一行单词间的空格不能均匀分配, 则左侧放置的空格数要多于右侧的空格数.
+   在无法均分时, 我们使用余数来巧妙的处理这种情况:
+
+比如 `line = ["Science", "is", "what", "we"]`, `maxWidth = 20`, 
+
+此时单词总长度是 `15`, 因此空格总长度是 `5`; 平摊的空格长度为 `5 / 3` 向下取整为 `1`; 但还余出两个来, 即 `carry = 2`,
+
+因此在 `"Science"` 和 `"is"` 之间, 以及 `"is"` 和 `"what"` 之间, 除了要安置一个平摊的空格, 都要额外再增加一个空格, 即最终结果为 `"Science is what we"`
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string[]} words
+ * @param {number} maxWidth
+ * @return {string[]}
+ */
+var fullJustify = function (words, maxWidth) {
+  const n = words.length
+  const res = []
+  let i = 0
+
+  while (i < n) {
+    const line = []
+
+    // 贪心: 尽可能多地将 word 放到一行
+    let currLineWidth = words[i].length
+    line.push(words[i++])
+
+    while (
+      i < n &&
+      // 放入新单词时, 为保证和前一个单词隔开, 要多放一个空格
+      currLineWidth + 1 + words[i].length <= maxWidth
+    ) {
+      currLineWidth += 1 + words[i].length
+      line.push(words[i])
+      i++
+    }
+
+    // 如果是最后一行, 左对齐, 多个 word 之间用空格隔开,
+    // 并且在尾部填充空格, 直到长度等于 maxWidth, 结束后退出循环
+    if (i === n) {
+      const str = line.join(' ').padEnd(maxWidth)
+      res.push(str)
+      break
+    }
+
+    // 如果当前行只有一个单词, 左对齐,
+    // 并且在尾部填充空格, 直到长度等于 maxWidth, 结束后跳出本轮循环
+    if (line.length === 1) {
+      const str = line[0].padEnd(maxWidth)
+      res.push(str)
+      continue
+    }
+
+    // 获取整体 word 的长度
+    const totalWordWidth = currLineWidth - (line.length - 1)
+    // 获取整体空格的长度
+    const totalSpaceWidth = maxWidth - totalWordWidth
+
+    // 获取余数, 用来给左边额外分配空格
+    let carry = totalSpaceWidth % (line.length - 1)
+    // 获取平摊的空格
+    const spaceItemWidth = (totalSpaceWidth - carry) / (line.length - 1)
+
+    // 平摊空格的 model
+    let spaceItem = ''
+    for (let i = 0; i < spaceItemWidth; i++) spaceItem += ' '
+
+    // 如果 carry > 0, 就额外给这个空隙增加一个空格
+    // 因为是从左往右遍历的, 这样就巧妙的保证了左侧放置的空格数要多于右侧的空格数
+    for (let i = 0; i < line.length - 1; i++) {
+      if (carry > 0) {
+        line[i] += spaceItem + ' '
+        carry--
+      } else {
+        line[i] += spaceItem
+      }
+    }
+
+    res.push(line.join(''))
+  }
+
+  return res
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn full_justify(words: Vec<String>, max_width: i32) -> Vec<String> {
+    let n = words.len();
+    let mut res = vec![];
+    let mut i = 0;
+
+    while i < n {
+        let mut line = vec![];
+
+        let mut curr_line_width = words[i].len();
+        line.push(words[i].to_string());
+        i += 1;
+
+        while i < n && curr_line_width + 1 + words[i].len() <= max_width as usize {
+            curr_line_width += 1 + words[i].len();
+            line.push(words[i].to_string());
+            i += 1;
+        }
+
+        if i == n {
+            let mut str = line.join(" ");
+            for _ in 0..(max_width as usize - str.len()) {
+                str += " ";
+            }
+            res.push(str);
+        } else if i < n && line.len() == 1 {
+            let mut str = line[0].to_string();
+            for _ in 0..(max_width as usize - str.len()) {
+                str += " ";
+            }
+            res.push(str);
+        } else if i < n && line.len() > 1 {
+            let total_word_width = curr_line_width - (line.len() - 1);
+            let total_space_width = max_width as usize - total_word_width;
+
+            let mut carry = total_space_width % (line.len() - 1);
+            let space_item_width = total_space_width / (line.len() - 1);
+
+            let mut space_item = String::new();
+            for _ in 0..space_item_width {
+                space_item += " ";
+            }
+
+            for i in 0..(line.len() - 1) {
+                if carry > 0 {
+                    line[i] += (space_item.to_string() + " ").as_str();
+                    carry -= 1;
+                } else {
+                    line[i] += space_item.as_str();
+                }
+            }
+
+            res.push(line.join(""));
+        }
+    }
+
+    res
+}
+```
+
+</TabItem>
+<TabItem value="皮一下" label="皮一下">
+
+```json
+[
+    "pub fn full_justify(words: Vec<String>, max_width: i32) -> Vec<String> { let n =",
+    "words.len();  let  mut res = vec![]; let mut i = 0; while i < n { let mut line =",
+    "vec![];        let       mut       curr_line_width       =       words[i].len();",
+    "line.push(words[i].to_string());  i  +=  1; while i < n && curr_line_width + 1 +",
+    "words[i].len()  <=  max_width  as usize { curr_line_width += 1 + words[i].len();",
+    'line.push(words[i].to_string()); i += 1; } if i == n { let mut str = line.join("',
+    '");  for _ in 0..(max_width as usize - str.len()) { str += " "; } res.push(str);',
+    "} else if i < n && line.len() == 1 { let mut str = line[0].to_string(); for _ in",
+    '0..(max_width as usize - str.len()) { str += " "; } res.push(str); } else if i <',
+    "n && line.len() > 1 { let total_word_width = curr_line_width - (line.len() - 1);",
+    "let  total_space_width  = max_width as usize - total_word_width; let mut carry =",
+    "total_space_width % (line.len() - 1); let space_item_width = total_space_width /",
+    "(line.len()   -   1);   let   mut   space_item   =   String::new();   for  _  in",
+    '0..space_item_width  {  space_item  +=  " "; } for i in 0..(line.len() - 1) { if',
+    'carry  >  0  { line[i] += (space_item.to_string() + " ").as_str(); carry -= 1; }',
+    'else { line[i] += space_item.as_str(); } } res.push(line.join("")); } } res }   ',
+  ];
+  
+```
+
+</TabItem>
+</Tabs>

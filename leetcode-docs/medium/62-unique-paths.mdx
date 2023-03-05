@@ -12,9 +12,16 @@ keywords:
 
 ## 题目
 
-一个机器人位于一个 `m x n` 网格的左上角(起始点在下图中标记为 Start). 机器人每次只能向下或者向右移动一步. 机器人试图达到网格的右下角(在下图中标记为 Finish). 问总共有多少条不同的路径?
+一个机器人位于一个 `m * n` 网格的左上角(起始点在下图中标记为 Start). 机器人每次只能向下或者向右移动一步. 机器人试图达到网格的右下角(在下图中标记为 Finish). 问总共有多少条不同的路径?
 
 ![62-unique-paths](../../static/img/62-unique-paths.jpg)
+
+:::note 提示:
+
+- `1 <= m, n <= 100`
+- 题目数据保证答案小于等于 `2 * 10ꝰ`
+
+:::
 
 :::info 示例
 输入: `m = 3`, `n = 7`
@@ -33,6 +40,11 @@ import TabItem from '@theme/TabItem'
   <TabItem value="JavaScript - 二维数组" label="JavaScript - 二维数组">
 
 ```ts
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
 var uniquePaths = function (m, n) {
   const dp = new Array(m).fill(0).map(() => new Array(n).fill(0))
 
@@ -57,11 +69,16 @@ var uniquePaths = function (m, n) {
 <TabItem value="JavaScript - 一维数组" label="JavaScript - 一维数组" default>
 
 ```ts
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
 var uniquePaths = function (m, n) {
   const dp = new Array(n).fill(1)
   for (let i = 1; i < m; i++) {
     for (let j = 1; j < n; j++) {
-      dp[j] = dp[j - 1] + dp[j]
+      dp[j] = dp[j] + dp[j - 1]
     }
   }
   return dp[n - 1]
@@ -79,7 +96,7 @@ pub fn unique_paths(m: i32, n: i32) -> i32 {
 
     for i in 1..m {
         for j in 1..n {
-            dp[j] = dp[j - 1] + dp[j]
+            dp[j] = dp[j] + dp[j - 1];
         }
     }
 
@@ -90,6 +107,6 @@ pub fn unique_paths(m: i32, n: i32) -> i32 {
 </TabItem>
 </Tabs>
 
-## 复杂度
+## 复杂度分析
 
 时间复杂度和空间复杂度都为 `O(m * n)`
