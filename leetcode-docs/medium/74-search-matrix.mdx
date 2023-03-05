@@ -11,6 +11,16 @@ sidebar_label: 74. 搜索二维矩阵
 - 每行中的整数从左到右按升序排列.
 - 每行的第一个整数大于前一行的最后一个整数.
 
+
+:::note 提示:
+
+- `m == matrix.length`
+- `n == matrix[i].length`
+- `1 <= m, n <= 100`
+- `-10⁴ <= matrix[i][j], target <= 10⁴`
+
+:::
+
 :::info 示例
 
 输入: `matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], target = 3`
@@ -24,6 +34,12 @@ sidebar_label: 74. 搜索二维矩阵
 
 1. 先算出二维数组的总长度 `row * column`, 那么 right 就是 `row * column - 1`
 2. 下面是常规的二分查找套路, 只不过找到 mid 对应的元素稍微费事些: `matrix[(mid / column) | 0][mid % column]`
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**
@@ -54,7 +70,18 @@ var searchMatrix = function (matrix, target) {
 }
 ```
 
-## 复杂度
+</TabItem>
+<TabItem value="Rust" label="Rust">
 
-时间复杂度: O(log(mn))
-空间复杂度: O(1)
+```rust
+pub fn search_matrix(matrix: Vec<Vec<i32>>, target: i32) -> bool {}
+```
+
+</TabItem>
+</Tabs>
+
+
+## 复杂度分析
+
+时间复杂度: `O(log(m * n))`
+空间复杂度: `O(1)`

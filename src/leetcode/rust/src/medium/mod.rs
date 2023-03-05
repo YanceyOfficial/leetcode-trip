@@ -69,6 +69,7 @@ pub mod question_71;
 pub mod question_73;
 pub mod question_735;
 pub mod question_739;
+pub mod question_74;
 pub mod question_77;
 pub mod question_78;
 pub mod question_8;
