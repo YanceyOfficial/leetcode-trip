@@ -8,6 +8,14 @@ sidebar_label: 75. 颜色分类
 
 给定一个包含红色, 白色和蓝色, 一共 n 个元素的数组, 原地对它们进行排序, 使得相同颜色的元素相邻, 并按照红色, 白色, 蓝色顺序排列. 此题中, 我们使用整数 0, 1 和 2 分别表示红色, 白色和蓝色.
 
+:::note 提示:
+
+- `n == nums.length`
+- `1 <= n <= 300`
+- `nums[i]` 为 `0`, `1` 或 `2`
+
+:::
+
 :::info 示例
 
 输入: [2, 0, 2, 1, 1, 0]
@@ -17,7 +25,11 @@ sidebar_label: 75. 颜色分类
 
 ## 题解
 
-### 菜 🐔 方法
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 菜鸡写法" label="JavaScript - 菜鸡写法" default>
 
 因为我比较菜, 所以先按照提示整了个计数排序的方法. 首先整个 HashMap 将三个值的个数记录一下, 然后再整一遍循环, 按照 0 1 2 的顺序及其个数覆盖 nums 的每个元素.
 
@@ -55,7 +67,8 @@ var sortColors = function (nums) {
 }
 ```
 
-### 双指针解法
+</TabItem>
+<TabItem value="JavaScript - 双指针" label="JavaScript - 双指针">
 
 当然我也不是那么的菜啦嘻嘻, 双指针也是会写的. 需要注意的是, left 和 right 只能保证 0 和 2 的交换, 因此需要借助 i, 在 nums[i] 为 0 或 1 时向右游走.
 
@@ -127,3 +140,13 @@ var sortColors = function (nums) {
   }
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn sort_colors(nums: &mut Vec<i32>) {}
+```
+
+</TabItem>
+</Tabs>
