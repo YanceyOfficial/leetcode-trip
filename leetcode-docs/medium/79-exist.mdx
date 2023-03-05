@@ -20,6 +20,12 @@ keywords:
 
 ## 题解
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
 ```ts
 /**
  * @param {character[][]} board
@@ -70,3 +76,13 @@ var exist = function (board, word) {
   return false
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn exist(board: Vec<Vec<char>>, word: String) -> bool {}
+```
+
+</TabItem>
+</Tabs>
