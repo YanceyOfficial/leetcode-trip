@@ -52,9 +52,7 @@ import TabItem from '@theme/TabItem'
   <TabItem value="JavaScript - 两个线性变量" label="JavaScript - 两个线性变量" default>
 
 朴素做法是创建 `rows` 和 `cols` 两个 `HashSet`, 遍历二维数组. 如果 `matrix[i][j]` 为 `0`,
-把 `i` 和 `j` 分别存到 `rows` 和 `cols` 之中.
-
-这样再次遍历时, 如果 `i` 或者 `j` 存在于 `HashSet` 中, 说明该元素所在的行或列存在 `0`, 那自然该元素也要变成 `0`.
+把 `i` 和 `j` 分别存到 `rows` 和 `cols` 之中. 这样再次遍历时, 如果 `i` 或者 `j` 存在于 `HashSet` 中, 说明该元素所在的行或列存在 `0`, 那自然该元素也要变成 `0`.
 
 ```ts
 /**
@@ -94,11 +92,18 @@ var setZeroes = function (matrix) {
 </TabItem>
 <TabItem value="JavaScript - 两个常数级变量" label="JavaScript - 两个常数级变量">
 
-也可以用两个常数级的变量来代替两个线性级的 HashSet. 首先记录两个变量 flagRow0 和 flagCol0, 用于记录首行或者首列是否存在 0.
+除了使用两个线性级的 `HashSet`, 也可以用两个常数级的变量 `flagRow0` 和 `flagCol0`, 用于记录首行或者首列是否存在 `0`.
+这样的目的是仅仅先记录首行和首列是否有 `0`, 而不去修改这两行, 因为一旦修改了, 其他行和列就算不准了.
 
 ![73-set-zeroes](../../static/img/73-set-zeroes-3.png)
 
+接下来扫描非首行首列, 如果当前元素 `matrix[i][j]` 为 `0`, 那么将对应的 `matrix[i][0]` 和 `matrix[0][j]` 设为 `0`, 这样做的目的是让首行首列来充当那两个 `HashSet`, 有效的减小了时间复杂度.
+
+然后再次扫描非首行首列, 如果当前元素 `matrix[i][j]` 对应的 `matrix[i][0]` 或 `matrix[0][j]` 为 `0`, 说明该元素所在的行或列存在 `0`, 那么将该元素也设为 `0`.
+
 ![73-set-zeroes](../../static/img/73-set-zeroes-4.png)
+
+最后根据 `flagRow0` 和 `flagCol0` 的情况将首行或首列都置为 `0`.
 
 ![73-set-zeroes](../../static/img/73-set-zeroes-5.png)
 
@@ -158,18 +163,6 @@ var setZeroes = function (matrix) {
 
 - 时间复杂度: `O(m * n)`
 - 空间复杂度: `O(1)`
-
-</TabItem>
-<TabItem value="JavaScript - 一个常数级变量" label="JavaScript - 一个常数级变量">
-
-```ts
-var setZeroes = function (matrix) {
-  const m = matrix.length
-  const n = matrix[0].length
-
-  let flagCol0 = false
-}
-```
 
 </TabItem>
 <TabItem value="Rust" label="Rust">
