@@ -45,20 +45,130 @@ sidebar_label: 73. 矩阵置零
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
-
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript" label="JavaScript" default>
+  <TabItem value="JavaScript - 两个线性变量" label="JavaScript - 两个线性变量" default>
+
+朴素做法是创建 `rows` 和 `cols` 两个 `HashSet`, 遍历二维数组. 如果 `matrix[i][j]` 为 `0`,
+把 `i` 和 `j` 分别存到 `rows` 和 `cols` 之中.
+
+这样再次遍历时, 如果 `i` 或者 `j` 存在于 `HashSet` 中, 说明该元素所在的行或列存在 `0`, 那自然该元素也要变成 `0`.
 
 ```ts
 /**
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-var setZeroes = function (matrix) {}
+var setZeroes = function (matrix) {
+  const m = matrix.length
+  const n = matrix[0].length
+
+  const rows = new Set()
+  const cols = new Set()
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (matrix[i][j] === 0) {
+        rows.add(i)
+        cols.add(j)
+      }
+    }
+  }
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (rows.has(i) || cols.has(j)) {
+        matrix[i][j] = 0
+      }
+    }
+  }
+}
+```
+
+## 复杂度分析
+
+- 时间复杂度: `O(m * n)`
+- 空间复杂度: `O(m + n)`
+
+</TabItem>
+<TabItem value="JavaScript - 两个常数级变量" label="JavaScript - 两个常数级变量">
+
+也可以用两个常数级的变量来代替两个线性级的 HashSet. 首先记录两个变量 flagRow0 和 flagCol0, 用于记录首行或者首列是否存在 0.
+
+![73-set-zeroes](../../static/img/73-set-zeroes-3.png)
+
+![73-set-zeroes](../../static/img/73-set-zeroes-4.png)
+
+![73-set-zeroes](../../static/img/73-set-zeroes-5.png)
+
+```ts
+var setZeroes = function (matrix) {
+  const m = matrix.length
+  const n = matrix[0].length
+
+  let flagRow0 = false
+  let flagCol0 = false
+
+  for (let i = 0; i < m; i++) {
+    if (matrix[i][0] === 0) {
+      flagRow0 = true
+      break
+    }
+  }
+
+  for (let j = 0; j < n; j++) {
+    if (matrix[0][j] === 0) {
+      flagCol0 = true
+      break
+    }
+  }
+
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      if (matrix[i][j] === 0) {
+        matrix[i][0] = matrix[0][j] = 0
+      }
+    }
+  }
+
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      if (matrix[i][0] === 0 || matrix[0][j] === 0) {
+        matrix[i][j] = 0
+      }
+    }
+  }
+
+  if (flagRow0) {
+    for (let i = 0; i < m; i++) {
+      matrix[i][0] = 0
+    }
+  }
+
+  if (flagCol0) {
+    for (let j = 0; j < n; j++) {
+      matrix[0][j] = 0
+    }
+  }
+}
+```
+
+## 复杂度分析
+
+- 时间复杂度: `O(m * n)`
+- 空间复杂度: `O(1)`
+
+</TabItem>
+<TabItem value="JavaScript - 一个常数级变量" label="JavaScript - 一个常数级变量">
+
+```ts
+var setZeroes = function (matrix) {
+  const m = matrix.length
+  const n = matrix[0].length
+
+  let flagCol0 = false
+}
 ```
 
 </TabItem>
