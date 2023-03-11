@@ -47,8 +47,8 @@ keywords:
 这是个很经典的滑动窗口问题, 该题跟 [438. 找到字符串中所有字母异位词](/leetcode/medium/438-find-anagrams) 解法一致.
 
 1. 首先创建一个名叫 `needMap` 的哈希表, 用于映射 `t` 的每个元素
-2. 定义一个 `meetedCount` 的变量, 初始化为 `0`, 当 `window[s[right]] === needMap[s[right]]` 时, 让 `meetedCount++`
-3. 因此当 `meetedCount === needMap.size` 时, 就保证了 `window` 中已经覆盖了 `t` 字符串
+2. 定义一个 `count` 的变量, 初始化为 `0`, 当 `windowMap[s[right]] === needMap[s[right]]` 时, 让 `count++`
+3. 因此当 `count === needMap.size` 时, 就保证了 `windowMap` 中已经覆盖了 `t` 字符串
 4. 接着就可以缩小窗口了, 缩小窗口的代码跟扩大窗口的代码相反, 即直到窗口中的字符串不再符合要求, `left` 不再继续移动
 5. 重复这个过程, 直到 `right` 到了最右边退出循环
 
@@ -65,9 +65,7 @@ import TabItem from '@theme/TabItem'
  * @return {string}
  */
 var minWindow = function (s, t) {
-  const sLen = s.length
-  const tLen = t.length
-  let minStr = ''
+  let res = ''
 
   const needMap = new Map()
   for (const letter of t) {
@@ -77,11 +75,10 @@ var minWindow = function (s, t) {
       needMap.set(letter, 1)
     }
   }
-  const needMapLen = needMap.size
   const windowMap = new Map()
   let start = 0
   let end = 0
-  let meetedCount = 0
+  let count = 0
 
   while (end < sLen) {
     const endLetter = s[end]
@@ -95,27 +92,24 @@ var minWindow = function (s, t) {
       }
 
       if (needMap.get(endLetter) === windowMap.get(endLetter)) {
-        meetedCount++
+        count++
       }
     }
 
-    // 当 meetedCount === needMapLen, 说明找到了一个覆盖子串
+    // 当 count ===  needMap.size, 说明找到了一个覆盖子串
     // 这个时候就可以收缩窗口了
-    while (meetedCount === needMapLen) {
-      const windowStr = s.slice(start, end)
-      minStr =
-        minStr.length === 0
-          ? windowStr
-          : windowStr.length < minStr.length
-          ? windowStr
-          : minStr
+    while (count === needMap.size) {
+      const window = s.slice(start, end)
+      if (res.length === 0 || window.length < res.length) {
+        res = window
+      }
 
       const startLetter = s[start]
       start++
 
       if (needMap.has(startLetter)) {
         if (needMap.get(startLetter) === windowMap.get(startLetter)) {
-          meetedCount--
+          count--
         }
 
         windowMap.set(startLetter, windowMap.get(startLetter) - 1)
@@ -123,7 +117,7 @@ var minWindow = function (s, t) {
     }
   }
 
-  return minStr
+  return res
 }
 ```
 
@@ -134,16 +128,15 @@ var minWindow = function (s, t) {
 use std::collections::HashMap;
 
 pub fn min_window(s: String, t: String) -> String {
-    let mut need_map: HashMap<u8, i32> = HashMap::new();
+    let mut res = "";
 
+    let mut need_map = HashMap::new();
     for letter in t.as_bytes() {
-        need_map.entry(*letter).and_modify(|e| *e += 1).or_insert(1);
+        *need_map.entry(*letter).or_insert(1) += 1;
     }
 
-    let need_map_len = need_map.len();
-    let mut min_str = "";
-    let mut meeted_count = 0;
-    let mut window_map: HashMap<u8, i32> = HashMap::new();
+    let mut window_map = HashMap::new();
+    let mut count = 0;
     let (mut start, mut end) = (0, 0);
 
     while end < s.len() {
@@ -151,20 +144,17 @@ pub fn min_window(s: String, t: String) -> String {
         end += 1;
 
         if need_map.contains_key(&end_letter) {
-            window_map
-                .entry(end_letter)
-                .and_modify(|e| *e += 1)
-                .or_insert(1);
+            *window_map.entry(end_letter).or_insert(1) += 1;
 
             if window_map.get(&end_letter) == need_map.get(&end_letter) {
-                meeted_count += 1;
+                count += 1;
             }
         }
 
-        while meeted_count == need_map_len {
-            let curr_str = &s[start..end];
-            if min_str.len() == 0 || curr_str.len() < min_str.len() {
-                min_str = curr_str;
+        while count == need_map.len() {
+            let window = &s[start..end];
+            if res.len() == 0 || window.len() < res.len() {
+                res = window;
             }
 
             let start_letter = s.as_bytes()[start];
@@ -172,7 +162,7 @@ pub fn min_window(s: String, t: String) -> String {
 
             if need_map.contains_key(&start_letter) {
                 if window_map.get(&start_letter) == need_map.get(&start_letter) {
-                    meeted_count -= 1;
+                    count -= 1;
                 }
 
                 window_map.entry(start_letter).and_modify(|e| *e -= 1);
@@ -180,7 +170,7 @@ pub fn min_window(s: String, t: String) -> String {
         }
     }
 
-    min_str.to_string()
+    res.to_string()
 }
 ```
 

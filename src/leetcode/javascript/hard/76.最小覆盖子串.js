@@ -12,54 +12,62 @@
  */
 
 var minWindow = function (s, t) {
-  const need = {}
-  const window = {}
+  let minStr = ''
 
-  for (const i of t) {
-    need[i] ? (need[i] += 1) : (need[i] = 1)
+  const needMap = new Map()
+  for (const letter of t) {
+    if (needMap.has(letter)) {
+      needMap.set(letter, needMap.get(letter) + 1)
+    } else {
+      needMap.set(letter, 1)
+    }
   }
+  const needMapLen = needMap.size
+  const windowMap = new Map()
+  let start = 0
+  let end = 0
+  let meetedCount = 0
 
-  const needLen = Object.keys(need).length
+  while (end < s.length) {
+    const endLetter = s[end]
+    end++
 
-  let left = 0,
-    right = 0
+    if (needMap.has(endLetter)) {
+      if (windowMap.has(endLetter)) {
+        windowMap.set(endLetter, windowMap.get(endLetter) + 1)
+      } else {
+        windowMap.set(endLetter, 1)
+      }
 
-  let valid = 0
-
-  let start = 0,
-    len = Number.MAX_SAFE_INTEGER
-
-  while (right < s.length) {
-    const c = s[right]
-    right++
-
-    if (need[c]) {
-      window[c] ? (window[c] += 1) : (window[c] = 1)
-
-      if (window[c] === need[c]) {
-        valid++
+      if (needMap.get(endLetter) === windowMap.get(endLetter)) {
+        meetedCount++
       }
     }
 
-    while (valid === needLen) {
-      if (right - left < len) {
-        start = left
-        len = right - left
-      }
+    // 当 meetedCount === needMapLen, 说明找到了一个覆盖子串
+    // 这个时候就可以收缩窗口了
+    while (meetedCount === needMapLen) {
+      const windowStr = s.slice(start, end)
+      minStr =
+        minStr.length === 0
+          ? windowStr
+          : windowStr.length < minStr.length
+          ? windowStr
+          : minStr
 
-      const d = s[left]
-      left++
+      const startLetter = s[start]
+      start++
 
-      if (need[d]) {
-        if (window[d] === need[d]) {
-          valid--
+      if (needMap.has(startLetter)) {
+        if (needMap.get(startLetter) === windowMap.get(startLetter)) {
+          meetedCount--
         }
 
-        window[d] -= 1
+        windowMap.set(startLetter, windowMap.get(startLetter) - 1)
       }
     }
   }
 
-  return len === Number.MAX_SAFE_INTEGER ? '' : s.substr(start, len)
+  return minStr
 }
 // @lc code=right
