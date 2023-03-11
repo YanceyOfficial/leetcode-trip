@@ -26,7 +26,7 @@ var letterCombinations = function (digits) {
     9: 'wxyz',
   }
 
-  const backtracking = (track) => {
+  const dfs = (track) => {
     const n = track.length
 
     // 题目要求组合字母的长度要和 digits 的长度相同
@@ -42,12 +42,12 @@ var letterCombinations = function (digits) {
     // 遍历某个数字对应的字母, 比如 def, 进行回溯
     for (let i = 0; i < letters.length; i++) {
       track.push(letters[i])
-      backtracking(track.slice())
+      dfs(track.slice())
       track.pop()
     }
   }
 
-  backtracking([])
+  dfs([])
   return res
 }
 // @lc code=end

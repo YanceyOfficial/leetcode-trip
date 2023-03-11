@@ -72,7 +72,7 @@ var combinationSum = function (candidates, target) {
   const n = candidates.length
   const res = []
 
-  const backtracking = (begin, sum, track) => {
+  const dfs = (begin, sum, track) => {
     if (target === sum) {
       res.push(track.slice())
       return
@@ -84,7 +84,7 @@ var combinationSum = function (candidates, target) {
         track.push(candidates[i])
 
         // 基于当前这个数的继续选择, 传 i, 下一次就不会选到 i 左边的数
-        backtracking(i, sum + candidates[i], track)
+        dfs(i, sum + candidates[i], track)
 
         // 撤销选择, 回到选择 candidates[i] 之前的状态, 继续尝试选同层右边的数
         track.pop()
@@ -92,7 +92,7 @@ var combinationSum = function (candidates, target) {
     }
   }
 
-  backtracking(0, 0, [])
+  dfs(0, 0, [])
 
   return res
 }
@@ -104,11 +104,11 @@ var combinationSum = function (candidates, target) {
 ```rust
 pub fn combination_sum(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
-    backtracking(0, 0, target, &candidates, &mut vec![], &mut res);
+    dfs(0, 0, target, &candidates, &mut vec![], &mut res);
     res
 }
 
-fn backtracking(
+fn dfs(
     begin: usize,
     sum: i32,
     target: i32,
@@ -124,7 +124,7 @@ fn backtracking(
     for i in begin..candidates.len() {
         if sum < target {
             track.push(candidates[i]);
-            backtracking(i, sum + candidates[i], target, candidates, track, res);
+            dfs(i, sum + candidates[i], target, candidates, track, res);
             track.pop();
         }
     }

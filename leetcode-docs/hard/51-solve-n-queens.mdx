@@ -58,7 +58,7 @@ var solveNQueens = function (n) {
   // 新建一个空板子
   const board = new Array(n).fill('').map(() => new Array(n).fill('.'))
 
-  const backtracking = (row) => {
+  const dfs = (row) => {
     if (row === n) {
       // 由于 board[row] 是数组, 而题目要求 board[row] 是字符串, 因此需要转一下
       const _board = board.map((_row) => _row.join(''))
@@ -70,12 +70,12 @@ var solveNQueens = function (n) {
       if (!isValid(board, row, col)) continue
 
       board[row][col] = 'Q'
-      backtracking(row + 1)
+      dfs(row + 1)
       board[row][col] = '.'
     }
   }
 
-  backtracking(0)
+  dfs(0)
 
   return res
 }
@@ -116,12 +116,12 @@ pub fn solve_n_queens(n: i32) -> Vec<Vec<String>> {
     let mut res = vec![];
     let mut board = vec![vec!['.'; n as usize]; n as usize];
 
-    backtracking(&mut board, &mut res, 0);
+    dfs(&mut board, &mut res, 0);
 
     res
 }
 
-fn backtracking(board: &mut Vec<Vec<char>>, res: &mut Vec<Vec<String>>, row: usize) {
+fn dfs(board: &mut Vec<Vec<char>>, res: &mut Vec<Vec<String>>, row: usize) {
     let n = board.len();
 
     if row == n {
@@ -139,7 +139,7 @@ fn backtracking(board: &mut Vec<Vec<char>>, res: &mut Vec<Vec<String>>, row: usi
         }
 
         board[row][col] = 'Q';
-        backtracking(board, res, row + 1);
+        dfs(board, res, row + 1);
         board[row][col] = '.';
     }
 }

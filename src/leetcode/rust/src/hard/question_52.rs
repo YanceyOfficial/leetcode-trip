@@ -3,12 +3,12 @@ pub fn total_n_queens(n: i32) -> i32 {
     let mut count = 0;
     let mut board = vec![vec!['.'; n as usize]; n as usize];
 
-    backtracking(&mut board, &mut count, 0);
+    dfs(&mut board, &mut count, 0);
 
     count
 }
 
-fn backtracking(board: &mut Vec<Vec<char>>, count: &mut i32, row: usize) {
+fn dfs(board: &mut Vec<Vec<char>>, count: &mut i32, row: usize) {
     let n = board.len();
 
     if row == n {
@@ -22,7 +22,7 @@ fn backtracking(board: &mut Vec<Vec<char>>, count: &mut i32, row: usize) {
         }
 
         board[row][col] = 'Q';
-        backtracking(board, count, row + 1);
+        dfs(board, count, row + 1);
         board[row][col] = '.';
     }
 }

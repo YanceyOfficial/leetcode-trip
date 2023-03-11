@@ -13,7 +13,7 @@ var permute = function (nums) {
   let n = nums.length
   let res = []
   let track = []
-  let backtracking = (track) => {
+  let dfs = (track) => {
     if (track.length === n) {
       res.push(track)
       return
@@ -21,13 +21,13 @@ var permute = function (nums) {
     for (let i = 0; i < n; i++) {
       if (!track.includes(nums[i])) {
         track.push(nums[i])
-        backtracking(track.slice())
+        dfs(track.slice())
         track.pop()
       }
     }
   }
 
-  backtracking(track)
+  dfs(track)
   return res
 }
 // @lc code=end

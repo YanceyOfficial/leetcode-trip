@@ -22,12 +22,12 @@ pub fn letter_combinations(digits: String) -> Vec<String> {
         vec!["w", "x", "y", "z"],
     ];
 
-    backtracking(&mut res, &mut vec![], &map, &digits);
+    dfs(&mut res, &mut vec![], &map, &digits);
 
     res
 }
 
-fn backtracking(
+fn dfs(
     res: &mut Vec<String>,
     track: &mut Vec<String>,
     map: &Vec<Vec<&str>>,
@@ -44,7 +44,7 @@ fn backtracking(
 
     for i in 0..mapped_digits.len() {
         track.push(mapped_digits[i].to_string());
-        backtracking(res, track, map, digits);
+        dfs(res, track, map, digits);
         track.pop();
     }
 }

@@ -13,7 +13,7 @@
 var combine = function (n, k) {
   const res = []
 
-  const backtracking = function (begin, track) {
+  const dfs = function (begin, track) {
     if (track.length === k) {
       res.push(track)
       return
@@ -22,13 +22,13 @@ var combine = function (n, k) {
     for (let i = begin; i <= n; i++) {
       if (!track.includes(i)) {
         track.push(i)
-        backtracking(i, track.slice())
+        dfs(i, track.slice())
         track.pop()
       }
     }
   }
 
-  backtracking(1, [])
+  dfs(1, [])
   return res
 }
 // @lc code=end

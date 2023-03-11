@@ -52,7 +52,7 @@ keywords:
 
 这道题其实是 [39. 组合数字](/leetcode/medium/39-combination-sum) 和 [47. 全排列 II](/leetcode/medium/47-permute) 的综合体.
 
-- **`candidates` 中的每个数字在每个组合中只能使用一次**: 其实就对标第 47 题, 即使用**同层相邻不能相等**和 **`used` 数组**的剪枝策略.
+- **`candidates` 中的每个数字在每个组合中只能使用一次**: 其实就对标第 47 题, 即使用**同层相邻不能相等**和 **`visited` 数组**的剪枝策略.
 - **解集不能包含重复的组合**: 其实就对标第 39 题, 通过 `begin` 来限制下一次选择的起点, 是基于本次的选择, 这样下一次就不会选到本次选择的同层左边的数.
 
 import Tabs from '@theme/Tabs'
@@ -70,10 +70,10 @@ import TabItem from '@theme/TabItem'
 var combinationSum2 = function (candidates, target) {
   const n = candidates.length
   const res = []
-  const used = new Array(n).fill(false)
+  const visited = new Array(n).fill(false)
   candidates.sort((a, b) => a - b)
 
-  const backtracking = (begin, sum, track) => {
+  const dfs = (begin, sum, track) => {
     if (sum === target) {
       res.push(track.slice())
       return
@@ -82,26 +82,26 @@ var combinationSum2 = function (candidates, target) {
     // 使用 begin 来限制下一次选择的起点, 是基于本次的选择, 这样下一次就不会选到本次选择的同层左边的数.
     for (let i = begin; i < n; i++) {
       // 同层相邻两个数不能相等, 当然要保证 i - 1 不越界, 且 i - 1 没被用过
-      if (candidates[i - 1] === candidates[i] && i - 1 >= 0 && !used[i - 1]) {
+      if (candidates[i - 1] === candidates[i] && i - 1 >= 0 && !visited[i - 1]) {
         continue
       }
 
       // 如果这个数被用过, 跳过
-      if (used[i]) {
+      if (visited[i]) {
         continue
       }
 
       if (sum < target) {
         track.push(candidates[i])
-        used[i] = true
-        backtracking(i, sum + candidates[i], track)
+        visited[i] = true
+        dfs(i, sum + candidates[i], track)
         track.pop()
-        used[i] = false
+        visited[i] = false
       }
     }
   }
 
-  backtracking(0, 0, [])
+  dfs(0, 0, [])
 
   return res
 }
@@ -116,18 +116,18 @@ pub fn combination_sum2(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
     candidates.sort();
 
     let mut res: Vec<Vec<i32>> = vec![];
-    let mut used = vec![false; candidates.len()];
+    let mut visited = vec![false; candidates.len()];
 
-    backtracking(0, 0, target, &candidates, &mut used, &mut vec![], &mut res);
+    dfs(0, 0, target, &candidates, &mut visited, &mut vec![], &mut res);
     res
 }
 
-fn backtracking(
+fn dfs(
     begin: usize,
     sum: i32,
     target: i32,
     candidates: &Vec<i32>,
-    used: &mut Vec<bool>,
+    visited: &mut Vec<bool>,
     track: &mut Vec<i32>,
     res: &mut Vec<Vec<i32>>,
 ) {
@@ -137,20 +137,20 @@ fn backtracking(
     }
 
     for i in begin..candidates.len() {
-        if i as i32 - 1 >= 0 && candidates[i - 1] == candidates[i] && !used[i - 1] {
+        if i as i32 - 1 >= 0 && candidates[i - 1] == candidates[i] && !visited[i - 1] {
             continue;
         }
 
-        if used[i] {
+        if visited[i] {
             continue;
         }
 
         if sum < target {
-            used[i] = true;
+            visited[i] = true;
             track.push(candidates[i]);
-            backtracking(i, sum + candidates[i], target, candidates, used, track, res);
+            dfs(i, sum + candidates[i], target, candidates, visited, track, res);
             track.pop();
-            used[i] = false;
+            visited[i] = false;
         }
     }
 }

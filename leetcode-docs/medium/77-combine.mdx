@@ -47,7 +47,7 @@ import TabItem from '@theme/TabItem'
 var combine = function (n, k) {
   const res = []
 
-  const backtracking = function (begin, track) {
+  const dfs = function (begin, track) {
     if (track.length === k) {
       res.push(track)
       return
@@ -56,13 +56,13 @@ var combine = function (n, k) {
     for (let i = begin; i <= n; i++) {
       if (!track.includes(i)) {
         track.push(i)
-        backtracking(i, track.slice())
+        dfs(i, track.slice())
         track.pop()
       }
     }
   }
 
-  backtracking(1, [])
+  dfs(1, [])
   return res
 }
 ```
@@ -73,11 +73,11 @@ var combine = function (n, k) {
 ```rust
 pub fn combine(n: i32, k: i32) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
-    backtracking(1, n as usize, k as usize, &mut vec![], &mut res);
+    dfs(1, n as usize, k as usize, &mut vec![], &mut res);
     res
 }
 
-fn backtracking(begin: usize, n: usize, k: usize, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn dfs(begin: usize, n: usize, k: usize, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     if track.len() == k {
         res.push(track.to_vec());
         return;
@@ -86,7 +86,7 @@ fn backtracking(begin: usize, n: usize, k: usize, track: &mut Vec<i32>, res: &mu
     for i in begin..=n {
         if !track.contains(&(i as i32)) {
             track.push(i as i32);
-            backtracking(i, n, k, track, res);
+            dfs(i, n, k, track, res);
             track.pop();
         }
     }

@@ -13,7 +13,7 @@ var totalNQueens = function (n) {
   let count = 0
   const board = new Array(n).fill('').map(() => new Array(n).fill('.'))
 
-  const backtracking = (row) => {
+  const dfs = (row) => {
     if (row === n) {
       count++
       return
@@ -23,12 +23,12 @@ var totalNQueens = function (n) {
       if (!idValid(board, row, col)) continue
 
       board[row][col] = 'Q'
-      backtracking(row + 1)
+      dfs(row + 1)
       board[row][col] = '.'
     }
   }
 
-  backtracking(0)
+  dfs(0)
 
   return count
 }

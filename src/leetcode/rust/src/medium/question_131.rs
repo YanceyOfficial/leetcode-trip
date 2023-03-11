@@ -22,12 +22,12 @@ pub fn partition(s: String) -> Vec<Vec<String>> {
         }
     }
 
-    backtracking(0, n, &s, &dp, &mut vec![], &mut res);
+    dfs(0, n, &s, &dp, &mut vec![], &mut res);
 
     res
 }
 
-fn backtracking(
+fn dfs(
     begin: usize,
     n: usize,
     vec: &Vec<String>,
@@ -43,7 +43,7 @@ fn backtracking(
     for i in begin..n {
         if dp[begin][i] == true {
             track.push(vec[begin..(i + 1)].join(""));
-            backtracking(i + 1, n, vec, dp, track, res);
+            dfs(i + 1, n, vec, dp, track, res);
             track.pop();
         }
     }

@@ -10,9 +10,9 @@
  * @return {void} Do not return anything, modify board in-place instead.
  */
 var solveSudoku = function (board) {
-  const backtracking = (row, col) => {
+  const dfs = (row, col) => {
     // 当横向走到头了, 就换到下一行继续回溯
-    if (col === 9) return backtracking(row + 1, 0)
+    if (col === 9) return dfs(row + 1, 0)
 
     // 当纵向走到头了, 说明找到了一组数独解
     if (row === 9) return true
@@ -21,7 +21,7 @@ var solveSudoku = function (board) {
     for (let i = row; i < 9; i++) {
       for (let j = col; j < 9; j++) {
         // 如果当前元素已经是数字了, 我们就不用管了, 直接回溯下一个元素
-        if (board[i][j] !== '.') return backtracking(i, j + 1)
+        if (board[i][j] !== '.') return dfs(i, j + 1)
 
         // 如果当前元素是 '.'
         // 那么就从 '1' 到 '9' 依次尝试
@@ -35,7 +35,7 @@ var solveSudoku = function (board) {
           // 做选择:
           board[i][j] = ch
           // 回溯: 因为题目本身只有一个可行解, 因此找到就返回 true 即可, 这样就可以阻止后续的递归
-          if (backtracking(i, j + 1)) return true
+          if (dfs(i, j + 1)) return true
           // 撤销选择:
           board[i][j] = '.'
         }
@@ -50,7 +50,7 @@ var solveSudoku = function (board) {
   }
 
   // 回溯的初始值: row = 0, col = 0
-  backtracking(0, 0)
+  dfs(0, 0)
 }
 
 /**

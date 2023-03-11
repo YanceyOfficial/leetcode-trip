@@ -66,18 +66,18 @@ var subsets = function (nums) {
   const n = nums.length
   const res = []
 
-  const backtracking = (begin, track) => {
+  const dfs = (begin, track) => {
     res.push(track.slice()) // 调用子递归前, 加入解集
 
     for (let i = begin; i < n; i++) {
       // 枚举出所有可选的数
       track.push(nums[i]) // 选这个数
-      backtracking(i + 1, track) // 基于选这个数, 继续递归, 传入的是 i + 1
+      dfs(i + 1, track) // 基于选这个数, 继续递归, 传入的是 i + 1
       track.pop() // 撤销选这个数
     }
   }
 
-  backtracking(0, [])
+  dfs(0, [])
 
   return res
 }
@@ -89,16 +89,16 @@ var subsets = function (nums) {
 ```rust
 pub fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
-    backtracking(0, &nums, &mut vec![], &mut res);
+    dfs(0, &nums, &mut vec![], &mut res);
     res
 }
 
-fn backtracking(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn dfs(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     res.push(track.to_vec());
 
     for i in begin..nums.len() {
         track.push(nums[i]);
-        backtracking(i + 1, nums, track, res);
+        dfs(i + 1, nums, track, res);
         track.pop();
     }
 }

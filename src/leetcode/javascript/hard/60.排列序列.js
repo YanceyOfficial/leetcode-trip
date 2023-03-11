@@ -14,7 +14,7 @@ var getPermutation = function (n, k) {
   let res = ''
   let count = 0
 
-  const backtracking = (track) => {
+  const dfs = (track) => {
     if (track.length === n) {
       count += 1
       if (count === k) {
@@ -26,13 +26,13 @@ var getPermutation = function (n, k) {
     for (let i = 1; i <= n; i++) {
       if (!track.includes(i)) {
         track.push(i)
-        backtracking(track)
+        dfs(track)
         track.pop()
       }
     }
   }
 
-  backtracking([])
+  dfs([])
 
   return res
 }

@@ -3,32 +3,32 @@ pub fn permute_unique(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut nums: Vec<i32> = nums;
     nums.sort();
 
-    let mut used = vec![false; nums.len()];
+    let mut visited = vec![false; nums.len()];
     let mut res: Vec<Vec<i32>> = vec![];
-    backtracking(&nums, &mut used, &mut vec![], &mut res);
+    dfs(&nums, &mut visited, &mut vec![], &mut res);
     res
 }
 
 #[allow(unused)]
-fn backtracking(nums: &Vec<i32>, used: &mut Vec<bool>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn dfs(nums: &Vec<i32>, visited: &mut Vec<bool>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     if track.len() == nums.len() {
         res.push(track.to_vec());
         return;
     }
 
     for i in 0..nums.len() {
-        if i as i32 - 1 >= 0 && nums[i - 1] == nums[i] && !used[i - 1] {
+        if i as i32 - 1 >= 0 && nums[i - 1] == nums[i] && !visited[i - 1] {
             continue;
         }
 
-        if (used[i]) {
+        if (visited[i]) {
             continue;
         }
 
-        used[i] = true;
+        visited[i] = true;
         track.push(nums[i]);
-        backtracking(nums, used, track, res);
+        dfs(nums, visited, track, res);
         track.pop();
-        used[i] = false;
+        visited[i] = false;
     }
 }

@@ -17,7 +17,7 @@ sidebar_label: BackTracking
 ```ts
 const result = []
 
-function backtracking(路径, 选择列表) {
+function dfs(路径, 选择列表) {
   if (满足结束条件) {
     result.add(路径)
     return
@@ -25,7 +25,7 @@ function backtracking(路径, 选择列表) {
 
   for (选择 in 选择列表) {
     做选择
-    backtracking(路径, 选择列表)
+    dfs(路径, 选择列表)
     撤销选择
   }
 }
@@ -33,9 +33,9 @@ function backtracking(路径, 选择列表) {
 
 ## 小技巧
 
-- 如果给的数组里有重复元素: 得用上 used 辅助数组
-- 解集不能包含重复的组合: 即 [1, 2] 和 [2, 1] 视为同一种情况, backtracking 函数第一个参数传 begin
-- 求子集: backtracking 函数第一个参数传 begin, 并且递归时 `backtracking(i + 1, track)`
+- 如果给的数组里有重复元素: 得用上 visited 辅助数组
+- 解集不能包含重复的组合: 即 [1, 2] 和 [2, 1] 视为同一种情况, dfs 函数第一个参数传 begin
+- 求子集: dfs 函数第一个参数传 begin, 并且递归时 `dfs(i + 1, track)`
 
 ## 相关题目
 

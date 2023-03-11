@@ -14,7 +14,7 @@ var combinationSum = function (candidates, target) {
   const len = candidates.length
   const res = []
 
-  const backtracking = (begin, track, sum) => {
+  const dfs = (begin, track, sum) => {
     if (target === sum) {
       res.push(track)
       return
@@ -23,13 +23,13 @@ var combinationSum = function (candidates, target) {
     for (let i = begin; i < len; i++) {
       if (sum < target) {
         track.push(candidates[i])
-        backtracking(i, track.slice(), sum + candidates[i])
+        dfs(i, track.slice(), sum + candidates[i])
         track.pop()
       }
     }
   }
 
-  backtracking(0, [], 0)
+  dfs(0, [], 0)
   return res
 }
 // @lc code=end

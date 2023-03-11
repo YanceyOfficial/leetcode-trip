@@ -26,7 +26,7 @@ var partition = function (s) {
     }
   }
 
-  const backtracking = (begin, track) => {
+  const dfs = (begin, track) => {
     if (begin === n) {
       res.push(track)
       return
@@ -35,13 +35,13 @@ var partition = function (s) {
     for (let i = begin; i < n; i++) {
       if (dp[begin][i]) {
         track.push(s.slice(begin, i + 1))
-        backtracking(i + 1, track.slice())
+        dfs(i + 1, track.slice())
         track.pop()
       }
     }
   }
 
-  backtracking(0, [])
+  dfs(0, [])
 
   return res
 }

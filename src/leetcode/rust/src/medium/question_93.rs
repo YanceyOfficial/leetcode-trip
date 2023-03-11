@@ -14,12 +14,12 @@ pub fn restore_ip_addresses(s: String) -> Vec<String> {
         return res;
     }
 
-    backtracking(0, 0, &arr, &mut vec![0; 4], &mut res);
+    dfs(0, 0, &arr, &mut vec![0; 4], &mut res);
 
     res
 }
 
-fn backtracking(
+fn dfs(
     begin: usize,
     segment_idx: usize,
     arr: &Vec<i32>,
@@ -46,7 +46,7 @@ fn backtracking(
 
     if arr[begin] == 0 {
         track[segment_idx] = 0;
-        backtracking(begin + 1, segment_idx + 1, arr, track, res);
+        dfs(begin + 1, segment_idx + 1, arr, track, res);
     }
 
     let mut segment = 0;
@@ -55,7 +55,7 @@ fn backtracking(
 
         if segment > 0 && segment <= 255 {
             track[segment_idx] = segment;
-            backtracking(i + 1, segment_idx + 1, arr, track, res);
+            dfs(i + 1, segment_idx + 1, arr, track, res);
         } else {
             break;
         }

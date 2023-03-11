@@ -48,7 +48,7 @@ var letterCombinations = function (digits) {
   // 写一个 map 来模拟手机键盘
   const map = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
 
-  const backtracking = (track) => {
+  const dfs = (track) => {
     const n = track.length
 
     // 题目要求组合字母的长度要和 digits 的长度相同
@@ -64,12 +64,12 @@ var letterCombinations = function (digits) {
     // 遍历某个数字对应的字母, 比如 def, 进行回溯
     for (const letter of letters) {
       track.push(letter)
-      backtracking(track.slice())
+      dfs(track.slice())
       track.pop()
     }
   }
 
-  backtracking([])
+  dfs([])
 
   return res
 }
@@ -102,12 +102,12 @@ pub fn letter_combinations(digits: String) -> Vec<String> {
         vec!["w", "x", "y", "z"],
     ];
 
-    backtracking(&mut res, &mut vec![], &map, &digits);
+    dfs(&mut res, &mut vec![], &map, &digits);
 
     res
 }
 
-fn backtracking(
+fn dfs(
     res: &mut Vec<String>,
     track: &mut Vec<String>,
     map: &Vec<Vec<&str>>,
@@ -124,7 +124,7 @@ fn backtracking(
 
     for i in 0..letters.len() {
         track.push(letters[i].to_string());
-        backtracking(res, track, map, digits);
+        dfs(res, track, map, digits);
         track.pop();
     }
 }
