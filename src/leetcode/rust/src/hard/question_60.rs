@@ -2,19 +2,19 @@
 pub fn get_permutation(n: i32, k: i32) -> String {
     let mut res = String::new();
     let mut count = 0;
-    let mut used = vec![false; n as usize];
+    let mut visited = vec![false; n as usize];
 
-    backtracking(n, k, &mut res, &mut count, &mut used, &mut vec![]);
+    dfs(n, k, &mut res, &mut count, &mut visited, &mut vec![]);
 
     res
 }
 
-fn backtracking(
+fn dfs(
     n: i32,
     k: i32,
     res: &mut String,
     count: &mut i32,
-    used: &mut Vec<bool>,
+    visited: &mut Vec<bool>,
     track: &mut Vec<i32>,
 ) {
     if track.len() == n as usize {
@@ -27,14 +27,14 @@ fn backtracking(
     }
 
     for i in 0..(n as usize) {
-        if used[i] {
+        if visited[i] {
             continue;
         }
 
-        used[i] = true;
+        visited[i] = true;
         track.push(i as i32 + 1);
-        backtracking(n, k, res, count, used, track);
+        dfs(n, k, res, count, visited, track);
         track.pop();
-        used[i] = false;
+        visited[i] = false;
     }
 }

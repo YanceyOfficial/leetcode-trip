@@ -69,7 +69,7 @@ var partition = function (s) {
   const n = s.length
   const res = []
 
-  const backtracking = (begin, track) => {
+  const dfs = (begin, track) => {
     // begin 走到头了, 说明一趟遍历完了, 可以收割
     if (begin === n) {
       res.push(track)
@@ -82,13 +82,13 @@ var partition = function (s) {
       // 如果 word 是回文, 便加入 track 豪华午餐, 继续回溯
       if (validPalindrome(word)) {
         track.push(word)
-        backtracking(i + 1, track.slice())
+        dfs(i + 1, track.slice())
         track.pop()
       }
     }
   }
 
-  backtracking(0, [])
+  dfs(0, [])
   return res
 }
 
@@ -123,7 +123,7 @@ var partition = function (s) {
     memo[i] = new Array(n)
   }
 
-  const backtracking = (begin, track) => {
+  const dfs = (begin, track) => {
     if (begin === n) {
       res.push(track)
       return
@@ -139,13 +139,13 @@ var partition = function (s) {
 
       if (memo[begin][i] || validPalindrome(s, begin, i, memo)) {
         track.push(s.slice(begin, i + 1))
-        backtracking(i + 1, track.slice())
+        dfs(i + 1, track.slice())
         track.pop()
       }
     }
   }
 
-  backtracking(0, [])
+  dfs(0, [])
   return res
 }
 
@@ -200,7 +200,7 @@ var partition = function (s) {
     }
   }
 
-  const backtracking = (begin, track) => {
+  const dfs = (begin, track) => {
     if (begin === n) {
       res.push(track)
       return
@@ -209,13 +209,13 @@ var partition = function (s) {
     for (let i = begin; i < n; i++) {
       if (dp[begin][i]) {
         track.push(s.slice(begin, i + 1))
-        backtracking(i + 1, track.slice())
+        dfs(i + 1, track.slice())
         track.pop()
       }
     }
   }
 
-  backtracking(0, [])
+  dfs(0, [])
   
   return res
 }
@@ -251,12 +251,12 @@ pub fn partition(s: String) -> Vec<Vec<String>> {
         }
     }
 
-    backtracking(0, n, &s, &dp, &mut vec![], &mut res);
+    dfs(0, n, &s, &dp, &mut vec![], &mut res);
 
     res
 }
 
-fn backtracking(
+fn dfs(
     begin: usize,
     n: usize,
     vec: &Vec<String>,
@@ -272,7 +272,7 @@ fn backtracking(
     for i in begin..n {
         if dp[begin][i] == true {
             track.push(vec[begin..(i + 1)].join(""));
-            backtracking(i + 1, n, vec, dp, track, res);
+            dfs(i + 1, n, vec, dp, track, res);
             track.pop();
         }
     }

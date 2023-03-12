@@ -37,9 +37,9 @@ var triangleNumber = function (nums) {
 //   const n = nums.length
 //   if (n < 3) return res
 //   nums.sort((a, b) => a - b)
-//   const used = new Array(n).fill(false)
+//   const visited = new Array(n).fill(false)
 
-//   const backtracking = (track, begin) => {
+//   const dfs = (track, begin) => {
 //     if (track.length === 3) {
 //       if (track[0] + track[1] > track[2]) {
 //         res++
@@ -48,16 +48,16 @@ var triangleNumber = function (nums) {
 //     }
 
 //     for (let i = begin; i < n; i++) {
-//       if (!used[i]) {
+//       if (!visited[i]) {
 //         track.push(nums[i])
-//         used[i] = true
-//         backtracking(track.slice(), i)
+//         visited[i] = true
+//         dfs(track.slice(), i)
 //         track.pop()
-//         used[i] = false
+//         visited[i] = false
 //       }
 //     }
 //   }
 
-//   backtracking([], 0)
+//   dfs([], 0)
 //   return res
 // }

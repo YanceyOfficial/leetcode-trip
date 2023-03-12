@@ -12,9 +12,17 @@ keywords:
 
 ## 题目
 
-给定一个**不包含重复元素**的整数数组 nums, 返回该数组所有可能的子集.
+给定一个**不包含重复元素**的整数数组 `nums`, 返回该数组所有可能的子集.
 
 说明: 解集不能包含重复的子集.
+
+:::note 提示:
+
+- `1 <= nums.length <= 10`
+- `-10 <= nums[i] <= 10`
+- `nums` 中的所有元素**互不相同**
+
+:::
 
 :::info 示例
 
@@ -34,14 +42,14 @@ keywords:
 
 ## 题解
 
-用 for 枚举出当前可选的数, 比如选第一个数: 1、2、3 可选.
+用循环枚举出当前可选的数, 比如选第一个数: `1`, `2`, `3` 可选.
 
-- 如果第一个数选 1, 选第二个数, 2、3 可选;
-- 如果第一个数选 2, 选第二个数, 只有 3 可选(不能选 1, 产生重复组合)s
-- 如果第一个数选 3, 没有第二个数可选
-- 每次传入子递归的 begin 是: 当前你选的数的索引 +1.
+- 如果第一个数选 `1`, 选第二个数, `2`,`3` 可选;
+- 如果第一个数选 `2`, 选第二个数, 只有 `3` 可选(不能选 `1`, 产生重复组合)
+- 如果第一个数选 `3`, 没有第二个数可选
+- 每次传入子递归的 `begin` 是: 当前你选的数的索引 `+1`.
 
-每次递归枚举的选项变少, 一直递归到没有可选的数字, 进入不了 for 循环, 就进入不了递归, 整个 DFS 结束. 我们没有显式地设置递归的出口, 而是通过控制循环的起点, 使得最后递归自然结束.
+每次递归枚举的选项变少, 一直递归到没有可选的数字, 进入不了循环, 就进入不了递归, 整个 `DFS` 结束. 我们没有显式地设置递归的出口, 而是通过控制循环的起点, 使得最后递归自然结束.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -58,18 +66,18 @@ var subsets = function (nums) {
   const n = nums.length
   const res = []
 
-  const backtracking = (begin, track) => {
+  const dfs = (begin, track) => {
     res.push(track.slice()) // 调用子递归前, 加入解集
 
     for (let i = begin; i < n; i++) {
       // 枚举出所有可选的数
       track.push(nums[i]) // 选这个数
-      backtracking(i + 1, track) // 基于选这个数, 继续递归, 传入的是 i + 1
+      dfs(i + 1, track) // 基于选这个数, 继续递归, 传入的是 i + 1
       track.pop() // 撤销选这个数
     }
   }
 
-  backtracking(0, [])
+  dfs(0, [])
 
   return res
 }
@@ -81,16 +89,16 @@ var subsets = function (nums) {
 ```rust
 pub fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
-    backtracking(0, &nums, &mut vec![], &mut res);
+    dfs(0, &nums, &mut vec![], &mut res);
     res
 }
 
-fn backtracking(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn dfs(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     res.push(track.to_vec());
 
     for i in begin..nums.len() {
         track.push(nums[i]);
-        backtracking(i + 1, nums, track, res);
+        dfs(i + 1, nums, track, res);
         track.pop();
     }
 }

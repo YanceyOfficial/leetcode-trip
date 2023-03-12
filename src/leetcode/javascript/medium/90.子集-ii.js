@@ -12,25 +12,25 @@
 var subsetsWithDup = function (nums) {
   const len = nums.length
   const res = []
-  const used = new Array(len).fill(false)
+  const visited = new Array(len).fill(false)
   nums.sort((a, b) => a - b)
 
-  const backtracking = (index, track) => {
+  const dfs = (index, track) => {
     res.push(track.slice())
 
     for (let i = index; i < len; i++) {
-      if (nums[i - 1] === nums[i] && i - 1 >= 0 && !used[i - 1]) continue
-      if (used[i]) continue
+      if (nums[i - 1] === nums[i] && i - 1 >= 0 && !visited[i - 1]) continue
+      if (visited[i]) continue
 
       track.push(nums[i])
-      used[i] = true
-      backtracking(i + 1, track)
+      visited[i] = true
+      dfs(i + 1, track)
       track.pop()
-      used[i] = false
+      visited[i] = false
     }
   }
 
-  backtracking(0, [])
+  dfs(0, [])
 
   return res
 }

@@ -8,7 +8,7 @@ keywords:
 ---
 
 :::success Tips
-题目类型: [Tree](/data-structure/tree/concept) | [Backtrack](/algorithm-design/backtracking)
+题目类型: [Tree](/data-structure/tree/concept) | [Backtrack](/algorithm-design/backTracking)
 
 相关题目:
 
@@ -88,7 +88,7 @@ var pathSum = function (root, targetSum) {
   const res = []
 
   // 2. 深度优先搜索: root -> 树; track -> 路径; targetSum -> 剩余的总和
-  const backtracking = (root, track, targetSum) => {
+  const dfs = (root, track, targetSum) => {
     // 2.1 终止条件
     if (!root) return
 
@@ -104,14 +104,14 @@ var pathSum = function (root, targetSum) {
       }
     } else {
       // 2.5 进一步递归左子树和右子树
-      backtracking(root.left, track, targetSum - val)
-      backtracking(root.right, track, targetSum - val)
+      dfs(root.left, track, targetSum - val)
+      dfs(root.right, track, targetSum - val)
     }
 
     // 2.6 溯
     track.pop()
   }
-  backtracking(root, [], targetSum)
+  dfs(root, [], targetSum)
 
   // 3. 返回结果
   return res

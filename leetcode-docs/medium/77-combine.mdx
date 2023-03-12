@@ -12,7 +12,14 @@ keywords:
 
 ## 题目
 
-给定两个整数 n 和 k, 返回 1 ... n 中所有可能的 k 个数的组合.
+给定两个整数 `n` 和 `k`, 返回 `1 ... n` 中所有可能的 `k` 个数的组合.
+
+:::note 提示:
+
+- `1 <= n <= 20`
+- `1 <= k <= n`
+
+:::
 
 :::info 示例
 
@@ -23,7 +30,7 @@ keywords:
 
 ## 题解
 
-好了我已经吐了, 这个题其实是 [40. 组合总数 II](/leetcode/medium/40-combination-sum) 的变体. 翻译过来就是: 候选项为 [1, n], 每个组合有 k 个数, 每个数字只能选一次, 且组合不能重复(即 [1, 2] 和 [2, 1] 视为同一个).
+这个题其实是 [40. 组合总数 II](/leetcode/medium/40-combination-sum) 的变体. 翻译过来就是: 候选项为`[1, n]`, 每个组合有 `k` 个数, 每个数字只能选一次, 且组合不能重复(即 `[1, 2]` 和 `[2, 1]` 视为同一个).
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -40,7 +47,7 @@ import TabItem from '@theme/TabItem'
 var combine = function (n, k) {
   const res = []
 
-  const backtracking = function (begin, track) {
+  const dfs = function (begin, track) {
     if (track.length === k) {
       res.push(track)
       return
@@ -49,13 +56,13 @@ var combine = function (n, k) {
     for (let i = begin; i <= n; i++) {
       if (!track.includes(i)) {
         track.push(i)
-        backtracking(i, track.slice())
+        dfs(i, track.slice())
         track.pop()
       }
     }
   }
 
-  backtracking(1, [])
+  dfs(1, [])
   return res
 }
 ```
@@ -64,19 +71,24 @@ var combine = function (n, k) {
 <TabItem value="Rust" label="Rust">
 
 ```rust
-pub fn subsets(nums: Vec<i32>) -> Vec<Vec<i32>> {
+pub fn combine(n: i32, k: i32) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
-    backtracking(0, &nums, &mut vec![], &mut res);
+    dfs(1, n as usize, k as usize, &mut vec![], &mut res);
     res
 }
 
-fn backtracking(begin: usize, nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
-    res.push(track.to_vec());
+fn dfs(begin: usize, n: usize, k: usize, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+    if track.len() == k {
+        res.push(track.to_vec());
+        return;
+    }
 
-    for i in begin..nums.len() {
-        track.push(nums[i]);
-        backtracking(i + 1, nums, track, res);
-        track.pop();
+    for i in begin..=n {
+        if !track.contains(&(i as i32)) {
+            track.push(i as i32);
+            dfs(i, n, k, track, res);
+            track.pop();
+        }
     }
 }
 ```

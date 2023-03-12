@@ -45,7 +45,7 @@ var permute = function (nums) {
   const n = nums.length
   const res = []
 
-  const backtracking = (track) => {
+  const dfs = (track) => {
     if (track.length === n) {
       res.push(track.slice())
       return
@@ -54,13 +54,13 @@ var permute = function (nums) {
     for (const num of nums) {
       if (!track.includes(num)) {
         track.push(num)
-        backtracking(track)
+        dfs(track)
         track.pop()
       }
     }
   }
 
-  backtracking([])
+  dfs([])
 
   return res
 }
@@ -72,11 +72,11 @@ var permute = function (nums) {
 ```rust
 pub fn permute(nums: Vec<i32>) -> Vec<Vec<i32>> {
     let mut res: Vec<Vec<i32>> = vec![];
-    backtracking(&nums, &mut vec![], &mut res);
+    dfs(&nums, &mut vec![], &mut res);
     res
 }
 
-fn backtracking(nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
+fn dfs(nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) {
     if track.len() == nums.len() {
         res.push(track.to_vec());
         return;
@@ -85,7 +85,7 @@ fn backtracking(nums: &Vec<i32>, track: &mut Vec<i32>, res: &mut Vec<Vec<i32>>) 
     for num in nums {
         if !track.contains(num) {
             track.push(*num);
-            backtracking(nums, track, res);
+            dfs(nums, track, res);
             track.pop();
         }
     }

@@ -3,12 +3,12 @@ pub fn solve_n_queens(n: i32) -> Vec<Vec<String>> {
     let mut res = vec![];
     let mut board = vec![vec!['.'; n as usize]; n as usize];
 
-    backtracking(&mut board, &mut res, 0);
+    dfs(&mut board, &mut res, 0);
 
     res
 }
 
-fn backtracking(board: &mut Vec<Vec<char>>, res: &mut Vec<Vec<String>>, row: usize) {
+fn dfs(board: &mut Vec<Vec<char>>, res: &mut Vec<Vec<String>>, row: usize) {
     let n = board.len();
 
     if row == n {
@@ -26,7 +26,7 @@ fn backtracking(board: &mut Vec<Vec<char>>, res: &mut Vec<Vec<String>>, row: usi
         }
 
         board[row][col] = 'Q';
-        backtracking(board, res, row + 1);
+        dfs(board, res, row + 1);
         board[row][col] = '.';
     }
 }

@@ -75,6 +75,10 @@ var climbStairs = function (n) {
 这道题跟求斐波那契数差不多, 只关心 `n` 的前两个状态, 因此不需要额外声明一个数组, 只要存储前两个值即可.
 
 ```ts
+/**
+ * @param {number} n
+ * @return {number}
+ */
 var climbStairs = function (n) {
   if (n < 2) return n
 
