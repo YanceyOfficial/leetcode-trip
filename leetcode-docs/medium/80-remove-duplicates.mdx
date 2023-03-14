@@ -1,0 +1,142 @@
+---
+id: 80-remove-duplicates
+title: 删除有序数组中的重复项-ii
+sidebar_label: 80. 删除有序数组中的重复项-ii
+---
+
+:::success Tips
+题目类型: 数组, 快慢指针
+
+相关题目:
+
+- [26. 删除排序数组中的重复项](/leetcode/easy/26-remove-duplicates)
+- [27. 移除元素](/leetcode/easy/27-remove-element)
+
+:::
+
+## 题目
+
+给你一个有序数组 `nums`, 请你**原地**删除重复出现的元素, 使得出现次数超过两次的元素只出现两次, 返回删除后数组的新长度.
+不要使用额外的数组空间, 你必须在**原地**修改输入数组, 并在使用 `O(1)` 额外空间的条件下完成.
+
+:::note 提示:
+
+- `1 <= nums.length <= 3 * 10⁴`
+- `-10⁴ <= nums[i] <= 10⁴`
+- `nums` 已按升序排列
+
+:::
+
+:::info 示例
+
+```bash
+输入: nums = [1, 1, 1, 2, 2, 3]
+输出: 5, nums = [1, 1, 2, 2, 3]
+解释: 函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3. 不需要考虑数组中超出新长度后面的元素.
+```
+
+```bash
+输入: nums = [0, 0, 1, 1, 1, 1, 2, 3, 3]
+输出: 7, nums = [0, 0, 1, 1, 2, 3, 3]
+解释: 函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3. 不需要考虑数组中超出新长度后面的元素.
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function (nums) {
+  const n = nums.length
+  if (n <= 2) return n
+
+  // 数组的前两个数必然可以被保留
+  let slow = 2
+  let fast = 2
+
+  while (fast < n) {
+    // 检查上上个应该被保留的元素 nums[slow - 2] 是否和当前待检查元素 nums[fast] 相同
+    if (nums[slow - 2] !== nums[fast]) {
+      nums[slow] = nums[fast]
+      slow++
+    }
+
+    fast++
+  }
+
+  return slow
+}
+```
+
+</TabItem>
+  <TabItem value="此类问题的通用解法" label="此类问题的通用解法">
+
+对于此类问题, 为了让解法更具有一般性，我们将原问题的**保留 `2` 位**修改为**保留 `k` 位**, 我们应该进行如下考虑:
+
+- 由于是保留 `k` 个相同数字, 对于前 `k` 个数字, 我们可以直接保留
+- 对于后面的任意数字, 能够保留的前提是: 与当前写入的位置前面的第 `k` 个元素进行比较, 不相同则保留
+
+```ts
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function (nums) {
+  return process(nums, 2)
+}
+
+/**
+ * @param {number[]} nums
+ * @param {number} k 最多保留 k 位相同数字
+ * @return {number}
+ */
+var process = function (nums, k) {
+  const n = nums.length
+  let slow = 0
+
+  for (let fast = 0; fast < n; fast++) {
+    if (slow < k || nums[slow - k] !== nums[fast]) {
+      nums[slow++] = nums[fast]
+    }
+  }
+
+  return slow
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
+    let n = nums.len();
+    if n <= 2 {
+        return n as i32;
+    }
+
+    let (mut slow, mut fast) = (2, 2);
+    while fast < n {
+        if nums[slow - 2] != nums[fast] {
+            nums[slow] = nums[fast];
+            slow += 1;
+        }
+
+        fast += 1;
+    }
+
+    slow as i32
+}
+```
+
+</TabItem>
+</Tabs>
