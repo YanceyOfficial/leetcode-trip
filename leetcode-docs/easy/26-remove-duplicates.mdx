@@ -14,6 +14,7 @@ keywords:
 
 - [27. 移除元素](/leetcode/easy/27-remove-element)
 - [61. 旋转链表](/leetcode/medium/61-rotate-right)
+- [80. 删除有序数组中的重复项-ii](/leetcode/medium/80-remove-duplicates)
 - [83. 删除排序链表中的重复元素](/leetcode/easy/83-delete-duplicates)
 - [141. 环形链表](/leetcode/easy/141-has-cycle)
 - [142. 环形链表 II](/leetcode/medium/142-detect-cycle)
@@ -23,7 +24,7 @@ keywords:
 
 ## 题目
 
-给你一个**按升序的排列**数组 `nums`, 请你**原地**删除重复出现的元素, 使每个元素**只出现一次**, 返回删除后数组的新长度. 不要使用额外的数组空间, 你必须在 **原地** 修改输入数组 并在使用 `O(1)` 额外空间的条件下完成.
+给你一个**按升序的排列**数组 `nums`, 请你**原地**删除重复出现的元素, 使每个元素**只出现一次**, 返回删除后数组的新长度. 不要使用额外的数组空间, 你必须在**原地**修改输入数组 并在使用 `O(1)` 额外空间的条件下完成.
 
 :::note 提示:
 
@@ -73,23 +74,21 @@ import TabItem from '@theme/TabItem'
  */
 var removeDuplicates = function (nums) {
   const n = nums.length
-  if (n === 0) return 0
 
   // 双指针
-  let slow = 0,
-    fast = 0
+  let slow = 1,
+    fast = 1
 
   while (fast < n) {
-    if (nums[fast] !== nums[slow]) {
-      slow++
+    if (nums[slow - 1] !== nums[fast]) {
       nums[slow] = nums[fast]
+      slow++
     }
 
     fast++
   }
 
-  // slow 是索引, 所以最后要 + 1
-  return slow + 1
+  return slow
 }
 ```
 
@@ -100,22 +99,18 @@ var removeDuplicates = function (nums) {
 pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
     let n = nums.len();
 
-    if n == 0 {
-        return 0;
-    }
-
-    let (mut slow, mut fast) = (0, 0);
+    let (mut slow, mut fast) = (1, 1);
 
     while fast < n {
-        if nums[fast] != nums[slow] {
-            slow += 1;
+        if nums[slow - 1] != nums[fast] {
             nums[slow] = nums[fast];
+            slow += 1;
         }
 
         fast += 1;
     }
 
-    slow as i32 + 1
+    slow as i32
 }
 ```
 

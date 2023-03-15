@@ -22,7 +22,14 @@ keywords:
 
 ## 题目
 
-给定非负整数数组 heights, 数组中的数字用来表示柱状图中各个柱子的高度. 每个柱子彼此相邻, 且宽度为 1. 求在该柱状图中, 能够勾勒出来的矩形的最大面积.
+给定非负整数数组 `heights`, 数组中的数字用来表示柱状图中各个柱子的高度. 每个柱子彼此相邻, 且宽度为 `1`. 求在该柱状图中, 能够勾勒出来的矩形的最大面积.
+
+:::note 提示:
+
+- `1 <= heights.length <=10⁵`
+- `0 <= heights[i] <= 10⁴`
+
+:::
 
 :::info 示例
 
@@ -54,7 +61,7 @@ keywords:
 
 ![84-largest-rectangle-area](../../static/img/84-largest-rectangle-area.png)
 
-对于暴力解法, 需要遍历每个高度, 然后以此为节点, 再往左往右遍历, 找到左右边界的阈值. 但这会导致 O(n<sup>2</sup>) 的时间复杂度.
+对于暴力解法, 需要遍历每个高度, 然后以此为节点, 再往左往右遍历, 找到左右边界的阈值. 但这会导致 `O(n²)` 的时间复杂度.
 
 因此可以通过空间换时间的策略, 使用单调栈, 来预先找到每个节点左右边界的阈值. 具体原理看注释.
 
@@ -93,12 +100,11 @@ var largestRectangleArea = function (heights) {
 }
 ```
 
-时间复杂度: O(n<sup>2</sup>)
+- 时间复杂度: `O(n²)`
+- 空间复杂度: `O(1)`
 
-空间复杂度: O(1)
-
-  </TabItem>
-  <TabItem value="单调栈 - JavaScript" label="单调栈 - JavaScript" default>
+</TabItem>
+<TabItem value="单调栈 - JavaScript" label="单调栈 - JavaScript" default>
 
 ```ts
 /**
@@ -154,12 +160,11 @@ var largestRectangleArea = function (heights) {
 }
 ```
 
-时间复杂度: O(n)
+- 时间复杂度: `O(n)`
+- 空间复杂度: `O(n)`
 
-空间复杂度: O(n)
-
-  </TabItem>
-  <TabItem value="单调栈 - Rust" label="单调栈 - Rust">
+</TabItem>
+<TabItem value="单调栈 - Rust" label="单调栈 - Rust">
 
 ```rust
 use std::cmp;
@@ -197,10 +202,6 @@ pub fn largest_rectangle_area(heights: Vec<i32>) -> i32 {
     max
 }
 ```
-
-时间复杂度: O(n)
-
-空间复杂度: O(n)
 
   </TabItem>
 </Tabs>

@@ -75,6 +75,7 @@ pub mod question_77;
 pub mod question_78;
 pub mod question_79;
 pub mod question_8;
+pub mod question_80;
 pub mod question_81;
 pub mod question_820;
 pub mod question_852;

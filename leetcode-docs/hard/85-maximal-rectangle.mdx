@@ -22,20 +22,24 @@ keywords:
 
 ## 题目
 
-给定一个仅包含 0 和 1, 大小为 `rows` \* `cols` 的二维二进制矩阵, 找出只包含 1 的最大矩形, 并返回其面积.
+给定一个仅包含 `0` 和 `1`, 大小为 `rows * cols` 的二维二进制矩阵, 找出只包含 `1` 的最大矩形, 并返回其面积.
+
+:::note 提示:
 
 - `rows == matrix.length`
 - `cols == matrix[0].length`
 - `1 <= rows, cols <= 200`
-- `matrix[i][j] 为 '0' 或 '1'`
+- `matrix[i][j]` 为 `0` 或 `1`
+
+:::
 
 :::info 示例
 
 ![85-maximal-rectangle](../../static/img/85-maximal-rectangle-1.jpg)
 
-输入: matrix = [[4, 0, 0, 3, 0], [3, 1, 3, 2, 2], [2, 0, 2, 1, 1], [1, 0, 1, 0, 0]]
+输入: `matrix = [[4, 0, 0, 3, 0], [3, 1, 3, 2, 2], [2, 0, 2, 1, 1], [1, 0, 1, 0, 0]]`
 
-输出: 6
+输出: `6`
 
 解释: 最大矩形如上图所示.
 :::
@@ -44,15 +48,15 @@ keywords:
 
 本题的要点是想办法把二维矩阵变成如下方式:
 
-以最后一行 row 为底, 可以得到 heights 为 `[4, 0, 0, 3, 0]`.
+以最后一行 `row` 为底, 可以得到 `heights` 为 `[4, 0, 0, 3, 0]`.
 
 ![85-maximal-rectangle](../../static/img/85-maximal-rectangle-2.png)
 
-以倒数第二行 row 为底, 可以得到 heights 为 `[3, 1, 3, 2, 2`.
+以倒数第二行 `row` 为底, 可以得到 `heights` 为 `[3, 1, 3, 2, 2`.
 
 ![85-maximal-rectangle](../../static/img/85-maximal-rectangle-3.png)
 
-以此类推, 我们得到一组 heights, 其实就回到了第 [84. 柱状图中最大的矩形](/leetcode/hard/84-largest-rectangle-area) 题, 接着通过第 84 题的方案逐个 heights 计算面积, 然后取最大值.
+以此类推, 我们得到一组 `heights`, 其实就回到了 [84. 柱状图中最大的矩形](/leetcode/hard/84-largest-rectangle-area) 题, 对逐个 `heights` 计算面积, 然后取最大值.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
