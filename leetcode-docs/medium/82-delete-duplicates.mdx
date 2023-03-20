@@ -47,9 +47,9 @@ var deleteDuplicates = function (head) {
 
   while (curr.next && curr.next.next) {
     if (curr.next.val === curr.next.next.val) {
-      const currVal = curr.next.val
+      const val = curr.next.val
       // 剔除重复元素
-      while (curr.next && curr.next.val === currVal) {
+      while (curr.next && curr.next.val === val) {
         curr.next = curr.next.next
       }
     } else {
@@ -63,6 +63,6 @@ var deleteDuplicates = function (head) {
 
 ## 复杂度分析
 
-时间复杂度: `O(n)`, 虽然有两个循环, 但本质是走了一趟链表, 因此时间复杂度是 O(n)`.
+时间复杂度: `O(n)`, 虽然有两个循环, 但本质是走了一趟链表, 因此时间复杂度是 `O(n)`.
 
 空间复杂度: `O(1)`
