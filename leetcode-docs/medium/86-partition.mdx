@@ -29,7 +29,7 @@ sidebar_label: 86. 分隔链表
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
+麻了, 一开始还妄图使用双指针. 其实思路很简单, 新建两个链表, 一个用于存储原链表小于 `x` 的序列, 另一个存储大于等于 `x` 的序列, 最后把两个链表拼起来即可.
 
 ```ts
 /**
@@ -44,5 +44,28 @@ sidebar_label: 86. 分隔链表
  * @param {number} x
  * @return {ListNode}
  */
-var partition = function (head, x) {}
+var partition = function (head, x) {
+  let small = new ListNode(0)
+  const smallHead = small
+
+  let large = new ListNode(0)
+  const largeHead = large
+
+  while (head) {
+    if (head.val < x) {
+      small.next = head
+      small = small.next
+    } else {
+      large.next = head
+      large = large.next
+    }
+
+    head = head.next
+  }
+
+  large.next = null
+  small.next = largeHead.next
+
+  return smallHead.next
+}
 ```
