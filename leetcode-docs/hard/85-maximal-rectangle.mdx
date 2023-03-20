@@ -56,7 +56,7 @@ keywords:
 
 ![85-maximal-rectangle](../../static/img/85-maximal-rectangle-3.png)
 
-以此类推, 我们得到一组 `heights`, 其实就回到了 [84. 柱状图中最大的矩形](/leetcode/hard/84-largest-rectangle-area) 题, 对逐个 `heights` 计算面积, 然后取最大值.
+以此类推, 我们得到一组 `heights`. 这样我们用 [84. 柱状图中最大的矩形](/leetcode/hard/84-largest-rectangle-area) 题的方法, 便可以获取每个 `heights` 的最大面积, 最后取最大值即可.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -71,7 +71,6 @@ import TabItem from '@theme/TabItem'
  */
 var maximalRectangle = function (matrix) {
   const m = matrix.length
-  if (m === 0) return 0
   const n = matrix[0].length
 
   const allHeights = []
@@ -150,9 +149,6 @@ use std::cmp;
 
 pub fn maximal_rectangle(matrix: Vec<Vec<char>>) -> i32 {
     let m = matrix.len();
-    if m == 0 {
-        return 0;
-    };
     let n = matrix[0].len();
 
     let mut all_heights = vec![];
