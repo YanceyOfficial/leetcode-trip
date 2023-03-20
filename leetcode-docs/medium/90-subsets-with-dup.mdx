@@ -8,7 +8,7 @@ keywords:
 
 ## 题目
 
-给定一个**可能包含重复元素**的整数数组 nums, 返回该数组所有可能的子集.
+给定一个**可能包含重复元素**的整数数组 `nums`, 返回该数组所有可能的子集.
 
 说明: 解集不能包含重复的子集.
 
@@ -23,7 +23,13 @@ keywords:
 
 ![90-subsets-with-dup](../../static/img/90-subsets-with-dup.png)
 
-本题是 [78. 组合总数](/leetcode/medium/78-subsets) 的一个变种, 核心思想看这篇文章即可, 只不过本题加入了**可能包含重复元素**的情况, 直接套用 visited 大法即可.
+本题是 [78. 组合总数](/leetcode/medium/78-subsets) 的一个变种, 核心思想看这篇文章即可, 只不过本题加入了**可能包含重复元素**的情况, 直接套用 `visited` 大法即可.
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
 
 ```js
 /**
@@ -31,15 +37,15 @@ keywords:
  * @return {number[][]}
  */
 var subsetsWithDup = function (nums) {
-  const len = nums.length
+  const n = nums.length
   const res = []
-  const visited = new Array(len).fill(false)
+  const visited = new Array(n).fill(false)
   nums.sort((a, b) => a - b)
 
-  const dfs = (index, track) => {
+  const dfs = (begin, track) => {
     res.push(track.slice())
 
-    for (let i = index; i < len; i++) {
+    for (let i = begin; i < n; i++) {
       if (nums[i - 1] === nums[i] && i - 1 >= 0 && !visited[i - 1]) continue
       if (visited[i]) continue
 
@@ -56,3 +62,13 @@ var subsetsWithDup = function (nums) {
   return res
 }
 ```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+pub fn subsets_with_dup(nums: Vec<i32>) -> Vec<Vec<i32>> {}
+```
+
+</TabItem>
+</Tabs>
