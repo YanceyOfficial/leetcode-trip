@@ -69,7 +69,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="暴力解法" label="暴力解法">
+  <TabItem value="JavaScript - 暴力解法" label="JavaScript - 暴力解法">
 
 ```ts
 /**
@@ -104,7 +104,7 @@ var largestRectangleArea = function (heights) {
 - 空间复杂度: `O(1)`
 
 </TabItem>
-<TabItem value="单调栈 - JavaScript" label="单调栈 - JavaScript" default>
+<TabItem value="JavaScript - 单调栈" label="JavaScript - 单调栈" default>
 
 ```ts
 /**
@@ -118,7 +118,7 @@ var largestRectangleArea = function (heights) {
   // 需要理解为什么默认值为 -1, 比如一个元素左边所有元素都比它大,
   // 这就导致从当前高度往左, 一定是可以拉满当前高度的, 那么左边界就是 -1
   //
-  // PS: 一开始没想明白为什么是 -1, 因为 idx = 0, 也就是第一个元素是包含的, 所以边界值就要是 -1
+  // PS: 一开始没想明白为什么是 -1, 而不是 0, 因为存储的是索引, 所以左边界值就要是 -1
   const left = new Array(n).fill(-1)
 
   // 从左往右, 找到比当前元素小的右边界
@@ -164,7 +164,7 @@ var largestRectangleArea = function (heights) {
 - 空间复杂度: `O(n)`
 
 </TabItem>
-<TabItem value="单调栈 - Rust" label="单调栈 - Rust">
+<TabItem value="Rust" label="Rust">
 
 ```rust
 use std::cmp;

@@ -44,4 +44,3 @@ var largestRectangleArea = function (heights) {
 }
 // @lc code=end
 console.log(largestRectangleArea([2, 1, 5, 6, 2, 3]))
-console.log(largestRectangleArea([2, 4]))
