@@ -10,20 +10,21 @@
  * @return {number}
  */
 var removeDuplicates = function (nums) {
-  const len = nums.length
-  if (len === 0) return 0
-  // 双指针
-  let slow = 0,
-    fast = 0
+  const n = nums.length
 
-  while (fast < len) {
-    if (nums[fast] !== nums[slow]) {
-      slow++
+  // 双指针
+  let slow = 1,
+    fast = 1
+
+  while (fast < n) {
+    if (nums[slow - 1] !== nums[fast]) {
       nums[slow] = nums[fast]
+      slow++
     }
+
     fast++
   }
 
-  return slow + 1
+  return slow
 }
 // @lc code=end

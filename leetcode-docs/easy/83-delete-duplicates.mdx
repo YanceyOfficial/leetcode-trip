@@ -18,22 +18,35 @@ keywords:
 - [141. 环形链表](/leetcode/easy/141-has-cycle)
 - [142. 环形链表 II](/leetcode/medium/142-detect-cycle)
 - [234. 回文链表](/leetcode/easy/234-is-palindrome)
+
 :::
 
 ## 题目
 
-存在一个按**升序排列**的链表, 给你这个链表的头节点 head, 请你删除所有重复的元素, 使每个元素只出现一次. 返回同样按升序排列的结果链表.
+存在一个按**升序排列**的链表, 给你这个链表的头节点 `head`, 请你删除所有重复的元素, 使每个元素只出现一次. 返回同样按升序排列的结果链表.
+
+:::note 提示:
+
+- 链表中节点数目在范围 `[0, 300]` 内
+- `-100 <= Node.val <= 100`
+- 题目数据保证链表已经按升序**排列**
+
+:::
 
 :::info 示例
 
-输入: head = [1, 1, 2, 3, 3]
+输入: `head = [1, 1, 2, 3, 3]`
 
-输出: [1, 2, 3]
+输出: `[1, 2, 3]`
 :::
 
 ## 题解
 
-### 直观解法
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 直观解法" label="JavaScript - 直观解法">
 
 因为链表是升序的, 因此如果有重复的值, 这些重复的值也一定也是在一起的. 因此一趟循环, 只要**当前节点值**等于**下个节点的值**, 直接删除**下个节点**即可.
 
@@ -50,25 +63,28 @@ keywords:
  * @return {ListNode}
  */
 var deleteDuplicates = function (head) {
+  if (!head) return head
+  
   let curr = head
-  while (curr !== null && curr.next !== null) {
+
+  while (curr && curr.next) {
     if (curr.next.val === curr.val) {
       curr.next = curr.next.next
     } else {
       curr = curr.next
     }
   }
+
   return head
 }
 ```
 
-### 双指针
+</TabItem>
+<TabItem value="JavaScript - 双指针" label="JavaScript - 双指针" default>
 
-因为链表有天然的方法 `curr.next = curr.next.next` 来删除下个元素, 所以用上面的解法就 ok, 不过更通用的解法是使用快慢指针.
+因为链表有天然的方法 `curr.next = curr.next.next` 来删除下个元素, 所以用左边的直观解法就可以, 不过更通用的解法是使用快慢指针.
 
-:::success TIPS
 这个解法可以跟 [26. 删除排序数组中的重复项](/leetcode/easy/26-remove-duplicates) 对比着看, 一个模子, 只不过一个是数组, 一个是链表.
-:::
 
 ```ts
 var deleteDuplicates = function (head) {
@@ -92,3 +108,6 @@ var deleteDuplicates = function (head) {
   return head
 }
 ```
+
+</TabItem>
+</Tabs>
