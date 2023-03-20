@@ -63,14 +63,18 @@ import TabItem from '@theme/TabItem'
  * @return {ListNode}
  */
 var deleteDuplicates = function (head) {
+  if (!head) return head
+  
   let curr = head
-  while (curr !== null && curr.next !== null) {
+
+  while (curr && curr.next) {
     if (curr.next.val === curr.val) {
       curr.next = curr.next.next
     } else {
       curr = curr.next
     }
   }
+
   return head
 }
 ```
@@ -78,12 +82,9 @@ var deleteDuplicates = function (head) {
 </TabItem>
 <TabItem value="JavaScript - 双指针" label="JavaScript - 双指针" default>
 
-因为链表有天然的方法 `curr.next = curr.next.next` 来删除下个元素, 所以用上面的解法就可以, 不过更通用的解法是使用快慢指针.
-
-:::success TIPS
+因为链表有天然的方法 `curr.next = curr.next.next` 来删除下个元素, 所以用左边的直观解法就可以, 不过更通用的解法是使用快慢指针.
 
 这个解法可以跟 [26. 删除排序数组中的重复项](/leetcode/easy/26-remove-duplicates) 对比着看, 一个模子, 只不过一个是数组, 一个是链表.
-:::
 
 ```ts
 var deleteDuplicates = function (head) {
