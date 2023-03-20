@@ -18,24 +18,49 @@ keywords:
 
 ## 题目
 
-反转从位置 m 到 n 的链表. 请使用一趟扫描完成反转.
+反转从位置 `m` 到 `n` 的链表. 请使用一趟扫描完成反转.
 
 :::info 示例
 
-输入: 1->2->3->4->5->NULL, m = 2, n = 4
+输入: 1 -> 2 -> 3 -> 4 -> 5 -> NULL, m = 2, n = 4
 
-输出: 1->4->3->2->5->NULL
+输出: 1 -> 4 -> 3 -> 2 -> 5 -> NULL
+:::
+
+:::note 提示:
+
+- 链表中节点数目为 `n`
+- `1 <= n <= 500`
+- `-500 <= Node.val <= 500`
+- `1 <= left <= right <= n`
+
 :::
 
 ## 题解
 
-### 前菜: 反转链表前 N 个节点
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-在做这道题之前, 先整个前菜, 也就是**反转链表前 N 个节点**, 这个题跟 [206. 反转链表](/leetcode/easy/206-reverse-list)差不多, 因为是反转前 N 个, 因此得把第 N + 1 个节点记录下来, 以拼接在反转子链表之后.
+<Tabs>
+  <TabItem value="JavaScript - 递归" label="JavaScript - 递归">
+
+在做这道题之前, 先整个前菜, 也就是**反转链表前 N 个节点**, 这个题跟 [206. 反转链表](/leetcode/easy/206-reverse-list) 差不多, 因为是反转前 N 个, 因此得把第 N + 1 个节点记录下来, 以拼接在反转子链表之后.
 
 ```ts
 let successor = null // 后驱节点
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
 var reverseN = function (head, n) {
   if (n === 1) {
     // 记录第 n + 1 个节点
@@ -50,11 +75,7 @@ var reverseN = function (head, n) {
   head.next = successor
   return last
 }
-```
 
-### 递归法
-
-```ts
 /**
  * Definition for singly-linked list.
  * function ListNode(val) {
@@ -79,7 +100,8 @@ var reverseBetween = function (head, m, n) {
 }
 ```
 
-### 迭代法
+</TabItem>
+<TabItem value="JavaScript - 迭代" label="JavaScript - 迭代" default>
 
 - 先创建一个 `dummyHead`, 它的 `next` 指向 `head`;
 - 分别创建两个节点 `g(guard 节点)` 和 `p(point 节点)`. 其中前者指向 `dummyHead`, 后者指向 `dummyHead.next`;
@@ -101,11 +123,14 @@ var reverseBetween = function (head, m, n) {
 
   for (let i = 0; i < n - m; i++) {
     const removed = p.next
-    p.next = p.next.next // 将要反转的节点去掉, 比如去掉 3, 此时 p 成了 2->4->5
-    removed.next = g.next // removed 此时为 3->4->5, 将 g.next 移过来, 成了 3->2->4->5
+    p.next = p.next.next // 将要反转的节点去掉, 比如去掉 3, 此时 p 成了 2 -> 4 -> 5
+    removed.next = g.next // removed 此时为 3 -> 4 -> 5, 将 g.next 移过来, 成了 3 -> 2 -> 4 -> 5
     g.next = removed // 将新的 remove 放到 g.next 即可
   }
 
   return dummyHead.next
 }
 ```
+
+</TabItem>
+</Tabs>
