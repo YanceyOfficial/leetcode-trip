@@ -26,7 +26,7 @@ fn dfs(
     }
 
     for i in begin..candidates.len() {
-        if i as i32 - 1 >= 0 && candidates[i - 1] == candidates[i] && !visited[i - 1] {
+        if i >= 1 && candidates[i - 1] == candidates[i] && !visited[i - 1] {
             continue;
         }
 
