@@ -125,8 +125,7 @@ var isScramble = function (s1, s2) {
     // 扰乱前的字符频次等于扰乱后的字符频次, 如果不相等可以提前终止
     if (!check(s1, s2)) return false
 
-    // 由于在暴力递归中重复用到相同的 s1 和 s2
-    // 这里记录一下, 作为记忆化 cache
+    // 由于在暴力递归中会重复用到相同的 s1 和 s2, 这里记录一下, 作为记忆化 cache
     const key = s1 + '_' + s2
     if (cache.has(key)) return cache.get(key)
 
@@ -163,8 +162,8 @@ const check = (s1, s2) =>
   s1.split('').sort().join('') === s2.split('').sort().join('')
 ```
 
-- 时间复杂度: O(n⁴)
-- 空间复杂度: O(n³)
+- 时间复杂度: `O(n⁴)`
+- 空间复杂度: `O(n³)`
 
 </TabItem>
 <TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划">
@@ -186,7 +185,7 @@ var isScramble = function (s1, s2) {
     .fill(false)
     .map(() => new Array(n).fill(false).map(() => new Array(n + 1).fill(false)))
 
-  // 当 len 为 1, 只需比较了;两个字符相等即可
+  // 当 len 为 1, 只需比较两个字符相等即可
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
       dp[i][j][1] = s1[i] === s2[j]
@@ -217,8 +216,8 @@ var isScramble = function (s1, s2) {
 }
 ```
 
-- 时间复杂度: O(n⁴)
-- 空间复杂度: O(n³)
+- 时间复杂度: `O(n⁴)`
+- 空间复杂度: `O(n³)`
 
 </TabItem>
 <TabItem value="Rust" label="Rust">
