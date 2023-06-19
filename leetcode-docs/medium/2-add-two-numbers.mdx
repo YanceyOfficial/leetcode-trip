@@ -53,9 +53,9 @@ var addTwoNumbers = function (l1, l2) {
 
   // 将 l1 和 l2 都走到头
   while (l1 || l2) {
-    const x = l1 ? l1.val : 0
-    const y = l2 ? l2.val : 0
-    const sum = x + y + carry
+    const a = l1 ? l1.val : 0
+    const b = l2 ? l2.val : 0
+    const sum = a + b + carry
 
     carry = (sum / 10) | 0
     curr.next = new ListNode(sum % 10)
