@@ -6192,7 +6192,7 @@ packages:
     dependencies:
       clean-css: 5.3.2
       cssnano: 5.1.14(postcss@8.4.21)
-      jest-worker: 29.4.1
+      jest-worker: 29.4.3
       postcss: 8.4.21
       schema-utils: 4.0.0
       serialize-javascript: 6.0.1
@@ -9367,16 +9367,6 @@ packages:
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
-  /jest-worker@29.4.1:
-    resolution: {integrity: sha512-O9doU/S1EBe+yp/mstQ0VpPwpv0Clgn68TkNwGxL6/usX/KUW9Arnn4ag8C3jc6qHcXznhsT5Na1liYzAsuAbQ==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-    dependencies:
-      '@types/node': 18.11.18
-      jest-util: 29.4.3
-      merge-stream: 2.0.0
-      supports-color: 8.1.1
-    dev: false
-
   /jest-worker@29.4.3:
     resolution: {integrity: sha512-GLHN/GTAAMEy5BFdvpUfzr9Dr80zQqBrh0fz1mtRMe05hqP45+HfQltu7oTBfduD0UeZs09d+maFtFYAXFWvAA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -9385,7 +9375,6 @@ packages:
       jest-util: 29.4.3
       merge-stream: 2.0.0
       supports-color: 8.1.1
-    dev: true
 
   /jest@29.4.3:
     resolution: {integrity: sha512-XvK65feuEFGZT8OO0fB/QAQS+LGHvQpaadkH5p47/j3Ocqq3xf2pK9R+G0GzgfuhXVxEv76qCOOcMb5efLk6PA==}
