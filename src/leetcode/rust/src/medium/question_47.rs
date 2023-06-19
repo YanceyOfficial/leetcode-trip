@@ -17,7 +17,7 @@ fn dfs(nums: &Vec<i32>, visited: &mut Vec<bool>, track: &mut Vec<i32>, res: &mut
     }
 
     for i in 0..nums.len() {
-        if i as i32 - 1 >= 0 && nums[i - 1] == nums[i] && !visited[i - 1] {
+        if i >= 1 && nums[i - 1] == nums[i] && !visited[i - 1] {
             continue;
         }
 
