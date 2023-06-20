@@ -1,4 +1,5 @@
 pub mod question_11;
+pub mod question_2;
 pub mod question_1143;
 pub mod question_12;
 pub mod question_120;
