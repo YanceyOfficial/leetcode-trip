@@ -61,11 +61,7 @@ var findMedianSortedArrays = function (nums1, nums2) {
   const m = nums1.length
   const n = nums2.length
   const total = m + n
-  let isOdd = true
-
-  if (total % 2 === 0) {
-    isOdd = false
-  }
+  const isOdd = total % 2 === 1
 
   const mid = (total / 2) | 0
   const arr = []
