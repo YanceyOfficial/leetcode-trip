@@ -1,42 +1,48 @@
+use std::cmp;
+
 #[allow(unused)]
 pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
-    let (m, n) = (nums1.len(), nums2.len());
-    let mut is_odd = true;
-    let total = m + n;
+    let m = nums1.len();
+    let n = nums2.len();
 
-    if total % 2 == 0 {
-        is_odd = false;
+    let left = (m + n + 1) / 2;
+    let right = (m + n + 2) / 2;
+
+    (find_kth(&nums1, 0, m - 1, &nums2, 0, n - 1, left)
+        + find_kth(&nums1, 0, m - 1, &nums2, 0, n - 1, right))
+        / 2.0
+}
+
+fn find_kth(
+    arr1: &Vec<i32>,
+    start1: usize,
+    end1: usize,
+    arr2: &Vec<i32>,
+    start2: usize,
+    end2: usize,
+    k: usize,
+) -> f64 {
+    let m = end1 - start1 + 1;
+    let n = end2 - start2 + 1;
+
+    if m == 0 {
+        return arr2[start2 + k - 1].into();
     }
 
-    let mid = total / 2;
-
-    let mut arr = vec![];
-
-    let (mut i, mut j) = (0, 0);
-
-    while i + j <= mid {
-        if i == m {
-            arr.append(&mut nums2[j..].to_vec());
-            break;
-        }
-
-        if j == n {
-            arr.append(&mut nums1[i..].to_vec());
-            break;
-        }
-
-        if nums1[i] < nums2[j] {
-            arr.push(nums1[i]);
-            i += 1;
-        } else {
-            arr.push(nums2[j]);
-            j += 1;
-        }
+    if n == 0 {
+        return arr1[start1 + k - 1].into();
     }
 
-    if is_odd {
-        arr[mid] as f64
+    if k == 1 {
+        return cmp::min(arr1[start1], arr2[start2]).into();
+    }
+
+    let i = start1 + cmp::min(m, k / 2) - 1;
+    let j = start2 + cmp::min(n, k / 2) - 1;
+
+    if arr1[i] > arr2[j] {
+        return find_kth(arr1, start1, end1, arr2, j + 1, end2, k - (j - start2 + 1));
     } else {
-        (arr[mid] + arr[mid - 1]) as f64 / 2.0
+        return find_kth(arr1, i + 1, end1, arr2, start2, end2, k - (i - start1 + 1));
     }
 }
