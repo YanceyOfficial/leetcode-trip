@@ -20,9 +20,9 @@ var isValid = function (s) {
       stack.push(ch)
     } else {
       const top = stack[stack.length - 1]
-      if (top === '{' && s[i] === '}') stack.pop()
-      else if (top === '[' && s[i] === ']') stack.pop()
-      else if (top === '(' && s[i] === ')') stack.pop()
+      if (top === '{' && ch === '}') stack.pop()
+      else if (top === '[' && ch === ']') stack.pop()
+      else if (top === '(' && ch === ')') stack.pop()
       else return false
     }
   }
