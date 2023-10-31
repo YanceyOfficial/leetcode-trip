@@ -65,59 +65,42 @@ import TabItem from '@theme/TabItem'
  * @return {string}
  */
 var minWindow = function (s, t) {
-  let res = ''
+  let minStr = ''
 
   const needMap = new Map()
-  for (const letter of t) {
-    if (needMap.has(letter)) {
-      needMap.set(letter, needMap.get(letter) + 1)
-    } else {
-      needMap.set(letter, 1)
-    }
+  for (const ch of t) {
+    needMap.set(ch, needMap.has(ch) ? needMap.get(ch) + 1 : 1)
   }
+  
   const windowMap = new Map()
   let start = 0
   let end = 0
   let count = 0
 
-  while (end < sLen) {
-    const endLetter = s[end]
-    end++
+  while (end < s.length) {
+    const endCh = s[end++]
 
-    if (needMap.has(endLetter)) {
-      if (windowMap.has(endLetter)) {
-        windowMap.set(endLetter, windowMap.get(endLetter) + 1)
-      } else {
-        windowMap.set(endLetter, 1)
-      }
-
-      if (needMap.get(endLetter) === windowMap.get(endLetter)) {
-        count++
-      }
+    if (needMap.has(endCh)) {
+      windowMap.set(endCh, windowMap.has(endCh) ? windowMap.get(endCh) + 1 : 1)
+      if (needMap.get(endCh) === windowMap.get(endCh)) count++
     }
 
     // 当 count ===  needMap.size, 说明找到了一个覆盖子串
     // 这个时候就可以收缩窗口了
     while (count === needMap.size) {
-      const window = s.slice(start, end)
-      if (res.length === 0 || window.length < res.length) {
-        res = window
-      }
+      const subStr = s.slice(start, end)
+      if (minStr.length === 0 || subStr.length < minStr.length) minStr = subStr
 
-      const startLetter = s[start]
-      start++
+      const startCh = s[start++]
 
-      if (needMap.has(startLetter)) {
-        if (needMap.get(startLetter) === windowMap.get(startLetter)) {
-          count--
-        }
-
-        windowMap.set(startLetter, windowMap.get(startLetter) - 1)
+      if (needMap.has(startCh)) {
+        if (needMap.get(startCh) === windowMap.get(startCh)) count--
+        windowMap.set(startCh, windowMap.get(startCh) - 1)
       }
     }
   }
 
-  return res
+  return minStr
 }
 ```
 
@@ -128,7 +111,7 @@ var minWindow = function (s, t) {
 use std::collections::HashMap;
 
 pub fn min_window(s: String, t: String) -> String {
-    let mut res = "";
+    let mut min_str = "";
 
     let mut need_map = HashMap::new();
     for letter in t.as_bytes() {
@@ -152,9 +135,9 @@ pub fn min_window(s: String, t: String) -> String {
         }
 
         while count == need_map.len() {
-            let window = &s[start..end];
-            if res.len() == 0 || window.len() < res.len() {
-                res = window;
+            let sub_str = &s[start..end];
+            if min_str.len() == 0 || sub_str.len() < min_str.len() {
+                min_str = sub_str;
             }
 
             let start_letter = s.as_bytes()[start];
@@ -170,7 +153,7 @@ pub fn min_window(s: String, t: String) -> String {
         }
     }
 
-    res.to_string()
+    min_str.to_string()
 }
 ```
 

@@ -3,7 +3,11 @@ mod hard;
 mod medium;
 
 fn main() {
-    let res = medium::question_40::combination_sum2(vec![10, 1, 2, 7, 6, 1, 5], 8);
+    let res = easy::question_14::longest_common_prefix(vec![
+        "flow".to_string(),
+        "flower".to_string(),
+        "flight".to_string(),
+    ]);
 
     println!("{:?}", res);
 }

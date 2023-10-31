@@ -88,17 +88,12 @@ var lengthOfLongestSubstring = function (s) {
   let max = 0
 
   while (end < n) {
-    const endChar = s[end++]
+    const endCh = s[end++]
+    map.set(endCh, map.has(endCh) ? map.get(endCh) + 1 : 1)
 
-    if (map.has(endChar)) {
-      map.set(endChar, map.get(endChar) + 1)
-    } else {
-      map.set(endChar, 1)
-    }
-
-    while (map.get(endChar) > 1) {
-      const startChar = s[start++]
-      map.set(startChar, map.get(startChar) - 1)
+    while (map.get(endCh) > 1) {
+      const startCh = s[start++]
+      map.set(startCh, map.get(startCh) - 1)
     }
 
     max = Math.max(max, end - start)
@@ -123,14 +118,14 @@ pub fn length_of_longest_substring(s: String) -> i32 {
     let mut end = 0;
 
     while end < s.len() {
-        let end_char = s_bytes[end];
+        let end_ch = s_bytes[end];
         end += 1;
-        map.entry(end_char).and_modify(|e| *e += 1).or_insert(1);
+        map.entry(end_ch).and_modify(|e| *e += 1).or_insert(1);
 
-        while map[&end_char] > 1 {
-            let start_char = s_bytes[start];
+        while map[&end_ch] > 1 {
+            let start_ch = s_bytes[start];
             start += 1;
-            map.entry(start_char).and_modify(|e| *e -= 1);
+            map.entry(start_ch).and_modify(|e| *e -= 1);
         }
 
         max = cmp::max(end - start, max);
