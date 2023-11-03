@@ -83,15 +83,14 @@ var reverseKGroup = function (head, k) {
  * @return {ListNode}
  */
 var reverse = function (a, b) {
-  let prev = null,
-    head = a
+  let prev = null
 
   // 在 a, b 区间翻转
-  while (head !== b) {
-    const temp = head.next
-    head.next = prev
-    prev = head
-    head = temp
+  while (a !== b) {
+    const tmp = a.next
+    a.next = prev
+    prev = a
+    a = tmp
   }
 
   return prev
