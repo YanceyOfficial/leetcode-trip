@@ -25,8 +25,7 @@ sidebar_label: 14. 最长公共前缀
 
 ## 题解
 
-先假设第一个单词为 `prefix`, 如果 `strs` 里所有单词的前缀都是 `prefix`, 那就返回之; 
-否则将 `prefix` 的最后一位删掉继续循环, 直到找出前缀.
+先假设第一个单词为 `prefix`, 如果 `strs` 里所有单词的前缀都是 `prefix`, 那就返回之; 否则将 `prefix` 的最后一位删掉继续循环, 直到找出前缀.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -40,13 +39,14 @@ import TabItem from '@theme/TabItem'
  * @return {string}
  */
 var longestCommonPrefix = function (strs) {
+  strs.sort((a, b) => a.length - b.length)
   let prefix = strs[0]
-  let hasFound = false
+  let flag = false
 
-  while (!hasFound) {
-    hasFound = strs.every((str) => str.startsWith(prefix))
+  while (!flag) {
+    flag = strs.every((str) => str.startsWith(prefix))
 
-    if (!hasFound) {
+    if (!flag) {
       prefix = prefix.slice(0, -1)
     }
   }
@@ -60,6 +60,8 @@ var longestCommonPrefix = function (strs) {
 
 ```rust
 pub fn longest_common_prefix(strs: Vec<String>) -> String {
+    let mut strs = strs;
+    strs.sort();
     let mut prefix: &str = &strs[0];
     let mut has_found = false;
 

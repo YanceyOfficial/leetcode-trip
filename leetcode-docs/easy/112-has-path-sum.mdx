@@ -56,7 +56,7 @@ keywords:
  * @return {boolean}
  */
 var hasPathSum = function (root, targetSum) {
-  if (root === null) return
+  if (root === null) return false
 
   // 到了叶子结点了, 且值等于 targetSum
   if (!root.left && !root.right && root.val === targetSum) {

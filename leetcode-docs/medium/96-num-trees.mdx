@@ -38,12 +38,25 @@ keywords:
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
+给定一个有序序列 `1` 到 `n`,为了构建出一棵二叉搜索树, 我们可以遍历每个数字 `i`, 将该数字作为树根, 将 `1` 到 `i - 1` 序列作为左子树, 将 `i + 1` 到 `n` 序列作为右子树.
+接着我们可以按照同样的方式递归构建左子树和右子树.
 
 ```ts
 /**
  * @param {number} n
  * @return {number}
  */
-var numTrees = function (n) {}
+var numTrees = function (n) {
+  const dp = new Array(n + 1).fill(0)
+  dp[0] = 1
+  dp[1] = 1
+
+  for (let i = 2; i <= n; i++) {
+    for (let j = 1; j <= i; j++) {
+      dp[i] += dp[j - 1] * dp[i - j]
+    }
+  }
+
+  return dp[n]
+}
 ```

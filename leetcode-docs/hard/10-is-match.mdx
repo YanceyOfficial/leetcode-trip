@@ -14,6 +14,7 @@ keywords:
 - [44. 通配符匹配](/leetcode/hard/44-is-match)
 - [72. 编辑距离](/leetcode/hard/72-min-distance)
 - [115. 不同的子序列](/leetcode/hard/115-num-distinct)
+- [516. 最长回文子序列](/leetcode/medium/516-longest-palindrome-subseq)
 - [583. 两个字符串的删除操作](/leetcode/medium/583-min-distance)
 - [1143. 最长公共子序列](/leetcode/medium/1143-longest-common-subsequence)
 
@@ -111,7 +112,7 @@ var isMatch = function (s, p) {
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       // 字母匹配上了, 或者 p 此时为 . 可能任意匹配, 状态从前一个转移过来即可
-      if (p[j - 1] === s[i - 1] || p[j - 1] === '.') {
+      if (s[i - 1] === p[j - 1] || p[j - 1] === '.') {
         dp[i][j] = dp[i - 1][j - 1]
         // 如果遇到 *, 需要关注 * 前面那个
       } else if (p[j - 1] === '*') {

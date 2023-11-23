@@ -54,13 +54,13 @@ sidebar_label: 12. 整数转罗马数字
 ```ts
 输入: num = 58
 输出: 'LVIII'
-解释: L = 50, V = 5, III = 3.
+解释: (L = 50), (V = 5), (III = 3)
 ```
 
 ```ts
 输入: num = 1994
 输出: 'MCMXCIV'
-解释: M = 1000, CM = 900, XC = 90, IV = 4.
+解释: (M = 1000), (CM = 900), (XC = 90), (IV = 4)
 ```
 
 :::
@@ -81,7 +81,6 @@ import TabItem from '@theme/TabItem'
  * @return {string}
  */
 var intToRoman = function (num) {
-  let roman = ''
   const map = [
     [1000, 'M'],
     [900, 'CM'],
@@ -98,6 +97,7 @@ var intToRoman = function (num) {
     [1, 'I'],
   ]
 
+  let roman = ''
   for (const [value, symbol] of map) {
     while (num >= value) {
       num -= value

@@ -1,5 +1,7 @@
 #[allow(unused)]
 pub fn longest_common_prefix(strs: Vec<String>) -> String {
+    let mut strs = strs;
+    strs.sort();
     let mut prefix: &str = &strs[0];
     let mut has_found = false;
 

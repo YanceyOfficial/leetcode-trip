@@ -38,7 +38,7 @@ keywords:
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
+二叉搜索树性质是根节点的值大于左子树所有节点的值, 小于右子树所有节点的值, 且左子树和右子树也同样为二叉搜索树.
 
 ```ts
 /**
@@ -53,5 +53,33 @@ keywords:
  * @param {number} n
  * @return {TreeNode[]}
  */
-var generateTrees = function (n) {}
+var generateTrees = function (n) {
+  var dfs = function (l, r) {
+    if (l > r) return [null]
+    const res = []
+
+    for (let i = l; i <= r; i++) {
+      // [l, i - 1] 用做左子树
+      for (const x of dfs(l, i - 1)) {
+        // [i + 1, r] 用做右子树
+        for (const y of dfs(i + 1, r)) {
+          // i 作为中点
+          const root = new TreeNode(i)
+          root.left = x
+          root.right = y
+          res.push(root)
+        }
+      }
+    }
+
+    return res
+  }
+
+  return dfs(1, n)
+}
 ```
+
+## 复杂度分析
+
+- 时间复杂度: 卡特兰数
+- 空间复杂度: 卡特兰数

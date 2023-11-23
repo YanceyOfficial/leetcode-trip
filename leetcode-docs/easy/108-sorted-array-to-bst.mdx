@@ -16,7 +16,7 @@ keywords:
 
 :::info 示例
 
-输入: nums = [-10, -3, 0, 5, 9]
+输入: `nums = [-10, -3, 0, 5, 9]`
 
 输出:
 
@@ -49,15 +49,15 @@ var sortedArrayToBST = function (nums) {
   return buildBST(nums, 0, nums.length - 1)
 }
 
-var buildBST = (nums, start, end) => {
-  // 不可能出现 start > end
-  if (start > end) return null
+var buildBST = (nums, startIdx, endIdx) => {
+  // 不可能出现 startIdx > endIdx
+  if (startIdx > endIdx) return null
 
-  const midIndex = (start + end) >>> 1 // 求中间索引
-  const root = new TreeNode(nums[midIndex]) // 构建当前节点
+  const midIdx = (startIdx + endIdx) >>> 1 // 求中间索引
+  const root = new TreeNode(nums[midIdx]) // 构建当前节点
 
-  root.left = buildBST(nums, start, midIndex - 1) // 构建左子树
-  root.right = buildBST(nums, midIndex + 1, end) // 构建右子树
+  root.left = buildBST(nums, startIdx, midIdx - 1) // 构建左子树
+  root.right = buildBST(nums, midIdx + 1, endIdx) // 构建右子树
 
   return root
 }

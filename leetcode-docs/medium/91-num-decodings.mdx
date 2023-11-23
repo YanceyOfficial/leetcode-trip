@@ -26,7 +26,7 @@ keywords:
 - `"AAJF"`, 将消息分组为 `(1 1 10 6)`
 - `"KJF"`, 将消息分组为 `(11 10 6)`
 
-注意, 消息不能分组为 `(1 11 06)`, 因为 `"06"` 不能映射为 `"F"`, 这是由于 `"6"` 和 `"06"` 在映射中并不等价. 
+注意, 消息不能分组为 `(1 11 06)`, 因为 `"06"` 不能映射为 `"F"`, 这是由于 `"6"` 和 `"06"` 在映射中并不等价.
 
 给你一个只含数字的**非空**字符串 `s`, 请计算并返回**解码**方法的**总数**.
 
@@ -44,51 +44,49 @@ keywords:
 ```bash
 输入: s = "12"
 输出: 2
-解释: 它可以解码为 "AB"(1 2) 或者 "L"(12). 
+解释: 它可以解码为 "AB"(1 2) 或者 "L"(12).
 ```
 
 ```bash
 输入: s = "226"
 输出: 3
-解释: 它可以解码为 "BZ"(2 26), "VF"(22 6), 或者 "BBF"(2 2 6). 
+解释: 它可以解码为 "BZ"(2 26), "VF"(22 6), 或者 "BBF"(2 2 6).
 ```
 
 ```bash
 输入: s = "06"
 输出: 0
-解释: "06" 无法映射到 "F", 因为存在前导零("6" 和 "06" 并不等价). 
+解释: "06" 无法映射到 "F", 因为存在前导零("6" 和 "06" 并不等价).
 ```
 
 :::
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
-
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
-<Tabs>
-  <TabItem value="JavaScript" label="JavaScript" default>
-
 ```ts
-
 /**
  * @param {string} s
  * @return {number}
  */
-var numDecodings = function(s) {
+var numDecodings = function (s) {
+  const n = s.length
+  const dp = new Array(n + 1).fill(0)
+  dp[0] = 1
 
-};
+  for (let i = 1; i <= n; i++) {
+    if (s[i - 1] !== '0') {
+      dp[i] += dp[i - 1]
+    }
 
+    if (
+      i > 1 &&
+      s[i - 2] !== '0' &&
+      Number(s[i - 2]) * 10 + Number(s[i - 1]) <= 26
+    ) {
+      dp[i] += dp[i - 2]
+    }
+  }
+
+  return dp[n]
+}
 ```
-
-</TabItem>
-<TabItem value="Rust" label="Rust">
-
-```rust
-pub fn num_decodings(s: String) -> i32 {}
-```
-
-</TabItem>
-</Tabs>

@@ -74,10 +74,10 @@ import TabItem from '@theme/TabItem'
  * @return {string}
  */
 var convert = function (s, numRows) {
-  const n = s.length
-
   // 如果 numRows 比 2 小, 是没法变成 Z 型的, 直接返回 s 即可
   if (numRows < 2) return s
+
+  const n = s.length
 
   // 初始化一个数组, 数组长度为 numRows
   const res = Array(numRows).fill('')
@@ -90,7 +90,7 @@ var convert = function (s, numRows) {
     const carry = i % cycle
 
     // 计算索引, 如果余数小于 numRows, 那就用这个余数即可, 否则用循环数减去该余数
-    const idx = carry < numRows ? carry : cycle - carry;
+    const idx = carry < numRows ? carry : cycle - carry
 
     res[idx] += s[i]
   }
