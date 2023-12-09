@@ -1,6 +1,6 @@
-const { readdirSync } = require('fs')
+import { readdirSync } from 'fs'
 
-const getFiles = (category) =>
+const getFiles = (category: string) =>
   readdirSync(`./leetcode-docs/${category}`)
     .sort((a, b) => +a.split('-')[0] - +b.split('-')[0])
     .map((fileName) => `${category}/${fileName.replace(/.mdx?/, '')}`)
@@ -11,7 +11,7 @@ const hard = getFiles('hard')
 const lcof = getFiles('lcof')
 const others = getFiles('others')
 
-module.exports = {
+export default {
   leetcode: {
     [`Easy (${easy.length})`]: easy,
     [`Medium (${medium.length})`]: medium,

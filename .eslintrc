@@ -4,9 +4,7 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "airbnb-base"
-  ],
+  "extends": ["airbnb-base"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -16,9 +14,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "semi": "off",
     "import/prefer-default-export": "off",
@@ -33,13 +29,13 @@
     "no-param-reassign": "off",
     "object-curly-newline": "off",
     "import/extensions": "off",
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "comma-dangle": "off",
+    "eol-last": "off"
   },
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "rules": {
         "@typescript-eslint/no-unused-vars": [
           2,

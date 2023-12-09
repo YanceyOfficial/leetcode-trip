@@ -1,8 +1,8 @@
-// @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
+import { themes as prismThemes } from 'prism-react-renderer'
+import type { Config } from '@docusaurus/types'
+import type * as Preset from '@docusaurus/preset-classic'
 
-/** @type {import('@docusaurus/types').Config} */
-module.exports = {
+const config: Config = {
   title: 'LeetCode Trip',
   tagline: 'LeetCode Trip',
   url: 'https://algorithm.yanceyleo.com',
@@ -62,8 +62,8 @@ module.exports = {
   ],
   themeConfig: {
     prism: {
-      // eslint-disable-next-line global-require
-      theme: require('prism-react-renderer/themes/vsDark'),
+      theme: prismThemes.vsDark,
+      darkTheme: prismThemes.vsDark,
       additionalLanguages: ['rust'],
     },
     liveCodeBlock: {
@@ -129,11 +129,10 @@ module.exports = {
     footer: {
       copyright: `<a href="https://yanceyleo.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Copyright © ${new Date().getFullYear()} Yancey Inc. and its affiliates.</a>`,
     },
-  },
+  } satisfies Preset.ThemeConfig,
   presets: [
     [
       '@docusaurus/preset-classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
       {
         docs: {
           sidebarPath: require.resolve('./sidebars/sidebars'),
@@ -155,3 +154,5 @@ module.exports = {
     ],
   ],
 }
+
+export default config

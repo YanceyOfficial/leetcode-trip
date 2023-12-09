@@ -1,4 +1,6 @@
-module.exports = {
+import type { SidebarsConfig } from '@docusaurus/plugin-content-docs'
+
+const sidebars: SidebarsConfig = {
   dataStructure: [
     'stack/stack',
     {
@@ -23,3 +25,5 @@ module.exports = {
     'complexity',
   ],
 }
+
+export default sidebars

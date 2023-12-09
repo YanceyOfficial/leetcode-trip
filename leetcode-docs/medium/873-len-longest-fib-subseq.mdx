@@ -55,7 +55,7 @@ keywords:
 
 当确定了后两个数字下标 `j`, `i`, 需要找到第一个数字下标 `k`, 使得 `k < j`, 且 `arr[k] + arr[j] === arr[i]`. 这样就可以通过 dp[k][j] 递推出 dp[j][i], 具体状态转移方程如下:
 
-- `dp[j][i] = Math.max(dp[k][j] + 1, 3)` // 0 <= k < j, 最短的斐波那契数列是 3, 所以跟 3 比较
+- `dp[j][i] = Math.max(dp[k][j] + 1, 3)` // `0 <= k < j`, 最短的斐波那契数列是 3, 所以跟 3 比较
 - `dp[j][i] = 0` // 不存在 k, 或者 k >= j
 
 import Tabs from '@theme/Tabs'

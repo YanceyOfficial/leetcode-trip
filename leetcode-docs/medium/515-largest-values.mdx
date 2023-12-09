@@ -10,8 +10,8 @@ keywords:
 
 给定一棵二叉树的根节点 root, 请找出该二叉树中每一层的最大值.
 
-- 二叉树的节点个数的范围是 `[0, 10<sup>4</sup>]`
-- -2<sup>31</sup> <= Node.val <= 2<sup>31</sup> - 1
+- 二叉树的节点个数的范围是 `[0, 10⁴]`
+- `-2³¹ <= Node.val <= 2³¹ - 1`
 
 :::info 示例
 
@@ -30,7 +30,7 @@ keywords:
 
 ## 题解
 
-没什么难的, 就是层序遍历, 拿到每层最大的值. 注意由于 `node.val` 的范围是 -2<sup>31</sup> <= Node.val <= 2<sup>31</sup> - 1, 所以要把 `max` 的初始值设为 `Number.MIN_SAFE_INTEGER`.
+没什么难的, 就是层序遍历, 拿到每层最大的值. 注意由于 `node.val` 的范围是 `-2³¹ <= Node.val <= 2³¹ - 1`, 所以要把 `max` 的初始值设为 `Number.MIN_SAFE_INTEGER`.
 
 ```ts
 /**

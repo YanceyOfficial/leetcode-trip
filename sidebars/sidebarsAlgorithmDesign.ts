@@ -1,4 +1,6 @@
-module.exports = {
+import type { SidebarsConfig } from '@docusaurus/plugin-content-docs'
+
+const sidebars: SidebarsConfig = {
   algorithmDesign: [
     'backtracking',
     'binary-search',
@@ -20,7 +22,6 @@ module.exports = {
         'dynamic-programming/string-matching',
       ],
     },
-
     {
       Sorts: [
         'sort/menu',
@@ -35,3 +36,5 @@ module.exports = {
     },
   ],
 }
+
+export default sidebars
