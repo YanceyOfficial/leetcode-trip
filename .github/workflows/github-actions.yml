@@ -16,7 +16,7 @@ jobs:
       - name: Install Pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8.12.0
+          version: latest
 
       - name: Get pnpm store directory
         id: pnpm-cache
