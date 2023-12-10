@@ -45,7 +45,6 @@ jobs:
           files: ./lcov.info,./clover.xml
           directory: ./coverage/
           verbose: true
-        # テスト成功時はこちらのステップが実行される
       - name: Slack Notification on Success at Testing Stage
         if: success()
         uses: rtCamp/action-slack-notify@v2
@@ -55,7 +54,7 @@ jobs:
           SLACK_TITLE: Test Success
           SLACK_COLOR: good
           SLACK_FOOTER: 'Powered by Yancey Inc. and its affiliates.'
-      # テスト失敗時はこちらのステップが実行される
+
       - name: Slack Notification on Failure at Testing Stage
         uses: rtCamp/action-slack-notify@v2
         if: failure()
@@ -71,8 +70,38 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/master'
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
       - name: Compilation
         run: pnpm run build
+
       - name: Copy file via ssh key
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -82,14 +111,16 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: 'build'
           target: '/var/www/leetcode-trip'
+
       - uses: actions/checkout@v4
+
       - name: Algoria DocSearch Crawler
         uses: darrenjennings/algolia-docsearch-action@master
         with:
           algolia_application_id: ${{ secrets.ALGORIA_APP_ID }}
           algolia_api_key: ${{ secrets.ALGORIA_API_KEY }}
           file: './algolia-config.json'
-      # テスト成功時はこちらのステップが実行される
+
       - name: Slack Notification on Success at Deployment Stage
         if: success()
         uses: rtCamp/action-slack-notify@v2
@@ -99,7 +130,7 @@ jobs:
           SLACK_TITLE: Deploy Success
           SLACK_COLOR: good
           SLACK_FOOTER: 'Powered by Yancey Inc. and its affiliates.'
-      # テスト失敗時はこちらのステップが実行される
+
       - name: Slack Notification on Failure at Deployment Stage
         uses: rtCamp/action-slack-notify@v2
         if: failure()
