@@ -75,14 +75,14 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Copy file via ssh key
-        uses: appleboy/scp-action@v0.1.4
+        uses: easingthemes/ssh-deploy@main
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          port: ${{ secrets.PORT }}
-          key: ${{ secrets.SSH_KEY }}
-          source: 'build'
-          target: /var/www/leetcode-trip
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "build/"
+          TARGET: /var/www/leetcode-trip
       - uses: actions/checkout@v4
       - name: Algoria DocSearch Crawler
         uses: darrenjennings/algolia-docsearch-action@master
