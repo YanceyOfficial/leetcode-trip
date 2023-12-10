@@ -38,9 +38,6 @@ jobs:
       - name: Execute unit tests
         run: pnpm run test
 
-      - name: Pre compilation
-        run: pnpm run build
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
@@ -74,15 +71,17 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/master'
     steps:
+      - name: Compilation
+        run: pnpm run build
       - name: Copy file via ssh key
-        uses: easingthemes/ssh-deploy@main
+        uses: appleboy/scp-action@v0.1.4
         with:
-          REMOTE_HOST: ${{ secrets.HOST }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          ARGS: "-rlgoDzvc -i --delete"
-          SOURCE: "build/"
-          TARGET: /var/www/leetcode-trip
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          source: 'build'
+          target: '/var/www/leetcode-trip'
       - uses: actions/checkout@v4
       - name: Algoria DocSearch Crawler
         uses: darrenjennings/algolia-docsearch-action@master
