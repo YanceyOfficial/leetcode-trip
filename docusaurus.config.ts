@@ -79,9 +79,9 @@ const config: Config = {
         '⭐️ Want more technical articles? Please visit my <a target="_blank" rel="noopener noreferrer" href="https://yanceyleo.com">official website</a>! ⭐️',
     },
     algolia: {
-      apiKey: '428e3094afa3248dffafdbd793d4ea9d',
-      appId: 'UCJRNXXMOH',
-      indexName: 'leetcode-trip',
+      apiKey: '0a996f046e663001c77d6b097c9b379e',
+      appId: 'C3R70ZOVCY',
+      indexName: 'algorithm-yanceyleo',
     },
     navbar: {
       title: 'LeetCode Trip',

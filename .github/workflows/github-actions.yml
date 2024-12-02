@@ -8,13 +8,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install Pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: latest
 
@@ -72,13 +72,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install Pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: latest
 
@@ -103,7 +103,7 @@ jobs:
         run: pnpm run build
 
       - name: Copy file via ssh key
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -111,15 +111,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: 'build'
           target: '/var/www/leetcode-trip'
-
-      - uses: actions/checkout@v4
-
-      - name: Algoria DocSearch Crawler
-        uses: darrenjennings/algolia-docsearch-action@master
-        with:
-          algolia_application_id: ${{ secrets.ALGORIA_APP_ID }}
-          algolia_api_key: ${{ secrets.ALGORIA_API_KEY }}
-          file: './algolia-config.json'
 
       - name: Slack Notification on Success at Deployment Stage
         if: success()

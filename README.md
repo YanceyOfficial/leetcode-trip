@@ -51,11 +51,6 @@ Please make sure to read the [Issue Reporting Checklist](./.github/ISSUE_TEMPLAT
 
 LeetCode Trip follows the [Angular Team's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit), your commit will be checked by commitlint, please use `git cz` instead of `git commit`. For this reason, you might install [`commitizen`](https://github.com/commitizen/cz-cli) globally.
 
-### Algolia Search
-
-Unfortunately, LeetCode Trip is [not compliant with algolia's checklist](https://docsearch.algolia.com/docs/who-can-apply), we must [run the crawler by ourselves](https://docsearch.algolia.com/docs/run-your-own).
-Please create `.env` in root path.
-
 ```bash
 # DO NOT UPLOAD THIS FILE TO PUBLIC!!!
 # .env
