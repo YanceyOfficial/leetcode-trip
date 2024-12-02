@@ -50,19 +50,6 @@ Please make sure to read the [Issue Reporting Checklist](./.github/ISSUE_TEMPLAT
 
 LeetCode Trip follows the [Angular Team's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit), your commit will be checked by commitlint, please use `git cz` instead of `git commit`. For this reason, you might install [`commitizen`](https://github.com/commitizen/cz-cli) globally.
 
-```bash
-# DO NOT UPLOAD THIS FILE TO PUBLIC!!!
-# .env
-APPLICATION_ID=YOUR_ALGOLIA_APP_ID
-API_KEY=YOUR_ALGOLIA_API_KEY
-```
-
-After a successful build, execute the following script.
-
-```bash
-docker run --env-file=.env -e "CONFIG=$(cat ./algolia-config.json | jq -r tostring)" algolia/docsearch-scraper
-```
-
 ## License
 
 LeetCode Trip is licensed under the terms of the [MIT licensed](https://opensource.org/licenses/MIT).
