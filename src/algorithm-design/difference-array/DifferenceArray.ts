@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import assert from 'assert'
 
 interface IDifferenceArray {
