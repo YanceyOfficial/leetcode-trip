@@ -24,265 +24,45 @@ sidebar_label: 15. 三数之和
 
 ## 题解
 
-### 从泛化的两数之和到三数之和
-
-首先实现一个**两数之和等于 `target`** 的例子: 它的思路就是先给数组进行排序, 并用左右两个指针往中间夹, 如果它俩的和大于 `target`, 意味着右指针得往左走;
-如果它俩的和小于 `target`, 意味着左指针得往右走, 直到 `sum === target`, 将两个数字塞到 `res` 里, 然后让左右指针继续游走.
-
-```js
-function twoSumTarget(nums, target) {
-  nums.sort((a, b) => a - b)
-
-  const res = []
-  let low = 0,
-    high = nums.length - 1
-
-  while (low < high) {
-    const sum = nums[low] + nums[high]
-
-    if (sum < target) {
-      low++
-    } else if (sum > target) {
-      high--
-    } else {
-      res.push({ low, high })
-      low++
-      high--
-    }
-  }
-}
-```
-
-但这段代码的问题在于可能会出现**重复**, 以 `nums = [1, 1, 1, 2, 2, 3, 3]`, `target = 4` 为例子, 第一个数 `1` 和最后一个数 `3` 之和等于了 `4`,
-然后两个指针往中间夹一步, 此时又遇见了 `1` 和 `3`, 在没有任何保护措施的情况下, 就会造成重复. 因此你需要在每次比较时, 遍历一次将重复的值过滤掉.
-
-```js
-function twoSumTarget(nums, target) {
-  nums.sort((a, b) => a - b)
-
-  const res = []
-  let low = 0,
-    high = nums.length - 1
-
-  while (low < high) {
-    const lowVal = nums[low],
-      highVal = nums[high]
-    const sum = lowVal + highVal
-
-    if (sum < target) {
-      // sum < target 说明左指针需要往右移动, 但为了防止 nums[low] 与 lowVal 相同,
-      // 需要通过 while 循环将相同的值过滤掉
-      while (low < high && nums[low] === lowVal) {
-        low++
-      }
-    } else if (sum > target) {
-      // sum > target 同理
-      while (low < high && nums[high] === highVal) {
-        high--
-      }
-    } else {
-      res.push([lowVal, highVal])
-
-      // 即便取到了一对 lowVal 和 highVal, 也要左右指针往中间夹, 来过滤重复的值
-      while (low < high && nums[low] === lowVal) {
-        low++
-      }
-      while (low < high && nums[high] === highVal) {
-        high--
-      }
-    }
-  }
-
-  return res
-}
-```
-
-本题是找三个数的和为 `0`, 我们泛化一下, 把题目改成**找三个数的和为 `target`**. 它其实就是先找出一个数 `a`(注意找 `a` 的时候也需要跳过重复的),
-然后在找两数之和 `b + c`, 使得 `b + c === target - a`.
-
-```ts
-function twoSumTarget(nums, start, target) {
-  const res = []
-  let low = start,
-    high = nums.length - 1
-
-  while (low < high) {
-    ...
-  }
-
-  return res
-}
-
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
-var threeSum = function (nums, target) {
-  const res = []
-  const len = nums.length
-  nums.sort((a, b) => a - b) // 排序
-
-  for (let i = 0; i < len; i++) {
-    const items = twoSumTarget(nums, i + 1, target - nums[i])
-
-    // 如果存在满足条件的二元组, 再加上 nums[i] 就是结果三元组
-    for (const item of items) {
-      item.push(nums[i])
-      res.push(item)
-    }
-
-    // 跳过第一个数字重复的情况, 否则会出现重复结果
-    while (i < len - 1 && nums[i] === nums[i + 1]) i++
-  }
-
-  return res
-}
-```
-
-通过上面的代码, 我们可以看到三数之和是基于两数之和的, 同理四数之和是基于三数之和的, 因此你可以通过这个方法, 写出 `n` 数之和. 最后我们写出一个通用版本出来.
-因为每次递归的时候执行 `sort` 很费性能, 因此我们提前把排好序的数组准备好.
-
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
-<Tabs>
-  <TabItem value="JavaScript" label="JavaScript" default>
-
 ```ts
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
 var threeSum = function (nums) {
-  nums.sort((a, b) => a - b)
-  return nSum(nums, 3, 0, 0)
-}
+  // Sort the array
+  nums.sort((a, b) => a - b);
+  const result = [];
+  const n = nums.length;
 
-/**
- * @param {number[]} nums
- * @param {number} n
- * @param {number} start
- * @param {number} target
- * @return {number[][]}
- */
-var nSum = function (nums, n, start, target) {
-  const len = nums.length
-  const res = []
+  for (let i = 0; i < n - 2; i++) {
+    // Skip duplicate values for i
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
 
-  // 提前过滤掉一些不可能的情况
-  // 至少是 twoSum, 且数组长度不应该小于 n
-  if (n < 2 || len < n) return res
+    let left = i + 1;
+    let right = n - 1;
 
-  if (n === 2) {
-    let low = start
-    let high = len - 1
+    while (left < right) {
+      const sum = nums[i] + nums[left] + nums[right];
 
-    while (low < high) {
-      const lowVal = nums[low]
-      const highVal = nums[high]
-      const sum = lowVal + highVal
+      if (sum === 0) {
+        // Found a triplet
+        result.push([nums[i], nums[left], nums[right]]);
 
-      if (sum < target) {
-        while (low < high && nums[low] === lowVal) low++
-      } else if (sum > target) {
-        while (low < high && nums[high] === highVal) high--
+        // Skip duplicate values for left and right
+        while (left < right && nums[left] === nums[left + 1]) left++;
+        while (left < right && nums[right] === nums[right - 1]) right--;
+
+        left++;
+        right--;
+      } else if (sum < 0) {
+        left++;
       } else {
-        res.push([lowVal, highVal])
-        while (low < high && nums[low] === lowVal) low++
-        while (low < high && nums[high] === highVal) high--
+        right--;
       }
-    }
-  } else {
-    // n > 2 时, 递归计算 (n-1)Sum 的结果
-    for (let i = start; i < len; i++) {
-      const items = nSum(nums, n - 1, i + 1, target - nums[i])
-
-      for (const item of items) {
-        // (n-1)Sum 加上 nums[i] 就是 nSum
-        item.push(nums[i])
-        res.push(item)
-      }
-
-      // 跳过第一个数字重复的情况, 否则会出现重复结果
-      while (i < len - 1 && nums[i] === nums[i + 1]) i++
     }
   }
 
-  return res
-}
+  return result;
+};
 ```
-
-</TabItem>
-<TabItem value="Rust" label="Rust">
-
-```rust
-pub fn three_sum(nums: Vec<i32>) -> Vec<Vec<i32>> {
-    let mut nums = nums;
-    nums.sort();
-
-    n_sum(&nums, 3, 0, 0)
-}
-
-fn n_sum(nums: &Vec<i32>, n: usize, start: usize, target: i32) -> Vec<Vec<i32>> {
-    let len = nums.len();
-    let mut res: Vec<Vec<i32>> = vec![];
-
-    if n < 2 || len < n {
-        return res;
-    }
-
-    if n == 2 {
-        let (mut low, mut high) = (start, len - 1);
-
-        while low < high {
-            let (low_val, high_val) = (nums[low], nums[high]);
-            let sum = low_val + high_val;
-
-            if sum < target {
-                while low < high && nums[low] == low_val {
-                    low += 1;
-                }
-            } else if sum > target {
-                while low < high && nums[high] == high_val {
-                    high -= 1;
-                }
-            } else {
-                res.push(vec![low_val, high_val]);
-
-                while low < high && nums[low] == low_val {
-                    low += 1;
-                }
-                while low < high && nums[high] == high_val {
-                    high -= 1;
-                }
-            }
-        }
-    } else {
-        // 如果使用 for mut i in start..len {}
-        // 修改 i 是不会影响 Range 循环的, 因此这里换成迭代器
-        let mut iter = (start..len).into_iter();
-
-        while let Some(mut i) = iter.next() {
-            let items = n_sum(nums, n - 1, i + 1, target - nums[i]);
-
-            for mut item in items {
-                item.push(nums[i]);
-                res.push(item);
-            }
-
-            while i < len - 1 && nums[i] == nums[i + 1] {
-                // 变更 i 的同时
-                i += 1;
-
-                // 跳过一次迭代
-                iter.next();
-            }
-        }
-    }
-
-    res
-}
-```
-
-</TabItem>
-</Tabs>

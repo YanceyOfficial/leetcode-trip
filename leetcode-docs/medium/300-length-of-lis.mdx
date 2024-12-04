@@ -24,7 +24,7 @@ keywords:
 
 输入: `nums = [10, 9, 2, 5, 3, 7, 101, 18]`
 
-输出: 1
+输出: 4
 
 解释: 最长递增子序列是 `[2, 3, 7, 101]`, 因此长度为 `4`.
 :::
@@ -37,19 +37,17 @@ import TabItem from '@theme/TabItem'
 <Tabs>
   <TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划" default>
 
-以 `nums = [1, 4, 3, 4, 2]` 为例:
+以 `nums = [10, 9, 2, 5, 3, 7, 101, 18]` 为例:
 
-- 第一个数字 `1` 最长递增子序列是 `[1]`, 因此最长长度为 `1`
-- 第二个数字 `4` 最长递增子序列是 `[1, 4]`, 因此最长长度为 `2`
-- 第三个数字 `3` 最长递增子序列是 `[1, 3]`, 因此最长长度为 `2`
-- 第四个数字 `4` 最长递增子序列是 `[1, 3, 4]`, 因此最长长度为 `3`
-- 第五个数字 `4` 最长递增子序列是 `[1, 2]`, 因此最长长度为 `2`
+遍历数组, 更新 `dp[i]`: 
 
-我们用肉眼算出了前 `5` 个数字的最长长度, 但假如 `nums = [1, 4, 3, 4, 2, 3]`, 我们怎么通过前 `5` 个,
-出第 `6` 个数的最长递增子序列呢? 其实可以通过再加一个循环, 让 `j < 6`, 即判断如果 `nums[j] < nums[5]`,
-说明第 `6` 个之前还有比它小的, 那么最终为 `nums[5]` 的最长递增子序列还可以 + 1, 即 `nums[j] + 1`, 然后 pk `dp[i] 和 dp[j] + 1` 的大小即可.
-
-这个方法的时间复杂度为 O(n<sup>2</sup>).
+- i = 1: 前面没有比 9 小的元素, dp[1] = 1
+- i = 2: 前面没有比 2 小的元素, dp[2] = 1
+- i = 3: 2 < 5, dp[3] = dp[2] + 1 = 2
+- i = 4: 2 < 3, dp[4] = dp[2] + 1 = 2
+- i = 5: 3 < 7, dp[5] = dp[4] + 1 = 3
+- i = 6: 7 < 101, dp[6] = dp[5] + 1 = 4
+- i = 7: 7 < 18, dp[7] = dp[5] + 1 = 4
 
 ![300-length-of-list](../../static/img/300-length-of-lis-1.jpg)
 
@@ -59,16 +57,13 @@ import TabItem from '@theme/TabItem'
  * @return {number}
  */
 var lengthOfLIS = function (nums) {
-  const n = nums.length
-  const dp = new Array(n).fill(1)
-
+  const dp = new Array(nums.length).fill(1);
   let max = 1
-  for (let i = 0; i < n; i++) {
-    // j 在 [0, i) 游走, 判断 nums[j] 是否 < nums[i]
-    // 如果小于, 说明前面的子序列加上 nums[i] 还可以组成一个新的最长递增子序列
+
+  for (let i = 1; i < nums.length; i++) {
     for (let j = 0; j < i; j++) {
       if (nums[j] < nums[i]) {
-        dp[i] = Math.max(dp[i], dp[j] + 1)
+        dp[i] = Math.max(dp[i], dp[j] + 1);
       }
     }
 
@@ -78,6 +73,9 @@ var lengthOfLIS = function (nums) {
   return max
 }
 ```
+
+- 时间复杂度: O(n<sup>2</sup>).
+- 时间复杂度: O(n).
 
 </TabItem>
 <TabItem value="JavaScript - 二分查找法" label="JavaScript - 二分查找法">
@@ -115,6 +113,9 @@ var lengthOfLIS = function (nums) {
   return piles
 }
 ```
+
+- 时间复杂度: O(nlogn).
+- 时间复杂度: O(n).
 
 </TabItem>
 <TabItem value="Rust" label="Rust">

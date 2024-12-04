@@ -34,6 +34,7 @@ const sidebars: SidebarsConfig = {
         'sort/shell',
       ],
     },
+    'complexity',
   ],
 }
 

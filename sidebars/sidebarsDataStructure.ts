@@ -22,7 +22,6 @@ const sidebars: SidebarsConfig = {
       ],
     },
     { Graph: ['graph/concept', 'graph/dfs', 'graph/bfs'] },
-    'complexity',
   ],
 }
 

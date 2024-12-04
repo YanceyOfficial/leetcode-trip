@@ -1,5 +1,5 @@
 ---
-id: 14-longest-common-prefix
+id: 14-longest-common-lcp
 title: 最长公共前缀
 sidebar_label: 14. 最长公共前缀
 ---
@@ -25,7 +25,7 @@ sidebar_label: 14. 最长公共前缀
 
 ## 题解
 
-先假设第一个单词为 `prefix`, 如果 `strs` 里所有单词的前缀都是 `prefix`, 那就返回之; 否则将 `prefix` 的最后一位删掉继续循环, 直到找出前缀.
+先按长度从大到小排序, 假设第一个单词(最长的那个)为 `lcp`, 如果 `strs` 里所有单词的前缀都是 `lcp`, 那就返回之; 否则将 `lcp` 的最后一位删掉继续循环, 直到找出前缀.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -40,18 +40,19 @@ import TabItem from '@theme/TabItem'
  */
 var longestCommonPrefix = function (strs) {
   strs.sort((a, b) => a.length - b.length)
-  let prefix = strs[0]
-  let flag = false
 
-  while (!flag) {
-    flag = strs.every((str) => str.startsWith(prefix))
+  let lcp = strs[0]
+  let hasFound = false
 
-    if (!flag) {
-      prefix = prefix.slice(0, -1)
+  while (!hasFound) {
+    hasFound = strs.every((str) => str.startsWith(lcp))
+
+    if (!hasFound) {
+      lcp = lcp.slice(0, -1)
     }
   }
 
-  return prefix
+  return lcp
 }
 ```
 
@@ -62,18 +63,18 @@ var longestCommonPrefix = function (strs) {
 pub fn longest_common_prefix(strs: Vec<String>) -> String {
     let mut strs = strs;
     strs.sort();
-    let mut prefix: &str = &strs[0];
+    let mut lcp: &str = &strs[0];
     let mut has_found = false;
 
     while !has_found {
-        has_found = strs.iter().all(|str| str.starts_with(prefix));
+        has_found = strs.iter().all(|str| str.starts_with(lcp));
 
         if !has_found {
-            prefix = &prefix[0..prefix.len() - 1];
+            lcp = &lcp[0..lcp.len() - 1];
         }
     }
 
-    prefix.to_string()
+    lcp.to_string()
 }
 ```
 

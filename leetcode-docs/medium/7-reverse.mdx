@@ -55,6 +55,7 @@ var reverse = function (x) {
   while (x) {
     if (n > INT_MAX / 10 || n < INT_MIN / 10) return 0
 
+    // 取模逆排法
     n = n * 10 + (x % 10)
     x = (x / 10) | 0
   }

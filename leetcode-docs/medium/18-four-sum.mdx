@@ -28,62 +28,48 @@ sidebar_label: 18. 四数之和
 ```ts
 /**
  * @param {number[]} nums
- * @return {number[][]}
- */
-var fourSum = function (nums, target) {
-  nums.sort((a, b) => a - b)
-  return nSum(nums, 4, 0, target)
-}
-
-/**
- * @param {number[]} nums
- * @param {number} n
- * @param {number} start
  * @param {number} target
  * @return {number[][]}
  */
-var nSum = function (nums, n, start, target) {
-  const len = nums.length
-  const res = []
+var fourSum = function (nums, target) {
+  nums.sort((a, b) => a - b);
+  const result = [];
+  const n = nums.length;
 
-  // 提前过滤掉一些不可能的情况
-  // 至少是 2Sum, 且数组大小不应该小于 n
-  if (n < 2 || len < n) return res
+  for (let a = 0; a < n - 3; a++) {
+    // Skip duplicate values for a
+    if (a > 0 && nums[a] === nums[a - 1]) continue;
 
-  if (n === 2) {
-    let low = start
-    let high = len - 1
+    for (let b = a + 1; b < n - 2; b++) {
+      // Skip duplicate values for b
+      if (b > a + 1 && nums[b] === nums[b - 1]) continue;
 
-    while (low < high) {
-      const lowVal = nums[low]
-      const highVal = nums[high]
-      const sum = lowVal + highVal
+      let c = b + 1;
+      let d = n - 1;
 
-      if (sum < target) {
-        while (low < high && nums[low] === lowVal) low++
-      } else if (sum > target) {
-        while (low < high && nums[high] === highVal) high--
-      } else {
-        res.push([lowVal, highVal])
-        while (low < high && nums[low] === lowVal) low++
-        while (low < high && nums[high] === highVal) high--
+      while (c < d) {
+        const sum = nums[a] + nums[b] + nums[c] + nums[d];
+
+        if (sum === target) {
+          // Found a quadruplet
+          result.push([nums[a], nums[b], nums[c], nums[d]]);
+
+          // Skip duplicate values for c and d
+          while (c < d && nums[c] === nums[c + 1]) c++;
+          while (c < d && nums[d] === nums[d - 1]) d--;
+
+          c++;
+          d--;
+        } else if (sum < target) {
+          c++;
+        } else {
+          d--;
+        }
       }
-    }
-  } else {
-    // n > 2 时, 递归计算 (n-1)Sum 的结果
-    for (let i = start; i < len; i++) {
-      const items = nSum(nums, n - 1, i + 1, target - nums[i])
-
-      for (const item of items) {
-        // (n-1)Sum 加上 nums[i] 就是 nSum
-        item.push(nums[i])
-        res.push(item)
-      }
-
-      while (i < len - 1 && nums[i] === nums[i + 1]) i++
     }
   }
 
-  return res
-}
+  return result;
+};
+
 ```
