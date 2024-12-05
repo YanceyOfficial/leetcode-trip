@@ -1,5 +1,9 @@
 #[allow(unused)]
 pub fn is_valid(s: String) -> bool {
+    if s.len() % 2 == 1 {
+        return false;
+    }
+
     let mut stack = vec![];
     for ch in s.chars() {
         match ch {
