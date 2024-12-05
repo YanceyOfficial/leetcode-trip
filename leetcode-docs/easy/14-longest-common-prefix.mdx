@@ -25,7 +25,7 @@ sidebar_label: 14. 最长公共前缀
 
 ## 题解
 
-先按长度从大到小排序, 假设第一个单词(最长的那个)为 `lcp`, 如果 `strs` 里所有单词的前缀都是 `lcp`, 那就返回之; 否则将 `lcp` 的最后一位删掉继续循环, 直到找出前缀.
+先按长度从小到大排序, 因为 lcp 最长也就是整个数组中最短的那个单词, 然后令其为初始的 `lcp`, 如果 `strs` 里所有单词的前缀都是 `lcp`, 那就返回之; 否则将 `lcp` 的最后一位删掉继续循环, 直到找出前缀.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -39,18 +39,19 @@ import TabItem from '@theme/TabItem'
  * @return {string}
  */
 var longestCommonPrefix = function (strs) {
-  let lcp = strs[0];
+  strs.sort((a, b) => a.length - b.length)
+  let lcp = strs[0]
 
   while (true) {
     if (strs.every((str) => str.startsWith(lcp))) {
-      break;
+      break
     } else {
-      lcp = lcp.slice(0, -1);
+      lcp = lcp.slice(0, -1)
     }
   }
 
-  return lcp;
-};
+  return lcp
+}
 ```
 
 </TabItem>
@@ -58,6 +59,9 @@ var longestCommonPrefix = function (strs) {
 
 ```rust
 pub fn longest_common_prefix(strs: Vec<String>) -> String {
+    let mut strs = strs;
+    strs.sort();
+
     let mut prefix: &str = &strs[0];
 
     loop {
@@ -70,6 +74,7 @@ pub fn longest_common_prefix(strs: Vec<String>) -> String {
 
     prefix.to_string()
 }
+
 ```
 
 </TabItem>
