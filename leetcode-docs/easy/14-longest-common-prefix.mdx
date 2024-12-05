@@ -39,21 +39,18 @@ import TabItem from '@theme/TabItem'
  * @return {string}
  */
 var longestCommonPrefix = function (strs) {
-  strs.sort((a, b) => a.length - b.length)
+  let lcp = strs[0];
 
-  let lcp = strs[0]
-  let hasFound = false
-
-  while (!hasFound) {
-    hasFound = strs.every((str) => str.startsWith(lcp))
-
-    if (!hasFound) {
-      lcp = lcp.slice(0, -1)
+  while (true) {
+    if (strs.every((str) => str.startsWith(lcp))) {
+      break;
+    } else {
+      lcp = lcp.slice(0, -1);
     }
   }
 
-  return lcp
-}
+  return lcp;
+};
 ```
 
 </TabItem>
@@ -61,20 +58,17 @@ var longestCommonPrefix = function (strs) {
 
 ```rust
 pub fn longest_common_prefix(strs: Vec<String>) -> String {
-    let mut strs = strs;
-    strs.sort();
-    let mut lcp: &str = &strs[0];
-    let mut has_found = false;
+    let mut prefix: &str = &strs[0];
 
-    while !has_found {
-        has_found = strs.iter().all(|str| str.starts_with(lcp));
-
-        if !has_found {
-            lcp = &lcp[0..lcp.len() - 1];
+    loop {
+        if strs.iter().all(|str| str.starts_with(prefix)) {
+            break;
+        } else {
+            prefix = &prefix[0..prefix.len() - 1];
         }
     }
 
-    lcp.to_string()
+    prefix.to_string()
 }
 ```
 
