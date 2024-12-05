@@ -6,8 +6,6 @@ sidebar_label: 18. 四数之和
 
 ## 题目
 
-直接看 [15. 三数之和](/leetcode/medium/15-three-sum) 即可, 做了一个通用解法, 可以处理 `nSum` 问题.
-
 :::note 提示:
 
 - `1 <= nums.length <= 200`
@@ -32,44 +30,43 @@ sidebar_label: 18. 四数之和
  * @return {number[][]}
  */
 var fourSum = function (nums, target) {
-  nums.sort((a, b) => a - b);
-  const result = [];
-  const n = nums.length;
+  nums.sort((a, b) => a - b)
+  const result = []
+  const n = nums.length
 
   for (let a = 0; a < n - 3; a++) {
     // Skip duplicate values for a
-    if (a > 0 && nums[a] === nums[a - 1]) continue;
+    if (a > 0 && nums[a] === nums[a - 1]) continue
 
     for (let b = a + 1; b < n - 2; b++) {
       // Skip duplicate values for b
-      if (b > a + 1 && nums[b] === nums[b - 1]) continue;
+      if (b > a + 1 && nums[b] === nums[b - 1]) continue
 
-      let c = b + 1;
-      let d = n - 1;
+      let c = b + 1
+      let d = n - 1
 
       while (c < d) {
-        const sum = nums[a] + nums[b] + nums[c] + nums[d];
+        const sum = nums[a] + nums[b] + nums[c] + nums[d]
 
         if (sum === target) {
           // Found a quadruplet
-          result.push([nums[a], nums[b], nums[c], nums[d]]);
+          result.push([nums[a], nums[b], nums[c], nums[d]])
 
           // Skip duplicate values for c and d
-          while (c < d && nums[c] === nums[c + 1]) c++;
-          while (c < d && nums[d] === nums[d - 1]) d--;
+          while (c < d && nums[c] === nums[c + 1]) c++
+          while (c < d && nums[d] === nums[d - 1]) d--
 
-          c++;
-          d--;
+          c++
+          d--
         } else if (sum < target) {
-          c++;
+          c++
         } else {
-          d--;
+          d--
         }
       }
     }
   }
 
-  return result;
-};
-
+  return result
+}
 ```

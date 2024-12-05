@@ -31,38 +31,38 @@ sidebar_label: 15. 三数之和
  */
 var threeSum = function (nums) {
   // Sort the array
-  nums.sort((a, b) => a - b);
-  const result = [];
-  const n = nums.length;
+  nums.sort((a, b) => a - b)
+  const result = []
+  const n = nums.length
 
   for (let i = 0; i < n - 2; i++) {
     // Skip duplicate values for i
-    if (i > 0 && nums[i] === nums[i - 1]) continue;
+    if (i > 0 && nums[i] === nums[i - 1]) continue
 
-    let left = i + 1;
-    let right = n - 1;
+    let left = i + 1
+    let right = n - 1
 
     while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right];
+      const sum = nums[i] + nums[left] + nums[right]
 
       if (sum === 0) {
         // Found a triplet
-        result.push([nums[i], nums[left], nums[right]]);
+        result.push([nums[i], nums[left], nums[right]])
 
         // Skip duplicate values for left and right
-        while (left < right && nums[left] === nums[left + 1]) left++;
-        while (left < right && nums[right] === nums[right - 1]) right--;
+        while (left < right && nums[left] === nums[left + 1]) left++
+        while (left < right && nums[right] === nums[right - 1]) right--
 
-        left++;
-        right--;
+        left++
+        right--
       } else if (sum < 0) {
-        left++;
+        left++
       } else {
-        right--;
+        right--
       }
     }
   }
 
-  return result;
-};
+  return result
+}
 ```
