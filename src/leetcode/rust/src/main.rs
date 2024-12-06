@@ -3,11 +3,7 @@ mod hard;
 mod medium;
 
 fn main() {
-    let res = easy::question_14::longest_common_prefix(vec![
-        "flow".to_string(),
-        "flower".to_string(),
-        "flight".to_string(),
-    ]);
+    let res = medium::question_18::four_sum(vec![1, 0, -1, 0, -2, 2], 0);
 
     println!("{:?}", res);
 }

@@ -40,42 +40,6 @@ keywords:
 
 ## 题解
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
-<Tabs>
-  <TabItem value="JavaScript - 优先队列" label="JavaScript - 优先队列">
-
-完了, 现在写排序先想到的是优先队列, 这里用个小顶堆即可, 代码很简单, 直接看注释.
-
-```ts
-export function mergeKLists(lists) {
-  const pq = new PriorityQueue()
-
-  for (let head of lists) {
-    while (head) {
-      pq.offer([head.val, head])
-      head = head.next
-    }
-  }
-
-  const dummy = new ListNode(-1)
-  let root = dummy
-  while (pq.size()) {
-    const curr = pq.poll()
-    root.next = curr[1]
-    root = root.next
-  }
-
-  root.next = null
-
-  return dummy.next
-}
-```
-
-</TabItem>
-<TabItem value="JavaScript - 分治" label="JavaScript - 分治" default>
-
 这道题让我们合并 `k` 个有序链表, 但是不管合并几个, 基本还是要两两合并.
 
 那么首先考虑的方法是能不能利用 [21. 合并两个有序链表](/leetcode/easy/21-merge-two-lists) 的解法来解答此题. 答案是肯定的, 但是需要修改, 怎么修改呢, 最先想到的就是两两合并, 就是前两个先合并, 合并好了再跟第三个, 然后第四个直到第 `k` 个. 这样的思路是对的, 但是效率不高, 所以只能换一种思路.
@@ -148,6 +112,3 @@ var mergeTwoLists = function (l1, l2) {
   return dummy.next
 }
 ```
-
-</TabItem>
-</Tabs>

@@ -94,7 +94,7 @@ var mergeTwoLists = function (l1, l2) {
  * @return {ListNode}
  */
 var mergeTwoLists = function (l1, l2) {
-  const dummy = new ListNode(-1)
+  const dummy = new ListNode(null)
   let curr = dummy
 
   while (l1 && l2) {
@@ -109,8 +109,8 @@ var mergeTwoLists = function (l1, l2) {
     curr = curr.next
   }
 
-  if (l1 !== null) curr.next = l1
-  if (l2 !== null) curr.next = l2
+  if (l1) curr.next = l1
+  if (l2) curr.next = l2
 
   return dummy.next
 }
