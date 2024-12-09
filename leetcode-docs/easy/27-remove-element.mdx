@@ -19,6 +19,7 @@ keywords:
 - [141. 环形链表](/leetcode/easy/141-has-cycle)
 - [142. 环形链表 II](/leetcode/medium/142-detect-cycle)
 - [234. 回文链表](/leetcode/easy/234-is-palindrome)
+
 :::
 
 ## 题目
@@ -59,19 +60,13 @@ import TabItem from '@theme/TabItem'
  * @return {number}
  */
 var removeElement = function (nums, val) {
-  const n = nums.length
-  if (n === 0) return 0
+  let slow = 0
 
-  let slow = 0,
-    fast = 0
-
-  while (fast < n) {
+  for (let fast = 0; fast < nums.length; fast++) {
     if (nums[fast] !== val) {
       nums[slow] = nums[fast]
       slow++
     }
-
-    fast++
   }
 
   return slow
@@ -82,22 +77,15 @@ var removeElement = function (nums, val) {
 <TabItem value="Rust" label="Rust">
 
 ```rust
+#[allow(unused)]
 pub fn remove_element(nums: &mut Vec<i32>, val: i32) -> i32 {
-    let n = nums.len();
+    let mut slow = 0;
 
-    if n == 0 {
-        return 0;
-    }
-
-    let (mut slow, mut fast) = (0, 0);
-
-    while fast < n {
-        if nums[fast] != val {
+    for fast in 0..(nums.len()) {
+        if (nums[fast] != val) {
             nums[slow] = nums[fast];
             slow += 1;
         }
-
-        fast += 1;
     }
 
     slow as i32

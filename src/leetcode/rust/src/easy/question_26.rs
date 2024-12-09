@@ -1,17 +1,13 @@
 #[allow(unused)]
 pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
-    let n = nums.len();
+    let mut slow = 0;
 
-    let (mut slow, mut fast) = (1, 1);
-
-    while fast < n {
-        if nums[slow - 1] != nums[fast] {
-            nums[slow] = nums[fast];
+    for fast in 1..(nums.len()) {
+        if (nums[fast] != nums[slow]) {
             slow += 1;
+            nums[slow] = nums[fast];
         }
-
-        fast += 1;
     }
 
-    slow as i32
+    slow as i32 + 1
 }

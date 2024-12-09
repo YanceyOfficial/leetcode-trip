@@ -45,22 +45,6 @@ keywords:
 
 看到有序数组, 先想到**双指针**, 这道题可以使用**快慢指针**: 让慢指针 `slow` 走在后面, 快指针 `fast` 走在前面探路, 找到一个不重复的元素就告诉 `slow` 并让 `slow` 前进一步. 这样当 `fast` 指针遍历完整个数组 `nums` 后, 前 `slow + 1` 个就是不重复元素.
 
-- 第零步: `fast`, `slow` 都指向第一个元素;
-- 第一步: `fast`, `slow` 指向的都是 `1`, 因此只需 `fast` 向前走一步;
-- 第二步: 此时 `fast`, `slow` 指向的值不同, 让 `slow + 1`, 并把 `fast` 指向的值赋值给 `slow` 指向的值, 然后 `fast` 向前走一步;
-- 第三步: `fast`, `slow` 指向的都是 `2`, 因此只需 `fast` 向前走一步;
-- 第四步: `fast`, `slow` 指向的都是 `2`, 因此只需 `fast` 向前走一步;
-- 第五步: 此时 `fast`, `slow` 指向的值不同, 让 `slow + 1`, 并把 `fast` 指向的值赋值给 `slow` 指向的值, 然后 `fast` 向前走一步;
-- 第六步: `fast`, `slow` 指向的都是 `3`, 因此只需 `fast` 向前走一步, 此时 `fast > n`, 跳出循环, 返回 `show + 1` 即可.
-
-```ts
-fast              fast              fast              fast              fast              fast              fast
- ↓                 ↓                 ↓                 ↓                 ↓                 ↓                 ↓
-[1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 2 2 3 3]   [1 2 3 2 3 3]   [1 2 3 2 3 3]
- ↑               ↑                 ↑               ↑               ↑                 ↑               ↑
-slow            slow              slow            slow            slow              slow            slow
-```
-
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
@@ -73,22 +57,16 @@ import TabItem from '@theme/TabItem'
  * @return {number}
  */
 var removeDuplicates = function (nums) {
-  const n = nums.length
+  let slow = 0
 
-  // 双指针
-  let slow = 1,
-    fast = 1
-
-  while (fast < n) {
-    if (nums[slow - 1] !== nums[fast]) {
-      nums[slow] = nums[fast]
+  for (let fast = 1; fast < nums.length; fast++) {
+    if (nums[fast] !== nums[slow]) {
       slow++
+      nums[slow] = nums[fast]
     }
-
-    fast++
   }
 
-  return slow
+  return slow + 1
 }
 ```
 
@@ -97,20 +75,16 @@ var removeDuplicates = function (nums) {
 
 ```rust
 pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
-    let n = nums.len();
+    let mut slow = 0;
 
-    let (mut slow, mut fast) = (1, 1);
-
-    while fast < n {
-        if nums[slow - 1] != nums[fast] {
-            nums[slow] = nums[fast];
+    for fast in 1..(nums.len()) {
+        if (nums[fast] != nums[slow]) {
             slow += 1;
+            nums[slow] = nums[fast];
         }
-
-        fast += 1;
     }
 
-    slow as i32
+    slow as i32 + 1
 }
 ```
 
