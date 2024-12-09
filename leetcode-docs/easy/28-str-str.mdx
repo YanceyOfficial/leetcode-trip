@@ -39,18 +39,14 @@ import TabItem from '@theme/TabItem'
  * @return {number}
  */
 var strStr = function (haystack, needle) {
-  if (needle === '') return 0
-
   let i = 0,
     j = needle.length
 
   while (j <= haystack.length) {
-    if (haystack.slice(i, j) === needle) {
-      return i
-    } else {
-      i++
-      j++
-    }
+    if (haystack.slice(i, j) === needle) return i
+
+    i++
+    j++
   }
 
   return -1
@@ -62,13 +58,7 @@ var strStr = function (haystack, needle) {
 
 ```rust
 pub fn str_str(haystack: String, needle: String) -> i32 {
-    let n = needle.len();
-
-    if n == 0 {
-        return 0;
-    }
-
-    let (mut i, mut j) = (0, n);
+    let (mut i, mut j) = (0, needle.len(););
 
     while j <= haystack.len() {
         if haystack[i..j] == needle {
