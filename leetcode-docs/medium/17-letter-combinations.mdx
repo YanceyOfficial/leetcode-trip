@@ -59,7 +59,7 @@ var letterCombinations = function (digits) {
     }
 
     // 拿到当前数字对应的字母
-    const letters = map[digits[n] - 2]
+    const letters = map[Number(digits[n]) - 2]
 
     // 遍历某个数字对应的字母, 比如 def, 进行回溯
     for (const letter of letters) {
