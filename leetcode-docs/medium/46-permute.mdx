@@ -47,14 +47,14 @@ var permute = function (nums) {
 
   const dfs = (track) => {
     if (track.length === n) {
-      res.push(track.slice())
+      res.push(track)
       return
     }
 
     for (const num of nums) {
       if (!track.includes(num)) {
         track.push(num)
-        dfs(track)
+        dfs(track.slice())
         track.pop()
       }
     }

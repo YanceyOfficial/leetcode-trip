@@ -74,7 +74,7 @@ var combinationSum = function (candidates, target) {
 
   const dfs = (begin, sum, track) => {
     if (target === sum) {
-      res.push(track.slice())
+      res.push(track)
       return
     }
 
@@ -84,7 +84,7 @@ var combinationSum = function (candidates, target) {
         track.push(candidates[i])
 
         // 基于当前这个数的继续选择, 传 i, 下一次就不会选到 i 左边的数
-        dfs(i, sum + candidates[i], track)
+        dfs(i, sum + candidates[i], track.slice())
 
         // 撤销选择, 回到选择 candidates[i] 之前的状态, 继续尝试选同层右边的数
         track.pop()
