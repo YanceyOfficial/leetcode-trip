@@ -39,11 +39,19 @@ keywords:
 
 ## 题解
 
-我们贪心的从前往后寻找, 每次去找最远的位置. 以 `nums = [2, 3, 1, 2, 4, 2, 3]` 为例: 从下标 `0` 向后出发, 它可以跳到下标 `1` 的位置, 下一次最多可跳 `3` 步; 也可以跳到下标 `2` 的位置, 但下次最多只可跳 `1` 步, 因此第一次我们选择跳到下标 `1` 的位置. 从下标 `1` 向后出发, 它可以跳到下标 `2, 3, 4` 的位置, 显然跳到下标 `4`, 下次跳的更多, 因此这次选择跳到下标 `4` 的位置...
+**核心思想**: 每次都跳到当前能跳到的最远位置, 这样可以保证用最少的步数到达终点.
 
-在具体的实现中, 我们维护当前能够到达的最大下标位置, 记为边界. 我们从左到右遍历数组, 到达边界时, 更新边界并将跳跃次数增加 `1`.
+- **维护两个指针**:
 
-在遍历数组时, 我们不访问最后一个元素, 这是因为在访问最后一个元素之前, 我们的边界一定大于等于最后一个位置, 否则就无法跳到最后一个位置了. 如果访问最后一个元素, 在边界正好为最后一个位置的情况下, 我们会增加一次**不必要的跳跃次数**, 因此我们不必访问最后一个元素.
+  - `end`: 当前能跳到的最远位置.
+  - `farthest`: 在当前能跳到的范围内, 能跳到的最远位置.
+
+- **遍历数组**:
+
+  - 当遍历到 `end` 时, 说明已经跳到了一个新的能跳到的最远位置, 更新 `end` 为 `farthest`.
+  - 同时更新 `farthest`, 寻找下一个能跳到的最远位置.
+
+- **跳跃次数**: 每更新一次 `end`, 就代表跳了一次.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -59,19 +67,17 @@ import TabItem from '@theme/TabItem'
 var jump = function (nums) {
   const n = nums.length
   let end = 0
-  let maxPosition = 0
-  let steps = 0
+  let farthest = 0
+  let jumps = 0
   for (let i = 0; i < n - 1; i++) {
-    // 不断计算能跳到的最远距离
-    maxPosition = Math.max(maxPosition, i + nums[i])
+    farthest = Math.max(farthest, i + nums[i])
 
-    // 如果恰好为最后一个位置, 需要增加一次 step, 以越过最后一个
     if (i === end) {
-      end = maxPosition
-      steps++
+      end = farthest
+      jumps++
     }
   }
-  return steps
+  return jumps
 }
 ```
 
@@ -83,20 +89,20 @@ use std::cmp;
 
 pub fn jump(nums: Vec<i32>) -> i32 {
     let n = nums.len();
-    let mut max_position = 0;
+    let mut farthest = 0;
     let mut end = 0;
-    let mut step = 0;
+    let mut jumps = 0;
 
     for i in 0..(n - 1) {
-        max_position = cmp::max(max_position, nums[i] + i as i32);
+        farthest = cmp::max(farthest, nums[i] + i as i32);
 
         if i as i32 == end {
-            end = max_position;
-            step += 1;
+            end = farthest;
+            jumps += 1;
         }
     }
 
-    step
+    jumps
 }
 ```
 

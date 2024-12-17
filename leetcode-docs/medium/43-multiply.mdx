@@ -1,7 +1,7 @@
 ---
 id: 43-multiply
-title: 字符串相乘(大数相乘)
-sidebar_label: 43. 字符串相乘(大数相乘)
+title: 字符串相乘
+sidebar_label: 43. 字符串相乘
 ---
 
 ## 题目
@@ -21,25 +21,6 @@ sidebar_label: 43. 字符串相乘(大数相乘)
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-首先要明确一些规律:
-
-1. 两数相加的位数, 最多为**位数多的那个数的位数加一**, 即 `Math.max(m, n) + 1`
-2. 两数相乘的位数, 最多为**两个数的位数之和**, 即 `m + n`
-
-平时我们计算乘法都是通过列竖式, 这里以 `123 * 64` 为例. 不难发现, 形成中间 `492` 和 `738` 其实是一个双循环操作, 以保证每位都能乘在一起, 并在这个过程中处理**进位**; 然后再按位进行加和.
-
-```ts
-  1 2 3
-    6 4
--------
-  4 9 2
-7 3 8
--------
-7 8 7 2
-```
-
-而如果用程序写, 我们可以双循环和按位加和一起做. 大抵思路如下:
-
 ```ts
   1  2  3
      6  4
@@ -47,10 +28,12 @@ import TabItem from '@theme/TabItem'
   4  8  12
 6 12 18
 ----------
-6 16 26 12 => 处理进位问题
+6 16 26 12
 ```
 
-然后我们再对 `[6, 16, 26, 12]` 使用大数相加的套路进行处理, 得到最终的字符串.
+1. 按上图声明一个数组, 数组初始化的长度为 `num1.length + num2.length - 1`
+1. 双循环按位相乘, 并加和把结果存到数组中: `arr[i + j] += +num2[i] * +num1[j]`
+1. 使用两数相加的套路完成数字字符串的组装
 
 <Tabs>
   <TabItem value="JavaScript" label="JavaScript" default>
@@ -68,10 +51,7 @@ var multiply = function (num1, num2) {
   const m = num1.length
   const n = num2.length
 
-  // 遵循上面的规律: 两数相乘的位数, 最多为两个数的位数之和
-  // 因此朴素的两数相乘位数为 m + n - 1
-  const totalLen = m + n - 1
-  const arr = new Array(totalLen).fill(0)
+  const arr = new Array(m + n - 1).fill(0)
 
   // 做双循环, 保证每个位置都能乘在一起
   for (let i = 0; i < n; i++) {
@@ -85,7 +65,7 @@ var multiply = function (num1, num2) {
   let carry = 0
 
   // 处理进位
-  for (let k = totalLen - 1; k >= 0; k--) {
+  for (let k = arr.length - 1; k >= 0; k--) {
     const sum = arr[k] + carry
 
     // 将小于 10 的部分作为最终该位的结果
@@ -110,8 +90,7 @@ pub fn multiply(num1: String, num2: String) -> String {
     }
 
     let (m, n) = (num1.len(), num2.len());
-    let total_len = m + n - 1;
-    let mut arr = vec![0; total_len];
+    let mut arr = vec![0;  m + n - 1];
 
     for (i, byte1) in num1.as_bytes().iter().enumerate() {
         for (j, byte2) in num2.as_bytes().iter().enumerate() {
@@ -121,7 +100,7 @@ pub fn multiply(num1: String, num2: String) -> String {
 
     let mut str = String::from("");
     let mut carry = 0;
-    for k in (0..=(total_len - 1)).rev() {
+    for k in (0..=(arr.len() - 1)).rev() {
         let sum = arr[k] + carry;
         str = (sum % 10).to_string() + &str;
         carry = sum / 10;
