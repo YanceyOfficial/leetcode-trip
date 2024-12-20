@@ -14,7 +14,7 @@ keywords:
 
 给定一个 `m * n` 二维字符网格 `board` 和一个字符串单词 `word`. 如果 `word` 存在于网格中, 返回 `true`; 否则, 返回 `false`.
 
-单词必须按照字母顺序, 通过相邻的单元格内的字母构成, 其中 ß"相邻"单元格是那些水平相邻或垂直相邻的单元格. 同一个单元格内的字母不允许被重复使用.
+单词必须按照字母顺序, 通过相邻的单元格内的字母构成, 其中"相邻"单元格是那些水平相邻或垂直相邻的单元格. 同一个单元格内的字母不允许被重复使用.
 
 :::note 提示:
 
@@ -47,10 +47,10 @@ var exist = function (board, word) {
   const n = board[0].length
   const visited = new Array(m).fill(false).map(() => new Array(n).fill(false))
 
-  // row 和 col 当前点的坐标, i 当前考察的 word 字符索引
-  const dfs = (row, col, i) => {
-    // 递归的出口: i 越界了就返回 true
-    if (i === word.length) return true
+  // row 和 col 当前点的坐标, idx 为局部索引
+  const dfs = (row, col, idx) => {
+    // 递归的出口: idx 越界了就返回 true
+    if (idx === word.length) return true
 
     // 1. 当前点越界
     // 2. 或者当前点已经访问过
@@ -62,26 +62,30 @@ var exist = function (board, word) {
       col < 0 ||
       col >= n ||
       visited[row][col] ||
-      board[row][col] !== word[i]
+      board[row][col] !== word[idx]
     ) {
       return false
     }
 
     visited[row][col] = true
-    const res =
-      dfs(row + 1, col, i + 1) ||
-      dfs(row - 1, col, i + 1) ||
-      dfs(row, col + 1, i + 1) ||
-      dfs(row, col - 1, i + 1)
+    const isExist =
+      dfs(row + 1, col, idx + 1) ||
+      dfs(row - 1, col, idx + 1) ||
+      dfs(row, col + 1, idx + 1) ||
+      dfs(row, col - 1, idx + 1)
     visited[row][col] = false
 
-    return res
+    return isExist
   }
 
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
-      // 提前判断入口, 如果连 word 的第一个字符都匹配不上, 就没必要进入递归了
-      if (board[row][col] === word[0] && dfs(i, j, 0)) return true
+      // 从能匹配单词第一个字母的
+      if (board[i][j] === word[0]) {
+        if (dfs(i, j, 0)) {
+          return true
+        }
+      }
     }
   }
 
@@ -100,8 +104,10 @@ pub fn exist(board: Vec<Vec<char>>, word: String) -> bool {
 
     for row in 0..m {
         for col in 0..n {
-            if board[row][col] == word[0] && dfs(&board, &word, &mut visited, row, col, 0) {
-                return true;
+            if board[row][col] == word[0] {
+                if dfs(&board, &word, &mut visited, row, col, 0) {
+                    return true;
+                }
             }
         }
     }
@@ -109,34 +115,31 @@ pub fn exist(board: Vec<Vec<char>>, word: String) -> bool {
     false
 }
 
-
 fn dfs(
     board: &Vec<Vec<char>>,
     word: &Vec<char>,
     visited: &mut Vec<Vec<bool>>,
     row: usize,
     col: usize,
-    i: usize,
+    idx: usize,
 ) -> bool {
-    if i == word.len() {
+    if idx == word.len() {
         return true;
     }
 
     let (m, n) = (board.len(), board[0].len());
-    if row >= m || col >= n || visited[row][col] || board[row][col] != word[i] {
+    if row >= m || col >= n || visited[row][col] || board[row][col] != word[idx] {
         return false;
     }
 
     visited[row][col] = true;
-    // 这道题很巧妙的一点是不用纠结当 row 或 col 为 0 时, row - 1 和 col - 1 越界的问题
-    // 我们知道这种情况会把 row 或 col 变成 usize::MAX, 恰好被上面的 row >= m 或 col >= n 兜住了
-    let res = dfs(board, word, visited, row + 1, col, i + 1)
-        || dfs(board, word, visited, row - 1, col, i + 1)
-        || dfs(board, word, visited, row, col + 1, i + 1)
-        || dfs(board, word, visited, row, col - 1, i + 1);
+    let is_exist = dfs(board, word, visited, row + 1, col, idx + 1)
+        || dfs(board, word, visited, row - 1, col, idx + 1)
+        || dfs(board, word, visited, row, col + 1, idx + 1)
+        || dfs(board, word, visited, row, col - 1, idx + 1);
     visited[row][col] = false;
 
-    res
+    is_exist
 }
 ```
 

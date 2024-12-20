@@ -83,13 +83,13 @@ var rotateRight = function (head, k) {
   if (!head || !head.next) return head
 
   let curr = head
-  let len = 0
+  let n = 0
   while (curr) {
     curr = curr.next
-    len++
+    n++
   }
 
-  k = k % len
+  k = k % n
   if (k === 0) return head
 
   let fast = head,

@@ -6,8 +6,10 @@ pub fn exist(board: Vec<Vec<char>>, word: String) -> bool {
 
     for row in 0..m {
         for col in 0..n {
-            if board[row][col] == word[0] && dfs(&board, &word, &mut visited, row, col, 0) {
-                return true;
+            if board[row][col] == word[0] {
+                if dfs(&board, &word, &mut visited, row, col, 0) {
+                    return true;
+                }
             }
         }
     }
