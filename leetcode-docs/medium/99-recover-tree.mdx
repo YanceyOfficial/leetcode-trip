@@ -62,7 +62,7 @@ keywords:
  */
 var recoverTree = function (root) {
   const list = []
-  inOrder(root, list)
+  inOrderTraverse(root, list)
   let x = null
   let y = null
 
@@ -93,11 +93,11 @@ var recoverTree = function (root) {
  * @param {TreeNode[]} list
  * @return {void} Do not return anything, modify root in-place instead.
  */
-var inOrder = function (root, list) {
+var inOrderTraverse = function (root, list) {
   if (!root) return null
 
-  inOrder(root.left, list)
+  inOrderTraverse(root.left, list)
   list.push(root)
-  inOrder(root.right, list)
+  inOrderTraverse(root.right, list)
 }
 ```

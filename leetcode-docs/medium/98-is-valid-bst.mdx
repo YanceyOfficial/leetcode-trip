@@ -41,8 +41,6 @@ keywords:
 
 ## 题解
 
-### 方法一: 中序遍历
-
 因为 BST 的中序遍历是**有序的**, 所以只要保证**当前节点的值大于前一个节点的值**即可. 因此可以先创建一个 prevNode 节点初始为 null, 走中序遍历即可.
 
 ```ts
@@ -59,46 +57,25 @@ keywords:
  * @return {boolean}
  */
 var isValidBST = function (root) {
-  // 初始化前节点, 当然你直接初始化前节点的值也 ok
-  let prev = null
+  const arr = []
+  inOrderTraverse(root, arr)
+  return isAscending(arr)
+}
 
-  var inOrderTraverse = function (root) {
-    if (root === null) return true
+const inOrderTraverse = (root, arr) => {
+  if (!root) return null
 
-    // 判断左子树
-    if (!inOrderTraverse(root.left)) return false
+  inOrderTraverse(root.left, arr)
+  arr.push(root.val)
+  inOrderTraverse(root.right, arr)
+}
 
-    // 如果当前值小于等于了前一个节点的值, 说明不是一棵 BST
-    if (prev !== null && root.val <= prev.val) return false
-
-    // 将当前节点赋给前一个节点
-    prev = root
-
-    // 判断右子树
-    if (!inOrderTraverse(root.right)) return false
-
-    return true
+const isAscending = (arr) => {
+  const n = arr.length
+  for (let i = 0; i < n - 1; i++) {
+    if (arr[i] >= arr[i + 1]) return false
   }
 
-  return inOrderTraverse(root)
-}
-```
-
-### 方法二
-
-根据 BST 的定义, 左子树的值要在 `(min, mid)` 之间, 右子树的值在 `(mid, max)` 之间.
-
-```ts
-var isValidBST = function (root) {
-  return isValid(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
-}
-var isValid = function (root, min, max) {
-  if (!root) return true
-
-  const mid = root.val
-  // mid 不在 min 和 max 之间时, 一定不是 BST
-  if (!(mid > min && mid < max)) return false
-
-  return isValid(root.left, min, mid) && isValid(root.right, mid, max)
+  return true
 }
 ```
