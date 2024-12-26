@@ -1,0 +1,104 @@
+---
+id: 94-inorder-traversal
+title: 二叉树的中序遍历
+sidebar_label: 94. 二叉树的中序遍历
+keywords:
+  - Tree
+---
+
+:::success Tips
+题目类型: Tree
+:::
+
+## 题目
+
+Given the `root` of a binary tree, return the *inorder traversal of its nodes' values*.
+
+:::info 示例
+
+输入: TreeNode 实例
+
+输出: 每个 TreeNode 节点的 val 组成的数组
+:::
+
+## 题解
+
+这没啥可说的了, 基本功. 💔
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="递归" label="递归" default>
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function (root) {
+  const res = []
+
+  var traverse = function (node) {
+    if (!node) return
+
+    traverse(node.left)
+    res.push(node.val)
+    traverse(node.right)
+  }
+
+  traverse(root)
+
+  return res
+}
+```
+
+- 时间复杂度: `O(n)`, 其中 n 是树的节点数.
+- 空间复杂度: 取决于递归的深度, 最坏情况下(skewed tree, 斜树) 为 `O(n)`, 最好情况下(balanced tree, 平衡树) 为 `O(log n)`.
+
+</TabItem>
+<TabItem value="迭代" label="迭代">
+
+```ts
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function (root) {
+  const stack = []
+  const res = []
+
+  while (stack.length !== 0 || root !== null) {
+    if (root !== null) {
+      stack.push(root)
+      root = root.left
+    } else {
+      root = stack.pop()
+      res.push(root.val)
+      root = root.right
+    }
+  }
+
+  return res
+}
+```
+
+- 时间复杂度: `O(n)`, 其中 `n` 是树的节点数.
+- 空间复杂度:  `O(h)`, 其中 `h` 是树的高度, 最坏情况下为 `O(n)`, 最好情况下为 `O(log n)`.
+
+</TabItem>
+</Tabs>
