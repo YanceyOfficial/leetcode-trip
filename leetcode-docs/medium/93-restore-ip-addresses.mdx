@@ -63,8 +63,6 @@ var restoreIpAddresses = function (s) {
   var isValid = function (part) {
     // 每个 part 不能有前导 0
     if (part.length > 1 && part[0] === "0") return false;
-    // 每个 part 长度最多是 3 位
-    if (part.length > 3) return false;
     // 每个 part 的数值不能超过 255
     if (Number(part) > 255) return false;
     return true;
@@ -116,9 +114,6 @@ pub fn restore_ip_addresses(s: String) -> Vec<String> {
 
 fn is_valid(part: &str) -> bool {
     if part.len() > 1 && part.starts_with('0') {
-        return false;
-    }
-    if part.len() > 3 {
         return false;
     }
     if part.parse::<i32>().unwrap() > 255 {
