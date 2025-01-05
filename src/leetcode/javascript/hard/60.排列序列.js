@@ -11,29 +11,35 @@
  * @return {string}
  */
 var getPermutation = function (n, k) {
-  let res = ''
-  let count = 0
-
-  const dfs = (track) => {
-    if (track.length === n) {
-      count += 1
-      if (count === k) {
-        res = track.slice().join('')
-        return
-      }
-    }
-
-    for (let i = 1; i <= n; i++) {
-      if (!track.includes(i)) {
-        track.push(i)
-        dfs(track)
-        track.pop()
-      }
-    }
+  // 计算阶乘数组
+  const factorial = [1]
+  for (let i = 1; i <= n; i++) {
+    factorial[i] = factorial[i - 1] * i
   }
 
-  dfs([])
+  // 初始化候选数字数组
+  const numbers = []
+  for (let i = 1; i <= n; i++) {
+    numbers.push(i)
+  }
 
-  return res
+  // k需要调整为0基数
+  k--
+
+  let result = ''
+
+  for (let i = n; i >= 1; i--) {
+    // 确定当前位使用哪个数字
+    const index = Math.floor(k / factorial[i - 1])
+    result += numbers[index]
+
+    // 移除选定的数字
+    numbers.splice(index, 1)
+
+    // 更新k
+    k %= factorial[i - 1]
+  }
+
+  return result
 }
 // @lc code=end

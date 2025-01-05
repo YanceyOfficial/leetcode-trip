@@ -18,7 +18,7 @@ keywords:
 - 数字 `1 - 9` 在每一列只能出现一次.
 - 数字 `1 - 9` 在每一个以粗实线分隔的 `3 * 3` 宫内只能出现一次.
 
-注意: 
+注意:
 
 - 一个有效的数独(部分已被填充)不一定是可解的.
 - 只需要根据以上规则, 验证已经填入的数字是否有效即可.
@@ -36,8 +36,8 @@ keywords:
 
 输入:
 
-```ts
-borad = [
+```bash
+board = [
   ['8', '3', '.', '.', '7', '.', '.', '.', '.'],
   ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
   ['.', '9', '8', '.', '.', '.', '.', '6', '.'],
@@ -84,8 +84,8 @@ import TabItem from '@theme/TabItem'
  */
 var isValidSudoku = function (board) {
   const rows = new Array(9).fill(0).map(() => new Array(9).fill(0))
-  const columns = new Array(9).fill(0).map(() => new Array(9).fill(0))
-  const subBoxes = new Array(3)
+  const cols = new Array(9).fill(0).map(() => new Array(9).fill(0))
+  const subs = new Array(3)
     .fill(0)
     .map(() => new Array(3).fill(0).map(() => new Array(9).fill(0)))
 
@@ -93,18 +93,17 @@ var isValidSudoku = function (board) {
     for (let j = 0; j < 9; j++) {
       if (board[i][j] === '.') continue
 
-      const index = Number(board[i][j]) - 1
-      rows[i][index]++
-      columns[j][index]++
-      subBoxes[(i / 3) | 0][(j / 3) | 0][index]++
+      const idx = Number(board[i][j]) - 1
+      rows[i][idx] += 1
+      cols[j][idx] += 1
+      subs[Math.floor(i / 3)][Math.floor(j / 3)][idx] += 1
 
       if (
-        rows[i][index] > 1 ||
-        columns[j][index] > 1 ||
-        subBoxes[(i / 3) | 0][(j / 3) | 0][index] > 1
-      ) {
+        rows[i][idx] > 1 ||
+        cols[j][idx] > 1 ||
+        subs[Math.floor(i / 3)][Math.floor(j / 3)][idx] > 1
+      )
         return false
-      }
     }
   }
 
@@ -118,8 +117,8 @@ var isValidSudoku = function (board) {
 ```rust
 pub fn is_valid_sudoku(board: Vec<Vec<char>>) -> bool {
     let mut rows = vec![vec![0; 9]; 9];
-    let mut columns = vec![vec![0; 9]; 9];
-    let mut sub_boxes = vec![vec![vec![0; 9]; 3]; 3];
+    let mut cols = vec![vec![0; 9]; 9];
+    let mut subs = vec![vec![vec![0; 9]; 3]; 3];
 
     for i in 0..9 {
         for j in 0..9 {
@@ -127,10 +126,10 @@ pub fn is_valid_sudoku(board: Vec<Vec<char>>) -> bool {
                 let idx = (num - 1) as usize;
 
                 rows[i][idx] += 1;
-                columns[j][idx] += 1;
-                sub_boxes[i / 3][j / 3][idx] += 1;
+                cols[j][idx] += 1;
+                subs[i / 3][j / 3][idx] += 1;
 
-                if rows[i][idx] > 1 || columns[j][idx] > 1 || sub_boxes[i / 3][j / 3][idx] > 1 {
+                if rows[i][idx] > 1 || cols[j][idx] > 1 || subs[i / 3][j / 3][idx] > 1 {
                     return false;
                 }
             }

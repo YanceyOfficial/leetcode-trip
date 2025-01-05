@@ -1,0 +1,160 @@
+---
+id: 454-four-sum-count
+title: 四数相加-ii
+sidebar_label: 454. 四数相加-ii
+keywords:
+  - HashMap
+---
+
+:::success Tips
+题目类型: HashMap
+:::
+
+## 题目
+
+给你四个整数数组 `nums1`, `nums2`, `nums3` 和 `nums4`, 数组长度都是 `n`, 请你计算有多少个元组 `(i, j, k, l)` 能满足:
+
+- `0 <= i, j, k, l < n`
+- `nums1[i] + nums2[j] + nums3[k] + nums4[l] == 0`
+
+:::note 提示:
+
+- `n == nums1.length`
+- `n == nums2.length`
+- `n == nums3.length`
+- `n == nums4.length`
+- `1 <= n <= 200`
+- `-2²⁸ <= nums1[i], nums2[i], nums3[i], nums4[i] <= 2²⁸`
+
+:::
+
+:::info 示例
+
+```bash
+输入: nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]
+输出: 2
+解释:
+两个元组如下:
+1. (0, 0, 0, 1) -> nums1[0] + nums2[0] + nums3[0] + nums4[1] = 1 + (-2) + (-1) + 2 = 0
+2. (1, 1, 0, 0) -> nums1[1] + nums2[1] + nums3[0] + nums4[0] = 2 + (-1) + (-1) + 0 = 0
+```
+
+```bash
+输入: nums1 = [0], nums2 = [0], nums3 = [0], nums4 = [0]
+输出: 1
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="无脑暴力四循环" label="无脑暴力四循环">
+
+用屁股想想都会超时. ❤️
+
+```ts
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @param {number[]} nums3
+ * @param {number[]} nums4
+ * @return {number}
+ */
+var fourSumCount = function (nums1, nums2, nums3, nums4) {
+  const n = nums1.length
+  let count = 0
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      for (let k = 0; k < n; k++) {
+        for (let l = 0; l < n; l++) {
+          const sum = nums1[i] + nums2[j] + nums3[k] + nums4[l]
+          if (sum === 0) {
+            count++
+          }
+        }
+      }
+    }
+  }
+
+  return count
+}
+```
+
+</TabItem>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+这题没啥意思, 就是把 A, B 分到一组; C, D 分到一组.
+
+先双循环 A 和 B, 让 `A[i]` 和 `B[j]` 的加和, 存到一个 HashMap 里, 其中 value 存的是 `A[i] + B[j]` 出现的次数.
+
+然后双循环 C 和 D, 由于求最终结果为 0, 因此只要哈希表中存在**负的** `C[k] + D[l]`, 就算找到了.
+
+这样时间复杂度就从 `O(n⁴)` 降到了 `O(n²)`, 当然代价是空间复杂度从 `O(1)` 变成了 `O(n)`, 因为申请了一个哈希表.
+
+```ts
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @param {number[]} nums3
+ * @param {number[]} nums4
+ * @return {number}
+ */
+var fourSumCount = function (nums1, nums2, nums3, nums4) {
+  let count = 0
+
+  const map = new Map()
+  for (const a of nums1) {
+    for (const b of nums2) {
+      map.set(a + b, map.has(a + b) ? map.get(a + b) + 1 : 1)
+    }
+  }
+
+  for (const c of nums3) {
+    for (const d of nums4) {
+      const sum = c + d
+      if (map.has(-sum)) {
+        count += map.get(-sum)
+      }
+    }
+  }
+
+  return count
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::collections::HashMap;
+
+pub fn four_sum_count(nums1: Vec<i32>, nums2: Vec<i32>, nums3: Vec<i32>, nums4: Vec<i32>) -> i32 {
+    let mut count = 0;
+
+    let mut map = HashMap::new();
+    for a in &nums1 {
+        for b in &nums2 {
+            map.entry(a + b).and_modify(|e| *e += 1).or_insert(1);
+        }
+    }
+
+    for c in &nums3 {
+        for d in &nums4 {
+            let sum = c + d;
+            if map.contains_key(&-sum) {
+                count += map.get(&-sum).unwrap();
+            }
+        }
+    }
+
+    count
+}
+```
+
+</TabItem>
+</Tabs>

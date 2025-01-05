@@ -70,7 +70,7 @@ var longestPalindrome = function (s) {
     let right = left + (i % 2)
 
     // 要保证中心点不越界, 并且要从中心点起, 判断左右字符是否相等
-    while (left < n && right < n && s[left] === s[right]) {
+    while (left >= 0 && right < n && s[left] === s[right]) {
       // 取当前子回文串跟 max 对比即可
       const curr = s.slice(left, right + 1)
       max = curr.length > max.length ? curr : max
@@ -103,7 +103,7 @@ pub fn longest_palindrome(s: String) -> String {
         let mut left = i / 2;
         let mut right = left + i % 2;
 
-        while left < n && right < n && s_byte[left] == s_byte[right] {
+        while left >= 0 && right < n && s_byte[left] == s_byte[right] {
             let curr = &s[left..=right];
             if curr.len() > max.len() {
                 max = curr;

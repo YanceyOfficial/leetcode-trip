@@ -58,7 +58,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 朴素解法的思路是先把 `words` 中的每个 `word` 放到哈希表 `map` 中, 值是其出现的数量. 然后从头遍历 `s`, 截取 `s.slice(i, i + n * w)` 子字符串记为 `subStr`,
-把 `subStr` 按照 `word` 的长度切割, 把每一份的子字符串存到一个新的哈希表 `subMap` 中, 和 `map` 一样, 值是其出现的数量. 最后比较 `subMap` 和 `map`, 如果相等, 说明 `words` 的某个组合
+把 `subStr` 按照 `word` 的长度切割, 把每一份的子字符串存到一个新的哈希表 `map2` 中, 和 `map` 一样, 值是其出现的数量. 最后比较 `map2` 和 `map`, 如果相等, 说明 `words` 的某个组合
 使一个合法的串联子串.
 
 <Tabs>
@@ -71,47 +71,33 @@ import TabItem from '@theme/TabItem'
  * @return {number[]}
  */
 var findSubstring = function (s, words) {
-  const m = s.length
-  const n = words.length
-  const w = words[0].length
+    const sLen = s.length
+    const wordLen = words[0].length
+    const subStringLen = words.length * wordLen
 
-  //  把 words 中的元素存储到哈希表中
-  const map = new Map()
-  for (const word of words) {
-    map.set(word, map.has(word) ? map.get(word) + 1 : 1)
-  }
-
-  const res = []
-  for (let i = 0; i < m; i++) {
-    // 因为 words 中的每个子元素长度相等, 因此串联子串的长度是 n * w
-    const end = i + n * w
-
-    // 注意如果右边界超过 m 要终止循环
-    if (end > m) break
-
-    // 因此字符串切片就是 s.slice(i, i + n * w)
-    const subStr = s.slice(i, end)
-
-    // 声明一个新的哈希表 subMap, 记录 subStr 中每 w 个小字符串
-    const subMap = new Map()
-    for (let j = 0; j < n * w; j += w) {
-      const sub = subStr.slice(j, j + w)
-
-      // 如果 words 中都没有子字符串, 可以提前终止
-      if (!words.includes(sub)) break
-
-      subMap.set(sub, subMap.has(sub) ? subMap.get(sub) + 1 : 1)
+    const map1 = new Map()
+    for (const str of words) {
+        map1.set(str, map1.has(str) ? map1.get(str) + 1 : 1)
     }
 
-    // 计算两个哈希表是否相同, JavaScript 没有直接的方法, 得手撕一个
-    // Rust 直接判断 map == sub_map 即可
-    if (isEqual(map, subMap)) {
-      res.push(i)
-    }
-  }
+    const result = []
+    for (let i = 0; i + subStringLen <= sLen; i++) {
+        const subString = s.slice(i, i + subStringLen)
+        const map2 = new Map()
 
-  return res
-}
+        for (let j = 0; j < subStringLen; j += wordLen) {
+            const subWord = subString.slice(j, j + wordLen)
+            if (!words.includes(subWord)) break
+            map2.set(subWord, map2.has(subWord) ? map2.get(subWord) + 1 : 1)
+        }
+
+        if (isEqual(map1, map2)) {
+            result.push(i)
+        }
+    }
+
+    return result
+};
 
 /**
  * @param {Map} map1
@@ -119,11 +105,11 @@ var findSubstring = function (s, words) {
  * @return {boolean}
  */
 var isEqual = function (map1, map2) {
-  for (const key of map1.keys()) {
-    if (map1.get(key) !== map2.get(key)) return false
-  }
+    for (const key of map1.keys()) {
+        if (map1.get(key) !== map2.get(key)) return false
+    }
 
-  return true
+    return true
 }
 ```
 

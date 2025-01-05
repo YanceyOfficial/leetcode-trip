@@ -11,32 +11,21 @@
  * @return {boolean}
  */
 var canConstruct = function (ransomNote, magazine) {
-  if (ransomNote === '') return true
-
   const map = new Map()
-
-  for (let i = 0; i < ransomNote.length; i++) {
-    const curVal = map.get(ransomNote[i])
-    if (curVal !== undefined) {
-      map.set(ransomNote[i], curVal + 1)
-    } else {
-      map.set(ransomNote[i], 1)
-    }
+  for (const ch of ransomNote) {
+    map.set(ch, map.has(ch) ? map.get(ch) + 1 : 1)
   }
 
-  for (let i = 0; i < magazine.length; i++) {
-    const curVal = map.get(magazine[i])
-    if (curVal !== 0 && curVal !== undefined) {
-      if (curVal - 1 === 0) {
-        map.delete(magazine[i])
+  for (const ch of magazine) {
+    if (map.has(ch)) {
+      if (map.get(ch) > 1) {
+        map.set(ch, map.get(ch) - 1)
       } else {
-        map.set(magazine[i], curVal - 1)
+        map.delete(ch)
       }
-
-      if (map.size === 0) return true
     }
   }
 
-  return false
+  return map.size === 0
 }
 // @lc code=end

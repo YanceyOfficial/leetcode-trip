@@ -69,66 +69,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 我的解法" label="JavaScript - 我的解法" default>
-
-虽然没有 ChatGPT 写的好看, 但是, 又不是不能用.jpg
-
-```ts
-/**
- * @param {number} n
- * @return {string}
- */
-var countAndSay = function (n) {
-  let res = '1'
-
-  // 第一个就是 '1', 因此从第二个开始运算
-  while (n - 1 > 0) {
-    // 当前指向的数字
-    let curr = 1
-
-    // 当前指向的数字的个数
-    let count = 0
-
-    // 做完一轮转化后的字符串, 用于最终更新 res
-    let say = ''
-
-    // 从后往前遍历
-    for (let i = res.length - 1; i >= 0; i--) {
-      const num = Number(res[i])
-
-      // 如果数字和 curr 相同, 让 count++
-      if (num === curr) {
-        count++
-      } else {
-        // 如果不同, 就要收割了, 比如计算到有 3 个 1, 那就把 31 存到 say 中
-        say = `${count}${curr}` + say
-
-        // 并把新的数字赋值给 curr
-        curr = num
-
-        // 由于新数字在这里已经被遍历到一次, 故让 count 为 1
-        count = 1
-      }
-    }
-
-    // 由于上面循环在退出后, 最后一个数字的外观数列没存起来, 因此需要在执行一次
-    say = `${count}${curr}` + say
-
-    // 最终用 say 替换 res, 以备下次计算
-    res = say
-
-    // 最后记得 n--
-    n--
-  }
-
-  return res
-}
-```
-
-</TabItem>
-<TabItem value="JavaScript - ChatGPT 写的" label="JavaScript - ChatGPT 写的">
-
-虽然没有 ChatGPT 写的好看, 但是, 又不是不能用.jpg
+<TabItem value="JavaScript" label="JavaScript" default>
 
 ```ts
 /**

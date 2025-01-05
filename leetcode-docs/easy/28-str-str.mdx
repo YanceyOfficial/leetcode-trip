@@ -24,8 +24,6 @@ sidebar_label: 28. 实现-str-str
 
 ## 题解
 
-类似于游标卡尺, 先找好 `needle` 的长度, 然后通过该区间在 `haystack` 上从左到右游走(`haystack.slice(i, j)`).
-
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
@@ -39,18 +37,15 @@ import TabItem from '@theme/TabItem'
  * @return {number}
  */
 var strStr = function (haystack, needle) {
-  let i = 0,
-    j = needle.length
+    const m = haystack.length
+    const n = needle.length
 
-  while (j <= haystack.length) {
-    if (haystack.slice(i, j) === needle) return i
+    for (let i = 0; i + n <= m; i++) {
+        if (haystack.slice(i, i + n) === needle) return i
+    }
 
-    i++
-    j++
-  }
-
-  return -1
-}
+    return -1
+};
 ```
 
 </TabItem>

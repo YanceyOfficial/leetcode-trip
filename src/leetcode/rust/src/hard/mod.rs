@@ -10,7 +10,6 @@ pub mod question_42;
 pub mod question_44;
 pub mod question_51;
 pub mod question_52;
-pub mod question_60;
 pub mod question_65;
 pub mod question_68;
 pub mod question_76;

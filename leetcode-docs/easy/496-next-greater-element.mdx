@@ -59,8 +59,6 @@ import TabItem from '@theme/TabItem'
 <Tabs>
   <TabItem value="暴力解法" label="暴力解法">
 
-显然先对 num1 循环, 对于 num1 的每个元素 x, 找到 x 在 num2 的索引, 从而通过 `nums2.slice(nums2.indexOf(x) + 1)` 找到右边的数组 rigths, 然后再遍历 rigths, 找到第一个大于 x 的数字后, 即刻跳出循环. 然鹅 too young too simple sometimes naive. 这种解法的时间复杂度是 O(n<sup>2</sup>).
-
 ```ts
 /**
  * @param {number[]} nums1
@@ -68,22 +66,22 @@ import TabItem from '@theme/TabItem'
  * @return {number[]}
  */
 var nextGreaterElement = function (nums1, nums2) {
-  const len = nums1.length
-  const res = new Array(len).fill(-1)
+  const result = new Array(nums1.length).fill(-1)
 
-  for (let i = 0; i < len; i++) {
-    const curr = nums1[i]
-    const rights = nums2.slice(nums2.indexOf(curr) + 1)
-
-    for (let j = 0; j < rights.length; j++) {
-      if (rights[j] > curr) {
-        res[i] = rights[j]
-        break
+  for (let i = 0; i < nums1.length; i++) {
+    for (let j = 0; j < nums2.length; j++) {
+      if (nums2[j] === nums1[i]) {
+        for (k = j + 1; k < nums2.length; k++) {
+          if (nums2[k] > nums1[i]) {
+            result[i] = nums2[k]
+            break
+          }
+        }
       }
     }
   }
 
-  return res
+  return result
 }
 ```
 
@@ -91,6 +89,11 @@ var nextGreaterElement = function (nums1, nums2) {
   <TabItem value="单调栈 - JavaScript" label="单调栈 - JavaScript" default>
 
 ```ts
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
 var nextGreaterElement = function (nums1, nums2) {
   const map = new Map()
   const stack = []

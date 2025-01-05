@@ -1,0 +1,110 @@
+---
+id: 383-can-construct
+title: 赎金信
+sidebar_label: 383. 赎金信
+keywords:
+  - HashMap
+---
+
+:::success Tips
+题目类型: HashMap
+:::
+
+## 题目
+
+给你两个字符串: `ransomNote` 和 `magazine`, 判断 `ransomNote` 能不能由 `magazine` 里面的字符构成.
+
+如果可以, 返回 `true`; 否则返回 `false`.
+
+`magazine` 中的每个字符只能在 `ransomNote` 中使用一次.
+
+:::note 提示:
+
+- `1 <= ransomNote.length, magazine.length <= 10⁵`
+- `ransomNote` 和 `magazine` 由小写英文字母组成
+
+:::
+
+:::info 示例
+
+```hash
+输入: ransomNote = "a", magazine = "b"
+输出: false
+```
+
+```hash
+输入: ransomNote = "aa", magazine = "ab"
+输出: false
+```
+
+```hash
+输入: ransomNote = "aa", magazine = "aab"
+输出: true
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript" label="JavaScript" default>
+
+```ts
+/**
+ * @param {string} ransomNote
+ * @param {string} magazine
+ * @return {boolean}
+ */
+var canConstruct = function (ransomNote, magazine) {
+  const map = new Map()
+  for (const ch of ransomNote) {
+    map.set(ch, map.has(ch) ? map.get(ch) + 1 : 1)
+  }
+
+  for (const ch of magazine) {
+    if (map.has(ch)) {
+      if (map.get(ch) > 1) {
+        map.set(ch, map.get(ch) - 1)
+      } else {
+        map.delete(ch)
+      }
+    }
+  }
+
+  return map.size === 0
+}
+```
+
+</TabItem>
+<TabItem value="Rust" label="Rust">
+
+```rust
+use std::collections::HashMap;
+
+pub fn can_construct(ransom_note: String, magazine: String) -> bool {
+    let mut map = HashMap::new();
+    for ch in ransom_note.chars() {
+        map.entry(ch).and_modify(|e| *e += 1).or_insert(1);
+    }
+
+    for ch in magazine.chars() {
+        if map.contains_key(&ch) {
+            if let Some(x) = map.get(&ch) {
+                if *x > 1 {
+                    map.insert(ch, *x - 1);
+                } else {
+                    map.remove(&ch);
+                }
+            }
+        }
+    }
+
+    map.is_empty()
+}
+```
+
+</TabItem>
+</Tabs>

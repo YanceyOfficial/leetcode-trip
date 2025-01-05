@@ -46,7 +46,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 直观解法" label="JavaScript - 直观解法">
+  <TabItem value="JavaScript - 直观解法" label="JavaScript - 直观解法" default>
 
 因为链表是升序的, 因此如果有重复的值, 这些重复的值也一定也是在一起的. 因此一趟循环, 只要**当前节点值**等于**下个节点的值**, 直接删除**下个节点**即可.
 
@@ -80,7 +80,7 @@ var deleteDuplicates = function (head) {
 ```
 
 </TabItem>
-<TabItem value="JavaScript - 双指针" label="JavaScript - 双指针" default>
+<TabItem value="JavaScript - 双指针" label="JavaScript - 双指针">
 
 因为链表有天然的方法 `curr.next = curr.next.next` 来删除下个元素, 所以用左边的直观解法就可以, 不过更通用的解法是使用快慢指针.
 
