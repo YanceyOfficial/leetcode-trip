@@ -6,3 +6,8 @@ updates:
       interval: daily
       time: '20:00'
     open-pull-requests-limit: 20
+  - package-ecosystem: 'cargo'
+    directory: '/'
+    schedule:
+      interval: daily
+      time: '20:00'
