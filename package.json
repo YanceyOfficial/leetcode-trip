@@ -41,7 +41,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.6.3",
     "@docusaurus/tsconfig": "3.6.3",
-    "@docusaurus/types": "3.0.1",
+    "@docusaurus/types": "3.7.0",
     "@types/assert": "^1.5.11",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
