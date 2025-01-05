@@ -1,4 +1,4 @@
-name: LeetCode Trip
+name: Deployment
 
 on: [push, pull_request]
 
