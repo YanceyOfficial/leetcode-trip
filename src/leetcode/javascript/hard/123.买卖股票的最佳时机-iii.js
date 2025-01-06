@@ -11,34 +11,19 @@
  */
 var maxProfit = function (prices) {
   const n = prices.length
-  const maxK = 2
+  const dp = new Array(n).fill(0).map(() => new Array(5).fill(0))
 
-  const dp = new Array(n).fill(
-    JSON.parse(JSON.stringify(new Array(maxK + 1).fill([0, 0]))),
-  )
-
-  for (let i = 0; i < n; i++) {
-    for (let k = maxK; k >= 1; k--) {
-      if (i === 0) {
-        //   Math.max(dp[-1][0], dp[-1][1] + prices[0])
-        // = Math.max(0, Number.NEGATIVE_INFINITY + prices[0])
-        // = 0
-        dp[0][k][0] = 0
-
-        //   Math.max(dp[-1][1], -prices[0])
-        // = Math.max(Number.NEGATIVE_INFINITY, -prices[0])
-        // = -prices[0]
-        dp[0][k][1] = -prices[0]
-
-        continue
-      }
-
-      dp[i][k][0] = Math.max(dp[i - 1][k][0], dp[i - 1][k][1] + prices[i])
-      dp[i][k][1] = Math.max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i])
-    }
+  dp[0][1] = -prices[0]
+  dp[0][3] = -prices[0]
+  for (let i = 1; i < n; i++) {
+    dp[i][0] = dp[i - 1][0]
+    dp[i][1] = Math.max(dp[i - 1][0] - prices[i], dp[i - 1][1])
+    dp[i][2] = Math.max(dp[i - 1][1] + prices[i], dp[i - 1][2])
+    dp[i][3] = Math.max(dp[i - 1][2] - prices[i], dp[i - 1][3])
+    dp[i][4] = Math.max(dp[i - 1][3] + prices[i], dp[i - 1][4])
   }
 
-  return dp[n - 1][maxK][0]
+  return dp[n - 1][4]
 }
 // @lc code=end
 

@@ -4,10 +4,11 @@ title: 买卖股票的最佳时机-ii
 sidebar_label: 122. 买卖股票的最佳时机-ii
 keywords:
   - Dynamic Programming
+  - Greedy
 ---
 
 :::success Tips
-题目类型: Dynamic Programming
+题目类型: Dynamic Programming, Greedy
 
 相关题目:
 
@@ -34,43 +35,9 @@ keywords:
 
 ## 题解
 
-### 模版解法
+![122-max-profit](../../static/img/122-max-profit.png)
 
-这道题的特点是**尽可能地完成更多的交易**, 与第 [121. 买卖股票的最佳时机](/leetcode/easy/121-max-profit) 的 `k = 1` 相比, 这道题 `k = Infinity`, 其实也就是 `k` 跟 `k - 1` 可以理解成一样的了.
-
-```ts
-dp[i][k][0] = Math.max(dp[i - 1][k][0], dp[i - 1][k][1] + prices[i])
-
-dp[i][k][1] = Math.max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i])
-//          = Math.max(dp[i - 1][k][1], dp[i - 1][k][0] - prices[i])
-```
-
-此时发现 k 是常量了, 可以约去.
-
-```ts
-dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i])
-dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i])
-```
-
-因此直接撸模版就行了.
-
-```ts
-var maxProfit = function (prices) {
-  const n = prices.length
-
-  let dp_i_0 = 0,
-    dp_i_1 = Number.NEGATIVE_INFINITY
-
-  for (let i = 0; i < n; i++) {
-    const temp = dp_i_0
-    dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i])
-    dp_i_1 = Math.max(dp_i_1, temp - prices[i])
-  }
-  return dp_i_0
-}
-```
-
-### 优雅解法
+因为是可以多次买卖, 所以可以第一天买了第二天卖; 第二天买了第三天卖... 每次只取收益为正的, 最终就会得到最大收益.
 
 ```ts
 /**
@@ -78,10 +45,11 @@ var maxProfit = function (prices) {
  * @return {number}
  */
 var maxProfit = function (prices) {
-  let sum = 0
+  let max = 0
   for (let i = 1; i < prices.length; i++) {
-    sum += Math.max(prices[i] - prices[i - 1], 0)
+    max += Math.max(prices[i] - prices[i - 1], 0)
   }
-  return sum
+
+  return max
 }
 ```

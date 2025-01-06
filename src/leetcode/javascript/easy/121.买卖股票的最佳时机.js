@@ -10,19 +10,15 @@
  * @return {number}
  */
 var maxProfit = function (prices) {
-  let n = prices.length
+  let min = Number.MAX_SAFE_INTEGER
+  let max = 0
 
-  // dp[-1][k][0] = 0
-  let dp_i_0 = 0
-
-  // dp[-1][k][1] = Number.NEGATIVE_INFINITY
-  let dp_i_1 = Number.NEGATIVE_INFINITY
-
-  for (let i = 0; i < n; i++) {
-    dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i])
-    dp_i_1 = Math.max(dp_i_1, -prices[i])
+  for (let i = 0; i < prices.length; i++) {
+    min = Math.min(min, prices[i])
+    max = Math.max(max, prices[i] - min)
   }
-  return dp_i_0
+
+  return max
 }
 
 // @lc code=end

@@ -46,25 +46,24 @@ keywords:
  * @return {number[][]}
  */
 var combinationSum3 = function (k, n) {
-  const res = []
+  const result = [];
 
-  const dfs = (begin, track, sum) => {
+  const dfs = (begin, sum, track) => {
     if (track.length === k && sum === n) {
-      res.push(track.slice())
-      return
+      result.push(track);
+      return;
     }
 
-    for (let i = begin; i < 10; i++) {
-      if (sum < n && !track.includes(i)) {
-        track.push(i)
-        dfs(i, track, sum + i)
-        track.pop()
+    for (let i = begin; i <= 9; i++) {
+      if (sum < n) {
+        track.push(i);
+        dfs(i + 1, sum + i, track.slice());
+        track.pop();
       }
     }
-  }
+  };
 
-  dfs(1, [], 0)
-
-  return res
-}
+  dfs(1, 0, []);
+  return result;
+};
 ```
