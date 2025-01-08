@@ -11,17 +11,16 @@
  */
 var maxProfit = function (prices) {
   const n = prices.length
+  const dp = new Array(n).fill(0).map(() => new Array(4).fill(0))
 
-  let dp_i_0 = 0,
-    dp_i_1 = Number.NEGATIVE_INFINITY,
-    dp_pre_0 = 0
-
-  for (let i = 0; i < n; i++) {
-    const temp = dp_i_0
-    dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i])
-    dp_i_1 = Math.max(dp_i_1, dp_pre_0 - prices[i])
-    dp_pre_0 = temp
+  dp[0][0] = -prices[0]
+  for (let i = 1; i < n; i++) {
+    dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][3], dp[i - 1][1] - prices[i])
+    dp[i][1] = Math.max(dp[i - 1][3], dp[i - 1][1])
+    dp[i][2] = dp[i - 1][0] + prices[i]
+    dp[i][3] = dp[i - 1][2]
   }
-  return dp_i_0
+
+  return Math.max(dp[n - 1][3], dp[n - 1][2], dp[n - 1][1])
 }
 // @lc code=end

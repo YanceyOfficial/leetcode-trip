@@ -10,26 +10,26 @@
  * @return {boolean}
  */
 var isPalindrome = function (s) {
-  const reg = /[A-Za-z0-9]/
+  const regex = /[A-Za-z0-9]/
   let i = 0
   let j = s.length - 1
-  let flag = true
 
-  while (flag && i < j) {
-    if (!reg.test(s[i])) {
+  while (i < j) {
+    if (!regex.test(s[i])) {
       i++
     }
 
-    if (!reg.test(s[j])) {
+    if (!regex.test(s[j])) {
       j--
     }
 
-    if (reg.test(s[i]) && reg.test(s[j])) {
-      flag = s[i].toLowerCase() === s[j].toLowerCase()
+    if (regex.test(s[i]) && regex.test(s[j])) {
+      if (s[i].toLowerCase() !== s[j].toLowerCase()) return false
       i++
       j--
     }
   }
-  return flag
+
+  return true
 }
 // @lc code=end

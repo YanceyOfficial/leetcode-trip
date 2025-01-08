@@ -12,7 +12,7 @@ keywords:
 
 相关题目:
 
-- [122. 买卖股票的最佳时机-ii](/leetcode/easy/122-max-profit)
+- [122. 买卖股票的最佳时机-ii](/leetcode/medium/122-max-profit)
 - [123. 买卖股票的最佳时机-iii](/leetcode/hard/123-max-profit)
 - [188. 买卖股票的最佳时机-iv](/leetcode/hard/188-max-profit)
 - [309. 最佳买卖股票时机含冷冻期](/leetcode/medium/309-max-profit)
@@ -55,6 +55,12 @@ keywords:
 
 ## 题解
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 贪心" label="JavaScript - 贪心" default>
+
 该题最简单的办法是用贪心, 即选取**最低点**买入, 再之后选择一个高点卖出.
 
 ```ts
@@ -74,3 +80,41 @@ var maxProfit = function (prices) {
   return max
 }
 ```
+
+</TabItem>
+<TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划">
+
+对于某一天 i, 要么是持有, 要么是不持有.
+
+如果是持有:
+
+- 这一天买入, 因为只能买一次, 所以跟之前状态无关, 那么: `dp[i][0] = -prices[i]`
+- 如果之前已经买入了, 那么: `dp[i][0] = dp[i - 1][0]`
+
+如果是不持有:
+
+- 这一天卖出, 那么: `dp[i][1] = dp[i - 1][0] + prices[i]`
+- 之前已经卖出了, 那么: `dp[i][1] = dp[i - 1][1]`
+
+```ts
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function (prices) {
+  const n = prices.length
+  const dp = new Array(n).fill(0).map(() => new Array(2).fill(0))
+
+  dp[0][0] = -prices[0] // 第 0 天买入, 现金余额就是 -prices[0]
+  dp[0][1] = 0 // 第 0 天卖出, 现金余额就是 0
+  for (let i = 1; i < n; i++) {
+    dp[i][0] = Math.max(-prices[i], dp[i - 1][0])
+    dp[i][1] = Math.max(dp[i - 1][0] + prices[i], dp[i - 1][1])
+  }
+
+  return dp[n - 1][1]
+}
+```
+
+</TabItem>
+</Tabs>
