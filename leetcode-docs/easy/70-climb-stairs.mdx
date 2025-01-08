@@ -48,7 +48,9 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 动态规划一维数组" label="JavaScript - 动态规划一维数组">
+<TabItem value="JavaScript - 动态规划一维数组" label="JavaScript - 动态规划一维数组" default>
+
+这道题跟求斐波那契数差不多, 只关心 `n` 的前两个状态, 因此不需要额外声明一个数组, 只要存储前两个值即可.
 
 ```ts
 /**
@@ -56,21 +58,22 @@ import TabItem from '@theme/TabItem'
  * @return {number}
  */
 var climbStairs = function (n) {
-  const dp = []
+  if (n < 2) return n
 
-  dp[0] = 1
+  const dp = new Array(n + 1).fill(0)
   dp[1] = 1
+  dp[2] = 2
 
-  for (let i = 2; i <= n; i++) {
+  for (let i = 3; i <= n; i++) {
     dp[i] = dp[i - 1] + dp[i - 2]
   }
-  
+
   return dp[n]
 }
 ```
 
 </TabItem>
-<TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划" default>
+<TabItem value="JavaScript - 动态规划优化版" label="JavaScript - 动态规划优化版">
 
 这道题跟求斐波那契数差不多, 只关心 `n` 的前两个状态, 因此不需要额外声明一个数组, 只要存储前两个值即可.
 

@@ -17,9 +17,10 @@ const sidebars: SidebarsConfig = {
     {
       'Dynamic Programming': [
         'dynamic-programming/concept',
-        'dynamic-programming/pack',
+        'dynamic-programming/knapsack',
         'dynamic-programming/stock',
         'dynamic-programming/string-matching',
+        'dynamic-programming/rob',
       ],
     },
     {
