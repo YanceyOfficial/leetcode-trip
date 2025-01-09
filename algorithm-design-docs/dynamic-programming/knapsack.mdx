@@ -4,16 +4,13 @@ title: 背包问题
 sidebar_label: Knapsack
 ---
 
-## 0-1 背包
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-给你一个背包, 它最多可以装载 `W` 的重量和 `N` 个物品, 其中第 `i` 个物品的重量为 `wt[i]`, 价值为 `val[i]`. `这个题目中的物品不可以分割, 要么装进包里, 要么不装, 不能说切成两块装一半`, 这就是 `0-1` 背包的来历. 如以下示例, 最优是可以装载前两个物品, 它的总价值为 `6`.
+<Tabs>
+  <TabItem value="0-1 背包" label="0-1 背包" default>
 
-```ts
-W = 4
-N = 3
-wt = [2, 1, 3]
-val = [4, 2, 3]
-```
+给你一个背包, 它最多可以装载 `capacity` 的重量, 其中第 `i` 个物品的重量为 `weights[i]`, 价值为 `values[i]`. `这个题目中的物品不可以分割, 要么装进包里, 要么不装, 不能说切成两块装一半`, 这就是 `0-1` 背包的来历. 如以下示例, 最优是可以装载前两个物品, 它的总价值为 `6`.
 
 首先明确**状态**跟**选择**, 显然状态是**重量**和**价值**, 而选择就是**要么装要么不装**.
 
@@ -26,49 +23,151 @@ val = [4, 2, 3]
 最后我们根据选择思考状态转移方程:
 
 - 如果你不把第 `i` 个物品装到背包, 说明最大价值 `dp[i][w]` 应该等于 `dp[i - 1][w]`, 即还是前一个状态
-- 如果你把第 `i` 个物品装到背包, 那么 `dp[i][w]` 等于 `dp[i - 1][w - wt[i - 1]] + val[i - 1]`, 首先, 由于 `i` 是从 `1` 开始的, 所以对 `val` 和 `wt` 的取值是 `i - 1`. 对于前半部分 `dp[i - 1][w - wt[i - 1]]`, 就是说如果装了当前物品 `i`, 那么背包的剩余容量就变成了 `w - wt[i - 1]`, 当然剩余容量可能超过了总容量, 后面会过滤掉这种情况; 对于后半部分 `val[i - 1]`, 就很显而易见了, 你把这个物品 `i` 装了进去, 那么就要把这个物品的价格加上嘛.
+- 如果你把第 `i` 个物品装到背包, 那么 `dp[i][w]` 等于 `dp[i - 1][w - weights[i - 1]] + weights[i - 1]`, 首先, 由于 `i` 是从 `1` 开始的, 所以对 `weights` 和 `weights` 的取值是 `i - 1`. 对于前半部分 `dp[i - 1][w - weights[i - 1]]`, 就是说如果装了当前物品 `i`, 那么背包的剩余容量就变成了 `w - weights[i - 1]`, 当然剩余容量可能超过了总容量, 后面会过滤掉这种情况; 对于后半部分 `weights[i - 1]`, 就很显而易见了, 你把这个物品 `i` 装了进去, 那么就要把这个物品的价格加上嘛.
+
+<Tabs>
+  <TabItem value="二维数组" label="二维数组" default>
 
 ```ts
 /**
- * @param {Number} W 背包能装多少重量
- * @param {Number} N 背包能装多少个商品
- * @param {Number[]} wt 物品重量列表
- * @param {Number[]} val 物品价值列表
+ * @param {Number[]} weights 物品重量列表
+ * @param {Number[]} values 物品价值列表
+ * @param {Number} capacity 做多能装多少
  * @returns {Number}
  */
-export function knapsack(
-  W: number,
-  N: number,
-  wt: number[],
-  val: number[],
-): Number {
-  const dp: number[][] = new Array(N + 1)
-    .fill(0)
-    .map(() => new Array(W + 1).fill(0))
+function knapsack01(weights, values, capacity) {
+  const n = weights.length
+  const dp = Array(n + 1)
+    .fill()
+    .map(() => Array(capacity + 1).fill(0))
 
-  for (let i = 1; i <= N; i++) {
-    for (let w = 1; w <= W; w++) {
-      if (w - wt[i - 1] < 0) {
-        // 当前背包容量装不下,只能选择不装入背包
-        dp[i][w] = dp[i - 1][w]
+  for (let i = 1; i <= n; i++) {
+    for (let w = 1; w <= capacity; w++) {
+      if (weights[i - 1] <= w) {
+        dp[i][w] = Math.max(
+          values[i - 1] + dp[i - 1][w - weights[i - 1]],
+          dp[i - 1][w],
+        )
       } else {
-        // 装入或者不装入背包, 择优
-        dp[i][w] = Math.max(dp[i - 1][w], dp[i - 1][w - wt[i - 1]] + val[i - 1])
+        dp[i][w] = dp[i - 1][w]
       }
     }
   }
 
-  return dp[N][W]
+  return dp[n][capacity]
 }
 ```
 
-## 完全背包
+</TabItem>
+ <TabItem value="一维数组" label="一维数组">
 
-在完全背包问题中, 每种物品都有无限多个, 可以选择多个相同的物品放入背包。目标仍然是将一些物品放入背包, 使得总价值最大, 且不超过背包的容量.
+```ts
+/**
+ * @param {Number[]} weights 物品重量列表
+ * @param {Number[]} values 物品价值列表
+ * @param {Number} capacity 做多能装多少
+ * @returns {Number}
+ */
+function knapsack01(capacity, weights, values, n) {
+  const dp = Array(capacity + 1).fill(0)
 
-## 背包组合
+  for (let i = 0; i < n; i++) {
+    for (let w = capacity; w >= weights[i]; w--) {
+      dp[w] = Math.max(dp[w], dp[w - weights[i]] + values[i])
+    }
+  }
 
-背包组合问题的目标是计算有多少种不同的物品组合使得装满背包, 即容量正好等于 W.
+  return dp[capacity]
+}
+```
+
+</TabItem>
+</Tabs>
+
+</TabItem>
+<TabItem value="完全背包" label="完全背包">
+
+在完全背包问题中, **每种物品都有无限多个**, 可以选择多个相同的物品放入背包。目标仍然是将一些物品放入背包, 使得总价值最大, 且不超过背包的容量.
+
+<Tabs>
+<TabItem value="二维数组" label="二维数组" default>
+
+```ts
+function completeKnapsack(capacity, weights, values) {
+  const n = weights.length
+  const dp = Array(n + 1)
+    .fill()
+    .map(() => Array(capacity + 1).fill(0))
+
+  for (let i = 1; i <= n; i++) {
+    for (let w = 1; w <= capacity; w++) {
+      if (weights[i - 1] <= w) {
+        // 关键区别: 可以重复选择物品 i
+        dp[i][w] = Math.max(
+          dp[i - 1][w],
+          dp[i][w - weights[i - 1]] + values[i - 1],
+        )
+      } else {
+        dp[i][w] = dp[i - 1][w]
+      }
+    }
+  }
+
+  return dp[n][capacity]
+}
+```
+
+</TabItem>
+<TabItem value="一维数组" label="一维数组">
+
+```ts
+function completeKnapsackOptimized(capacity, weights, values) {
+  const n = weights.length
+  const dp = Array(capacity + 1).fill(0)
+
+  for (let i = 0; i < n; i++) {
+    // 关键区别：内层循环正向遍历
+    for (let w = weights[i]; w <= capacity; w++) {
+      dp[w] = Math.max(dp[w], dp[w - weights[i]] + values[i])
+    }
+  }
+
+  return dp[capacity]
+}
+```
+
+</TabItem>
+<TabItem value="考虑物品数量限制的完全背包" label="考虑物品数量限制的完全背包">
+
+如果题目对每种物品的数量有限制(例如, 每种物品最多可以选择 `k` 次), 则需要在基本解法上进行修改.
+
+```ts
+function completeKnapsackWithLimit(capacity, weights, values, limits) {
+  const n = weights.length
+  const dp = Array(n + 1)
+    .fill(null)
+    .map(() => Array(capacity + 1).fill(0))
+
+  for (let i = 1; i <= n; i++) {
+    for (let w = 1; w <= capacity; w++) {
+      for (let k = 0; k <= limits[i - 1] && k * weights[i - 1] <= w; k++) {
+        dp[i][w] = Math.max(
+          dp[i][w],
+          dp[i - 1][w - k * weights[i - 1]] + k * values[i - 1],
+        )
+      }
+    }
+  }
+
+  return dp[n][capacity]
+}
+```
+
+</TabItem>
+</Tabs>
+
+</TabItem>
+</Tabs>
 
 ## 题目汇总
 
@@ -78,4 +177,4 @@ export function knapsack(
 | [474. 一和零](/leetcode/medium/474-find-max-form)        | 0-1 背包 |
 | [494. 目标和](/leetcode/medium/494-find-target-sum-ways) | 0-1 背包 |
 | [322. 零钱兑换](/leetcode/medium/322-coin-change)        | 完全背包 |
-| [518. 零钱兑换-ii](/leetcode/medium/518-change)          | 背包组合 |
+| [518. 零钱兑换-ii](/leetcode/medium/518-change)          | 完全背包 |
