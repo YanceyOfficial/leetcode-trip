@@ -8,6 +8,8 @@ keywords:
 
 :::success Tips
 题目类型: Dynamic Programming
+
+[背包问题汇总](/algorithm-design/dynamic-programming/knapsack)
 :::
 
 ## 题目
@@ -33,13 +35,14 @@ keywords:
 
 ## 题解
 
-0-1 背包问题是选还是不选, 需要先将这个题目转化一下. 设 `x` 为所有前面为 `+` 的元素之和, 设 `y` 为所有前面为 `-` 的元素之和的绝对值, 因此 `S = x - y`, 因为 `x + y = sum`, 因此 `S + sum = 2 * x`, 因此 `x = (S + sum) / 2`, 即装满容量为 `(S + sum) / 2` 的背包, 有几种方案.
+0-1 背包问题是选还是不选, 需要先将这个题目转化一下. 设 `x` 为所有前面为 `+` 的元素之和, 设 `y` 为所有前面为 `-` 的元素之和的绝对值, 那么记录一个总量 `sum = x + y`,
+并且 `S = x - y`, 因此 `S + sum = 2 * x`, 因此 `x = (S + sum) / 2`, 即装满容量为 `(S + sum) / 2` 的背包, 有几种方案.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript" label="JavaScript" default>
+  <TabItem value="JavaScript - 二维数组" label="JavaScript - 二维数组" default>
 
 ```ts
 /**
@@ -50,20 +53,51 @@ import TabItem from '@theme/TabItem'
 var findTargetSumWays = function (nums, target) {
   const n = nums.length
   const sum = nums.reduce((acc, val) => acc + val)
+  if (Math.abs(target) > sum || (sum + target) % 2 === 1) return 0
+  const capacity = (target + sum) / 2
 
-  if (target > sum || (sum + target) % 2 === 1) return 0
+  const dp = new Array(n + 1).fill(0).map(() => new Array(capacity + 1).fill(0))
+  dp[0][0] = 1
 
-  const weight = (sum + target) / 2
-  const dp = new Array(weight + 1).fill(0)
+  for (let i = 1; i <= n; i++) {
+    for (let w = 0; w <= capacity; w++) {
+      if (w - nums[i - 1] < 0) {
+        dp[i][w] = dp[i - 1][w]
+      } else {
+        dp[i][w] = dp[i - 1][w] + dp[i - 1][w - nums[i - 1]]
+      }
+    }
+  }
+
+  return dp[n][capacity]
+}
+```
+
+</TabItem>
+  <TabItem value="JavaScript - 一维数组" label="JavaScript - 一维数组">
+
+```ts
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var findTargetSumWays = function (nums, target) {
+  const n = nums.length
+  const sum = nums.reduce((acc, val) => acc + val)
+  if (Math.abs(target) > sum || (sum + target) % 2 === 1) return 0
+
+  const capacity = (sum + target) / 2
+  const dp = new Array(capacity + 1).fill(0)
   dp[0] = 1
 
   for (let i = 1; i <= n; i++) {
-    for (let j = weight; j >= nums[i - 1]; j--) {
+    for (let j = capacity; j >= nums[i - 1]; j--) {
       dp[j] = dp[j] + dp[j - nums[i - 1]]
     }
   }
 
-  return dp[weight]
+  return dp[capacity]
 }
 ```
 
@@ -75,21 +109,21 @@ pub fn find_target_sum_ways(nums: Vec<i32>, target: i32) -> i32 {
     let n = nums.len();
     let sum = nums.iter().sum();
 
-    if (target > sum || (sum + target) % 2 == 1) {
+    if (target.abs() > sum || (sum + target) % 2 == 1) {
         return 0;
     }
 
-    let weight = (sum + target) / 2;
-    let mut dp = vec![0; (weight + 1) as usize];
+    let capacity = (sum + target) / 2;
+    let mut dp = vec![0; (capacity + 1) as usize];
     dp[0] = 1;
 
     for i in 1..=n {
-        for j in (nums[i - 1]..=weight).rev() {
+        for j in (nums[i - 1]..=capacity).rev() {
             dp[j as usize] = dp[j as usize] + dp[(j - nums[i - 1]) as usize];
         }
     }
 
-    dp[weight as usize]
+    dp[capacity as usize]
 }
 ```
 

@@ -42,14 +42,14 @@ function knapsack01(weights, values, capacity) {
     .map(() => Array(capacity + 1).fill(0))
 
   for (let i = 1; i <= n; i++) {
-    for (let w = 1; w <= capacity; w++) {
-      if (weights[i - 1] <= w) {
+    for (let w = 0; w <= capacity; w++) {
+      if (w - weights[i - 1] < 0) {
+        dp[i][w] = dp[i - 1][w]
+      } else {
         dp[i][w] = Math.max(
           values[i - 1] + dp[i - 1][w - weights[i - 1]],
           dp[i - 1][w],
         )
-      } else {
-        dp[i][w] = dp[i - 1][w]
       }
     }
   }
@@ -137,33 +137,6 @@ function completeKnapsackOptimized(capacity, weights, values) {
 ```
 
 </TabItem>
-<TabItem value="考虑物品数量限制的完全背包" label="考虑物品数量限制的完全背包">
-
-如果题目对每种物品的数量有限制(例如, 每种物品最多可以选择 `k` 次), 则需要在基本解法上进行修改.
-
-```ts
-function completeKnapsackWithLimit(capacity, weights, values, limits) {
-  const n = weights.length
-  const dp = Array(n + 1)
-    .fill(null)
-    .map(() => Array(capacity + 1).fill(0))
-
-  for (let i = 1; i <= n; i++) {
-    for (let w = 1; w <= capacity; w++) {
-      for (let k = 0; k <= limits[i - 1] && k * weights[i - 1] <= w; k++) {
-        dp[i][w] = Math.max(
-          dp[i][w],
-          dp[i - 1][w - k * weights[i - 1]] + k * values[i - 1],
-        )
-      }
-    }
-  }
-
-  return dp[n][capacity]
-}
-```
-
-</TabItem>
 </Tabs>
 
 </TabItem>
@@ -171,10 +144,14 @@ function completeKnapsackWithLimit(capacity, weights, values, limits) {
 
 ## 题目汇总
 
-| 题目                                                     | 类型     |
-| -------------------------------------------------------- | -------- |
-| [416. 分割等和子集](/leetcode/medium/416-can-partition)  | 0-1 背包 |
-| [474. 一和零](/leetcode/medium/474-find-max-form)        | 0-1 背包 |
-| [494. 目标和](/leetcode/medium/494-find-target-sum-ways) | 0-1 背包 |
-| [322. 零钱兑换](/leetcode/medium/322-coin-change)        | 完全背包 |
-| [518. 零钱兑换-ii](/leetcode/medium/518-change)          | 完全背包 |
+| 题目                                                                      | 类型     |
+| ------------------------------------------------------------------------- | -------- |
+| [416. 分割等和子集](/leetcode/medium/416-can-partition)                   | 0-1 背包 |
+| [474. 一和零](/leetcode/medium/474-find-max-form)                         | 0-1 背包 |
+| [494. 目标和](/leetcode/medium/494-find-target-sum-ways)                  | 0-1 背包 |
+| [1049. 最后一块石头的重量-ii](/leetcode/medium/1049-last-stone-weight-ii) | 0-1 背包 |
+| [139. 单词拆分](/leetcode/medium/139-word-break)                          | 完全背包 |
+| [279. 完全平方数](/leetcode/medium/279-num-squares)                       | 完全背包 |
+| [322. 零钱兑换](/leetcode/medium/322-coin-change)                         | 完全背包 |
+| [377. 组合总和-iv](/leetcode/medium/377-combination-sum4)                  | 完全背包 |
+| [518. 零钱兑换-ii](/leetcode/medium/518-change)                           | 完全背包 |

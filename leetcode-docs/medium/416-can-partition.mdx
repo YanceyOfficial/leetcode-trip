@@ -8,6 +8,8 @@ keywords:
 
 :::success Tips
 题目类型: Dynamic Programming
+
+[背包问题汇总](/algorithm-design/dynamic-programming/knapsack)
 :::
 
 ## 题目
@@ -32,7 +34,7 @@ keywords:
 
 ## 题解
 
-这道题可以转化成 [0-1 背包问题](/algorithm-design/dynamic-programming/knapsack#0-1-背包). 先给 `nums` 求和记为 `weight`, 因此这道题就变成了: 给你背包容量为 `weight / 2` 和 `n` 个物品, 每个物品的重量为 `nums[i]`, 现在让你装物品, 是否存在一种装法, 能够恰好将背包装满.
+这道题可以转化成 [0-1 背包问题](/algorithm-design/dynamic-programming/knapsack). `nums` 相当于 `weights`, 先给 `nums` 求和记为 `capacity`, 因此这道题就变成了: 给你背包容量为 `capacity / 2` 和 `n` 个物品, 每个物品的重量为 `nums[i]`, 现在让你装物品, 是否存在一种装法, 能够恰好将背包装满.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -48,68 +50,68 @@ import TabItem from '@theme/TabItem'
  * @return {boolean}
  */
 var canPartition = function (nums) {
-  let weight = nums.reduce((acc, val) => acc + val)
+  let capacity = nums.reduce((acc, val) => acc + val)
 
   // 如果和为奇数, 肯定无法切割成两个子数组
-  if (weight % 2 === 1) return false
-  weight /= 2
+  if (capacity % 2 === 1) return false
+  capacity /= 2
 
   const n = nums.length
   const dp = new Array(n + 1)
     .fill(false)
-    .map(() => new Array(weight + 1).fill(false))
+    .map(() => new Array(capacity + 1).fill(false))
 
   // 重量为 0 时选择 0 个数字, 一定是 true
   dp[0][0] = true
 
   for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= weight; j++) {
-      if (j - nums[i - 1] < 0) {
+    for (let w = 0; w <= capacity; w++) {
+      if (w - nums[i - 1] < 0) {
         // 背包容量不足, 不能装入第 i 个物品
-        dp[i][j] = dp[i - 1][j]
+        dp[i][w] = dp[i - 1][w]
       } else {
         // 装入或不装入背包
-        // 不装入: dp[i - 1][j]
-        // 装入: 如果装了第 i 个物品, 就要看背包的剩余重量 j - nums[i - 1] 限制下是否能够被恰好装满
-        dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]]
+        // 不装入: dp[i - 1][w]
+        // 装入: 如果装了第 i 个物品, 就要看背包的剩余重量 w - nums[i - 1] 限制下是否能够被恰好装满
+        dp[i][w] = dp[i - 1][w] || dp[i - 1][w - nums[i - 1]]
       }
     }
   }
 
-  return dp[n][weight]
+  return dp[n][capacity]
 }
 ```
 
-- 时间复杂度: `O(n * weight)`, 其中 `n` 是数组 `sum` 的长度, `weight` 是数组元素和的一半.
+- 时间复杂度: `O(n * capacity)`, 其中 `n` 是数组 `sum` 的长度, `capacity` 是数组元素和的一半.
 
-- 空间复杂度: `O(target * weight)`, 其中 `n` 是数组 `sum` 的长度, `weight` 是数组元素和的一半.
+- 空间复杂度: `O(target * capacity)`, 其中 `n` 是数组 `sum` 的长度, `capacity` 是数组元素和的一半.
 
 </TabItem>
 <TabItem value="JavaScript - 一维数组" label="JavaScript - 一维数组">
 
-`dp[i][j]` 都是通过上一行 `dp[i - 1][..]` 转移过来的, 之前的数据都不会再使用了, 因此可以把 `i` 消去.
+`dp[i][w]` 都是通过上一行 `dp[i - 1][..]` 转移过来的, 之前的数据都不会再使用了, 因此可以把 `i` 消去.
 
 ```ts
 var canPartition = function (nums) {
-  let weight = nums.reduce((acc, val) => acc + val)
-  if (weight % 2 === 1) return false
+  let capacity = nums.reduce((acc, val) => acc + val)
+  if (capacity % 2 === 1) return false
   const n = nums.length
-  weight /= 2
+  capacity /= 2
 
-  const dp = new Array(weight + 1).fill(false)
+  const dp = new Array(capacity + 1).fill(false)
   dp[0] = true
 
   for (let i = 1; i <= n; i++) {
-    for (let j = weight; j >= nums[i - 1]; j--) {
-      dp[j] = dp[j] || dp[j - nums[i - 1]]
+    for (let w = capacity; w >= nums[i - 1]; w--) {
+      dp[w] = dp[w] || dp[w - nums[i - 1]]
     }
   }
 
-  return dp[weight]
+  return dp[capacity]
 }
 ```
 
-- 时间复杂度: `O(n * weight)`, 其中 `n` 是数组 `sum` 的长度, `weight` 是数组元素和的一半.
+- 时间复杂度: `O(n * capacity)`, 其中 `n` 是数组 `sum` 的长度, `capacity` 是数组元素和的一半.
 
 - 空间复杂度: `O(target)`.
 
@@ -119,26 +121,26 @@ var canPartition = function (nums) {
 ```rust
 pub fn can_partition(nums: Vec<i32>) -> bool {
     let n = nums.len();
-    let mut weight = nums.iter().sum::<i32>();
-    if (weight % 2 == 1) {
+    let mut capacity = nums.iter().sum::<i32>();
+    if (capacity % 2 == 1) {
         return false;
     }
-    weight /= 2;
+    capacity /= 2;
 
-    let mut dp = vec![vec![false; (weight + 1) as usize]; n + 1];
+    let mut dp = vec![vec![false; (capacity + 1) as usize]; n + 1];
     dp[0][0] = true;
 
     for i in 1..=n {
-        for j in 1..=(weight as usize) {
-            if (j as i32) - nums[i - 1] < 0 {
-                dp[i][j] = dp[i - 1][j];
+        for w in 1..=(capacity as usize) {
+            if (w as i32) - nums[i - 1] < 0 {
+                dp[i][w] = dp[i - 1][w];
             } else {
-                dp[i][j] = dp[i - 1][j] || dp[i - 1][((j as i32) - nums[i - 1]) as usize];
+                dp[i][w] = dp[i - 1][w] || dp[i - 1][((w as i32) - nums[i - 1]) as usize];
             }
         }
     }
 
-    dp[n][weight as usize]
+    dp[n][capacity as usize]
 }
 ```
 

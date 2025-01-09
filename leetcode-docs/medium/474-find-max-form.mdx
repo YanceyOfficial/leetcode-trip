@@ -8,6 +8,8 @@ keywords:
 
 :::success Tips
 题目类型: Dynamic Programming
+
+[背包问题汇总](/algorithm-design/dynamic-programming/knapsack)
 :::
 
 ## 题目
@@ -63,13 +65,13 @@ var findMaxForm = function (strs, m, n) {
   const len = strs.length
 
   // 先计算 strs 每个元素中 0 和 1 的个数
-  const arr = []
+  const values = []
   for (const str of strs) {
-    const subArr = [0, 0]
-    for (const char of str.split('')) {
-      subArr[char] += 1
+    const tuple = [0, 0]
+    for (const ch of str.split('')) {
+      tuple[Number(ch)] += 1
     }
-    arr.push(subArr)
+    values.push(tuple)
   }
 
   // 创建三维数组
@@ -79,13 +81,16 @@ var findMaxForm = function (strs, m, n) {
 
   // 基本的 0-1 背包套路
   for (let i = 1; i <= len; i++) {
-    const [c0, c1] = arr[i - 1]
+    const [zero, one] = values[i - 1]
     for (let j = 0; j <= m; j++) {
       for (let k = 0; k <= n; k++) {
-        if (j - c0 < 0 || k - c1 < 0) {
+        if (j - zero < 0 || k - one < 0) {
           dp[i][j][k] = dp[i - 1][j][k]
         } else {
-          dp[i][j][k] = Math.max(dp[i - 1][j][k], dp[i - 1][j - c0][k - c1] + 1)
+          dp[i][j][k] = Math.max(
+            dp[i - 1][j][k],
+            dp[i - 1][j - zero][k - one] + 1,
+          )
         }
       }
     }
@@ -108,21 +113,21 @@ var findMaxForm = function (strs, m, n) {
 var findMaxForm = function (strs, m, n) {
   const len = strs.length
 
-  const arr = []
+  const values = []
   for (const str of strs) {
-    const subArr = [0, 0]
-    for (const char of str.split('')) {
-      subArr[char] += 1
+    const tuple = [0, 0]
+    for (const ch of str.split('')) {
+      tuple[Number(ch)] += 1
     }
-    arr.push(subArr)
+    values.push(tuple)
   }
 
   const dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0))
   for (let i = 1; i <= len; i++) {
-    const [c0, c1] = arr[i - 1]
-    for (let j = m; j >= c0; j--) {
-      for (let k = n; k >= c1; k--) {
-        dp[j][k] = Math.max(dp[j][k], dp[j - c0][k - c1] + 1)
+    const [zero, one] = values[i - 1]
+    for (let j = m; j >= zero; j--) {
+      for (let k = n; k >= one; k--) {
+        dp[j][k] = Math.max(dp[j][k], dp[j - zero][k - one] + 1)
       }
     }
   }
@@ -141,7 +146,7 @@ pub fn find_max_form(strs: Vec<String>, m: i32, n: i32) -> i32 {
     let len = strs.len();
     let m = m as usize;
     let n = n as usize;
-    let arr = strs.iter().fold(vec![], |mut arr, str| {
+    let values = strs.iter().fold(vec![], |mut values, str| {
         let tuple = str.chars().fold((0, 0), |mut tuple, ch| {
             if ch == '0' {
                 tuple.0 += 1;
@@ -150,16 +155,16 @@ pub fn find_max_form(strs: Vec<String>, m: i32, n: i32) -> i32 {
             }
             tuple
         });
-        arr.push(tuple);
-        arr
+        values.push(tuple);
+        values
     });
 
     let mut dp = vec![vec![0; n + 1]; m + 1];
     for i in 1..=len {
-        let (c0, c1) = arr[i - 1];
-        for j in (c0..=m).rev() {
-            for k in (c1..=n).rev() {
-                dp[j][k] = cmp::max(dp[j][k], dp[j - c0][k - c1] + 1);
+        let (zero, one) = values[i - 1];
+        for j in (zero..=m).rev() {
+            for k in (one..=n).rev() {
+                dp[j][k] = cmp::max(dp[j][k], dp[j - zero][k - one] + 1);
             }
         }
     }

@@ -3,7 +3,7 @@ pub fn find_target_sum_ways(nums: Vec<i32>, target: i32) -> i32 {
     let n = nums.len();
     let sum = nums.iter().sum();
 
-    if (target > sum || (sum + target) % 2 == 1) {
+    if (target.abs() > sum || (sum + target) % 2 == 1) {
         return 0;
     }
 
