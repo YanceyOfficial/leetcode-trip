@@ -15,7 +15,7 @@ var findNumberOfLIS = function (nums) {
   const count = new Array(n).fill(1)
 
   let max = 1
-  for (let i = 0; i < n; i++) {
+  for (let i = 1; i < n; i++) {
     for (let j = 0; j < i; j++) {
       if (nums[j] < nums[i]) {
         if (dp[j] + 1 > dp[i]) {
@@ -29,6 +29,8 @@ var findNumberOfLIS = function (nums) {
 
     max = Math.max(dp[i], max)
   }
+
+  console.log(count)
 
   let ans = 0
   for (let i = 0; i < n; i++) {

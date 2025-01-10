@@ -19,7 +19,7 @@ const sidebars: SidebarsConfig = {
         'dynamic-programming/concept',
         'dynamic-programming/knapsack',
         'dynamic-programming/stock',
-        'dynamic-programming/string-matching',
+        'dynamic-programming/subsequence',
         'dynamic-programming/rob',
       ],
     },
