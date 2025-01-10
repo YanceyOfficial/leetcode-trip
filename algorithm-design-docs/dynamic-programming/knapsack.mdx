@@ -42,13 +42,13 @@ function knapsack2D(weights, values, capacity) {
     .map(() => Array(capacity + 1).fill(0))
 
   for (let i = 1; i <= n; i++) {
-    for (let j = 0; j <= capacity; j++) {
-      if (j < weights[i - 1]) {
-        dp[i][j] = dp[i - 1][j]
+    for (let w = 0; w <= capacity; w++) {
+      if (w < weights[i - 1]) {
+        dp[i][w] = dp[i - 1][w]
       } else {
-        dp[i][j] = Math.max(
-          dp[i - 1][j],
-          dp[i - 1][j - weights[i - 1]] + values[i - 1],
+        dp[i][w] = Math.max(
+          dp[i - 1][w],
+          dp[i - 1][w - weights[i - 1]] + values[i - 1],
         )
       }
     }
@@ -72,9 +72,9 @@ function knapsack1D(weights, values, capacity) {
   const dp = Array(capacity + 1).fill(0)
 
   for (let i = 0; i < n; i++) {
-    for (let j = capacity; j >= weights[i]; j--) {
+    for (let w = capacity; w >= weights[i]; w--) {
       // 逆序遍历
-      dp[j] = Math.max(dp[j], dp[j - weights[i]] + values[i])
+      dp[w] = Math.max(dp[w], dp[w - weights[i]] + values[i])
     }
   }
   return dp[capacity]

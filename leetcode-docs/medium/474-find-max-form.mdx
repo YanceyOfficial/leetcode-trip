@@ -68,7 +68,7 @@ var findMaxForm = function (strs, m, n) {
   const values = []
   for (const str of strs) {
     const tuple = [0, 0]
-    for (const ch of str.split('')) {
+    for (const ch of str) {
       tuple[Number(ch)] += 1
     }
     values.push(tuple)

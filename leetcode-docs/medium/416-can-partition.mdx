@@ -40,9 +40,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 二维数组" label="JavaScript - 二维数组" default>
-
-### 二维数组解法
+  <TabItem value="JavaScript - 二维数组" label="JavaScript - 二维数组">
 
 ```ts
 /**
@@ -87,23 +85,27 @@ var canPartition = function (nums) {
 - 空间复杂度: `O(target * capacity)`, 其中 `n` 是数组 `sum` 的长度, `capacity` 是数组元素和的一半.
 
 </TabItem>
-<TabItem value="JavaScript - 一维数组" label="JavaScript - 一维数组">
+<TabItem value="JavaScript - 一维数组" label="JavaScript - 一维数组" default>
 
 `dp[i][w]` 都是通过上一行 `dp[i - 1][..]` 转移过来的, 之前的数据都不会再使用了, 因此可以把 `i` 消去.
 
 ```ts
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
 var canPartition = function (nums) {
   let capacity = nums.reduce((acc, val) => acc + val)
   if (capacity % 2 === 1) return false
   const n = nums.length
   capacity /= 2
 
-  const dp = new Array(capacity + 1).fill(false)
+  const dp = Array(capacity + 1).fill(false)
   dp[0] = true
 
-  for (let i = 1; i <= n; i++) {
-    for (let w = capacity; w >= nums[i - 1]; w--) {
-      dp[w] = dp[w] || dp[w - nums[i - 1]]
+  for (let i = 0; i < n; i++) {
+    for (let w = capacity; w >= nums[i]; w--) {
+      dp[w] = dp[w] || dp[w - nums[i]]
     }
   }
 

@@ -55,6 +55,13 @@ keywords:
 因此可以这样思考: 如果想要最小的可能重量, 其实可以抽象成两堆, 两堆相撞接近 0 就好, 那么此时问题就是有一堆石头, 每个石头都有自己的重量, 如何**装满**或是尽可能接近最大重量为 **sum / 2** 的背包. 
 
 从解法上和 0-1 背包的原生题一模一样, 要注意求 `capacity` 是向下取整; `dp[n][capacity]` 代表每堆最接近 `capacity` 的数, 所以最终结果是 `sum - dp[n][capacity] * 2`
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="二维数组" label="二维数组" >
+
 ```ts
 /**
  * @param {number[]} stones
@@ -84,3 +91,32 @@ var lastStoneWeightII = function (stones) {
   return sum - dp[n][capacity] * 2
 }
 ```
+
+</TabItem>
+ <TabItem value="一维数组" label="一维数组" default>
+
+```ts
+/**
+ * @param {number[]} stones
+ * @return {number}
+ */
+var lastStoneWeightII = function (stones) {
+  const n = stones.length
+  if (n === 1) return stones[0]
+
+  const sum = stones.reduce((acc, val) => acc + val)
+  const capacity = Math.floor(sum / 2)
+
+  const dp = new Array(capacity + 1).fill(0)
+  for (let i = 0; i < n; i++) {
+    for (let w = capacity; w >= stones[i]; w--) {
+      dp[w] = Math.max(dp[w], dp[w - stones[i]] + stones[i])
+    }
+  }
+
+  return sum - dp[capacity] * 2
+}
+```
+
+</TabItem>
+</Tabs>
