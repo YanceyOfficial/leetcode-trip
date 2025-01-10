@@ -60,12 +60,16 @@ keywords:
  * @return {number}
  */
 var combinationSum4 = function (nums, target) {
-  const dp = new Array(target + 1).fill(0)
+  const n = nums.length
+  const dp = Array(target + 1).fill(0)
   dp[0] = 1
-  for (let i = 1; i <= target; i++) {
-    for (let j = 0; j < nums.length; j++) {
-      if (i - nums[j] >= 0) {
-        dp[i] += dp[i - nums[j]]
+
+  for (let w = 1; w <= target; w++) {
+    // 外层循环遍历 target
+    for (let i = 0; i < nums.length; i++) {
+      // 内层循环遍历 nums
+      if (w >= nums[i]) {
+        dp[w] += dp[w - nums[i]]
       }
     }
   }

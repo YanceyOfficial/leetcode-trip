@@ -15,10 +15,10 @@ var wordBreak = function (s, wordDict) {
   const dp = new Array(n + 1).fill(false)
   dp[0] = true
 
-  for (let i = 1; i <= n; i++) {
-    for (let j = 0; j < i; j++) {
-      if (dp[j] && wordDict.includes(s.slice(j, i))) {
-        dp[i] = true
+  for (let w = 1; w <= n; w++) {
+    for (let i = 0; i < w; i++) {
+      if (dp[i] && wordDict.includes(s.slice(i, w))) {
+        dp[w] = true
         break
       }
     }

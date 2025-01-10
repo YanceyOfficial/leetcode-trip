@@ -14,8 +14,8 @@ var numSquares = function (n) {
   dp[0] = 0 // 和为 0 的完全平方数数量为 0
 
   for (let i = 1; i <= n; i++) {
-    for (let j = 1; j * j <= i; j++) {
-      dp[i] = Math.min(dp[i], dp[i - j * j] + 1)
+    for (let w = i * i; w <= n; w++) {
+      dp[w] = Math.min(dp[w], dp[w - i * i] + 1)
     }
   }
 

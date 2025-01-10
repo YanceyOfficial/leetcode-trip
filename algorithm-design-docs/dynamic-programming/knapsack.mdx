@@ -32,28 +32,27 @@ import TabItem from '@theme/TabItem'
 /**
  * @param {Number[]} weights 物品重量列表
  * @param {Number[]} values 物品价值列表
- * @param {Number} capacity 做多能装多少
+ * @param {Number} capacity 最多能装多少
  * @returns {Number}
  */
-function knapsack01(weights, values, capacity) {
+function knapsack2D(weights, values, capacity) {
   const n = weights.length
   const dp = Array(n + 1)
-    .fill()
+    .fill(null)
     .map(() => Array(capacity + 1).fill(0))
 
   for (let i = 1; i <= n; i++) {
-    for (let w = 0; w <= capacity; w++) {
-      if (w - weights[i - 1] < 0) {
-        dp[i][w] = dp[i - 1][w]
+    for (let j = 0; j <= capacity; j++) {
+      if (j < weights[i - 1]) {
+        dp[i][j] = dp[i - 1][j]
       } else {
-        dp[i][w] = Math.max(
-          values[i - 1] + dp[i - 1][w - weights[i - 1]],
-          dp[i - 1][w],
+        dp[i][j] = Math.max(
+          dp[i - 1][j],
+          dp[i - 1][j - weights[i - 1]] + values[i - 1],
         )
       }
     }
   }
-
   return dp[n][capacity]
 }
 ```
@@ -65,18 +64,19 @@ function knapsack01(weights, values, capacity) {
 /**
  * @param {Number[]} weights 物品重量列表
  * @param {Number[]} values 物品价值列表
- * @param {Number} capacity 做多能装多少
+ * @param {Number} capacity 最多能装多少
  * @returns {Number}
  */
-function knapsack01(capacity, weights, values, n) {
+function knapsack1D(weights, values, capacity) {
+  const n = weights.length
   const dp = Array(capacity + 1).fill(0)
 
   for (let i = 0; i < n; i++) {
-    for (let w = capacity; w >= weights[i]; w--) {
-      dp[w] = Math.max(dp[w], dp[w - weights[i]] + values[i])
+    for (let j = capacity; j >= weights[i]; j--) {
+      // 逆序遍历
+      dp[j] = Math.max(dp[j], dp[j - weights[i]] + values[i])
     }
   }
-
   return dp[capacity]
 }
 ```
@@ -87,32 +87,42 @@ function knapsack01(capacity, weights, values, n) {
 </TabItem>
 <TabItem value="完全背包" label="完全背包">
 
+:::success Tips
+求组合数: 外层 for 循环遍历物品, 内层 for 遍历背包.
+
+求排列数: 外层 for 遍历背包, 内层 for 循环遍历物品.
+:::
+
 在完全背包问题中, **每种物品都有无限多个**, 可以选择多个相同的物品放入背包。目标仍然是将一些物品放入背包, 使得总价值最大, 且不超过背包的容量.
 
 <Tabs>
 <TabItem value="二维数组" label="二维数组" default>
 
 ```ts
-function completeKnapsack(capacity, weights, values) {
+/**
+ * @param {Number[]} weights 物品重量列表
+ * @param {Number[]} values 物品价值列表
+ * @param {Number} capacity 最多能装多少
+ * @returns {Number}
+ */
+function completePack2D(weights, values, capacity) {
   const n = weights.length
   const dp = Array(n + 1)
-    .fill()
+    .fill(null)
     .map(() => Array(capacity + 1).fill(0))
 
   for (let i = 1; i <= n; i++) {
-    for (let w = 1; w <= capacity; w++) {
-      if (weights[i - 1] <= w) {
-        // 关键区别: 可以重复选择物品 i
+    for (let w = 0; w <= capacity; w++) {
+      if (w < weights[i - 1]) {
+        dp[i][w] = dp[i - 1][w]
+      } else {
         dp[i][w] = Math.max(
           dp[i - 1][w],
           dp[i][w - weights[i - 1]] + values[i - 1],
         )
-      } else {
-        dp[i][w] = dp[i - 1][w]
       }
     }
   }
-
   return dp[n][capacity]
 }
 ```
@@ -121,17 +131,22 @@ function completeKnapsack(capacity, weights, values) {
 <TabItem value="一维数组" label="一维数组">
 
 ```ts
-function completeKnapsackOptimized(capacity, weights, values) {
+/**
+ * @param {Number[]} weights 物品重量列表
+ * @param {Number[]} values 物品价值列表
+ * @param {Number} capacity 最多能装多少
+ * @returns {Number}
+ */
+function completePack1D(weights, values, capacity) {
   const n = weights.length
   const dp = Array(capacity + 1).fill(0)
 
   for (let i = 0; i < n; i++) {
-    // 关键区别：内层循环正向遍历
     for (let w = weights[i]; w <= capacity; w++) {
+      // 正序遍历
       dp[w] = Math.max(dp[w], dp[w - weights[i]] + values[i])
     }
   }
-
   return dp[capacity]
 }
 ```
@@ -144,14 +159,14 @@ function completeKnapsackOptimized(capacity, weights, values) {
 
 ## 题目汇总
 
-| 题目                                                                      | 类型     |
-| ------------------------------------------------------------------------- | -------- |
-| [416. 分割等和子集](/leetcode/medium/416-can-partition)                   | 0-1 背包 |
-| [474. 一和零](/leetcode/medium/474-find-max-form)                         | 0-1 背包 |
-| [494. 目标和](/leetcode/medium/494-find-target-sum-ways)                  | 0-1 背包 |
-| [1049. 最后一块石头的重量-ii](/leetcode/medium/1049-last-stone-weight-ii) | 0-1 背包 |
-| [139. 单词拆分](/leetcode/medium/139-word-break)                          | 完全背包 |
-| [279. 完全平方数](/leetcode/medium/279-num-squares)                       | 完全背包 |
-| [322. 零钱兑换](/leetcode/medium/322-coin-change)                         | 完全背包 |
-| [377. 组合总和-iv](/leetcode/medium/377-combination-sum4)                  | 完全背包 |
-| [518. 零钱兑换-ii](/leetcode/medium/518-change)                           | 完全背包 |
+| 题目                                                                       | 类型               |
+| -------------------------------------------------------------------------- | ------------------ |
+| [416. 分割等和子集](/leetcode/medium/416-can-partition)                    | 0-1 背包           |
+| [474. 一和零](/leetcode/medium/474-find-max-form)                          | 0-1 背包           |
+| [494. 目标和](/leetcode/medium/494-find-target-sum-ways)                   | 0-1 背包           |
+| [1049. 最后一块石头的重量-ii](/leetcode/medium/1049-last-stone-weights-ii) | 0-1 背包           |
+| [139. 单词拆分](/leetcode/medium/139-word-break)                           | 完全背包(求排列数) |
+| [279. 完全平方数](/leetcode/medium/279-num-squares)                        | 完全背包           |
+| [322. 零钱兑换](/leetcode/medium/322-coin-change)                          | 完全背包           |
+| [377. 组合总和-iv](/leetcode/medium/377-combination-sum4)                  | 完全背包(求排列数) |
+| [518. 零钱兑换-ii](/leetcode/medium/518-change)                            | 完全背包(求组合数) |
