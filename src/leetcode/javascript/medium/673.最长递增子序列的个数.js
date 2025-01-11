@@ -30,8 +30,6 @@ var findNumberOfLIS = function (nums) {
     max = Math.max(dp[i], max)
   }
 
-  console.log(count)
-
   let ans = 0
   for (let i = 0; i < n; i++) {
     if (dp[i] == max) {

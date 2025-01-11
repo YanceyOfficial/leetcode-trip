@@ -13,10 +13,14 @@ keywords:
 
 - [10. 正则表达式匹配](/leetcode/hard/10-is-match)
 - [44. 通配符匹配](/leetcode/hard/44-is-match)
+- [53. 最大子序和](/leetcode/medium/53-max-sub-array)
 - [72. 编辑距离](/leetcode/medium/72-min-distance)
 - [115. 不同的子序列](/leetcode/hard/115-num-distinct)
+- [300. 最长递增子序列](/leetcode/medium/300-length-of-lis)
 - [516. 最长回文子序列](/leetcode/medium/516-longest-palindrome-subseq)
 - [583. 两个字符串的删除操作](/leetcode/medium/583-min-distance)
+- [647. 回文子串](/leetcode/medium/647-count-substrings)
+- [1035. 不相交的线](/leetcode/medium/1035-max-uncrossed-lines)
 
 :::
 
@@ -102,11 +106,8 @@ var longestCommonSubsequence = function (text1, text2) {
   const dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0))
 
   for (let i = 1; i <= m; i++) {
-    const char1 = text1[i - 1]
     for (let j = 1; j <= n; j++) {
-      const char2 = text2[j - 1]
-
-      if (char1 === char2) {
+      if (text1[i - 1] === text2[j - 1]) {
         dp[i][j] = dp[i - 1][j - 1] + 1
       } else {
         dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])
@@ -125,18 +126,13 @@ var longestCommonSubsequence = function (text1, text2) {
 use std::cmp;
 
 pub fn longest_common_subsequence(text1: String, text2: String) -> i32 {
-    let text1 = text1.as_bytes();
-    let text2 = text2.as_bytes();
-    let m = text1.len();
+    let m: usize = text1.len();
     let n = text2.len();
     let mut dp = vec![vec![0; n + 1]; m + 1];
 
     for i in 1..=m {
-        let byte1 = text1[i - 1];
         for j in 1..=n {
-            let byte2 = text2[j - 1];
-
-            if byte1 == byte2 {
+            if &text1[i - 1..i] == &text2[j - 1..j] {
                 dp[i][j] = dp[i - 1][j - 1] + 1;
             } else {
                 dp[i][j] = cmp::max(dp[i - 1][j], dp[i][j - 1]);
@@ -146,7 +142,6 @@ pub fn longest_common_subsequence(text1: String, text2: String) -> i32 {
 
     dp[m][n]
 }
-
 ```
 
 </TabItem>
