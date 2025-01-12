@@ -60,7 +60,7 @@ var longestConsecutive = function (nums) {
   if (nums.length < 2) return nums.length
 
   const uniqueNums = new Set(nums)
-  let max = 0
+  let max = 1
 
   for (const num of uniqueNums) {
     if (!uniqueNums.has(num - 1)) {

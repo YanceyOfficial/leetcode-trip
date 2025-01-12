@@ -4,10 +4,28 @@ title: 最大子序和
 sidebar_label: 53. 最大子序和
 keywords:
   - Dynamic Programming
+  - Greedy
 ---
 
 :::success Tips
-题目类型: Dynamic Programming
+题目类型: Dynamic Programming, Greedy
+
+相关题目:
+
+- [10. 正则表达式匹配](/leetcode/hard/10-is-match)
+- [44. 通配符匹配](/leetcode/hard/44-is-match)
+- [72. 编辑距离](/leetcode/medium/72-min-distance)
+- [115. 不同的子序列](/leetcode/hard/115-num-distinct)
+- [300. 最长递增子序列](/leetcode/medium/300-length-of-lis)
+- [392. 判断子序列](/leetcode/easy/392-is-subsequence)
+- [516. 最长回文子序列](/leetcode/medium/516-longest-palindrome-subseq)
+- [583. 两个字符串的删除操作](/leetcode/medium/583-min-distance)
+- [647. 回文子串](/leetcode/medium/647-count-substrings)
+- [674. 最长连续递增序列](/leetcode/easy/674-find-length-of-lcis)
+- [718. 最长重复子数组](/leetcode/medium/718-find-length)
+- [1035. 不相交的线](/leetcode/medium/1035-max-uncrossed-lines)
+- [1143. 最长公共子序列](/leetcode/medium/1143-longest-common-subsequence)
+
 :::
 
 ## 题目
@@ -32,13 +50,38 @@ keywords:
 
 ## 题解
 
-`sum` 为局部(也就是子数组)的累加和, 如果 `sum` 为**负数或 `0`**, 说明以前的累加和应该被废弃(毕竟越加越小); `如果 sum > 0`, 前面的累加和就可以被复用. 让 `ans` 和 `sum` 比较, 找出最大的即可.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript" label="JavaScript" default>
+  <TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划" default>
+
+```ts
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+  const n = nums.length
+  const dp = new Array(n).fill(0)
+  dp[0] = nums[0]
+
+  let max = nums[0]
+  for (let i = 1; i < n; i++) {
+    dp[i] = Math.max(dp[i - 1] + nums[i], nums[i])
+    max = Math.max(max, dp[i])
+  }
+
+  return max
+}
+```
+
+</TabItem>
+  <TabItem value="JavaScript - 贪心" label="JavaScript - 贪心">
+
+
+`sum` 为局部(也就是子数组)的累加和, 如果 `sum` 为**负数或 `0`**, 说明以前的累加和应该被废弃(毕竟越加越小); `如果 sum > 0`, 前面的累加和就可以被复用. 让 `ans` 和 `sum` 比较, 找出最大的即可.
 
 ```ts
 /**

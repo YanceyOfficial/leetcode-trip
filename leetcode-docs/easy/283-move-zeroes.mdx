@@ -18,11 +18,11 @@ sidebar_label: 283. 移动零
 ## 题解
 
 ```ts
-right          right            right           right           right          right
+fast            fast            fast            fast            fast            fast
  ↓               ↓               ↓               ↓               ↓               ↓
 [0 1 0 3 6]   [0 1 0 3 6]   [1 0 0 3 6]   [1 0 0 3 6]   [1 3 0 0 6]   [1 3 6 0 0]
  ↑             ↑               ↑             ↑               ↑               ↑
-left          left            left          left             left           left
+slow          slow            slow          slow             slow           slow
 ```
 
 ```ts
@@ -32,15 +32,15 @@ left          left            left          left             left           left
  */
 var moveZeroes = function (nums) {
   const n = nums.length
-  let left = 0,
-    right = 0
+  let slow = 0,
+    fast = 0
 
-  while (right < n) {
-    if (nums[right] !== 0) {
-      ;[nums[left], nums[right]] = [nums[right], nums[left]]
-      left++
+  while (fast < n) {
+    if (nums[fast] !== 0) {
+      ;[nums[slow], nums[fast]] = [nums[fast], nums[slow]]
+      slow++
     }
-    right++
+    fast++
   }
 }
 ```

@@ -10,18 +10,19 @@
  * @return {number}
  */
 var maxSubArray = function (nums) {
-  let ans = nums[0]
-  let sum = 0
+  const n = nums.length
+  const dp = new Array(n).fill(0)
+  dp[0] = nums[0]
 
-  for (const num of nums) {
-    if (sum > 0) {
-      sum += num
-    } else {
-      sum = num
-    }
-
-    ans = Math.max(ans, sum)
+  let max = nums[0]
+  for (let i = 1; i < n; i++) {
+    dp[i] = Math.max(dp[i - 1] + nums[i], nums[i])
+    max = Math.max(max, dp[i])
   }
-  return ans
+
+  return max
 }
 // @lc code=end
+
+console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+console.log(maxSubArray([5, 4, -1, 7, 8]))

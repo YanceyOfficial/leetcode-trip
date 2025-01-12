@@ -13,9 +13,16 @@ keywords:
 
 - [10. 正则表达式匹配](/leetcode/hard/10-is-match)
 - [44. 通配符匹配](/leetcode/hard/44-is-match)
+- [53. 最大子序和](/leetcode/medium/53-max-sub-array)
 - [72. 编辑距离](/leetcode/medium/72-min-distance)
+- [300. 最长递增子序列](/leetcode/medium/300-length-of-lis)
+- [392. 判断子序列](/leetcode/easy/392-is-subsequence)
 - [516. 最长回文子序列](/leetcode/medium/516-longest-palindrome-subseq)
 - [583. 两个字符串的删除操作](/leetcode/medium/583-min-distance)
+- [647. 回文子串](/leetcode/medium/647-count-substrings)
+- [674. 最长连续递增序列](/leetcode/easy/674-find-length-of-lcis)
+- [718. 最长重复子数组](/leetcode/medium/718-find-length)
+- [1035. 不相交的线](/leetcode/medium/1035-max-uncrossed-lines)
 - [1143. 最长公共子序列](/leetcode/medium/1143-longest-common-subsequence)
 
 :::
@@ -57,7 +64,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 递归 / 递归记忆化搜索" label="JavaScript - 递归 / 递归记忆化搜索">
+  <TabItem value="JavaScript - 递归记忆化搜索" label="JavaScript - 递归记忆化搜索">
 
 对于这种类型的题目, 最朴素的方式是使用递归. 当 `dfs(i)` 到达位置 `i` 时, 无非有两种情况:
 
@@ -153,7 +160,7 @@ var numDistinct = function (s, t) {
     - 一部分是不用 `s[i - 1]` 来匹配, 个数为 `dp[i - 1][j]`
 
 这块当时没搞懂, 既然 `t[j - 1] === s[i - 1]`, 为什么还要考虑不用 `s[i - 1]` 来匹配? 举个例子, `s` 是 `bagg`, `t` 是 `bag`, `s[3]` 和 `t[2]` 是相同的,
-因此可以用 `s[3]` 来匹配, 即 `s[0], s[1], s[3]` 组成的 `bag`; 但是字符串 `s` 也可以不用 `s[3]` 来匹配, (比如使用 `s[0], s[1], s[2]` 组成的 `bag`).
+因此可以用 `s[3]` 来匹配, 即 `s[0], s[1], s[3]` 组成的 `bag`; 但是字符串 `t` 也可以不用 `s[3]` 来匹配, (比如使用 `s[0], s[1], s[2]` 组成的 `bag`).
 
 因此对于 `t[j - 1] === s[i - 1]` 的状态转移方程为: `dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1]`.
 

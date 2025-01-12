@@ -63,13 +63,8 @@ var groupAnagrams = function (strs) {
   const map = new Map()
 
   for (const str of strs) {
-    const orderStr = str.split('').sort().join('')
-
-    if (map.has(orderStr)) {
-      map.set(orderStr, [...map.get(orderStr), str])
-    } else {
-      map.set(orderStr, [str])
-    }
+    const key = str.split('').sort().join('')
+    map.set(key, map.has(key) ? [...map.get(key), str] : [str])
   }
 
   return [...map.values()]
