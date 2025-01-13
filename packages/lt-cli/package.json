@@ -45,7 +45,7 @@
     "@types/figlet": "^1.5.6",
     "@types/inquirer": "^9.0.3",
     "@types/inquirer-autocomplete-prompt": "^3.0.0",
-    "rimraf": "^5.0.1",
+    "rimraf": "^6.0.1",
     "rollup": "^3.25.1e",
     "rollup-plugin-filesize": "^10.0.0",
     "rollup-plugin-node-externals": "^6.1.1",
