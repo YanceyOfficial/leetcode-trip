@@ -2,8 +2,10 @@
 import { Command } from 'commander'
 import chalk from 'chalk'
 import leven from 'leven'
-import packages from '../package.json' assert { type: 'json' }
+import { createRequire } from 'module'
 import { bootstrap, showStatistics, upgrade } from '../lib/index.js'
+
+const packages = createRequire(import.meta.url)('../package.json')
 
 const program = new Command()
 

@@ -1,1 +1,1 @@
-export declare const showStatistics: () => void
+export declare const showStatistics: () => void;

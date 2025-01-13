@@ -1,1 +1,1 @@
-export declare const generateRustTemplate: () => string
+export declare const generateRustTemplate: () => string;

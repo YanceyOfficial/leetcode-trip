@@ -1,1 +1,1 @@
-export declare const bootstrap: () => Promise<void>
+export declare const bootstrap: () => Promise<void>;

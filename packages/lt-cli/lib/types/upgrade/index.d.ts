@@ -1,1 +1,1 @@
-export declare const upgrade: (currVersion: string) => Promise<void>
+export declare const upgrade: (currVersion: string) => Promise<void>;

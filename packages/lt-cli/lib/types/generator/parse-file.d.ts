@@ -1,4 +1,4 @@
 export declare const parseFile: (content: string) => {
-  functionBody: string
-  functionName: string
-}
+    functionBody: string;
+    functionName: string;
+};

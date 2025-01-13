@@ -1,4 +1,4 @@
-import inquirer from 'inquirer'
+import inquirer from 'inquirer';
 export declare const dirSelect: () => Promise<any> & {
-  ui: inquirer.ui.Prompt<any>
-}
+    ui: inquirer.ui.Prompt<any>;
+};
