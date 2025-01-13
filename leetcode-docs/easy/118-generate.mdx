@@ -1,0 +1,73 @@
+---
+id: 118-generate
+title: 杨辉三角
+sidebar_label: 118. 杨辉三角
+keywords:
+  - Dynamic Programming
+---
+
+:::success Tips
+题目类型: Dynamic Programming
+:::
+
+## 题目
+
+给定一个非负整数 `numRows`, 生成杨辉三角的前 `numRows` 行. 在杨辉三角中, 每个数是它左上方和右上方的数的和.
+
+:::note 提示:
+
+- `1 <= numRows <= 30`
+
+:::
+
+:::info 示例
+
+![118-generate.gif](../../static/img/118-generate.gif)
+
+```bash
+输入: numRows = 5
+输出: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+```
+
+```bash
+输入: numRows = 1
+输出: [[1]]
+```
+
+:::
+
+## 题解
+
+把杨辉三角的每一排左对齐：
+
+```bash
+[1]
+[1,1]
+[1,2,1]
+[1,3,3,1]
+[1,4,6,4,1]
+```
+
+- 每一排的第一个数和最后一个数都是 `1`, 即 `dp[i][0] = dp[i][i] = 1`.
+- 其余数字, 等于左上方的数, 加上正上方的数, 即 `dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]`.
+
+```ts
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function (numRows) {
+  const dp = new Array(numRows)
+  for (let i = 0; i < numRows; i++) {
+    dp[i] = new Array(i + 1)
+    dp[i][0] = 1
+    dp[i][i] = 1
+
+    for (let j = 1; j < i; j++) {
+      dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]
+    }
+  }
+
+  return dp
+}
+```

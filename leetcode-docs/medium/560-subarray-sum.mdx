@@ -72,24 +72,8 @@ var subarraySum = function (nums, k) {
 
 <TabItem value="暴力前缀和 🐸" label="暴力前缀和 🐸">
 
-这道题的核心是**前缀和**, 前缀和的代码如下, 如果我们想求 nums[i] 到 nums[j] 的和, 可以使用 `preSum[j + 1] - preSum[i]` 得出.
-
-```ts
-// num = [3, 5, 2, -2, 4, 1]
-var getPreSum = function (nums) {
-  const len = nums.length
-  const preSum = new Array(len + 1).fill(0)
-
-  // 构造前缀和
-  for (let i = 0; i < len; i++) {
-    preSum[i + 1] = preSum[i] + nums[i]
-  }
-
-  return preSum // [0, 3, 8, 10, 8, 12, 13]
-}
-```
-
-这道题可以用下面的代码解决, 但在 leetcode 提交时提示超时, 原因就是穷尽所有子数组时整了个双循环, 时间复杂度仍然是 O(n²).
+这道题的核心是**前缀和**, 如果我们想求 `nums[i]` 到 `nums[j]` 的和, 可以使用 `preSum[j + 1] - preSum[i]` 得出.
+但在提交时提示超时, 原因就是穷尽所有子数组时整了个双循环, 时间复杂度仍然是 O(n²).
 
 ```ts
 /**
@@ -102,8 +86,9 @@ var subarraySum = function (nums, k) {
   const preSum = new Array(len + 1).fill(0)
 
   // 构造前缀和
+  // num = [3, 5, 2, -2, 4, 1]
   for (let i = 0; i < len; i++) {
-    preSum[i + 1] = preSum[i] + nums[i]
+    preSum[i + 1] = preSum[i] + nums[i] // [0, 3, 8, 10, 8, 12, 13]
   }
 
   let count = 0
@@ -151,20 +136,16 @@ var subarraySum = function (nums, k) {
   // 前缀和要初始化一个 key 为 0, 因为初始化了一个 0, 所以它出现的次数就是 1
   const map = new Map([[0, 1]])
 
-  let sum = 0
+  let preSum = 0
   let count = 0
 
   for (const num of nums) {
-    sum += num
-    if (map.has(sum - k)) {
-      count += map.get(sum - k)
+    preSum += num
+    if (map.has(preSum - k)) {
+      count += map.get(preSum - k)
     }
 
-    if (map.has(sum)) {
-      map.set(sum, map.get(sum) + 1)
-    } else {
-      map.set(sum, 1)
-    }
+    map.set(preSum, map.has(preSum) ? map.get(preSum) + 1 : 1)
   }
 
   return count

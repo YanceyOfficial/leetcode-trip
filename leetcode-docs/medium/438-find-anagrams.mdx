@@ -73,9 +73,7 @@ import TabItem from '@theme/TabItem'
  * @return {number[]}
  */
 var findAnagrams = function (s, p) {
-  const res = []
-  const sLen = s.length
-  const pLen = p.length
+  const result = []
   const needMap = new Map()
 
   for (const letter of p) {
@@ -86,14 +84,13 @@ var findAnagrams = function (s, p) {
     }
   }
 
-  const needLen = needMap.size
   const windowMap = new Map()
 
   let left = 0
   let right = 0
-  let meetedLen = 0
+  let metLen = 0
 
-  while (right < sLen) {
+  while (right < s.length) {
     const rightLetter = s[right]
     right++
 
@@ -105,16 +102,16 @@ var findAnagrams = function (s, p) {
       }
 
       if (windowMap.get(rightLetter) === needMap.get(rightLetter)) {
-        meetedLen++
+        metLen++
       }
     }
 
     // 注意这个条件, 因为只有窗口长度等于了 p 的长度
     // 才有可能匹配到异位词, 因此, 当窗口长度大于等于 p 的长度
     // 就到了收缩窗口的时候了
-    while (right - left >= pLen) {
-      if (meetedLen === needLen) {
-        res.push(left)
+    while (right - left >= p.length) {
+      if (metLen === needMap.size) {
+        result.push(left)
       }
 
       const leftLetter = s[left]
@@ -122,7 +119,7 @@ var findAnagrams = function (s, p) {
 
       if (needMap.has(leftLetter)) {
         if (windowMap.get(leftLetter) === needMap.get(leftLetter)) {
-          meetedLen--
+          metLen--
         }
 
         windowMap.set(leftLetter, windowMap.get(leftLetter) - 1)
@@ -130,7 +127,7 @@ var findAnagrams = function (s, p) {
     }
   }
 
-  return res
+  return result
 }
 ```
 
@@ -147,9 +144,9 @@ pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
         need_map.entry(*letter).and_modify(|e| *e += 1).or_insert(1);
     }
 
-    let mut res = Vec::new();
+    let mut result = Vec::new();
     let need_map_len = need_map.len();
-    let mut meeted_count = 0;
+    let mut met_count = 0;
     let mut window_map: HashMap<u8, i32> = HashMap::new();
     let (mut start, mut end) = (0, 0);
 
@@ -164,13 +161,13 @@ pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
                 .or_insert(1);
 
             if window_map.get(&end_letter) == need_map.get(&end_letter) {
-                meeted_count += 1;
+                met_count += 1;
             }
         }
 
         while end - start >= p.len() {
-            if need_map_len == meeted_count {
-                res.push(start as i32);
+            if need_map_len == met_count {
+                result.push(start as i32);
             }
 
             let start_letter = s.as_bytes()[start];
@@ -178,7 +175,7 @@ pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
 
             if need_map.contains_key(&start_letter) {
                 if window_map.get(&start_letter) == need_map.get(&start_letter) {
-                    meeted_count -= 1;
+                    met_count -= 1;
                 }
 
                 window_map.entry(start_letter).and_modify(|e| *e -= 1);
@@ -186,7 +183,7 @@ pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
         }
     }
 
-    res
+    result
 }
 ```
 

@@ -67,18 +67,14 @@ import TabItem from '@theme/TabItem'
  * @return {number}
  */
 var rob = function (nums) {
-  const n = nums.length
-  if (n === 1) return nums[0]
-
-  let rob = 0,
-    notRob = 0
-
-  for (let i = 0; i < n; i++) {
+  let rob = 0
+  let notRob = 0
+  for (const num of nums) {
     const temp = rob
     // 如果抢当前的, 那么前一个一定不能抢
-    rob = notRob + nums[i]
+    rob = notRob + num
     // 如果不抢当前的, 那么前一个可抢可不抢, 选价值最高的即可
-    notRob = Math.max(temp, notRob)
+    notRob = Math.max(notRob, temp)
   }
 
   return Math.max(rob, notRob)

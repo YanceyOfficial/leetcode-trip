@@ -24,13 +24,11 @@ sidebar_label: 189. 旋转数组
 
 ## 题解
 
-### 方法一
-
 ```ts
 /**
  * @param {number[]} nums
  * @param {number} k
- * @return {void} Do not return anything,  modify nums in-place instead.
+ * @return {void} Do not return anything, modify nums in-place instead.
  */
 var rotate = function (nums, k) {
   k = k % nums.length
@@ -45,17 +43,6 @@ function reverse(arr, start, end) {
     arr[end] = temp
     start++
     end--
-  }
-}
-```
-
-### 方法二
-
-```ts
-var rotate = function (nums, k) {
-  k = k % nums.length
-  for (let i = 0; i < k; i++) {
-    nums.unshift(nums.pop())
   }
 }
 ```

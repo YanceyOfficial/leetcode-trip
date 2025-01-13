@@ -35,7 +35,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划" default>
+  <TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划">
 
 对于下标 `i`, 下雨后水能到达的**最大高度等于下标 `i` 两边的最大高度的最小值**; 下标 `i` 处能接的雨水量等于**下标 `i` 处的水能到达的最大高度减去 `height[i]`**.
 
@@ -82,7 +82,7 @@ var trap = function (height) {
 - 空间复杂度: `O(n)`
 
 </TabItem>
-<TabItem value="JavaScript - 双指针" label="JavaScript - 双指针">
+<TabItem value="JavaScript - 双指针" label="JavaScript - 双指针" default>
 
 ```ts
 /**
@@ -99,6 +99,11 @@ var trap = function (height) {
   while (left < right) {
     leftMax = Math.max(leftMax, height[left])
     rightMax = Math.max(rightMax, height[right])
+
+    // 左指针的 leftMax 比右指针的 rightMax 矮
+    // 说明左指针的右边至少有一个板子 > 左指针左边所有板子
+    // 根据水桶效应, 保证了左指针当前列的水量决定权在左边
+    // 那么可以计算左指针当前列的水量: 左边最大高度 - 当前列高度
     if (height[left] < height[right]) {
       ans += leftMax - height[left]
       left++

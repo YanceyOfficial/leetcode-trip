@@ -33,17 +33,18 @@ sidebar_label: 152. 乘积最大子数组
 
 ## 题解
 
+这题是求数组中子区间的最大乘积, 对于乘法, 我们需要注意, 负数乘以负数, 会变成正数, 所以解这题的时候我们需要维护两个变量,
+当前的最大值, 以及最小值, 最小值可能为负数, 但没准下一步乘以一个负数, 当前的最大值就变成最小值, 而最小值则变成最大值了.
+
 ```ts
 /**
  * @param {number[]} nums
  * @return {number}
  */
 var maxProduct = function (nums) {
-  const n = nums.length
-  if (n === 0) return 0
   let max = -Infinity
-  let _max = 1
-  let _min = 1
+  let _max = 1 // 当前的最大值
+  let _min = 1 // 当前的最小值
 
   for (const num of nums) {
     if (num < 0) {
