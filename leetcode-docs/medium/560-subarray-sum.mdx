@@ -132,6 +132,11 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
 </Carousel>
 
 ```ts
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
 var subarraySum = function (nums, k) {
   // 前缀和要初始化一个 key 为 0, 因为初始化了一个 0, 所以它出现的次数就是 1
   const map = new Map([[0, 1]])

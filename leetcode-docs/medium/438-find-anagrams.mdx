@@ -74,55 +74,38 @@ import TabItem from '@theme/TabItem'
  */
 var findAnagrams = function (s, p) {
   const result = []
-  const needMap = new Map()
 
-  for (const letter of p) {
-    if (needMap.has(letter)) {
-      needMap.set(letter, needMap.get(letter) + 1)
-    } else {
-      needMap.set(letter, 1)
-    }
+  const needMap = new Map()
+  for (const ch of p) {
+    needMap.set(ch, needMap.has(ch) ? needMap.get(ch) + 1 : 1)
   }
 
   const windowMap = new Map()
+  let metCount = 0
+  let start = 0
+  let end = 0
 
-  let left = 0
-  let right = 0
-  let metLen = 0
-
-  while (right < s.length) {
-    const rightLetter = s[right]
-    right++
-
-    if (needMap.has(rightLetter)) {
-      if (windowMap.has(rightLetter)) {
-        windowMap.set(rightLetter, windowMap.get(rightLetter) + 1)
-      } else {
-        windowMap.set(rightLetter, 1)
-      }
-
-      if (windowMap.get(rightLetter) === needMap.get(rightLetter)) {
-        metLen++
+  while (end < s.length) {
+    const endCh = s[end++]
+    if (needMap.has(endCh)) {
+      windowMap.set(endCh, windowMap.has(endCh) ? windowMap.get(endCh) + 1 : 1)
+      if (windowMap.get(endCh) === needMap.get(endCh)) {
+        metCount++
       }
     }
 
-    // 注意这个条件, 因为只有窗口长度等于了 p 的长度
-    // 才有可能匹配到异位词, 因此, 当窗口长度大于等于 p 的长度
-    // 就到了收缩窗口的时候了
-    while (right - left >= p.length) {
-      if (metLen === needMap.size) {
-        result.push(left)
+    // 只有窗口长度等于了 p 的长度, 才有可能匹配到异位词, 此时就到了收缩窗口的时候
+    while (end - start === p.length) {
+      if (metCount === needMap.size) {
+        result.push(start)
       }
 
-      const leftLetter = s[left]
-      left++
-
-      if (needMap.has(leftLetter)) {
-        if (windowMap.get(leftLetter) === needMap.get(leftLetter)) {
-          metLen--
+      const startCh = s[start++]
+      if (needMap.has(startCh)) {
+        if (windowMap.get(startCh) === needMap.get(startCh)) {
+          metCount--
         }
-
-        windowMap.set(leftLetter, windowMap.get(leftLetter) - 1)
+        windowMap.set(startCh, windowMap.get(startCh) - 1)
       }
     }
   }

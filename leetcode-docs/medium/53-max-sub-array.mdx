@@ -50,12 +50,14 @@ keywords:
 
 ## 题解
 
-
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
   <TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划" default>
+
+- `dp[i - 1] + nums[i]`, 即 `nums[i]` 加入当前连续子序列和
+- `nums[i]`, 即从 `nums[i]` 起计算当前连续子序列和
 
 ```ts
 /**
@@ -79,7 +81,6 @@ var maxSubArray = function (nums) {
 
 </TabItem>
   <TabItem value="JavaScript - 贪心" label="JavaScript - 贪心">
-
 
 `sum` 为局部(也就是子数组)的累加和, 如果 `sum` 为**负数或 `0`**, 说明以前的累加和应该被废弃(毕竟越加越小); `如果 sum > 0`, 前面的累加和就可以被复用. 让 `ans` 和 `sum` 比较, 找出最大的即可.
 
