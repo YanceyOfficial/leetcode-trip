@@ -53,20 +53,20 @@ import TabItem from '@theme/TabItem'
  */
 var productExceptSelf = function (nums) {
   const n = nums.length
-  const prefixProduct = new Array(n).fill(1)
-  const suffixProduct = new Array(n).fill(1)
+  const pre = new Array(n).fill(1)
+  const suf = new Array(n).fill(1)
 
   for (let i = 1; i < n; i++) {
-    prefixProduct[i] = prefixProduct[i - 1] * nums[i - 1]
+    pre[i] = pre[i - 1] * nums[i - 1]
   }
 
   for (let i = n - 2; i >= 0; i--) {
-    suffixProduct[i] = suffixProduct[i + 1] * nums[i + 1]
+    suf[i] = suf[i + 1] * nums[i + 1]
   }
 
   const result = new Array(n)
   for (let i = 0; i < n; i++) {
-    result[i] = prefixProduct[i] * suffixProduct[i]
+    result[i] = pre[i] * suf[i]
   }
   return result
 }
@@ -82,19 +82,19 @@ var productExceptSelf = function (nums) {
  */
 var productExceptSelf = function (nums) {
   const n = nums.length
-  const suffixProduct = new Array(n).fill(1)
+  const suf = new Array(n).fill(1)
 
   for (let i = n - 2; i >= 0; i--) {
-    suffixProduct[i] = suffixProduct[i + 1] * nums[i + 1]
+    suf[i] = suf[i + 1] * nums[i + 1]
   }
 
-  let prefixProduct = 1
+  let pre = 1
   for (let i = 0; i < n; i++) {
-    suffixProduct[i] *= prefixProduct
-    prefixProduct *= nums[i]
+    suf[i] *= pre
+    pre *= nums[i]
   }
 
-  return suffixProduct
+  return suf
 }
 ```
 
