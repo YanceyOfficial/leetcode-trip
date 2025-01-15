@@ -92,7 +92,7 @@ var setZeroes = function (matrix) {
 </TabItem>
 <TabItem value="JavaScript - 两个常数级变量" label="JavaScript - 两个常数级变量">
 
-除了使用两个线性级的 `HashSet`, 也可以用两个常数级的变量 `flagRow0` 和 `flagCol0`, 用于记录首行或者首列是否存在 `0`.
+除了使用两个线性级的 `HashSet`, 也可以用两个常数级的变量 `firstRowHasZero` 和 `firstColHasZero`, 用于记录首行或者首列是否存在 `0`.
 这样的目的是仅仅先记录首行和首列是否有 `0`, 而不去修改这两行, 因为一旦修改了, 其他行和列就算不准了.
 
 ![73-set-zeroes](../../static/img/73-set-zeroes-3.png)
@@ -103,7 +103,7 @@ var setZeroes = function (matrix) {
 
 ![73-set-zeroes](../../static/img/73-set-zeroes-4.png)
 
-最后根据 `flagRow0` 和 `flagCol0` 的情况将首行或首列都置为 `0`.
+最后根据 `firstRowHasZero` 和 `firstColHasZero` 的情况将首行或首列都置为 `0`.
 
 ![73-set-zeroes](../../static/img/73-set-zeroes-5.png)
 
@@ -112,23 +112,28 @@ var setZeroes = function (matrix) {
   const m = matrix.length
   const n = matrix[0].length
 
-  let flagRow0 = false
-  let flagCol0 = false
+  let firstRowHasZero = false
+  let firstColHasZero = false
 
+  // 记录首行是否有 0
   for (let i = 0; i < m; i++) {
     if (matrix[i][0] === 0) {
-      flagRow0 = true
-      break
+      firstRowHasZero = true
+      break // 找出一个 0 就行
     }
   }
 
+  // 记录首列是否有 0
   for (let j = 0; j < n; j++) {
     if (matrix[0][j] === 0) {
-      flagCol0 = true
-      break
+      firstColHasZero = true
+      break  // 找出一个 0 就行
     }
   }
 
+  // 扫描非首行 / 非首列
+  // 如果元素是 0, 将 matrix[i][0] 和 matrix[0][j] 设为 0
+  // 其实就相当于在首行 / 首列这两个 哈希表中注册对应的行 / 列是否有 0
   for (let i = 1; i < m; i++) {
     for (let j = 1; j < n; j++) {
       if (matrix[i][j] === 0) {
@@ -137,6 +142,8 @@ var setZeroes = function (matrix) {
     }
   }
 
+  // 扫描非首行 / 非首列
+  // 如果哈希表对应的行 / 列是 0, 把该元素也抹零
   for (let i = 1; i < m; i++) {
     for (let j = 1; j < n; j++) {
       if (matrix[i][0] === 0 || matrix[0][j] === 0) {
@@ -145,13 +152,15 @@ var setZeroes = function (matrix) {
     }
   }
 
-  if (flagRow0) {
+  // 如果第一行有 0, 第一行抹零
+  if (firstRowHasZero) {
     for (let i = 0; i < m; i++) {
       matrix[i][0] = 0
     }
   }
 
-  if (flagCol0) {
+  // 如果第一列有 0, 第一列抹零
+  if (firstColHasZero) {
     for (let j = 0; j < n; j++) {
       matrix[0][j] = 0
     }

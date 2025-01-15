@@ -23,7 +23,14 @@ keywords:
 
 ## 题目
 
-请判断一个链表是否为回文链表.
+请判断一个链表是否为回文链表. 你能否用 `O(n)` 时间复杂度和 `O(1)` 空间复杂度解决此题?
+
+:::note 提示:
+
+- 链表中节点数目在范围 `[1, 10⁵]` 内
+- `0 <= Node.val <= 9`
+
+:::
 
 :::info 示例
 
@@ -92,9 +99,9 @@ var isPalindrome = function (head) {
 ```ts
 /**
  * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
  * }
  */
 /**
@@ -102,13 +109,15 @@ var isPalindrome = function (head) {
  * @return {boolean}
  */
 var isPalindrome = function (head) {
-  if (head === null || head.next === null) return true
+  // 如果链表只有一个元素, 一定是回文
+  if (!head.next) return true
 
-  const mid = midNode(head)
   let left = head
+  let mid = getMiddleNode(head)
   let right = reverseList(mid)
 
-  while (right !== null) {
+  // 这个循环能兼容奇数链表和偶数链表
+  while (left && right) {
     if (left.val !== right.val) return false
     left = left.next
     right = right.next
@@ -117,11 +126,11 @@ var isPalindrome = function (head) {
   return true
 }
 
-var midNode = function (head) {
-  let slow = head,
-    fast = head
+var getMiddleNode = function (head) {
+  let fast = head
+  let slow = head
 
-  while (fast !== null && fast.next !== null) {
+  while (fast && fast.next) {
     fast = fast.next.next
     slow = slow.next
   }
@@ -134,19 +143,18 @@ var reverseList = function (head) {
     curr = head
 
   while (curr) {
-    const next = curr.next
+    const temp = curr.next
     curr.next = prev
     prev = curr
-    curr = next
+    curr = temp
   }
 
   return prev
 }
 ```
 
-时间复杂度: O(n)
-
-空间复杂度: O(1)
+- 时间复杂度: `O(n)`
+- 空间复杂度: `O(1)`
 
 </TabItem>
 </Tabs>
