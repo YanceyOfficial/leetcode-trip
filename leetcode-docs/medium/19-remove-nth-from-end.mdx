@@ -108,14 +108,14 @@ var removeNthFromEnd = function (head, n) {
     fast = fast.next
   }
 
-  if (fast === null) {
+  if (!fast) {
     // 如果此时快指针走到头了
     // 说明倒数第 n 个节点就是第一个节点, 那么删除头节点相当于直接返回 head.next 即可
     return head.next
   }
 
   // 让慢指针和快指针同步向前
-  while (fast !== null && fast.next !== null) {
+  while (!fast && !fast.next) {
     fast = fast.next
     slow = slow.next
   }

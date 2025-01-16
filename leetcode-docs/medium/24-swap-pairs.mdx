@@ -64,14 +64,14 @@ var swapPairs = function (head) {
     const first = curr.next
     const second = curr.next.next
 
-    // 把 second 放到 curr.next 下
-    curr.next = second
-
     // 把 second 的下一个放到 first 的下一个
     first.next = second.next
 
     // second 的下一个指向 first
     second.next = first
+
+    // 把 second 放到 curr.next 下
+    curr.next = second
 
     // first 赋值给 curr, 实际上就是将 curr 往后走了两步
     curr = first

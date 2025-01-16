@@ -27,7 +27,11 @@ sidebar_label: 104. 二叉树的最大深度
 
 和 [111. 二叉树的最小深度](/leetcode/easy/111-min-depth) 类似, 具体可以看这个题.
 
-### 深度优先遍历
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="深度优先遍历" label="深度优先遍历" default>
 
 ```ts
 /**
@@ -48,11 +52,12 @@ var maxDepth = function (root) {
 }
 ```
 
-时间复杂度: O(n)
+- 时间复杂度: `O(n)`
+- 空间复杂度: `O(height)`
 
-空间复杂度: O(height)
+</TabItem>
+<TabItem value="广度优先遍历" label="广度优先遍历">
 
-### 广度优先遍历
 
 ```ts
 var maxDepth = function (root) {
@@ -83,6 +88,8 @@ var maxDepth = function (root) {
 }
 ```
 
-时间复杂度: O(n)
+- 时间复杂度: `O(n)`
+- 空间复杂度: `O(n)`
 
-空间复杂度: O(n)
+</TabItem>
+</Tabs>

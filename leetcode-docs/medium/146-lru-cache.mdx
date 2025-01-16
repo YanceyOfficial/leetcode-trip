@@ -33,7 +33,7 @@ instance.get(4) // 返回 4
 
 ## 题解
 
-这道题用 JavaScript 比较讨巧, 因为 Map 是有序的, 因此可以通过 `this.caches.keys().next().value` 拿到最老的 key. 像 Java 中有一个 LinkedHashMap, 它是 HashMap + LinkedList 的组合, 既使用 HashMap 操作数据结构, 又使用 LinkedList 维护插入元素的先后顺序.
+这道题用 JavaScript 比较讨巧, 因为 Map 是有序的, 因此可以通过 `this.caches.keys().next().value` 拿到最老的 key. 像 Java 中有一个 LinkedHashMap, 它是 HashMap + LinkedList 的组合, 既使用 HashMap 操作数据结构, 又使用 LinkedList 维护插入元素的先后顺序. 但是会超时.
 
 :::info
 该题的标准做法是维护一个双向链表和一个哈希表, 来代替 LinkedHashMap.
@@ -83,7 +83,7 @@ LRUCache.prototype.put = function (key, value) {
   }
 
   // 如果缓存大小恰好等于了容量, 就把 Map 最老的那个删除掉
-  if (this.caches.size === this.capacity) {
+  if (this.caches.size ==== this.capacity) {
     // 这里用到了迭代器的语法, 很优雅
     this.caches.delete(this.caches.keys().next().value)
   }
@@ -127,15 +127,15 @@ class LRUCache {
 
   get(key) {
     let node = this.hash[key]
-    if (node == null) return -1
+    if (node === null) return -1
     this.moveToHead(node)
     return node.value
   }
 
   put(key, value) {
     let node = this.hash[key]
-    if (node == null) {
-      if (this.count == this.capacity) {
+    if (node === null) {
+      if (this.count === this.capacity) {
         this.removeLRUItem()
       }
       let newNode = new ListNode(key, value)
@@ -222,7 +222,7 @@ impl LRUCache {
             self.cache.remove(&key);
         }
 
-        if self.cache.len() == self.capacity as usize {
+        if self.cache.len() === self.capacity as usize {
             let oldest_key = *self.cache.keys().next().unwrap();
             self.cache.remove(&oldest_key);
         }
