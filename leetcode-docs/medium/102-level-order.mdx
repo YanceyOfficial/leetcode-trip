@@ -51,26 +51,25 @@ keywords:
  * @return {number[][]}
  */
 var levelOrder = function (root) {
-  const levels = []
-  if (!root) return levels
+  const result = []
+  if (!root) return result
 
   const queue = [root]
-
-  while (queue.length !== 0) {
+  while (queue.length > 0) {
     const currLevelLength = queue.length
-    const temp = []
+    const levels = []
 
     for (let i = 0; i < currLevelLength; i++) {
       const node = queue.shift()
-      temp.push(node.val)
+      levels.push(node.val)
 
       if (node.left) queue.push(node.left)
       if (node.right) queue.push(node.right)
     }
 
-    levels.push(temp)
+    result.push(levels)
   }
 
-  return levels
+  return result
 }
 ```
