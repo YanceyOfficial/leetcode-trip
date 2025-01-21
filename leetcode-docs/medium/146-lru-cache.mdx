@@ -33,43 +33,38 @@ instance.get(4) // 返回 4
 
 ## 题解
 
-这道题用 JavaScript 比较讨巧, 因为 Map 是有序的, 因此可以通过 `this.caches.keys().next().value` 拿到最老的 key. 像 Java 中有一个 LinkedHashMap, 它是 HashMap + LinkedList 的组合, 既使用 HashMap 操作数据结构, 又使用 LinkedList 维护插入元素的先后顺序. 但是会超时.
-
-:::info
-该题的标准做法是维护一个双向链表和一个哈希表, 来代替 LinkedHashMap.
-:::
-
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
-<Tabs>
-  <TabItem value="JavaScript" label="JavaScript" default>
-
 ```ts
+var ListNode = function (key, value) {
+  this.key = key;
+  this.value = value;
+  this.prev = null;
+  this.next = null;
+};
+
 /**
  * @param {number} capacity
  */
 var LRUCache = function (capacity) {
-  this.capacity = capacity
-  this.caches = new Map()
-}
+  this.capacity = capacity;
+  this.map = new Map();
+  this.head = new ListNode(); // 虚拟头节点
+  this.tail = new ListNode(); // 虚拟尾节点
+  this.head.next = this.tail;
+  this.tail.prev = this.head;
+};
 
 /**
  * @param {number} key
  * @return {number}
  */
 LRUCache.prototype.get = function (key) {
-  // 如果不存在, 返回 -1
-  if (!this.caches.has(key)) return -1
-
-  // 如果存在, 因为用过一次了, 就把它删除掉, 重新 set 一次
-  const val = this.caches.get(key)
-  this.caches.delete(key)
-  this.caches.set(key, val)
-
-  // 如果存在, 返回这个 val
-  return val
-}
+  if (!this.map.has(key)) {
+    return -1;
+  }
+  const node = this.map.get(key);
+  this.moveToHead(node);
+  return node.value;
+};
 
 /**
  * @param {number} key
@@ -77,20 +72,43 @@ LRUCache.prototype.get = function (key) {
  * @return {void}
  */
 LRUCache.prototype.put = function (key, value) {
-  // 如果存在, 先把它删除
-  if (this.caches.has(key)) {
-    this.caches.delete(key)
+  if (this.map.has(key)) {
+    const node = this.map.get(key);
+    node.value = value;
+    this.moveToHead(node);
+  } else {
+    const newNode = new ListNode(key, value);
+    this.map.set(key, newNode);
+    this.addToHead(newNode);
+    if (this.map.size > this.capacity) {
+      const removedNode = this.removeTail();
+      this.map.delete(removedNode.key);
+    }
   }
+};
 
-  // 如果缓存大小恰好等于了容量, 就把 Map 最老的那个删除掉
-  if (this.caches.size ==== this.capacity) {
-    // 这里用到了迭代器的语法, 很优雅
-    this.caches.delete(this.caches.keys().next().value)
-  }
+LRUCache.prototype.moveToHead = function (node) {
+  this.removeNode(node);
+  this.addToHead(node);
+};
 
-  // 新增 k-v
-  this.caches.set(key, value)
-}
+LRUCache.prototype.addToHead = function (node) {
+  node.next = this.head.next;
+  node.prev = this.head;
+  this.head.next.prev = node;
+  this.head.next = node;
+};
+
+LRUCache.prototype.removeNode = function (node) {
+  node.prev.next = node.next;
+  node.next.prev = node.prev;
+};
+
+LRUCache.prototype.removeTail = function () {
+  const removedNode = this.tail.prev;
+  this.removeNode(removedNode);
+  return removedNode;
+};
 
 /**
  * Your LRUCache object will be instantiated and called as such:
@@ -99,150 +117,3 @@ LRUCache.prototype.put = function (key, value) {
  * obj.put(key,value)
  */
 ```
-
-</TabItem>
-
-<TabItem value='JavaScript 双向链表' label='JavaScript 双向链表'>
-
-```ts
-class ListNode {
-  constructor(key, value) {
-    this.key = key
-    this.value = value
-    this.next = null
-    this.prev = null
-  }
-}
-
-class LRUCache {
-  constructor(capacity) {
-    this.capacity = capacity
-    this.hash = {}
-    this.count = 0
-    this.dummyHead = new ListNode()
-    this.dummyTail = new ListNode()
-    this.dummyHead.next = this.dummyTail
-    this.dummyTail.prev = this.dummyHead
-  }
-
-  get(key) {
-    let node = this.hash[key]
-    if (node === null) return -1
-    this.moveToHead(node)
-    return node.value
-  }
-
-  put(key, value) {
-    let node = this.hash[key]
-    if (node === null) {
-      if (this.count === this.capacity) {
-        this.removeLRUItem()
-      }
-      let newNode = new ListNode(key, value)
-      this.hash[key] = newNode
-      this.addToHead(newNode)
-      this.count++
-    } else {
-      node.value = value
-      this.moveToHead(node)
-    }
-  }
-
-  moveToHead(node) {
-    this.removeFromList(node)
-    this.addToHead(node)
-  }
-
-  removeFromList(node) {
-    let temp1 = node.prev
-    let temp2 = node.next
-    temp1.next = temp2
-    temp2.prev = temp1
-  }
-
-  addToHead(node) {
-    node.prev = this.dummyHead
-    node.next = this.dummyHead.next
-    this.dummyHead.next.prev = node
-    this.dummyHead.next = node
-  }
-
-  removeLRUItem() {
-    let tail = this.popTail()
-    delete this.hash[tail.key]
-    this.count--
-  }
-
-  popTail() {
-    let tail = this.dummyTail.prev
-    this.removeFromList(tail)
-    return tail
-  }
-}
-```
-
-</TabItem>
-
-<TabItem value="Rust" label="Rust">
-
-```rust
-use linked_hash_map::LinkedHashMap;
-
-#[derive(Debug)]
-struct LRUCache {
-    cache: LinkedHashMap<i32, i32>,
-    capacity: i32,
-}
-
-/**
- * `&self` means the method takes an immutable reference.
- * If you need a mutable reference, change it to `&mut self` instead.
- */
-impl LRUCache {
-    fn new(capacity: i32) -> Self {
-        LRUCache {
-            cache: LinkedHashMap::with_capacity(capacity as usize),
-            capacity,
-        }
-    }
-
-    fn get(&mut self, key: i32) -> i32 {
-        if !self.cache.contains_key(&key) {
-            -1
-        } else {
-            let value = *self.cache.get(&key).unwrap();
-            self.cache.remove(&key);
-            self.cache.insert(key, value);
-            value
-        }
-    }
-
-    fn put(&mut self, key: i32, value: i32) {
-        if self.cache.contains_key(&key) {
-            self.cache.remove(&key);
-        }
-
-        if self.cache.len() === self.capacity as usize {
-            let oldest_key = *self.cache.keys().next().unwrap();
-            self.cache.remove(&oldest_key);
-        }
-
-        self.cache.insert(key, value);
-    }
-}
-
-// /**
-//  * Your LRUCache object will be instantiated and called as such:
-//  * let obj = LRUCache::new(capacity);
-//  * let ret_1: i32 = obj.get(key);
-//  * obj.put(key, value);
-//  */
-```
-
-</TabItem>
-</Tabs>
-
-## 复杂度分析
-
-- 时间复杂度: O(n)
-- 空间复杂度: O(n)

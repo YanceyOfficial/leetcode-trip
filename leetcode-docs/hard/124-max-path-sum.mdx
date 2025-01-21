@@ -37,7 +37,7 @@ keywords:
 
 从一个节点出发, 可以向左, 也可以向右, 当然也可以选择既不向左也不向右扩展(比如左右都是负数, 还不如不去扩展), 故 `max = Math.max(max, root.val + leftMax + rightMax)`.
 
-由于从这个节点出发只能想左或者向右探寻, 不能走进一个分支又掉头回来走另一个分支, 所以最后 `return root.val + Math.max(leftMax, rightMax)`, 这句话意思就是取 leftMax 和 rightMax 的其中之一(当然如果左右都是负向的, 相当于一个都没取), 这样就保证了不会有路径重叠.
+由于从这个节点出发只能向左或者向右探寻, 不能走进一个分支又掉头回来走另一个分支, 所以最后 `return root.val + Math.max(leftMax, rightMax)`, 这句话意思就是取 leftMax 和 rightMax 的其中之一(当然如果左右都是负向的, 相当于一个都没取), 这样就保证了不会有路径重叠.
 
 ```ts
 /**

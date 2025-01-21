@@ -60,7 +60,10 @@ var pathSum = function (root, targetSum) {
       count += prefixSum.get(currentSum - targetSum)
     }
 
-    prefixSum.set(currentSum, (prefixSum.get(currentSum) || 0) + 1) // 回
+    prefixSum.set(
+      currentSum,
+      prefixSum.has(currentSum) ? prefixSum.get(currentSum) + 1 : 1,
+    ) // 回
 
     dfs(node.left, currentSum)
     dfs(node.right, currentSum)

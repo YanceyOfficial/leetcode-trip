@@ -36,7 +36,7 @@ keywords:
 
 ```ts
 输入: p = 5, q = 4
-输出: 4
+输出: 5
 解释: 节点 5 和节点 4 的最近公共祖先是节点 5, 因为根据定义最近公共祖先节点可以为节点本身
 ```
 
@@ -48,21 +48,12 @@ keywords:
 
 本题为 LCA(最近公共祖先) 的经典算法, git 里的 `merge` 其实就是利用了该算法.
 
-1. 如果 p 和 q 都在以 root 为根的树中, 函数返回的便是 p 和 q 的最近公共祖先节点, 比如 6 和 2, 最近的就是 5.
+1. 如果 left 和 right 都不为空, 则说明 p 和 q 分别在 root 的左右子树中, 因此 root 就是它们的最近公共祖先, 返回 root.
+2. 如果 left 不为空, 而 right 为空, 则说明 p 和 q 都在 root 的左子树中, 返回 left.
+3. 如果 right 不为空, 而 left 为空, 则说明 p 和 q 都在 root 的右子树中, 返回 right.
+4. 如果 left 和 right 都为空, 则说明 p 和 q 在以 root 为根的子树中都不存在, 返回 null.
 
-2. 如果 p 和 q 都不在以 root 为根的树中, 应该返回 null.
-
-3. 如果 p 和 q 只有一个存在于 root 为根的树中, 返回这个节点即可.
-
-虽然按照本题的题意, 一定会存在 LCA 节点, 但是递归过程中, 这三种情况要考虑到.
-
-### 状态转移
-
-**以 root 为根**转移成**以 root 的子节点为根**
-
-### 递归出口
-
-先卡住 bad case. 如果 root 为空, 肯定得返回 null; 如果 root 本身就是 p 或者 q, 假设 root 就是 p 节点, 如果 q 存在于以 root 为根的树中, 显然 root 就是最近公共祖先; 即使 q 不存在于以 root 为根的树中, 按照 3 的定义, 也应该返回 root 节点.
+对于上面的代码, 因为我们使用的**后序遍历**, 即从下往上走, 因此递归结束的返回值, 也就是离 p, q 最近的了.
 
 ```ts
 /**
@@ -79,44 +70,18 @@ keywords:
  * @return {TreeNode}
  */
 var lowestCommonAncestor = function (root, p, q) {
-  // 如果 root 不存在, 返回 null
   if (!root) return null
 
-  // 如果 root 本身就是 p 或者 q, 返回 root
   if (root === p || root === q) return root
 
   const left = lowestCommonAncestor(root.left, p, q)
   const right = lowestCommonAncestor(root.right, p, q)
 
-  // 如果 p 和 q 都在以 root 为根的树中, 函数返回的便是 p 和 q 的最近公共祖先节点
-  if (left !== null && right !== null) return root
+  if (left && right) return root
 
-  // 如果 p 和 q 都不在以 root 为根的树中, 返回 null
-  if (left === null && right === null) return null
-
-  // 如果 p 和 q 只有一个存在于 root 为根的树中, 返回这个节点即可.
-  return left === null ? right : left
+  return left ? left : right
 }
 ```
 
-对于上面的代码, 因为我们使用的**后序遍历**, 即从下往上走, 因此递归结束的返回值, 也就是离 p, q 最近的了.
-
-## 附: The testing Tree instance
-
-```ts
-function TreeNode(val, left, right) {
-  this.val = val
-  this.left = left
-  this.right = right
-}
-
-const tree = new TreeNode(
-  3,
-  new TreeNode(
-    5,
-    new TreeNode(6, null, null),
-    new TreeNode(2, new TreeNode(7, null, null), new TreeNode(4, null, null)),
-  ),
-  new TreeNode(1, new TreeNode(0, null, null), new TreeNode(8, null, null)),
-)
-```
+- 时间复杂度: `O(n)`, 其中 `n` 是二叉树的节点数. 最坏情况下, 需要遍历所有节点. 
+- 空间复杂度: `O(h)`, 其中 `h` 是二叉树的高度. 最坏情况下, 树退化成链表, `h = n`, 空间复杂度为 `O(n)`. 最好情况下, 树为完全二叉树, `h = logn`, 空间复杂度为 `O(logn)`. 

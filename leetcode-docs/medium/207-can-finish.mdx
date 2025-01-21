@@ -1,0 +1,99 @@
+---
+id: 207-can-finish
+title: 课程表
+sidebar_label: 207. 课程表
+keywords:
+  - Graph
+---
+
+## 题目
+
+你这个学期必须选修 `numCourses` 门课程, 记为 `0` 到 `numCourses - 1`.
+
+在选修某些课程之前需要一些先修课程. 先修课程按数组 `prerequisites` 给出, 其中 `prerequisites[i] = [aᵢ, bᵢ]`, 表示如果要学习课程 `aᵢ` 则**必须**先学习课程 `bᵢ`.
+
+- 例如, 先修课程对 `[0, 1]` 表示: 想要学习课程 `0`, 你需要先完成课程 `1`.
+
+请你判断是否可能完成所有课程的学习? 如果可以, 返回 `true`; 否则, 返回 `false`.
+
+:::note 提示:
+
+- `1 <= numCourses <= 2000`
+- `0 <= prerequisites.length <= 5000`
+- `prerequisites[i].length == 2`
+- `0 <= aᵢ, bᵢ < numCourses`
+- `prerequisites[i]` 中的所有课程对**互不相同**
+
+:::
+
+:::info 示例
+
+```bash
+输入: numCourses = 2, prerequisites = [[1,0]]
+输出: true
+解释: 总共有 2 门课程. 学习课程 1 之前, 你需要完成课程 0. 这是可能的.
+```
+
+```bash
+输入: numCourses = 2, prerequisites = [[1,0],[0,1]]
+输出: false
+解释: 总共有 2 门课程. 学习课程 1 之前, 你需要先完成​课程 0; 并且学习课程 0 之前, 你还应先完成课程 1. 这是不可能的.
+```
+
+:::
+
+## 题解
+
+1. 构建邻接表
+
+2. 访问状态: 使用一个数组 `visited` 记录每个课程的访问状态.
+
+- `0`: 未访问.
+- `1`: 正在访问(即在当前递归路径上).
+- `2`: 已完成访问.
+
+3. DFS 遍历:
+
+- 对于每个未访问的课程 u, 进行 DFS 遍历.
+- 如果遇到正在访问的课程, 则说明存在环, 返回 false.
+- 将当前课程 u 的状态标记为正在访问.
+- 递归访问 u 的所有后继课程 v.
+- 将当前课程 u 的状态标记为已完成访问.
+
+4. 判断: 如果所有课程都遍历完成且没有发现环, 则返回 true.
+
+```ts
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {boolean}
+ */
+var canFinish = function (numCourses, prerequisites) {
+  const adj = new Array(numCourses).fill(null).map(() => [])
+  for (const [course, pre] of prerequisites) {
+    adj[pre].push(course)
+  }
+
+  const visited = new Array(numCourses).fill(0)
+
+  const dfs = (u) => {
+    if (visited[u] === 1) return false // 存在环
+    if (visited[u] === 2) return true // 已完成访问
+
+    visited[u] = 1 // 标记为正在访问
+    for (const v of adj[u]) {
+      if (!dfs(v)) return false
+    }
+    visited[u] = 2 // 标记为已完成访问
+    return true
+  }
+
+  for (let i = 0; i < numCourses; i++) {
+    if (!visited[i] && !dfs(i)) {
+      return false
+    }
+  }
+
+  return true
+}
+```

@@ -65,9 +65,9 @@ var mergeKLists = function (lists) {
   if (n === 0) return null
 
   while (n > 1) {
-    const k = ((n + 1) / 2) | 0
+    const k = Math.floor((n + 1) / 2)
 
-    for (let i = 0; i < ((n / 2) | 0); i++) {
+    for (let i = 0; i < Math.floor(n / 2); i++) {
       lists[i] = mergeTwoLists(lists[i], lists[i + k])
     }
 
