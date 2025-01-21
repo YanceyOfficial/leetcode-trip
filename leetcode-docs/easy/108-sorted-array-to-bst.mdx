@@ -53,10 +53,11 @@ var helper = function (nums, left, right) {
   // 左边·索引不能大于右边索引
   if (left > right) return null
 
-  const mid = Math.floor((left + right) / 2) // 求中间索引
-  const root = new TreeNode(nums[mid]) // 构建当前节点
-  root.left = helper(nums, left, mid - 1) // 构建左子树
-  root.right = helper(nums, mid + 1, right) // 构建右子树
+  const midIdx = Math.floor((startIdx + endIdx) / 2) // 求中间索引
+  const root = new TreeNode(nums[midIdx]) // 构建当前节点
+
+  root.left = buildBST(nums, startIdx, midIdx - 1) // 构建左子树
+  root.right = buildBST(nums, midIdx + 1, endIdx) // 构建右子树
 
   return root
 }

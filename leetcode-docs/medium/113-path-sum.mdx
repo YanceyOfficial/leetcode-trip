@@ -8,7 +8,7 @@ keywords:
 ---
 
 :::success Tips
-题目类型: [Tree](/data-structure/tree/concept) | [Backtrack](/algorithm-design/backtracking)
+题目类型: [Tree](/data-structure/tree/concept), [Backtrack](/algorithm-design/backtracking)
 
 相关题目:
 
@@ -40,7 +40,11 @@ keywords:
 
 ## 题解
 
-### 方法一: 深度优先遍历
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="深度优先遍历(先序遍历)" label="深度优先遍历(先序遍历)" default>
 
 ```ts
 /**
@@ -57,30 +61,28 @@ keywords:
  * @return {number[][]}
  */
 var pathSum = function (root, targetSum) {
-  const res = []
-  dfs(root, targetSum, [], res)
-  return res
-}
+  const result = []
 
-function dfs(root, targetSum, arr, res) {
-  if (root === null) return null
+  const dfs = (root, track, targetSum) => {
+    if (!root) return
 
-  // 因为 arr 是按引用传递的, 为防止分支污染
-  // 就需要每次重新建一个新的数组
-  const _arr = [...arr, root.val]
-  if (root.left === null && root.right === null && root.val === targetSum) {
-    res.push(_arr)
+    const val = root.val
+    track.push(val)
+    if (!root.left && !root.right && targetSum - val === 0) {
+      result.push(track)
+    }
 
-    // 到叶子节点之后直接返回
-    return
+    dfs(root.left, track.slice(), targetSum - val)
+    dfs(root.right, track.slice(), targetSum - val)
   }
 
-  dfs(root.left, targetSum - root.val, _arr, res)
-  dfs(root.right, targetSum - root.val, _arr, res)
+  dfs(root, [], targetSum)
+  return result
 }
 ```
 
-### 方法二: 回溯
+</TabItem>
+<TabItem value="回溯" label="回溯">
 
 ```ts
 var pathSum = function (root, targetSum) {
@@ -117,3 +119,6 @@ var pathSum = function (root, targetSum) {
   return res
 }
 ```
+
+</TabItem>
+</Tabs>

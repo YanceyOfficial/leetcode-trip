@@ -36,93 +36,42 @@ keywords:
 
 ## 题解
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+这道题可以通过前缀和的思路思考. 即从根节点 root 到某个子节点 node, 一定是唯一的路径(你可以把这条路径的所有元素想象成一个数组), 那么题目就变成了: **在这个数组中, 存在某个区间的和为 targetSum**. 显然这就变成了一个前缀和的问题.
 
-<Tabs>
-  <TabItem value="JavaScript - 朴素解法" label="JavaScript - 朴素解法" default>
-
-朴素的解法是通过两个深度优先遍历, dfs1 用于遍历每个节点, dfs2 根据遍历到的每个节点, 再往下延伸. 从而计算到每个路径的和是否为 targetSum.
+我们可以用一个 HasMap, key 记录前缀和, value 记录达成该前缀和包括的节点的个数. 具体解释看代码注释:
 
 ```ts
-/**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
- */
 /**
  * @param {TreeNode} root
  * @param {number} targetSum
  * @return {number}
  */
 var pathSum = function (root, targetSum) {
-  let ans = 0
+  const prefixSum = new Map()
+  prefixSum.set(0, 1)
+  let count = 0
 
-  var dfs1 = function (root) {
-    if (!root) return
+  const dfs = (node, currentSum) => {
+    if (!node) return
 
-    dfs2(root, root.val)
-    dfs1(root.left)
-    dfs1(root.right)
+    currentSum += node.val
+
+    if (prefixSum.has(currentSum - targetSum)) {
+      count += prefixSum.get(currentSum - targetSum)
+    }
+
+    prefixSum.set(currentSum, (prefixSum.get(currentSum) || 0) + 1) // 回
+
+    dfs(node.left, currentSum)
+    dfs(node.right, currentSum)
+
+    prefixSum.set(currentSum, prefixSum.get(currentSum) - 1) // 溯
   }
 
-  var dfs2 = function (root, val) {
-    if (val === targetSum) ans++
-
-    if (root.left) dfs2(root.left, val + root.left.val)
-    if (root.right) dfs2(root.right, val + root.right.val)
-  }
-
-  dfs1(root)
-  return ans
+  dfs(root, 0)
+  return count
 }
 ```
 
-时间复杂度: O(n²)
-
-空间复杂度: O(n)
-
-</TabItem>
-<TabItem value="JavaScript - 前缀和" label="JavaScript - 前缀和">
-
-这道题可以换一种思路思考. 即从根节点 root 到某个子节点 node, 一定是唯一的路径(你可以把这条路径的所有元素想象成一个数组), 那么题目就变成了: **在这个数组中, 存在某个区间的和为 targetSum**. 显然这就变成了一个前缀和的问题.
-
-我们可以用一个 HasMap, key 记录前缀和, value 记录达成该前缀和包括的节点的个数. 具体解释看代码注释:
-
-```ts
-var pathSum = function (root, targetSum) {
-  const prefix = new Map()
-  // 初始化前缀和
-  prefix.set(0, 1)
-  return dfs(root, prefix, 0, targetSum)
-}
-
-const dfs = (root, prefix, currSum, targetSum) => {
-  if (root === null) {
-    return 0
-  }
-
-  let ret = 0
-  currSum += root.val
-  ret = prefix.get(currSum - targetSum) || 0
-  
-  // 回, 当前前缀和的节点数量加一
-  prefix.set(currSum, (prefix.get(currSum) || 0) + 1)
-  ret += dfs(root.left, prefix, currSum, targetSum)
-  ret += dfs(root.right, prefix, currSum, targetSum)
-  // 溯, 当前前缀和的节点数量减一
-  prefix.set(currSum, (prefix.get(currSum) || 0) - 1)
-
-  return ret
-}
-```
-
-时间复杂度: O(n)
-
-空间复杂度: O(n)
-
-</TabItem>
-</Tabs>
+- 时间复杂度: `O(n)`
+- 空间复杂度: `O(n)`
