@@ -47,10 +47,10 @@ var exist = function (board, word) {
   const n = board[0].length
   const visited = new Array(m).fill(false).map(() => new Array(n).fill(false))
 
-  // row 和 col 当前点的坐标, idx 为局部索引
-  const dfs = (row, col, idx) => {
-    // 递归的出口: idx 越界了就返回 true
-    if (idx === word.length) return true
+  // row 和 col 当前点的坐标, i 为局部索引
+  const dfs = (row, col, i) => {
+    // 递归的出口: i 越界了就返回 true
+    if (i === word.length) return true
 
     // 1. 当前点越界
     // 2. 或者当前点已经访问过
@@ -62,17 +62,17 @@ var exist = function (board, word) {
       col < 0 ||
       col >= n ||
       visited[row][col] ||
-      board[row][col] !== word[idx]
+      board[row][col] !== word[i]
     ) {
       return false
     }
 
     visited[row][col] = true
     const isExist =
-      dfs(row + 1, col, idx + 1) ||
-      dfs(row - 1, col, idx + 1) ||
-      dfs(row, col + 1, idx + 1) ||
-      dfs(row, col - 1, idx + 1)
+      dfs(row + 1, col, i + 1) ||
+      dfs(row - 1, col, i + 1) ||
+      dfs(row, col + 1, i + 1) ||
+      dfs(row, col - 1, i + 1)
     visited[row][col] = false
 
     return isExist
@@ -80,8 +80,9 @@ var exist = function (board, word) {
 
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
-      // 从能匹配单词第一个字母的
+      // 从能匹配单词第一个字母的位置开始
       if (board[i][j] === word[0]) {
+        // 找到一个可行解就好
         if (dfs(i, j, 0)) {
           return true
         }
@@ -121,22 +122,22 @@ fn dfs(
     visited: &mut Vec<Vec<bool>>,
     row: usize,
     col: usize,
-    idx: usize,
+    i: usize,
 ) -> bool {
-    if idx == word.len() {
+    if i == word.len() {
         return true;
     }
 
     let (m, n) = (board.len(), board[0].len());
-    if row >= m || col >= n || visited[row][col] || board[row][col] != word[idx] {
+    if row >= m || col >= n || visited[row][col] || board[row][col] != word[i] {
         return false;
     }
 
     visited[row][col] = true;
-    let is_exist = dfs(board, word, visited, row + 1, col, idx + 1)
-        || dfs(board, word, visited, row - 1, col, idx + 1)
-        || dfs(board, word, visited, row, col + 1, idx + 1)
-        || dfs(board, word, visited, row, col - 1, idx + 1);
+    let is_exist = dfs(board, word, visited, row + 1, col, i + 1)
+        || dfs(board, word, visited, row - 1, col, i + 1)
+        || dfs(board, word, visited, row, col + 1, i + 1)
+        || dfs(board, word, visited, row, col - 1, i + 1);
     visited[row][col] = false;
 
     is_exist

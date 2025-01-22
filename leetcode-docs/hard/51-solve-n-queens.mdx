@@ -60,18 +60,16 @@ var solveNQueens = function (n) {
 
   const dfs = (row) => {
     if (row === n) {
-      // 由于 board[row] 是数组, 而题目要求 board[row] 是字符串, 因此需要转一下
-      const _board = board.map((_row) => _row.join(''))
-      res.push(_board)
+      res.push(board.map((r) => r.join('')))
       return
     }
 
     for (let col = 0; col < n; col++) {
-      if (!isValid(board, row, col)) continue
-
-      board[row][col] = 'Q'
-      dfs(row + 1)
-      board[row][col] = '.'
+      if (isValid(board, row, col)) {
+        board[row][col] = 'Q'
+        dfs(row + 1)
+        board[row][col] = '.'
+      }
     }
   }
 

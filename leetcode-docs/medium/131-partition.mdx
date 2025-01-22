@@ -118,10 +118,7 @@ var validPalindrome = function (word) {
 var partition = function (s) {
   const n = s.length
   const res = []
-  const memo = new Array(n)
-  for (let i = 0; i < n; i++) {
-    memo[i] = new Array(n)
-  }
+  const memo = new Array(n).fill(false).map(() => new Array(n))
 
   const dfs = (begin, track) => {
     if (begin === n) {
