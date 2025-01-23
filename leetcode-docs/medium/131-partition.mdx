@@ -3,7 +3,7 @@ id: 131-partition
 title: 分割回文串
 sidebar_label: 131. 分割回文串
 keywords:
-  - BackTracking
+  - BackTracking, Dynamic Programming
 ---
 
 :::success Tips
@@ -167,14 +167,6 @@ const validPalindrome = (s, left, right, memo) => {
 
 我们可以把所有子串是否回文, 提前求解, 用二维数组存起来. 回溯时, 直接取 `dp` 数组中对应元素就好.
 
-`dp[i][j]` 为真的话, 包含以下情况:
-
-1. `i === j` 时, 子串只有一个字符, 肯定回文
-2. `j - i === 1` 时, 子串由两个字符组成, 字符必须相同 `s[i] === s[j]`
-3. `j - i > 1` 时, 子串由两个以上字符组成, `s[i] === s[j]`, 且 `dp[i + 1][j - 1]` 为 `true`, 即除去首尾字符的剩余子串也是回文子串.
-
-其中 1 和 2 是 base case, 不需要递推出来, 3 是状态转移方程.
-
 ```js
 /**
  * @param {string} s
@@ -183,17 +175,11 @@ const validPalindrome = (s, left, right, memo) => {
 var partition = function (s) {
   const n = s.length
   const res = []
-  const dp = new Array(n).fill(false).map(() => new Array(n).fill(false))
+  const dp = new Array(n).fill(false).map(() => new Array(n).fill(true))
 
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j <= i; j++) {
-      if (
-        i - j === 0 ||
-        (i - j === 1 && s[i] === s[j]) ||
-        (i - j > 1 && s[i] === s[j] && dp[j + 1][i - 1])
-      ) {
-        dp[j][i] = true
-      }
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = i + 1; j < n; j++) {
+      dp[i][j] = s[i] === s[j] && dp[i + 1][j - 1]
     }
   }
 
@@ -213,7 +199,7 @@ var partition = function (s) {
   }
 
   dfs(0, [])
-  
+
   return res
 }
 ```

@@ -6,33 +6,46 @@ sidebar_label: 153. 寻找旋转排序数组中的最小值
 
 ## 题目
 
-假设按照升序排序的数组在预先未知的某个点上进行了旋转. 例如, 数组 `[0, 1, 2, 4, 5, 6, 7]` 可能变为 `[4, 5, 6, 7, 0, 1, 2]`. 请找出该数组中最小的元素.
+已知一个长度为 `n` 的数组, 预先按照升序排列, 经由 `1` 到 `n` 次**旋转**后, 得到输入数组. 例如, 原数组 `nums = [0,1,2,4,5,6,7]` 在变化后可能得到:
+
+- 若旋转 `4` 次, 则可以得到 `[4,5,6,7,0,1,2]`
+- 若旋转 `7` 次, 则可以得到 `[0,1,2,4,5,6,7]`
+
+注意, 数组 `[a[0], a[1], a[2], ..., a[n-1]]` **旋转一次** 的结果为数组 `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]`.
+
+给你一个元素值**互不相同**的数组 `nums`, 它原来是一个升序排列的数组, 并按上述情形进行了多次旋转. 请你找出并返回数组中的**最小元素** .
+
+你必须设计一个时间复杂度为 `O(leftg n)` 的算法解决此问题.
 
 :::info 示例
 
-```ts
-输入: nums = [3, 4, 5, 1, 2]
-
+```bash
+输入: nums = [3,4,5,1,2]
 输出: 1
+解释: 原数组为 [1,2,3,4,5], 旋转 3 次得到输入数组.
 ```
 
-```ts
-输入: nums = [4, 5, 6, 7, 0, 1, 2]
-
+```bash
+输入: nums = [4,5,6,7,0,1,2]
 输出: 0
+解释: 原数组为 [0,1,2,4,5,6,7], 旋转 4 次得到输入数组.
+```
+
+```bash
+输入: nums = [11,13,15,17]
+输出: 11
+解释: 原数组为 [11,13,15,17], 旋转 4 次得到输入数组.
 ```
 
 :::
 
 ## 题解
 
-### 我写的解法
+比较 `nums[mid]` 和 `nums[right]`:
 
-- 设置一个变量 `min`, 初始化为数组的第一个元素
-- 在循环中:
-  - 如果 `nums[lo] <= nums[mid]`, 也就是左边是有序的, 也就意味着左边部分, 最小的一定是 `nums[lo]`, 该值与 min 比较, 如果比 min 小, 就将其设为 min, 此时左边部分已经扫描完了, 因此忽略左边这一部分, 即让 `lo = mid + 1`.
-  - 否则右边是有序的, 此时右边部分, 最小的一定是 `nums[mid]`, 该值与 min 比较, 如果比 min 小, 就将其设为 min, 此时右边部分已经扫描完了, 因此忽略右边这一部分, 即让 `hi = mid`.
-- 当循环至 `lo <= hi` 不成立时, 退出循环, 返回的 min 一定是最小的.
+- 如果 `nums[mid] > nums[right]`, 则最小值一定在右半部分(不包括 `mid`), 令 `left = mid + 1`.
+- 如果 `nums[mid] <= nums[right]`, 则最小值一定在左半部分(包括 `mid`), 令 `right = mid`.
+- 当循环结束时, `left` 和 `right` 相等, 它们指向的元素就是最小值.
 
 ```ts
 /**
@@ -40,43 +53,17 @@ sidebar_label: 153. 寻找旋转排序数组中的最小值
  * @return {number}
  */
 var findMin = function (nums) {
-  let lo = 0
-  let hi = nums.length - 1
-  let min = nums[0]
+  let left = 0,
+    right = nums.length - 1
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2)
 
-  while (lo <= hi) {
-    const mid = ((lo + hi) / 2) | 0
-
-    if (nums[lo] <= nums[mid]) {
-      min = min > nums[lo] ? nums[lo] : min
-      lo = mid + 1
-    } else if (nums[lo] > nums[mid]) {
-      min = min > nums[mid] ? nums[mid] : min
-      hi = mid
-    }
-  }
-
-  return min
-}
-```
-
-### 别人写的解法
-
-啊, 我太菜了.
-
-```ts
-var findMin = function (nums) {
-  let lo = 0,
-    hi = nums.length - 1
-  while (lo < hi) {
-    const mid = (lo + hi) >> 1
-
-    if (nums[mid] > nums[hi]) {
-      lo = mid + 1
+    if (nums[mid] > nums[right]) {
+      left = mid + 1
     } else {
-      hi = mid
+      right = mid
     }
   }
-  return nums[lo]
+  return nums[left]
 }
 ```

@@ -8,7 +8,7 @@ sidebar_label: 155. 最小栈
 
 设计一个支持 push, pop, top 操作, 并能在常数时间内检索到最小元素的栈.
 
-- push(x) —— 将元素 x 推入栈中
+- push(val) —— 将元素 val 推入栈中
 - pop() —— 删除栈顶的元素
 - top() —— 获取栈顶元素
 - getMin() —— 检索栈中的最小元素
@@ -50,14 +50,14 @@ var MinStack = function () {
 }
 
 /**
- * @param {number} x
+ * @param {number} val
  * @return {void}
  */
-MinStack.prototype.push = function (x) {
-  this.items.push(x)
+MinStack.prototype.push = function (val) {
+  this.items.push(val)
 
-  if (this.minItems.length === 0 || x <= this.getMin()) {
-    this.minItems.push(x)
+  if (this.minItems.length === 0 || val <= this.getMin()) {
+    this.minItems.push(val)
   }
 }
 
@@ -89,7 +89,7 @@ MinStack.prototype.getMin = function () {
 /**
  * Your MinStack object will be instantiated and called as such:
  * var obj = new MinStack()
- * obj.push(x)
+ * obj.push(val)
  * obj.pop()
  * var param_3 = obj.top()
  * var param_4 = obj.getMin()

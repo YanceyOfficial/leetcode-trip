@@ -43,24 +43,27 @@ import TabItem from '@theme/TabItem'
 
 ```ts
 /**
- * @param {number[]} T
+ * @param {number[]} temperatures
  * @return {number[]}
  */
-var dailyTemperatures = function (T) {
-  const n = T.length
+var dailyTemperatures = function (temperatures) {
+  const n = temperatures.length
   const stack = []
-  const res = new Array(n).fill(0)
+  const result = new Array(n).fill(0)
 
   for (let i = 0; i < n; i++) {
-    while (stack.length > 0 && T[stack[stack.length - 1]] < T[i]) {
+    while (
+      stack.length > 0 &&
+      temperatures[stack[stack.length - 1]] < temperatures[i]
+    ) {
       const prevIndex = stack.pop()
-      res[prevIndex] = i - prevIndex
+      result[prevIndex] = i - prevIndex
     }
 
     stack.push(i)
   }
 
-  return res
+  return result
 }
 ```
 
@@ -71,18 +74,18 @@ var dailyTemperatures = function (T) {
 pub fn daily_temperatures(temperatures: Vec<i32>) -> Vec<i32> {
     let n = temperatures.len();
     let mut stack = vec![];
-    let mut res = vec![0; n];
+    let mut result = vec![0; n];
 
     for (i, temperature) in temperatures.iter().enumerate() {
         while !stack.is_empty() && temperatures[stack[stack.len() - 1]] < *temperature {
             let prev_index = stack.pop().unwrap();
-            res[prev_index] = (i - prev_index) as i32;
+            result[prev_index] = (i - prev_index) as i32;
         }
 
         stack.push(i);
     }
 
-    res
+    result
 }
 ```
 

@@ -1,0 +1,97 @@
+---
+id: 394-decode-string
+title: 字符串解码
+sidebar_label: 394. 字符串解码
+---
+
+## 题目
+
+给定一个经过编码的字符串, 返回它解码后的字符串.
+
+编码规则为: `k[encoded_string]`, 表示其中方括号内部的 `encoded_string` 正好重复 `k` 次. 注意 `k` 保证为正整数.
+
+你可以认为输入字符串总是有效的; 输入字符串中没有额外的空格, 且输入的方括号总是符合格式要求的.
+
+此外, 你可以认为原始数据不包含数字, 所有的数字只表示重复的次数 `k`, 例如不会出现像 `3a` 或 `2[4]` 的输入.
+
+:::note 提示:
+
+- `1 <= s.length <= 30`
+- `s` 由小写英文字母、数字和方括号 `'[]'` 组成
+- `s` 保证是一个**有效**的输入.
+- `s` 中所有整数的取值范围为 `[1, 300]`
+
+:::
+
+:::info 示例
+
+```bash
+输入: s = "3[a]2[bc]"
+输出: "aaabcbc"
+```
+
+```bash
+输入: s = "3[a2[c]]"
+输出: "accaccacc"
+```
+
+```bash
+输入: s = "2[abc]3[cd]ef"
+输出: "abcabccdcdcdef"
+```
+
+```bash
+输入: s = "abc3[cd]xyz"
+输出: "abccdcdcdxyz"
+```
+
+:::
+
+## 题解
+
+这道题可以使用栈来解决. 我们使用两个栈: 一个栈 `numStack` 用于存储数字, 另一个栈 `strStack` 用于存储字符串.
+
+遍历输入字符串 `s`:
+
+- **数字**: 如果当前字符是数字, 则将其解析为一个完整的数字, 并压入 `numStack`.
+- **[**: 如果当前字符是 `[`, 则将当前已解析的字符串(如果存在)压入 `strStack`, 并将空字符串压入 `strStack`, 为接下来的解码字符串做准备.
+- **]**: 如果当前字符是 `]`, 则从 `numStack` 中弹出一个数字 `num`, 从 `strStack` 中弹出一个字符串 `str`, 再从 `strStack` 中弹出一个字符串 `prevStr`. 将 `str` 重复 `num` 次, 然后拼接到 `prevStr` 的后面, 再将结果压入 `strStack`.
+- **字母**: 如果当前字符是字母, 则将其拼接到当前正在解析的字符串后面.
+
+遍历结束后, `strStack` 中剩下的唯一一个字符串就是解码后的结果.
+
+```ts
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var decodeString = function (s) {
+  const numStack = []
+  const strStack = []
+
+  let num = 0
+  let str = ''
+
+  for (const ch of s) {
+    if (!isNaN(Number(ch))) {
+      num = num * 10 + Number(ch)
+    } else if (ch === '[') {
+      numStack.push(num)
+      strStack.push(str)
+
+      num = 0
+      str = ''
+    } else if (ch === ']') {
+      const repeatTimes = numStack.pop()
+      str = strStack.pop() + str.repeat(repeatTimes)
+    } else {
+      str += ch
+    }
+  }
+
+  return str
+}
+```
+
+时间复杂度: `O(n * maxK)`, 其中 `n` 是字符串的长度, `maxK` 是重复次数的最大值. 在最坏情况下, 字符串可能包含嵌套的重复, 导致时间复杂度较高.
+空间复杂度: `O(n)`, 最坏情况下, 栈的深度可能达到 `n`.
