@@ -117,19 +117,19 @@ var largestRectangleArea = function (heights) {
   // 这就导致从当前高度往左, 一定是可以拉满当前高度的, 那么左边界就是 -1
   //
   // PS: 一开始没想明白为什么是 -1, 而不是 0, 因为存储的是索引, 所以左边界值就要是 -1
-  const left = new Array(n).fill(-1)
+  const lefts = new Array(n).fill(-1)
 
   // 从左往右, 找到比当前元素小的右边界
   // 需要理解为什么默认值为 n, 比如一个元素右边所有元素都比它大,
   // 这就导致从当前高度往右, 一定是可以拉满当前高度的, 那么右边界就是 n
-  const right = new Array(n).fill(n)
+  const rights = new Array(n).fill(n)
 
   const stack = []
 
   // 标准的单调栈框架, 找到比当前元素小的右边界
   for (let i = 0; i < n; i++) {
     while (stack.length > 0 && heights[stack[stack.length - 1]] > heights[i]) {
-      right[stack.pop()] = i
+      rights[stack.pop()] = i
     }
 
     stack.push(i)
@@ -138,7 +138,7 @@ var largestRectangleArea = function (heights) {
   // 标准的单调栈框架, 找到比当前元素小的左边界
   for (let i = n - 1; i >= 0; i--) {
     while (stack.length > 0 && heights[stack[stack.length - 1]] > heights[i]) {
-      left[stack.pop()] = i
+      lefts[stack.pop()] = i
     }
 
     stack.push(i)
@@ -148,10 +148,7 @@ var largestRectangleArea = function (heights) {
 
   // 根据左右边界和当前柱子的高度, 来找到最大值
   for (let i = 0; i < n; i++) {
-    const height = heights[i]
-    const leftIdx = left[i]
-    const rightIdx = right[i]
-    max = Math.max(max, (rightIdx - leftIdx - 1) * height)
+    max = Math.max(max, (rights[i] - lefts[i] - 1) * heights[i])
   }
 
   return max

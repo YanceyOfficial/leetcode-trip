@@ -65,12 +65,11 @@ var canJump = function (nums) {
   const n = nums.length
   let maxReach = 0
 
-  for (let i = 0; i < n - 1; i++) {
+  for (let i = 0; i < n; i++) {
+    if (i > maxReach) return false
+
     // 不断计算能跳到的最远距离
     maxReach = Math.max(maxReach, i + nums[i])
-
-    // 无法再往前走
-    if (maxReach <= i) return false
   }
 
   return true

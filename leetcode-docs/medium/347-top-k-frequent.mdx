@@ -90,7 +90,12 @@ var topKFrequent = function (nums, k) {
 
 上面说到 buckets 数组的长度应该为 `nums.length + 1`, 这是为什么呢? 假设 `nums = [1]`, 那么 hashmap 就是 `1 -> 1`, 如果 buckets 的长度也是 1, 即初始化为 `[0]`, 那么 `buckets[1]` 就是 `undefined` 了, 因此下面代码中高亮的那一行就会出错.
 
-```ts {15}
+```ts {20}
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
 var topKFrequent = function (nums, k) {
   const map = new Map()
 

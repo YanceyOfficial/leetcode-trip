@@ -35,7 +35,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 大顶堆" label="JavaScript - 大顶堆" default>
+  <TabItem value="JavaScript - 大顶堆" label="JavaScript - 大顶堆">
 
 Top K 的问题首先可以用[优先队列](/data-structure/queue/priority-queue)解决.
 
@@ -45,7 +45,6 @@ Top K 的问题首先可以用[优先队列](/data-structure/queue/priority-queu
  * @param {number} k
  * @return {number}
  */
-
 var findKthLargest = function (nums, k) {
   const maxHeap = new PriorityQueue()
 
@@ -65,8 +64,13 @@ var findKthLargest = function (nums, k) {
 <TabItem value="JavaScript - 小顶堆" label="JavaScript - 小顶堆">
 
 ```ts
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
 var findKthLargest = function (nums, k) {
-  const minHeap = new PriorityQueue()
+  const minHeap = new MinPriorityQueue()
 
   for (const num of nums) {
     minHeap.offer(num)
@@ -105,75 +109,55 @@ pub fn find_kth_largest(nums: Vec<i32>, k: i32) -> i32 {
 
 </TabItem>
 
-<TabItem value="JavaScript - 快速选择算法" label="JavaScript - 快速选择算法">
+<TabItem value="JavaScript - 快速选择算法" label="JavaScript - 快速选择算法" default>
 
 我们在[快速排序](/algorithm-design/sort/quick)中了解到了 `partition` 函数, 它是用来找每个子区间的分界点 p, 以保证分界点的左侧都小于 p, 右边的都大于 p. 题目要求的是**第 k 个最大元素**, 这个元素其实就是 nums 升序排序后索引为 `nums.length - k` 的元素.
 
 ```ts
-// 交换数组的两个值, 当然你用解构也 ok
-function swap(nums, leftIndex, rightIndex) {
-  const temp = nums[leftIndex]
-  nums[leftIndex] = nums[rightIndex]
-  nums[rightIndex] = temp
-}
-
-// 洗牌算法
-function shuffle(arr) {
-  let i = arr.length,
-    j
-  while (i) {
-    j = Math.floor(Math.random() * i--)
-    swap(arr, i, j)
-  }
-  return arr
-}
-
-// 分区函数, 将 arr[high] 作为 pivot 分区点
-// i, j 两个指针, i 作为标记"已处理区间"和"未处理区间"的分界点, 也即 i 左边的 [low..i-1] 都是"已处理区".
-// j 指针遍历数组, 当 arr[j] 小于 pivot 时, 就把 arr[j] 放到"已处理区间"的尾部, 也即是 arr[i] 所在位置
-// 因此 swap(arr, i, j) 然后 i 指针后移, i++
-// 直到 j 遍历到数组末尾 arr[high], 将 arr[i] 和 arr[high](pivot点)进行交换, 返回下标 i, 就是分区点的下标.
-function partition(nums, low, high) {
-  let i = low
-  const pivot = nums[high]
-  for (let j = low; j < high; j++) {
-    if (nums[j] < pivot) {
-      swap(nums, i, j)
-      i++
-    }
-  }
-  swap(nums, i, high)
-  return i
-}
-
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
 var findKthLargest = function (nums, k) {
-  // 数组为升序或倒序数组会导致 partition 效率变低
-  // 因此一开始先将 nums 顺序打乱
-  shuffle(nums)
+  const n = nums.length
+  return quickselect(nums, 0, n - 1, n - k) // 调用 quickselect 寻找第 n-k 小的元素
+}
 
-  const len = nums.length
+/**
+ * 快速选择算法, 找到第 k 大的元素
+ * @param {number[]} nums - 输入的数组
+ * @param {number} l - 当前搜索范围的左边界
+ * @param {number} r - 当前搜索范围的右边界
+ * @param {number} k - 目标元素的索引（从 0 开始）
+ * @return {number} - 数组中第 k 大的元素
+ */
+function quickselect(nums, l, r, k) {
+  if (l === r) return nums[k] // 递归终止条件, 找到第 k 大的元素
 
-  let lo = 0,
-    hi = len - 1
+  const x = nums[l] // 选择第一个元素作为枢轴
+  let i = l - 1,
+    j = r + 1
 
-  k = len - k
+  // 快速排序的划分过程
+  while (i < j) {
+    do i++
+    while (nums[i] < x) // 找到大于等于枢轴的元素
+    do j--
+    while (nums[j] > x) // 找到小于等于枢轴的元素
 
-  while (lo <= hi) {
-    const p = partition(nums, lo, hi)
-
-    if (p < k) {
-      // 第 k 大的元素在 nums[p+1..hi] 中
-      lo = p + 1
-    } else if (p > k) {
-      // 第 k 大的元素在 nums[lo..p-1] 中
-      hi = p - 1
-    } else {
-      // 找到第 k 大元素
-      return nums[p]
+    // 交换 nums[i] 和 nums[j]
+    if (i < j) {
+      ;[nums[i], nums[j]] = [nums[j], nums[i]]
     }
   }
 
-  return -1
+  // 递归查找, 确定第 k 大元素的位置
+  if (k <= j) {
+    return quickselect(nums, l, j, k) // 第 k 大元素在左边
+  } else {
+    return quickselect(nums, j + 1, r, k) // 第 k 大元素在右边
+  }
 }
 ```
 
