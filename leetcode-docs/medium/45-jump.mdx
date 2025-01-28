@@ -44,12 +44,12 @@ keywords:
 - **维护两个指针**:
 
   - `end`: 当前能跳到的最远位置.
-  - `farthest`: 在当前能跳到的范围内, 能跳到的最远位置.
+  - `maxReachableIndex`: 在当前能跳到的范围内, 能跳到的最远位置.
 
 - **遍历数组**:
 
-  - 当遍历到 `end` 时, 说明已经跳到了一个新的能跳到的最远位置, 更新 `end` 为 `farthest`.
-  - 同时更新 `farthest`, 寻找下一个能跳到的最远位置.
+  - 当遍历到 `end` 时, 说明已经跳到了一个新的能跳到的最远位置, 更新 `end` 为 `maxReachableIndex`.
+  - 同时更新 `maxReachableIndex`, 寻找下一个能跳到的最远位置.
 
 - **跳跃次数**: 每更新一次 `end`, 就代表跳了一次.
 
@@ -67,13 +67,16 @@ import TabItem from '@theme/TabItem'
 var jump = function (nums) {
   const n = nums.length
   let end = 0
-  let farthest = 0
+  let maxReachableIndex = 0
   let jumps = 0
+
+  // 注意是 n - 1
   for (let i = 0; i < n - 1; i++) {
-    farthest = Math.max(farthest, i + nums[i])
+    maxReachableIndex = Math.max(maxReachableIndex, i + nums[i])
 
     if (i === end) {
-      end = farthest
+      // 遇到边界, 必须要跳一次了, 就更新边界, 并且步数加一
+      end = maxReachableIndex
       jumps++
     }
   }
@@ -89,15 +92,15 @@ use std::cmp;
 
 pub fn jump(nums: Vec<i32>) -> i32 {
     let n = nums.len();
-    let mut farthest = 0;
+    let mut maxReachableIndex = 0;
     let mut end = 0;
     let mut jumps = 0;
 
     for i in 0..(n - 1) {
-        farthest = cmp::max(farthest, nums[i] + i as i32);
+        maxReachableIndex = cmp::max(maxReachableIndex, nums[i] + i as i32);
 
         if i as i32 == end {
-            end = farthest;
+            end = maxReachableIndex;
             jumps += 1;
         }
     }
