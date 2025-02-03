@@ -32,7 +32,7 @@
     "compare-versions": "^5.0.3",
     "execa": "^7.1.1",
     "figlet": "^1.6.0",
-    "inquirer": "^9.2.7",
+    "inquirer": "^12.4.1",
     "inquirer-autocomplete-prompt": "^3.0.0",
     "leven": "^4.0.0",
     "node-fetch": "^3.3.1",
