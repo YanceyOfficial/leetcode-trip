@@ -111,7 +111,7 @@ pub fn add_two_numbers(
 
     while l1.is_some() || l2.is_some() || carry != 0 {
         let mut sum = carry;
-        
+
         if let Some(node) = l1 {
             sum += node.val;
             l1 = node.next;

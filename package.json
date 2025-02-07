@@ -19,7 +19,7 @@
     "typecheck": "tsc",
     "test": "jest --coverage",
     "lint": "eslint src --ext .ts,.js",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" \"__tests__/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" \"__tests__/**/*.ts\" \"leetcode-docs/**/*.mdx\" \"algorithm-design-docs/**/*.mdx\" \"data-structure-docs/**/*.mdx\""
   },
   "dependencies": {
     "@docusaurus/core": "^3.7.0",

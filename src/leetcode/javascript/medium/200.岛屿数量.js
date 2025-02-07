@@ -25,8 +25,6 @@ var numIslands = function (grid) {
     dfs(i, j - 1)
   }
 
-
-
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
       if (grid[i][j] === '1') {

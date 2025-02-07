@@ -10,19 +10,19 @@
  * @return {number[]}
  */
 var productExceptSelf = function (nums) {
-    const n = nums.length
-    const suffixProduct = new Array(n).fill(1)
-  
-    for (let i = n - 2; i >= 0; i--) {
-      suffixProduct[i] = suffixProduct[i + 1] * nums[i + 1]
-    }
-  
-    let prefixProduct = 1
-    for (let i = 0; i < n; i++) {
-      suffixProduct[i] *= prefixProduct
-      prefixProduct *= nums[i]
-    }
-  
-    return suffixProduct
+  const n = nums.length
+  const suffixProduct = new Array(n).fill(1)
+
+  for (let i = n - 2; i >= 0; i--) {
+    suffixProduct[i] = suffixProduct[i + 1] * nums[i + 1]
   }
+
+  let prefixProduct = 1
+  for (let i = 0; i < n; i++) {
+    suffixProduct[i] *= prefixProduct
+    prefixProduct *= nums[i]
+  }
+
+  return suffixProduct
+}
 // @lc code=end

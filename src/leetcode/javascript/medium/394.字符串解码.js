@@ -21,12 +21,11 @@ var decodeString = function (s) {
     } else if (ch === '[') {
       numStack.push(num)
       strStack.push(str)
-      num = 0;
-      str = "";
-
+      num = 0
+      str = ''
     } else if (ch === ']') {
-        const repeatTimes = numStack.pop()
-      str = strStack.pop() + str.repeat(repeatTimes);
+      const repeatTimes = numStack.pop()
+      str = strStack.pop() + str.repeat(repeatTimes)
     } else {
       str += ch
     }

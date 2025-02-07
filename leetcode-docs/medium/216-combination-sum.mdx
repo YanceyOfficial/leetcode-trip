@@ -18,13 +18,13 @@ keywords:
 :::info 示例
 
 ```ts
-输入: k = 3, n = 7
+输入: (k = 3), (n = 7)
 
 输出: [[1, 2, 4]]
 ```
 
 ```ts
-输入: k = 3, n = 9
+输入: (k = 3), (n = 9)
 
 输出: [
   [1, 2, 6],
@@ -46,24 +46,24 @@ keywords:
  * @return {number[][]}
  */
 var combinationSum3 = function (k, n) {
-  const result = [];
+  const result = []
 
   const dfs = (begin, sum, track) => {
     if (track.length === k && sum === n) {
-      result.push(track);
-      return;
+      result.push(track)
+      return
     }
 
     for (let i = begin; i <= 9; i++) {
       if (sum < n) {
-        track.push(i);
-        dfs(i + 1, sum + i, track.slice());
-        track.pop();
+        track.push(i)
+        dfs(i + 1, sum + i, track.slice())
+        track.pop()
       }
     }
-  };
+  }
 
-  dfs(1, 0, []);
-  return result;
-};
+  dfs(1, 0, [])
+  return result
+}
 ```

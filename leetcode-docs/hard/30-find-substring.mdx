@@ -71,33 +71,33 @@ import TabItem from '@theme/TabItem'
  * @return {number[]}
  */
 var findSubstring = function (s, words) {
-    const sLen = s.length
-    const wordLen = words[0].length
-    const subStringLen = words.length * wordLen
+  const sLen = s.length
+  const wordLen = words[0].length
+  const subStringLen = words.length * wordLen
 
-    const map1 = new Map()
-    for (const str of words) {
-        map1.set(str, map1.has(str) ? map1.get(str) + 1 : 1)
+  const map1 = new Map()
+  for (const str of words) {
+    map1.set(str, map1.has(str) ? map1.get(str) + 1 : 1)
+  }
+
+  const result = []
+  for (let i = 0; i + subStringLen <= sLen; i++) {
+    const subString = s.slice(i, i + subStringLen)
+    const map2 = new Map()
+
+    for (let j = 0; j < subStringLen; j += wordLen) {
+      const subWord = subString.slice(j, j + wordLen)
+      if (!words.includes(subWord)) break
+      map2.set(subWord, map2.has(subWord) ? map2.get(subWord) + 1 : 1)
     }
 
-    const result = []
-    for (let i = 0; i + subStringLen <= sLen; i++) {
-        const subString = s.slice(i, i + subStringLen)
-        const map2 = new Map()
-
-        for (let j = 0; j < subStringLen; j += wordLen) {
-            const subWord = subString.slice(j, j + wordLen)
-            if (!words.includes(subWord)) break
-            map2.set(subWord, map2.has(subWord) ? map2.get(subWord) + 1 : 1)
-        }
-
-        if (isEqual(map1, map2)) {
-            result.push(i)
-        }
+    if (isEqual(map1, map2)) {
+      result.push(i)
     }
+  }
 
-    return result
-};
+  return result
+}
 
 /**
  * @param {Map} map1
@@ -105,11 +105,11 @@ var findSubstring = function (s, words) {
  * @return {boolean}
  */
 var isEqual = function (map1, map2) {
-    for (const key of map1.keys()) {
-        if (map1.get(key) !== map2.get(key)) return false
-    }
+  for (const key of map1.keys()) {
+    if (map1.get(key) !== map2.get(key)) return false
+  }
 
-    return true
+  return true
 }
 ```
 

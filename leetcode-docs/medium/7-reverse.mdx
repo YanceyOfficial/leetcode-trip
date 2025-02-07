@@ -76,7 +76,7 @@ pub fn reverse(x: i32) -> i32 {
         if n > i32::INT_MAX / 10 || n < i32::INT_MIN / 10 {
             return 0;
         }
-        
+
         n = n * 10 + (x % 10);
         x /= 10;
     }

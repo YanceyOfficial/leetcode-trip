@@ -21,12 +21,10 @@ var isInterleave = function (s1, s2, s3) {
     .map(() => new Array(n + 1).fill(false))
   dp[0][0] = true
 
- 
-
   for (let i = 1; i <= m && s1[i - 1] === s3[i - 1]; i++) dp[i][0] = true
   console.log(dp)
   for (let j = 1; j <= n && s2[j - 1] === s3[j - 1]; j++) dp[0][j] = true
- 
+
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {
       dp[i][j] =

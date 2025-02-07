@@ -11,8 +11,5 @@
  * @param {number} valueDiff
  * @return {boolean}
  */
-var containsNearbyAlmostDuplicate = function(nums, indexDiff, valueDiff) {
-
-};
+var containsNearbyAlmostDuplicate = function (nums, indexDiff, valueDiff) {}
 // @lc code=end
-

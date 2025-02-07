@@ -19,7 +19,6 @@ sidebar_label: 380. o-1-时间插入、删除和获取随机元素
 
 对于 insert 和 remove 操作容易想到使用**哈希表**来实现 O(1) 复杂度, 但对于 getRandom 操作, 比较理想的情况是能够在一个数组内随机下标进行返回.
 
-
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
@@ -62,7 +61,7 @@ RandomizedSet.prototype.remove = function (val) {
   this.map.delete(val)
   // 由于最后一个元素改变了位置(this.nums.length - 1 -> idx), 需要更新最后一个元素在 map 中的 value
   this.map.set(this.nums[idx], idx)
-  
+
   return true
 }
 

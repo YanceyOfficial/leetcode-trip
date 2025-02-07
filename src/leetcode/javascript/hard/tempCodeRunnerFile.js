@@ -6,11 +6,9 @@
 var numDistinct = function (s, t) {
   const m = t.length
   const n = s.length
-  
+
   if (m > n) return 0
   const dp = new Array(m + 1).fill(0).map(() => new Array(n + 1).fill(0))
-
-
 
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {

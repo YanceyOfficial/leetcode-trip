@@ -56,45 +56,45 @@ import TabItem from '@theme/TabItem'
  * @return {string[]}
  */
 var restoreIpAddresses = function (s) {
-  const n = s.length;
-  const res = [];
-  if (n < 4 || n > 12) return res;
+  const n = s.length
+  const res = []
+  if (n < 4 || n > 12) return res
 
   var isValid = function (part) {
     // 每个 part 不能有前导 0
-    if (part.length > 1 && part[0] === "0") return false;
+    if (part.length > 1 && part[0] === '0') return false
     // 每个 part 的数值不能超过 255
-    if (Number(part) > 255) return false;
-    return true;
-  };
+    if (Number(part) > 255) return false
+    return true
+  }
 
   var dfs = function (begin, track) {
     // track 长度为 4 意味着 4 段都找满了
     // 此时还要关注 begin 是否走到了头, 因为要把字符串 s 消耗完
     if (track.length === 4 && begin === n) {
-      res.push(track.join("."));
-      return;
+      res.push(track.join('.'))
+      return
     }
 
     // 仅仅找满了 4 段, 但字符串 s 没消耗完
-    if (track.length === 4) return;
+    if (track.length === 4) return
 
     // 以  begin 为起点, 往后截 1 - 3 位
     for (let i = 1; i < 4; i++) {
-      if (begin + i > s.length) break;
-      const part = s.slice(begin, begin + i);
+      if (begin + i > s.length) break
+      const part = s.slice(begin, begin + i)
       if (isValid(part)) {
-        track.push(part);
-        dfs(begin + i, track);
-        track.pop();
+        track.push(part)
+        dfs(begin + i, track)
+        track.pop()
       }
     }
-  };
+  }
 
-  dfs(0, []);
+  dfs(0, [])
 
-  return res;
-};
+  return res
+}
 ```
 
 </TabItem>

@@ -52,8 +52,8 @@ var minWindow = function (s, t) {
         minStr.length === 0
           ? windowStr
           : windowStr.length < minStr.length
-          ? windowStr
-          : minStr
+            ? windowStr
+            : minStr
 
       const startLetter = s[start]
       start++

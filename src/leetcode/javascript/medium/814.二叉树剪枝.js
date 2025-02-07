@@ -17,8 +17,5 @@
  * @param {TreeNode} root
  * @return {TreeNode}
  */
-var pruneTree = function(root) {
-
-};
+var pruneTree = function (root) {}
 // @lc code=end
-

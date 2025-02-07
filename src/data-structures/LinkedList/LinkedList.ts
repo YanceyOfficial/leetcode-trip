@@ -41,7 +41,7 @@ export class LinkedList<T> implements ILinkedList<T> {
     } else {
       const previous = this.getElementAt(index - 1)
       current = (previous as Node<T>).next as Node<T>
-      (previous as Node<T>).next = current.next
+      ;(previous as Node<T>).next = current.next
     }
     this.count--
     return (current as Node<T>).element

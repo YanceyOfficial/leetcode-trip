@@ -17,7 +17,6 @@ sidebar_label: 19. 删除链表的倒数第N个节点
 
 :::
 
-
 :::info 示例
 
 输入: 给定一个链表 `1 -> 2 -> 3 -> 4 -> 5`, `n = 2`
@@ -122,7 +121,7 @@ var removeNthFromEnd = function (head, n) {
 
   // slow.next 就是倒数第 n 个节点, 删除它
   slow.next = slow.next.next
-  
+
   return head
 }
 ```

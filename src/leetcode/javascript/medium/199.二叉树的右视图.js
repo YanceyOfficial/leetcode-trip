@@ -24,7 +24,7 @@ var rightSideView = function (root) {
 
   while (queue.length > 0) {
     res.push(queue[0].val)
-    
+
     const n = queue.length
     for (let i = 0; i < n; i++) {
       const node = queue.shift()

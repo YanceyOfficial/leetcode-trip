@@ -12,8 +12,5 @@
  * @param {number[]} nums4
  * @return {number}
  */
-var fourSumCount = function(nums1, nums2, nums3, nums4) {
-    
-};
+var fourSumCount = function (nums1, nums2, nums3, nums4) {}
 // @lc code=end
-

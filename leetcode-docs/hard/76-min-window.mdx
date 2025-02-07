@@ -71,7 +71,7 @@ var minWindow = function (s, t) {
   for (const ch of t) {
     needMap.set(ch, needMap.has(ch) ? needMap.get(ch) + 1 : 1)
   }
-  
+
   const windowMap = new Map()
   let start = 0
   let end = 0
