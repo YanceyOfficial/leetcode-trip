@@ -5,7 +5,7 @@ sidebar_label: 136. 只出现一次的数字
 ---
 
 :::success Tips
-题目类型: 位运算, hash 表
+题目类型: 位运算
 
 相关题目:
 
@@ -16,7 +16,7 @@ sidebar_label: 136. 只出现一次的数字
 
 ## 题目
 
-给定一个非空整数数组, 除了某个元素只出现一次以外, 其余每个元素均出现两次. 找出那个只出现了一次的元素.
+给定一个非空整数数组, 除了某个元素只出现一次以外, 其余每个元素均出现两次. 找出那个只出现了一次的元素. 你必须设计并实现线性时间复杂度的算法来解决此问题, 且该算法只使用常量额外空间.
 
 :::info 示例
 
@@ -36,31 +36,14 @@ sidebar_label: 136. 只出现一次的数字
 
 ## 题解
 
-首先肯定能想到 hashmap 吧, 这个想不出来拉出去鞭尸好了.
+使用按位异或, 关于按位异或可访问 [位运算的一些技巧](/algorithm-design/bit-manipulation#按位异或xor).
 
-```js
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var singleNumber = function (nums) {
-  const len = nums.length
-  const set = new Set()
+以 `[4, 1, 2, 1, 2]` 为例, 
 
-  for (let i = 0; i < len; i++) {
-    const hasCurr = set.has(nums[i])
-    if (hasCurr) {
-      set.delete(nums[i])
-    } else {
-      set.add(nums[i])
-    }
-  }
-
-  return set.keys().next().value
-}
-```
-
-这道题的另一种解法是使用按位异或, 关于按位异或可访问 [位运算的一些技巧](/algorithm-design/bit-manipulation#按位异或xor).
+- 4 ^ 1 = 5
+- 5 ^ 2 = 7
+- 7 ^ 1 = 6
+- 6 ^ 2 = 4
 
 ```js
 // 按位异或(XOR)

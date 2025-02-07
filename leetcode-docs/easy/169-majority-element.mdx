@@ -16,10 +16,7 @@ sidebar_label: 169. 多数元素
 
 ## 题解
 
-### 摩尔投票算法(Boyer-Moore Voting Algorithm)
-
-它的思路是先将第一个数设为候选. 在遍历中, 如果当前元素等于候选元素, 就将 count 加一, 否则减一; 如果 count 为 0 了, 就把当前元素设为候选
-. 遍历完成后, 候选元素就是多数元素.
+使用**摩尔投票算法(Boyer-Moore Voting Algorithm)**, 它的思路是先将第一个数设为候选. 在遍历中, 如果当前元素等于候选元素, 就将 count 加一, 否则减一; 如果 count 为 0 了, 就把当前元素设为候选. 遍历完成后, 候选元素就是多数元素.
 
 ```ts
 /**
@@ -27,7 +24,7 @@ sidebar_label: 169. 多数元素
  * @return {number}
  */
 var majorityElement = function (nums) {
-  let candidate = null,
+  let candidate = nums[0],
     count = 0
 
   for (let i = 0; i < nums.length; i++) {
@@ -46,30 +43,3 @@ var majorityElement = function (nums) {
 时间复杂度 O(n)
 
 空间复杂度 O(1)
-
-### 哈希表
-
-这应该是最能想到的做法. key 存储数字, value 存储相应的个数, 如果这个元素的个数大于等于数组长度的一半, 它就是那个所谓多数元素.
-
-```ts
-var majorityElement = function (nums) {
-  const n = nums.length
-  const map = new Map()
-
-  for (let i = 0; i < n; i++) {
-    if (map.has(nums[i])) {
-      map.set(nums[i], map.get(nums[i]) + 1)
-
-      if (map.get(nums[i]) >= n / 2) {
-        return nums[i]
-      }
-    } else {
-      map.set(nums[i], 1)
-    }
-  }
-}
-```
-
-时间复杂度 O(n)
-
-空间复杂度 O(n)
