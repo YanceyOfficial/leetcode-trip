@@ -65,7 +65,7 @@ var solveNQueens = function (n) {
     }
 
     for (let col = 0; col < n; col++) {
-      if (isValid(board, row, col)) {
+      if (isValid(row, col, board, n)) {
         board[row][col] = 'Q'
         dfs(row + 1)
         board[row][col] = '.'
@@ -84,7 +84,7 @@ var solveNQueens = function (n) {
  * @param {number} col
  * @return {boolean}
  */
-var isValid = function (board, row, col) {
+var isValid = function (row, col, board, n) {
   const n = board.length
 
   // 同列不能有 'Q'

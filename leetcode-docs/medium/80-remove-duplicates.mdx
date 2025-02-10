@@ -79,42 +79,6 @@ var removeDuplicates = function (nums) {
 ```
 
 </TabItem>
-  <TabItem value="此类问题的通用解法" label="此类问题的通用解法">
-
-对于此类问题, 为了让解法更具有一般性, 我们将原问题的**保留 `2` 位**修改为**保留 `k` 位**, 我们应该进行如下考虑:
-
-- 由于是保留 `k` 个相同数字, 对于前 `k` 个数字, 我们可以直接保留
-- 对于后面的任意数字, 能够保留的前提是: 与当前写入的位置前面的第 `k` 个元素进行比较, 不相同则保留
-
-```ts
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var removeDuplicates = function (nums) {
-  return process(nums, 2)
-}
-
-/**
- * @param {number[]} nums
- * @param {number} k 最多保留 k 位相同数字
- * @return {number}
- */
-var process = function (nums, k) {
-  const n = nums.length
-  let slow = 0
-
-  for (let fast = 0; fast < n; fast++) {
-    if (slow < k || nums[slow - k] !== nums[fast]) {
-      nums[slow++] = nums[fast]
-    }
-  }
-
-  return slow
-}
-```
-
-</TabItem>
 <TabItem value="Rust" label="Rust">
 
 ```rust

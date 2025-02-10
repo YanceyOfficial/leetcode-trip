@@ -58,12 +58,15 @@ import TabItem from '@theme/TabItem'
  */
 var removeDuplicates = function (nums) {
   let slow = 0
+  let fast = 1
 
-  for (let fast = 1; fast < nums.length; fast++) {
-    if (nums[fast] !== nums[slow]) {
+  while (fast < nums.length) {
+    if (nums[slow] !== nums[fast]) {
       slow++
       nums[slow] = nums[fast]
     }
+
+    fast++
   }
 
   return slow + 1

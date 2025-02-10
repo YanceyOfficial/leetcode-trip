@@ -46,16 +46,16 @@ var rotate = function (nums, k) {
   const n = nums.length
   k = k % n
 
-  var reverse = function (start, end, nums) {
-    while (start < end) {
-      ;[nums[start], nums[end]] = [nums[end], nums[start]]
-      start++
-      end--
-    }
-  }
-
   reverse(0, n - 1, nums)
   reverse(0, k - 1, nums)
   reverse(k, n - 1, nums)
+}
+
+var reverse = function (start, end, nums) {
+  while (start < end) {
+    ;[nums[start], nums[end]] = [nums[end], nums[start]]
+    start++
+    end--
+  }
 }
 ```

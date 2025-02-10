@@ -51,7 +51,7 @@ sidebar_label: 88. 合并两个有序数组
 ## 题解
 
 ```ts
-    p1              p2   /       p1            p2     /       p1          p2       /     p1            p2       /     p1          p2
+    p1              p2   /       p1            p2     /       p1          p2      /      p1            p2      /     p1          p2
     ↓               ↓    /       ↓             ↓      /       ↓           ↓       /      ↓             ↓       /      ↓           ↓
 1 2 3 0 0 0     2 5 6    /   1 2 3 0 0 6     2 5 6    /   1 2 3 0 5 6     2 5 6   /    1 2 3 3 5 6     2 5 6   /    1 2 2 3 5 6     2 5 6
           ↑              /           ↑                /         ↑                 /        ↑                   /      ↑
@@ -73,23 +73,20 @@ import TabItem from '@theme/TabItem'
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
 var merge = function (nums1, m, nums2, n) {
-  let p1 = m - 1,
-    p2 = n - 1
-
+  let p1 = m - 1
+  let p2 = n - 1
   let tail = m + n - 1
-  let curr = null
-  while (p1 >= 0 || p2 >= 0) {
-    if (p1 === -1) {
-      curr = nums2[p2--]
-    } else if (p2 === -1) {
-      curr = nums1[p1--]
-    } else if (nums1[p1] > nums2[p2]) {
-      curr = nums1[p1--]
+
+  while (p2 >= 0) {
+    if (p1 >= 0 && nums1[p1] >= nums2[p2]) {
+      nums1[tail] = nums1[p1]
+      p1--
     } else {
-      curr = nums2[p2--]
+      nums1[tail] = nums2[p2]
+      p2--
     }
 
-    nums1[tail--] = curr
+    tail--
   }
 }
 ```
