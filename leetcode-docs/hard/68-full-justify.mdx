@@ -74,7 +74,7 @@ sidebar_label: 68. 文本左右对齐
 
 ## 题解
 
-首先贪心地将 `word` 尽可能放到一行:
+首先尽可能将 `word` 尽可能放到一行:
 
 1. 如果当前行是最后一行, 特殊处理为左对齐;
 2. 如果当前行只有一个单词, 特殊处理为左对齐;
@@ -100,72 +100,57 @@ import TabItem from '@theme/TabItem'
  * @return {string[]}
  */
 var fullJustify = function (words, maxWidth) {
-  const n = words.length
-  const res = []
-  let i = 0
+  const result = []
 
-  while (i < n) {
-    const line = []
+  // 记录每行容纳的单词
+  let line = []
+  // 记录每行容纳单词的长度
+  let lineWordsLength = 0
 
-    // 贪心: 尽可能多地将 word 放到一行
-    let currLineWidth = words[i].length
-    line.push(words[i++])
+  for (const word of words) {
+    // 如果加上当前 word, 即便每个单词的空隙为 1, 仍然超过 maxWidth, 那当前单词就不能加入该行了
+    if (line.length + lineWordsLength + word.length > maxWidth) {
+      // 如果该行最多只能容纳 1 个单词, 左对齐
+      if (line.length === 1) {
+        result.push(line[0] + ' '.repeat(maxWidth - lineWordsLength))
 
-    while (
-      i < n &&
-      // 放入新单词时, 为保证和前一个单词隔开, 要多放一个空格
-      currLineWidth + 1 + words[i].length <= maxWidth
-    ) {
-      currLineWidth += 1 + words[i].length
-      line.push(words[i])
-      i++
-    }
-
-    // 如果是最后一行, 左对齐, 多个 word 之间用空格隔开,
-    // 并且在尾部填充空格, 直到长度等于 maxWidth, 结束后退出循环
-    if (i === n) {
-      const str = line.join(' ').padEnd(maxWidth)
-      res.push(str)
-      break
-    }
-
-    // 如果当前行只有一个单词, 左对齐,
-    // 并且在尾部填充空格, 直到长度等于 maxWidth, 结束后跳出本轮循环
-    if (line.length === 1) {
-      const str = line[0].padEnd(maxWidth)
-      res.push(str)
-      continue
-    }
-
-    // 获取整体 word 的长度
-    const totalWordWidth = currLineWidth - (line.length - 1)
-    // 获取整体空格的长度
-    const totalSpaceWidth = maxWidth - totalWordWidth
-
-    // 获取余数, 用来给左边额外分配空格
-    let carry = totalSpaceWidth % (line.length - 1)
-    // 获取平摊的空格
-    const spaceItemWidth = (totalSpaceWidth - carry) / (line.length - 1)
-
-    // 平摊空格的 model
-    let spaceItem = ''
-    for (let i = 0; i < spaceItemWidth; i++) spaceItem += ' '
-
-    // 如果 carry > 0, 就额外给这个空隙增加一个空格
-    // 因为是从左往右遍历的, 这样就巧妙的保证了左侧放置的空格数要多于右侧的空格数
-    for (let i = 0; i < line.length - 1; i++) {
-      if (carry > 0) {
-        line[i] += spaceItem + ' '
-        carry--
+        // 一般情况下一行会容纳多个单词
       } else {
-        line[i] += spaceItem
-      }
-    }
+        // 计算需要放置多少个空格
+        const totalSpaces = maxWidth - lineWordsLength
+        // 计算间隙
+        const gap = line.length - 1
+        // 计算每个间隙要放置的基础空格
+        const baseSpaces = Math.floor(totalSpaces / gap)
+        // 每个间隙放置基础空格后, 还剩下多少个多余空格
+        let extraSpaces = totalSpaces % gap
 
-    res.push(line.join(''))
+        // 从左到右遍历每一个间隙
+        for (let i = 0; i < gap; i++) {
+          // 除了放置基础空格, 如果还有多余空格, 左右到右每次多放一个
+          line[i] += ' '.repeat(baseSpaces + (extraSpaces > 0 ? 1 : 0))
+          extraSpaces--
+        }
+        result.push(line.join(''))
+      }
+
+      // 将当前遍历到 word 加入到下一行, 循环运算...
+      line = [word]
+      lineWordsLength = word.length
+    } else {
+      // 如果没超过 maxWidth, 加入该单词
+      line.push(word)
+      lineWordsLength += word.length
+    }
   }
 
-  return res
+  // 说明还有最后一行, 左对齐
+  if (lineWordsLength > 0) {
+    const text = line.join(' ')
+    result.push(text + ' '.repeat(maxWidth - text.length))
+  }
+
+  return result
 }
 ```
 
