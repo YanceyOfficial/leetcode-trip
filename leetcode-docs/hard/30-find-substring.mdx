@@ -58,7 +58,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 朴素解法的思路是先把 `words` 中的每个 `word` 放到哈希表 `map` 中, 值是其出现的数量. 然后从头遍历 `s`, 截取 `s.slice(i, i + n * w)` 子字符串记为 `subStr`,
-把 `subStr` 按照 `word` 的长度切割, 把每一份的子字符串存到一个新的哈希表 `map2` 中, 和 `map` 一样, 值是其出现的数量. 最后比较 `map2` 和 `map`, 如果相等, 说明 `words` 的某个组合
+把 `subStr` 按照 `word` 的长度切割, 把每一份的子字符串存到一个新的哈希表 `seen` 中, 和 `map` 一样, 值是其出现的数量. 最后比较 `seen` 和 `map`, 如果相等, 说明 `words` 的某个组合
 使一个合法的串联子串.
 
 <Tabs>
@@ -73,25 +73,25 @@ import TabItem from '@theme/TabItem'
 var findSubstring = function (s, words) {
   const sLen = s.length
   const wordLen = words[0].length
-  const subStringLen = words.length * wordLen
+  const windowLen = words.length * wordLen
+  const result = []
 
-  const map1 = new Map()
+  const wordMap = new Map()
   for (const str of words) {
-    map1.set(str, map1.has(str) ? map1.get(str) + 1 : 1)
+    wordMap.set(str, wordMap.has(str) ? wordMap.get(str) + 1 : 1)
   }
 
-  const result = []
-  for (let i = 0; i + subStringLen <= sLen; i++) {
-    const subString = s.slice(i, i + subStringLen)
-    const map2 = new Map()
+  for (let i = 0; i + windowLen <= sLen; i++) {
+    const subStr = s.slice(i, i + windowLen)
+    const seen = new Map()
 
-    for (let j = 0; j < subStringLen; j += wordLen) {
-      const subWord = subString.slice(j, j + wordLen)
+    for (let j = 0; j < windowLen; j += wordLen) {
+      const subWord = subStr.slice(j, j + wordLen)
       if (!words.includes(subWord)) break
-      map2.set(subWord, map2.has(subWord) ? map2.get(subWord) + 1 : 1)
+      seen.set(subWord, seen.has(subWord) ? seen.get(subWord) + 1 : 1)
     }
 
-    if (isEqual(map1, map2)) {
+    if (isEqual(wordMap, seen)) {
       result.push(i)
     }
   }
@@ -100,13 +100,13 @@ var findSubstring = function (s, words) {
 }
 
 /**
- * @param {Map} map1
- * @param {Map} map2
+ * @param {Map} wordMap
+ * @param {Map} seen
  * @return {boolean}
  */
-var isEqual = function (map1, map2) {
-  for (const key of map1.keys()) {
-    if (map1.get(key) !== map2.get(key)) return false
+var isEqual = function (wordMap, seen) {
+  for (const key of wordMap.keys()) {
+    if (wordMap.get(key) !== seen.get(key)) return false
   }
 
   return true

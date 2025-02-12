@@ -80,10 +80,8 @@ var minWindow = function (s, t) {
   while (end < s.length) {
     const endCh = s[end++]
 
-    if (needMap.has(endCh)) {
-      windowMap.set(endCh, windowMap.has(endCh) ? windowMap.get(endCh) + 1 : 1)
-      if (needMap.get(endCh) === windowMap.get(endCh)) count++
-    }
+    windowMap.set(endCh, windowMap.has(endCh) ? windowMap.get(endCh) + 1 : 1)
+    if (needMap.get(endCh) === windowMap.get(endCh)) count++
 
     // 当 count ===  needMap.size, 说明找到了一个覆盖子串
     // 这个时候就可以收缩窗口了
@@ -93,10 +91,8 @@ var minWindow = function (s, t) {
 
       const startCh = s[start++]
 
-      if (needMap.has(startCh)) {
-        if (needMap.get(startCh) === windowMap.get(startCh)) count--
-        windowMap.set(startCh, windowMap.get(startCh) - 1)
-      }
+      if (needMap.get(startCh) === windowMap.get(startCh)) count--
+      windowMap.set(startCh, windowMap.get(startCh) - 1)
     }
   }
 

@@ -61,7 +61,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl'
   style={{ margin: '48px 0', border: '1px solid #ccc' }}
   renderBottomCenterControls={null}
 >
-  {new Array(10).fill(randomSeries(6)).map((val, index) => (
+  {new Array(10).fill(randomSeries(6)).window((val, index) => (
     <img
       key={val}
       src={useBaseUrl(`/img/3-length-of-longest-substring-${index + 1}.png`)}
@@ -82,18 +82,18 @@ import TabItem from '@theme/TabItem'
  */
 var lengthOfLongestSubstring = function (s) {
   const n = s.length
-  const map = new Map()
+  const window = new Map()
   let start = 0
   let end = 0
   let max = 0
 
   while (end < n) {
     const endCh = s[end++]
-    map.set(endCh, map.has(endCh) ? map.get(endCh) + 1 : 1)
+    window.set(endCh, window.has(endCh) ? window.get(endCh) + 1 : 1)
 
-    while (map.get(endCh) > 1) {
+    while (window.get(endCh) > 1) {
       const startCh = s[start++]
-      map.set(startCh, map.get(startCh) - 1)
+      window.set(startCh, window.get(startCh) - 1)
     }
 
     max = Math.max(max, end - start)
@@ -113,19 +113,19 @@ use std::{cmp, collections::HashMap};
 pub fn length_of_longest_substring(s: String) -> i32 {
     let s_bytes = s.as_bytes();
     let mut max = 0;
-    let mut map: HashMap<u8, i32> = HashMap::with_capacity(26);
+    let mut window: HashMap<u8, i32> = HashMap::with_capacity(26);
     let mut start = 0;
     let mut end = 0;
 
     while end < s.len() {
         let end_ch = s_bytes[end];
         end += 1;
-        map.entry(end_ch).and_modify(|e| *e += 1).or_insert(1);
+        window.entry(end_ch).and_modify(|e| *e += 1).or_insert(1);
 
-        while map[&end_ch] > 1 {
+        while window[&end_ch] > 1 {
             let start_ch = s_bytes[start];
             start += 1;
-            map.entry(start_ch).and_modify(|e| *e -= 1);
+            window.entry(start_ch).and_modify(|e| *e -= 1);
         }
 
         max = cmp::max(end - start, max);
@@ -133,7 +133,6 @@ pub fn length_of_longest_substring(s: String) -> i32 {
 
     max as i32
 }
-
 ```
 
 </TabItem>

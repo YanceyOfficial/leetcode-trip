@@ -43,7 +43,7 @@ var threeSum = function (nums) {
 
   for (let i = 0; i < n - 2; i++) {
     // Skip duplicate values for i
-    if (i > 0 && nums[i] === nums[i - 1]) continue
+    if (i - 1 >= 0 && nums[i - 1] === nums[i]) continue
 
     let left = i + 1
     let right = n - 1
