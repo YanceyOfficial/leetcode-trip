@@ -54,19 +54,22 @@ keywords:
 ## 题解
 
 import Carousel from 'nuka-carousel'
-import { randomSeries } from 'yancey-js-util'
 import useBaseUrl from '@docusaurus/useBaseUrl'
 
 <Carousel
   style={{ margin: '48px 0', border: '1px solid #ccc' }}
   renderBottomCenterControls={null}
 >
-  {new Array(10).fill(randomSeries(6)).window((val, index) => (
-    <img
-      key={val}
-      src={useBaseUrl(`/img/3-length-of-longest-substring-${index + 1}.png`)}
-    />
-  ))}
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-1.png`)} />
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-2.png`)} />
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-3.png`)} />
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-4.png`)} />
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-5.png`)} />
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-6.png`)} />
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-7.png`)} />
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-8.png`)} />
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-9.png`)} />
+  <img src={useBaseUrl(`/img/3-length-of-longest-substring-10.png`)} />
 </Carousel>
 
 import Tabs from '@theme/Tabs'
