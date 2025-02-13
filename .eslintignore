@@ -1,0 +1,3 @@
+src/leetcode/**/*
+packages/lt-cli/lib/**/*
+packages/lt-cli/bin/**/*
