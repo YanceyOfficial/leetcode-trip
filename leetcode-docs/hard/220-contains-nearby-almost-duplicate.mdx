@@ -2,8 +2,6 @@
 id: 220-contains-nearby-almost-duplicate
 title: 存在重复元素-iii
 sidebar_label: 220. 存在重复元素-iii
-keywords:
-  - HashMap
 ---
 
 :::success Tips
@@ -18,22 +16,24 @@ keywords:
 
 ## 题目
 
-给你一个整数数组 `nums` 和两个整数 `k` 和 `t`. 请你判断是否存在**两个不同下标 `i` 和 `j`**, 使得 `abs(nums[i] - nums[j]) <= t`, 同时又满足 `abs(i - j) <= k`. 如果存在则返回 `true`, 不存在返回 `false`.
+给你一个整数数组 `nums` 和两个整数 `k` 和 `t`. 请你判断是否存在**两个不同下标 `i` 和 `j`**,
+使得 `abs(nums[i] - nums[j]) <= t`, 同时又满足 `abs(i - j) <= k`.
+如果存在则返回 `true`, 不存在返回 `false`.
 
 :::info 示例
 
-```ts
-输入: (nums = [1, 2, 3, 1]), (k = 3), (t = 0)
+```bash
+输入: nums = [1, 2, 3, 1], k = 3, t = 0
 输出: true
 ```
 
-```ts
-输入: (nums = [1, 0, 1, 1]), (k = 1), (t = 2)
+```bash
+输入:nums = [1, 0, 1, 1], k = 1, t = 2
 输出: true
 ```
 
-```ts
-输入: (nums = [1, 5, 9, 1, 5, 9]), (k = 2), (t = 3)
+```bash
+输入: nums = [1, 5, 9, 1, 5, 9], k = 2, t = 3
 输出: false
 ```
 
@@ -41,13 +41,13 @@ keywords:
 
 ## 题解
 
-这里是题解这里是题解这里是题解这里是题解这里是题解
-
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 朴素滑动窗口" label="JavaScript - 朴素滑动窗口" default>
+  <TabItem value="JavaScript - 朴素滑动窗口" label="JavaScript - 朴素滑动窗口" >
+
+相当于在确保**小于等于 `indexDiff`** 的窗口下, 存不存在一组 `nums[i]` 和 `nums[j]` 绝对值**小于等于 `valueDiff`**, 但这个方法会超时.
 
 ```ts
 /**
@@ -64,9 +64,10 @@ var containsNearbyAlmostDuplicate = function (nums, indexDiff, valueDiff) {
     let j = maxJ >= n ? n - 1 : maxJ
 
     while (i < j) {
-      const currIndexDiff = Math.abs(i - j)
-      const currValueDiff = Math.abs(nums[i] - nums[j])
-      if (currIndexDiff <= indexDiff && currValueDiff <= valueDiff) return true
+      if (Math.abs(nums[i] - nums[j]) <= valueDiff) {
+        return true
+      }
+
       j--
     }
   }
@@ -76,40 +77,69 @@ var containsNearbyAlmostDuplicate = function (nums, indexDiff, valueDiff) {
 ```
 
 </TabItem>
-<TabItem value="JavaScript - 桶排序" label="JavaScript - 桶排序">
+<TabItem value="JavaScript - 桶排序" label="JavaScript - 桶排序" default>
+
+1. **计算桶大小**: 桶大小 `size = valueDiff + 1`.
+2. **创建哈希表**: 使用一个哈希表 `bucketMap` 来存储每个桶的代表元素.
+3. **遍历数组**: 遍历输入的数组 `nums`, 对于每个元素 `nums[i]`:
+   - **计算桶索引**: 计算当前元素 `nums[i]` 应该放入哪个桶, `bucketIndex = nums[i] / size`.
+   - **检查相邻桶**: 检查当前桶, 左边相邻的桶和右边相邻的桶中是否存在满足条件的元素.
+   - **更新哈希表**: 将当前元素 `nums[i]` 放入对应的桶中.
+4. **返回结果**: 如果遍历完整个数组, 没有发现满足条件的元素, 则返回 `false`.
 
 ```ts
-var containsNearbyAlmostDuplicate = function (nums, k, t) {
-  const n = nums.length
-  const mp = new Map()
-  for (let i = 0; i < n; ++i) {
-    const x = nums[i]
-    const id = getID(x, t + 1)
-    if (mp.has(id)) {
+/**
+ * @param {number[]} nums
+ * @param {number} indexDiff
+ * @param {number} valueDiff
+ * @return {boolean}
+ */
+var containsNearbyAlmostDuplicate = function (nums, indexDiff, valueDiff) {
+  const bucketMap = new Map()
+  const size = valueDiff + 1
+
+  for (let i = 0; i < nums.length; i++) {
+    const bucketIndex = Math.floor(nums[i] / size)
+
+    // 检查当前桶
+    if (
+      bucketMap.has(bucketIndex) &&
+      Math.abs(nums[i] - bucketMap.get(bucketIndex)) <= valueDiff
+    ) {
       return true
     }
-    if (mp.has(id - 1) && Math.abs(x - mp.get(id - 1)) <= t) {
+
+    // 检查左边相邻的桶
+    if (
+      bucketMap.has(bucketIndex - 1) &&
+      Math.abs(nums[i] - bucketMap.get(bucketIndex - 1)) <= valueDiff
+    ) {
       return true
     }
-    if (mp.has(id + 1) && Math.abs(x - mp.get(id + 1)) <= t) {
+
+    // 检查右边相邻的桶
+    if (
+      bucketMap.has(bucketIndex + 1) &&
+      Math.abs(nums[i] - bucketMap.get(bucketIndex + 1)) <= valueDiff
+    ) {
       return true
     }
-    mp.set(id, x)
-    if (i >= k) {
-      mp.delete(getID(nums[i - k], t + 1))
+
+    // 更新哈希表
+    bucketMap.set(bucketIndex, nums[i])
+
+    // 移除超出窗口范围的桶
+    if (i >= indexDiff) {
+      bucketMap.delete(Math.floor(nums[i - indexDiff] / size))
     }
   }
-  return false
-}
 
-const getID = (x, w) => {
-  return x < 0 ? Math.floor((x + 1) / w) - 1 : Math.floor(x / w)
+  return false
 }
 ```
 
-- 时间复杂度: O(n), 其中 n 是给定数组的长度. 每个元素至多被插入哈希表和从哈希表中删除一次, 每次操作的时间复杂度均为 O(1).
-
-- 空间复杂度: O(min(n, k)), 其中 n 是给定数组的长度. 哈希表中至多包含 min(n, k + 1).
+- 时间复杂度: `O(n)`, 其中 `n` 是给定数组的长度. 每个元素至多被插入哈希表和从哈希表中删除一次, 每次操作的时间复杂度均为 `O(1)`.
+- 空间复杂度: `O(min(n, k))`, 其中 `n` 是给定数组的长度. 哈希表中至多包含 `min(n, k + 1)`.
 
 </TabItem>
 </Tabs>

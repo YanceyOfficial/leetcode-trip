@@ -18,13 +18,13 @@ keywords:
 
 ## 题目
 
-给定一个整数数组和一个整数 k, 判断数组中是否存在两个不同的索引 i 和 j, 使得 `nums[i] === nums[j]`, 并且 i 和 j 的差的**绝对值**至多为 k.
+给定一个整数数组和一个整数 `k`, 判断数组中是否存在两个不同的索引 `i` 和 `j`, 使得 `nums[i] === nums[j]`, 并且 `i` 和 `j` 的差的**绝对值**至多为 `k`.
 
 :::info 示例
 
-输入: nums = [1,2,3,1], k = 3
+输入: `nums = [1,2,3,1], k = 3`
 
-输出: true
+输出: `true`
 :::
 
 ## 题解
@@ -39,15 +39,19 @@ keywords:
  */
 
 var containsNearbyDuplicate = function (nums, k) {
-  const set = new Set()
+  const map = new Map()
 
   for (let i = 0; i < nums.length; i++) {
-    if (set.has(nums[i])) return true
+    const num = nums[i]
 
-    set.add(nums[i])
+    if (map.has(num)) {
+      if (Math.abs(i - map.get(num)) <= k) return true
 
-    if (set.size > k) {
-      set.delete(nums[i - k])
+      // 如果找到一对相同的元素, 但不满足距离小于等于 k
+      // 记得更新下 num 的索引
+      map.set(num, i)
+    } else {
+      map.set(num, i)
     }
   }
 

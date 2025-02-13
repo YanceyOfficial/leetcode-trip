@@ -11,25 +11,27 @@
  * @return {boolean}
  */
 var wordPattern = function (pattern, str) {
-  const strArr = str.split(' ')
-  const patternLen = pattern.length
+  const words = s.split(' ')
+  if (pattern.length !== words.length) {
+    return false
+  }
 
-  if (strArr.length !== patternLen) return false
+  const pattern2Word = {}
+  const word2Pattern = {}
 
-  const map = {}
-  let i = 0
+  for (let i = 0; i < pattern.length; i++) {
+    const char = pattern[i]
+    const word = words[i]
 
-  while (i < patternLen) {
-    const curr = map[pattern[i]]
-
-    if (curr !== undefined) {
-      if (curr !== strArr[i]) return false
-      i++
-    } else {
-      if (Object.values(map).includes(strArr[i])) return false
-      map[pattern[i]] = strArr[i]
-      i++
+    if (pattern2Word[char] && pattern2Word[char] !== word) {
+      return false
     }
+    if (word2Pattern[word] && word2Pattern[word] !== char) {
+      return false
+    }
+
+    pattern2Word[char] = word
+    word2Pattern[word] = char
   }
 
   return true

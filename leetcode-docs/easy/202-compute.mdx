@@ -6,19 +6,19 @@ sidebar_label: 202. 快乐数
 
 ## 题目
 
-编写一个算法来判断一个数 n 是不是快乐数.
+编写一个算法来判断一个数 `n` 是不是快乐数.
 
 快乐数定义为:
 
 - 对于一个正整数, 每一次将该数替换为它每个位置上的数字的平方和.
-- 然后重复这个过程直到这个数变为 1, 也可能是无限循环但始终变不到 1.
-- 如果可以变为 1, 那么这个数就是快乐数.
-- 如果 n 是快乐数就返回 true; 不是, 则返回 false.
+- 然后重复这个过程直到这个数变为 `1`, 也可能是无限循环但始终变不到 `1`.
+- 如果可以变为 `1`, 那么这个数就是快乐数.
+- 如果 `n` 是快乐数就返回 `true`; 不是, 则返回 `false`.
 
 :::info 示例
 
 输入: 19
-
+pnpm
 输出: true
 
 解释:
@@ -32,36 +32,23 @@ sidebar_label: 202. 快乐数
 
 ## 题解
 
-首先把求一个数上每个位置平方和的函数写出来, 这个没啥说的:
+一个数字, 按每个位置求平方和, 得到的新数字再次按每个位置求平方和, 这样往复计算, 总会遇到重复的. 所以可以用 Hash 表.
 
-```ts
-var compute = function (n) {
-  let num = 0
+比如说 12 -> 5 -> 25 -> 29 -> 85 -> `89` -> 145 -> 42 -> 20 -> 4 -> 16 -> 37 -> 58 -> `89`.
 
-  while (n >= 1) {
-    const remainder = n % 10
-    num += remainder * remainder
-    n = (n - remainder) / 10
-  }
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
 
-  return num
-}
-```
+<Tabs>
+  <TabItem value="JavaScript - 快慢指针" label="JavaScript - 快慢指针" default>
 
-然后要明白一个定理: 就是说一个数字, 按每个位置求平方和, 得到的新数字再次按每个位置求平方和...这样往复计算, 总会遇到重复的.
-
-比如说 12 -> 5 -> 25 -> 29 -> 85 -> [89 -> 145 -> 42 -> 20 -> 4 -> 16 -> 37 -> 58 -> 89].
-
-如果你做过 [141. 环形链表](/leetcode/easy/141-has-cycle), 应该一眼看出这是一个环状结构没跑了, 所以快慢指针大法好, HashMap 大法也好, 都可以使出来了.
-
-### 快慢指针
+如果做过 [141. 环形链表](/leetcode/easy/141-has-cycle), 应该一眼看出这是一个环状结构没跑了, 所以可以使用快慢指针.
 
 ```ts
 /**
  * @param {number} n
  * @return {boolean}
  */
-
 var isHappy = function (n) {
   let fast = n,
     slow = n
@@ -73,26 +60,61 @@ var isHappy = function (n) {
 
   return slow === 1
 }
-```
 
-### HashMap
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var helper = function (n) {
+  let squareSum = 0
 
-```ts
-var isHappy = function (n) {
-  let curNum = n
-  const set = new Set()
-  set.add(curNum)
-
-  while (curNum !== 1) {
-    curNum = compute(curNum)
-
-    if (set.has(curNum)) {
-      return false
-    }
-
-    set.add(curNum)
+  while (n) {
+    squareSum += Math.pow(n % 10, 2)
+    n = Math.floor(n / 10)
   }
 
-  return true
+  return squareSum
 }
 ```
+
+</TabItem>
+<TabItem value="JavaScript - Hash Table" label="JavaScript - Hash Table">
+
+```ts
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isHappy = function (n) {
+  const visit = new Set()
+
+  while (!visit.has(n)) {
+    visit.add(n)
+    n = helper(n)
+
+    if (n === 1) {
+      return true
+    }
+  }
+
+  return false
+}
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var helper = function (n) {
+  let squareSum = 0
+
+  while (n) {
+    squareSum += Math.pow(n % 10, 2)
+    n = Math.floor(n / 10)
+  }
+
+  return squareSum
+}
+```
+
+</TabItem>
+</Tabs>
