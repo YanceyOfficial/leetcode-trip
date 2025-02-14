@@ -62,24 +62,20 @@ import TabItem from '@theme/TabItem'
  * @return {number[][]}
  */
 var merge = function (intervals) {
-  const n = intervals.length
   intervals.sort((a, b) => a[0] - b[0])
-  const res = [intervals[0]]
+  const result = [intervals[0]]
 
-  for (let i = 1; i < n; i++) {
+  for (let i = 1; i < intervals.length; i++) {
     const curr = intervals[i]
-    const last = res[res.length - 1]
-
-    if (curr[0] > last[1]) {
-      result.push(curr)
+    const last = result[result.length - 1]
+    if (curr[0] <= last[1]) {
+      last[1] = Math.max(last[1], curr[1])
     } else {
-      if (curr[1] > last[1]) {
-        last[1] = curr[1]
-      }
+      result.push(curr)
     }
   }
 
-  return res
+  return result
 }
 ```
 

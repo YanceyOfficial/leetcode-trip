@@ -1,0 +1,94 @@
+---
+id: 224-calculate
+title: 基本计算器
+sidebar_label: 224. 基本计算器
+keywords:
+  - Stack
+---
+
+:::success Tips
+题目类型: Stack
+:::
+
+## 题目
+
+给你一个字符串表达式 `s`, 请你实现一个基本计算器来计算并返回它的值.
+
+注意:不允许使用任何将字符串作为数学表达式计算的内置函数, 比如 `eval()`.
+
+:::note 提示:
+
+- `1 <= s.length <= 3 * 10⁵`
+- `s` 由数字、`'+'`、`'-'`、`'('`、`')'`、和 `' '` 组成
+- `s` 表示一个有效的表达式
+- `'+'` 不能用作一元运算(例如, `"+1"` 和 `"+(2 + 3)" `无效)
+- `'-'` 可以用作一元运算(即 `"-1"` 和 `"-(2 + 3)"` 是有效的)
+- 输入中不存在两个连续的操作符
+- 每个数字和运行的计算将适合于一个有符号的 **32位**整数
+
+:::
+
+:::info 示例
+
+```bash
+输入: s = "1 + 1"
+输出: 2
+```
+
+```bash
+输入: s = " 2-1 + 2 "
+输出: 3
+```
+
+```bash
+输入: s = "(1+(4+5+2)-3)+(6+8)"
+输出: 23
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var calculate = function (s) {
+  const stack = []
+  let result = 0
+  let number = 0
+  let sign = 1
+
+  for (const ch of s) {
+    if (/[0-9]/.test(ch)) {
+      // 构建多位数字
+      number = number * 10 + (ch - '0')
+    } else if (ch === '+' || ch === '-') {
+      // 计算之前的结果, 更新符号
+      result += sign * number
+      number = 0
+      sign = ch === '+' ? 1 : -1
+    } else if (ch === '(') {
+      // 保存当前状态, 进入新的计算环境
+      stack.push(result)
+      stack.push(sign)
+      result = 0
+      sign = 1
+    } else if (ch === ')') {
+      // 计算括号内的结果, 与之前的结果合并
+      result += sign * number
+      result *= stack.pop() // 弹出括号前的符号
+      result += stack.pop() // 弹出括号前的结果
+      number = 0
+    }
+  }
+
+  // 处理最后可能剩下的数字
+  if (number !== 0) {
+    result += sign * number
+  }
+
+  return result
+}
+```
