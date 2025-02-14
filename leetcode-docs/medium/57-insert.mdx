@@ -87,27 +87,25 @@ import TabItem from '@theme/TabItem'
  */
 var insert = function (intervals, newInterval) {
   const n = intervals.length
-  const newIntervals = []
+  const result = []
+  let [start, end] = newInterval
+
   let i = 0
-
-  while (i < n && intervals[i][1] < newInterval[0]) {
-    newIntervals.push(intervals[i])
+  while (i < n && intervals[i][1] < start) {
+    result.push(intervals[i])
     i++
   }
 
-  while (i < n && intervals[i][0] <= newInterval[1]) {
-    newInterval[0] = Math.min(newInterval[0], intervals[i][0])
-    newInterval[1] = Math.max(newInterval[1], intervals[i][1])
+  while (i < n && intervals[i][0] <= end) {
+    start = Math.min(intervals[i][0], start)
+    end = Math.max(intervals[i][1], end)
     i++
   }
-  newIntervals.push(newInterval)
+  result.push([start, end])
 
-  while (i < n) {
-    newIntervals.push(intervals[i])
-    i++
-  }
+  result.push(...intervals.slice(i))
 
-  return newIntervals
+  return result
 }
 ```
 

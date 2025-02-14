@@ -70,11 +70,9 @@ keywords:
 
 ## 题解
 
-1. 在所有区间中选择 end 最小的那个区间, 因此先排个序
-
-2. 如果某个区间 x 的 start 小于等于 smallestEnd, 说明这个区间 x 是重叠的, 可以被射爆
-
-3. 否则这一炮射不爆当前区间, 故 total++, 并把这个区间 x 的 end 设为新的 smallestEnd
+1. 在所有区间中选择 `end` 最小的那个区间, 因此先排个序
+2. 如果某个区间 `x` 的 `start` 小于等于 `smallestEnd`, 说明这个区间 `x` 是重叠的, 可以被射爆
+3. 否则这一炮射不爆当前区间, 故 `total++`, 并把这个区间 `x` 的 `end` 设为新的 `smallestEnd`
 
 ```ts
 /**
@@ -82,13 +80,12 @@ keywords:
  * @return {number}
  */
 var findMinArrowShots = function (points) {
-  const n = points.length
   points.sort((a, b) => a[1] - b[1])
 
   let total = 1
   let smallestEnd = points[0][1]
 
-  for (let i = 1; i < n; i++) {
+  for (let i = 1; i < points.length; i++) {
     const [start, end] = points[i]
 
     if (start > smallestEnd) {
