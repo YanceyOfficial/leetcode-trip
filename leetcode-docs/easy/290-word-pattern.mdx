@@ -53,6 +53,11 @@ keywords:
 
 ## 题解
 
+:::warning
+这道题跟 [205. 同构字符串](/leetcode/easy/205-is-isomorphic) 思路一模一样, 但你**不能**用对象来模拟哈希表. 因为测试用例中有个单词是 `constructor`,
+把该单词当做对象的 key 会覆盖原生 `constructor`. 所以本题老老实实用 Map.
+:::
+
 ```ts
 /**
  * @param {string} pattern
@@ -63,14 +68,18 @@ var wordPattern = function (pattern, str) {
   const words = s.split(' ')
   if (pattern.length !== words.length) return false
 
-  const p2W = {}
-  const w2P = {}
-  for (let i = 0; i < pattern.length; i++) {
-    if (p2W[pattern[i]] && p2W[pattern[i]] !== words[i]) return false
-    if (w2P[words[i]] && w2P[words[i]] !== pattern[i]) return false
+  const patternMap = new Map()
+  const wordMap = new Map()
 
-    p2W[pattern[i]] = words[i]
-    w2P[words[i]] = pattern[i]
+  for (let i = 0; i < pattern.length; i++) {
+    const p = pattern[i]
+    const word = words[i]
+
+    if (patternMap.has(p) && patternMap.get(p) !== word) return false
+    if (wordMap.has(word) && wordMap.get(word) !== p) return false
+
+    patternMap.set(p, word)
+    wordMap.set(word, p)
   }
 
   return true

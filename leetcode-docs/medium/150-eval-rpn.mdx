@@ -81,7 +81,7 @@ var calc = function (operator, a, b) {
     '+': b + a,
     '-': b - a,
     '*': b * a,
-    '/': (b / a) | 0,
+    '/': Math.trunc(b / a),
   }
 
   return rules[operator]

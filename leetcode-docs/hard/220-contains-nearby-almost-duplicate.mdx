@@ -5,7 +5,6 @@ sidebar_label: 220. 存在重复元素-iii
 ---
 
 :::success Tips
-题目类型: HashMap
 
 相关题目:
 
@@ -45,7 +44,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 朴素滑动窗口" label="JavaScript - 朴素滑动窗口" >
+  <TabItem value="JavaScript - 朴素滑动窗口" label="JavaScript - 朴素滑动窗口">
 
 相当于在确保**小于等于 `indexDiff`** 的窗口下, 存不存在一组 `nums[i]` 和 `nums[j]` 绝对值**小于等于 `valueDiff`**, 但这个方法会超时.
 
@@ -79,6 +78,14 @@ var containsNearbyAlmostDuplicate = function (nums, indexDiff, valueDiff) {
 </TabItem>
 <TabItem value="JavaScript - 桶排序" label="JavaScript - 桶排序" default>
 
+我们也可以使用利用桶排序的思想解决本题. 按照元素的大小进行分桶, 维护一个滑动窗口内的元素对应的元素.
+
+对于元素 `x`, 其影响的区间为 `[x − t, x + t]`. 于是我们可以设定桶的大小为 `t + 1`.
+
+- 如果两个元素同属一个桶, 那么这两个元素必然符合条件.
+- 如果两个元素属于相邻桶, 那么我们需要校验这两个元素是否差值不超过 `t`.
+- 如果两个元素既不属于同一个桶, 也不属于相邻桶, 那么这两个元素必然不符合条件.
+
 1. **计算桶大小**: 桶大小 `size = valueDiff + 1`.
 2. **创建哈希表**: 使用一个哈希表 `bucketMap` 来存储每个桶的代表元素.
 3. **遍历数组**: 遍历输入的数组 `nums`, 对于每个元素 `nums[i]`:
@@ -98,39 +105,40 @@ var containsNearbyAlmostDuplicate = function (nums, indexDiff, valueDiff) {
   const bucketMap = new Map()
   const size = valueDiff + 1
 
+  var getId = function (num) {
+    return Math.floor(num / size)
+  }
+
   for (let i = 0; i < nums.length; i++) {
-    const bucketIndex = Math.floor(nums[i] / size)
+    const id = getId(nums[i])
 
     // 检查当前桶
-    if (
-      bucketMap.has(bucketIndex) &&
-      Math.abs(nums[i] - bucketMap.get(bucketIndex)) <= valueDiff
-    ) {
+    if (bucketMap.has(id)) {
       return true
     }
 
     // 检查左边相邻的桶
     if (
-      bucketMap.has(bucketIndex - 1) &&
-      Math.abs(nums[i] - bucketMap.get(bucketIndex - 1)) <= valueDiff
+      bucketMap.has(id - 1) &&
+      Math.abs(nums[i] - bucketMap.get(id - 1)) <= valueDiff
     ) {
       return true
     }
 
     // 检查右边相邻的桶
     if (
-      bucketMap.has(bucketIndex + 1) &&
-      Math.abs(nums[i] - bucketMap.get(bucketIndex + 1)) <= valueDiff
+      bucketMap.has(id + 1) &&
+      Math.abs(nums[i] - bucketMap.get(id + 1)) <= valueDiff
     ) {
       return true
     }
 
     // 更新哈希表
-    bucketMap.set(bucketIndex, nums[i])
+    bucketMap.set(id, nums[i])
 
     // 移除超出窗口范围的桶
     if (i >= indexDiff) {
-      bucketMap.delete(Math.floor(nums[i - indexDiff] / size))
+      bucketMap.delete(getId(nums[i - indexDiff]))
     }
   }
 

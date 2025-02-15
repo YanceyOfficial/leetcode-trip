@@ -57,13 +57,12 @@ keywords:
  * @return {number}
  */
 var longestConsecutive = function (nums) {
-  if (nums.length < 2) return nums.length
-
   const set = new Set(nums)
-  let max = 1
+  let max = 0
 
+  // 注意要遍历 set, 而不是 nums, 否则会超时
   for (const num of set) {
-    // The current num is head
+    // 当前 num 是子序列的开头
     if (!set.has(num - 1)) {
       let i = 1
       while (set.has(num + i)) {

@@ -1,0 +1,82 @@
+---
+id: bucket
+title: 桶排序
+sidebar_label: Bucket
+---
+
+桶排序是一种基于分治法的排序算法. 它将元素分到不同的"桶"中, 然后对每个桶内部的元素进行排序, 最后再把所有桶中的元素合并起来. 桶排序特别适合数据范围较为均匀且已知的情况.
+
+### 工作原理
+
+1. **创建桶**: 根据输入数据的范围和数量, 将数据分到不同的桶中. 每个桶通常包含一个数据范围. 桶的数量和桶的范围根据输入数据的大小和分布来决定.
+2. **分配元素**: 遍历待排序的数组, 把每个元素分配到对应的桶中. 通常, 元素会根据其值与桶的范围进行比较, 并放入适当的桶里.
+
+3. **桶内排序**: 每个桶内的数据可以使用任意排序算法(例如快速排序、插入排序等)进行排序. 一般来说, 由于每个桶内的元素较少, 桶内的排序可以用简单的排序方法.
+
+4. **合并桶**: 排序完毕后, 依次将每个桶中的元素按顺序合并成一个完整的有序数组.
+
+### 适用情况
+
+桶排序通常适用于以下情况:
+
+- **数据范围已知并且均匀分布**: 当数据的分布较为均匀时, 桶排序能够发挥较好的效果.
+- **数据接近均匀分布时**: 此时桶内元素较少, 桶内排序的开销较小.
+
+### 时间复杂度
+
+- **平均时间复杂度**: 如果数据分布均匀, 桶排序的时间复杂度可以达到 O(n + k), 其中 `n` 是元素的数量, `k` 是桶的数量.
+- **最坏时间复杂度**: 最坏的情况下(所有数据都落在同一个桶里), 时间复杂度为 O(n log n), 这取决于桶内使用的排序算法.
+
+### 示例代码
+
+```ts
+function bucketSort(arr, bucketSize = 5) {
+  if (arr.length === 0) {
+    return arr // Handle empty array case
+  }
+
+  // 1. Find min and max values to determine the range
+  let minValue = Math.min(...arr)
+  let maxValue = Math.max(...arr)
+
+  // 2. Calculate the number of buckets
+  const bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1
+  const buckets = Array(bucketCount)
+    .fill(null)
+    .map(() => []) // Initialize empty buckets
+
+  // 3. Distribute elements into buckets
+  for (let i = 0; i < arr.length; i++) {
+    const bucketIndex = Math.floor((arr[i] - minValue) / bucketSize)
+    buckets[bucketIndex].push(arr[i])
+  }
+
+  // 4. Sort each bucket (using insertion sort for simplicity, but you can use other sorting algorithms)
+  for (let i = 0; i < buckets.length; i++) {
+    buckets[i].sort((a, b) => a - b) // Sort each bucket
+  }
+
+  // 5. Concatenate the sorted buckets
+  const sortedArr = []
+  for (let i = 0; i < buckets.length; i++) {
+    sortedArr.push(...buckets[i])
+  }
+
+  return sortedArr
+}
+```
+
+### 优缺点
+
+**优点**:
+
+- 时间复杂度较低, 尤其是在数据分布均匀时, 性能非常好.
+- 如果使用合适的桶数和桶内排序算法, 整体性能可以接近 O(n).
+
+**缺点**:
+
+- 对数据的分布有要求, 只有在数据较为均匀分布时, 桶排序效果最好.
+- 在桶数过多或过少的情况下, 可能会退化成较差的性能.
+- 空间复杂度较高, 因为需要额外的空间来存储桶.
+
+桶排序是一种较为特殊的排序算法, 使用时要根据实际情况来判断其是否适合特定的场景.

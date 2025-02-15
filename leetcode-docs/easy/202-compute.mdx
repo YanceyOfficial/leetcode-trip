@@ -86,25 +86,22 @@ var helper = function (n) {
  * @return {boolean}
  */
 var isHappy = function (n) {
-  const visit = new Set()
+  const set = new Set([n])
 
-  while (!visit.has(n)) {
-    visit.add(n)
-    n = helper(n)
-
-    if (n === 1) {
-      return true
-    }
+  while (n !== 1) {
+    n = calculate(n)
+    if (set.has(n)) return false
+    set.add(n)
   }
 
-  return false
+  return true
 }
 
 /**
  * @param {number} n
  * @return {number}
  */
-var helper = function (n) {
+var calculate = function (n) {
   let squareSum = 0
 
   while (n) {

@@ -1,0 +1,101 @@
+---
+id: radix
+title: 基数排序
+sidebar_label: Radix
+---
+
+**基数排序** 是一种非比较型整数排序算法. 它的核心思想是通过将数字按位分割, 依次对每一位进行排序, 最终得到一个有序的数组. 基数排序适用于对整数或可以转化为整数的数据进行排序.
+
+### 工作原理
+
+基数排序通过将每个数字分为不同的"位"进行排序, 通常从最低位(个位)开始, 逐步向更高位(如十位, 百位等)排序, 直到最大位为止.
+
+具体流程如下:
+
+1. **从最低位开始排序**: 首先按最低位(个位)排序.
+2. **稳定排序**: 使用稳定的排序算法(如计数排序)对每一位的数字进行排序, 确保排序时不会改变相同数字的相对位置.
+3. **逐位排序**: 接着按十位, 百位等依次排序, 直到最大位.
+4. **最终有序**: 经过多轮排序后, 整个数组就是有序的.
+
+### 基数排序的类型
+
+1. **LSD(最低位优先)**: 从最低位(个位)开始排序, 一直到最高位.
+2. **MSD(最高位优先)**: 从最高位(最高有效位)开始排序, 一直到最低位.
+
+通常情况下, 我们使用 **LSD**(最低位优先)排序.
+
+### 时间复杂度
+
+- **时间复杂度**: `O(d * (n + k)),` 其中 `n` 是数据元素的数量, `d` 是数字的位数(即最大数字的位数), `k` 是每一位上的数值范围(例如, 对于十进制数, `k` 为 10). 当 `d` 较小或者数据比较"均匀"时, 基数排序的性能非常好.
+- **空间复杂度**: `O(n + k)`, 需要额外的空间来存储临时结果.
+
+### 示例代码
+
+```ts
+function radixSort(arr) {
+  // Step 1: Find the maximum number to determine the number of digits
+  let max = Math.max(...arr)
+
+  // Step 2: Do counting sort for every digit. The place is 1 for the least significant digit.
+  let place = 1
+  while (max / place > 1) {
+    arr = countingSortForRadix(arr, place)
+    place *= 10
+  }
+
+  return arr
+}
+
+function countingSortForRadix(arr, place) {
+  let output = new Array(arr.length)
+  let count = new Array(10).fill(0)
+
+  // Step 1: Store count of occurrences in count[]
+  for (let i = 0; i < arr.length; i++) {
+    let digit = Math.floor(arr[i] / place) % 10
+    count[digit]++
+  }
+
+  // Step 2: Change count[i] so that count[i] contains actual position of this digit in output[]
+  for (let i = 1; i < 10; i++) {
+    count[i] += count[i - 1]
+  }
+
+  // Step 3: Build the output array using the count positions
+  for (let i = arr.length - 1; i >= 0; i--) {
+    let digit = Math.floor(arr[i] / place) % 10
+    output[count[digit] - 1] = arr[i]
+    count[digit]--
+  }
+
+  // Step 4: Copy the output array to arr[], so that arr[] now contains sorted numbers according to current digit
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = output[i]
+  }
+
+  return arr
+}
+```
+
+### 优缺点
+
+**优点**:
+
+- **线性时间复杂度**: 当数据范围较小, 位数较少时, 基数排序能够达到 O(n) 的时间复杂度. 尤其对于处理大数据时, 表现比比较排序算法(如快速排序, 归并排序)要好.
+- **不依赖比较**: 基数排序不依赖于元素之间的比较, 避免了比较排序算法中的比较开销.
+
+**缺点**:
+
+- **空间复杂度较高**: 需要额外的空间来存储每一位的计数信息.
+- **受数据范围限制**: 基数排序对数据的位数(或数字的大小)有要求. 如果数据范围较大(例如, 数字非常大或者位数很多), 空间和时间复杂度可能会增加.
+- **仅适用于整数或可以转化为整数的数据**: 基数排序只能用于排序整数或可以转化为整数的数据(如浮点数, 字符串等可以通过一定方式转化为数字).
+
+### 适用场景
+
+基数排序适用于以下场景:
+
+- 排序数字或者可以离散化为整数的数据.
+- 数据规模较大, 但数据范围或位数较小的情况, 例如处理大量的数字, 电话号码, 社保号码等.
+- 当要求稳定排序且不希望使用基于比较的排序算法时.
+
+基数排序是一种高效的排序算法, 尤其在某些特定条件下, 表现出色. 但它也有一定的局限性, 特别是当处理大范围数据时, 需要合理选择使用时机.
