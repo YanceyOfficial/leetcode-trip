@@ -57,10 +57,6 @@ s 中没有子串长度为 16 并且等于 words 的任何顺序排列的连接.
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-朴素解法的思路是先把 `words` 中的每个 `word` 放到哈希表 `map` 中, 值是其出现的数量. 然后从头遍历 `s`, 截取 `s.slice(i, i + n * w)` 子字符串记为 `subStr`,
-把 `subStr` 按照 `word` 的长度切割, 把每一份的子字符串存到一个新的哈希表 `seen` 中, 和 `map` 一样, 值是其出现的数量. 最后比较 `seen` 和 `map`, 如果相等, 说明 `words` 的某个组合
-使一个合法的串联子串.
-
 <Tabs>
   <TabItem value="JavaScript" label="JavaScript" default>
 
@@ -71,45 +67,32 @@ import TabItem from '@theme/TabItem'
  * @return {number[]}
  */
 var findSubstring = function (s, words) {
-  const sLen = s.length
+  const wordMap = new Map()
+  for (const word of words) {
+    wordMap.set(word, wordMap.has(word) ? wordMap.get(word) + 1 : 1)
+  }
   const wordLen = words[0].length
-  const windowLen = words.length * wordLen
+  const subStrLen = wordLen * words.length
   const result = []
 
-  const wordMap = new Map()
-  for (const str of words) {
-    wordMap.set(str, wordMap.has(str) ? wordMap.get(str) + 1 : 1)
-  }
+  for (let i = 0; i + subStrLen <= s.length; i++) {
+    let count = 0
+    const map = new Map()
+    const subStr = s.slice(i, i + subStrLen)
 
-  for (let i = 0; i + windowLen <= sLen; i++) {
-    const subStr = s.slice(i, i + windowLen)
-    const seen = new Map()
-
-    for (let j = 0; j < windowLen; j += wordLen) {
-      const subWord = subStr.slice(j, j + wordLen)
-      if (!words.includes(subWord)) break
-      seen.set(subWord, seen.has(subWord) ? seen.get(subWord) + 1 : 1)
+    for (let j = 0; j < subStrLen; j += wordLen) {
+      const word = subStr.slice(j, j + wordLen)
+      if (!wordMap.has(word)) break
+      map.set(word, map.has(word) ? map.get(word) + 1 : 1)
+      if (map.get(word) === wordMap.get(word)) count++
     }
 
-    if (isEqual(wordMap, seen)) {
+    if (count === wordMap.size) {
       result.push(i)
     }
   }
 
   return result
-}
-
-/**
- * @param {Map} wordMap
- * @param {Map} seen
- * @return {boolean}
- */
-var isEqual = function (wordMap, seen) {
-  for (const key of wordMap.keys()) {
-    if (wordMap.get(key) !== seen.get(key)) return false
-  }
-
-  return true
 }
 ```
 

@@ -61,7 +61,41 @@ keywords:
 
 ## 题解
 
-这道题是[72. 编辑距离](/leetcode/medium/72-min-distance)的预热题, 如果匹配不到, 相当于要把 t 中对应的字符串删掉, 那就是 `dp[i][j] = dp[i][j - 1]`
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="JavaScript - 双指针" label="JavaScript - 双指针" default>
+
+性价比最好的做法就是双指针, 但一开始可能会想到用哈希表, 也没毛病.
+
+```ts
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isSubsequence = function (s, t) {
+  const m = s.length
+  const n = t.length
+  let sIdx = 0
+  let tIdx = 0
+
+  while (tIdx < t.length) {
+    if (s[sIdx] === t[tIdx]) {
+      sIdx++
+    }
+    tIdx++
+  }
+
+  return sIdx === s.length
+}
+```
+
+</TabItem>
+<TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划">
+
+用动态规划的方式对于本题并不划算, 但本题是 [72. 编辑距离](/leetcode/medium/72-min-distance)的预热题, 如果匹配不到, 相当于要把 `t` 中对应的字符串删掉, 那就是 `dp[i][j] = dp[i][j - 1]`
 
 ```ts
 /**
@@ -87,3 +121,6 @@ var isSubsequence = function (s, t) {
   return dp[m][n] === m
 }
 ```
+
+</TabItem>
+</Tabs>

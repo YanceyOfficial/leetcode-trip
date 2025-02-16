@@ -37,13 +37,8 @@ var isPalindrome = function (s) {
   let right = s.length - 1
 
   while (left < right) {
-    if (!regex.test(s[left])) {
-      left++
-    }
-
-    if (!regex.test(s[right])) {
-      right--
-    }
+    if (!regex.test(s[left])) left++
+    if (!regex.test(s[right])) right--
 
     if (regex.test(s[left]) && regex.test(s[right])) {
       if (s[left].toLowerCase() !== s[right].toLowerCase()) return false
