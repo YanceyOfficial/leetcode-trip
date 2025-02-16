@@ -65,11 +65,11 @@ board = [
 
 因此我们可以写三个哈希表, 分别对应上面三种情况:
 
-- 对于每行, 我们可以申请一个二维数组 `vec![vec![0; 9]; 9]`, 来代表每一行中每个数字出现的次数.
-- 对于每列, 我们可以申请一个二维数组 `vec![vec![0; 9]; 9]`, 来代表每一列中每个数字出现的次数.
-- 对于每个小九宫格, 我们可以申请一个三维数组 `vec![vec![vec![0; 9]; 3]; 3]`, 来代表每个小九宫格中每个数字出现的次数.
+- 对于每行, 我们用一个 Set 来存储出现的数字
+- 对于每列, 我们用一个 Set 来存储出现的数字
+- 对于每个小九宫格, 我们用一个 Set 来存储出现的数字
 
-如果三个哈希表中任意数字出现的次数大于 `1`, 即为非法的数独.
+如果三个哈希表中任意数字出现重复, 即为非法的数独.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -83,27 +83,23 @@ import TabItem from '@theme/TabItem'
  * @return {boolean}
  */
 var isValidSudoku = function (board) {
-  const rows = new Array(9).fill(0).map(() => new Array(9).fill(0))
-  const cols = new Array(9).fill(0).map(() => new Array(9).fill(0))
-  const subs = new Array(3)
-    .fill(0)
-    .map(() => new Array(3).fill(0).map(() => new Array(9).fill(0)))
+  const rows = new Array(9).fill().map(() => new Set())
+  const cols = new Array(9).fill().map(() => new Set())
+  const boxes = new Array(9).fill().map(() => new Set())
 
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       if (board[i][j] === '.') continue
 
-      const idx = Number(board[i][j]) - 1
-      rows[i][idx] += 1
-      cols[j][idx] += 1
-      subs[Math.floor(i / 3)][Math.floor(j / 3)][idx] += 1
+      const val = board[i][j]
+      const boxIdx = Math.floor(i / 3) * 3 + Math.floor(j / 3)
 
-      if (
-        rows[i][idx] > 1 ||
-        cols[j][idx] > 1 ||
-        subs[Math.floor(i / 3)][Math.floor(j / 3)][idx] > 1
-      )
+      if (rows[i].has(val) || cols[j].has(val) || boxes[boxIdx].has(val))
         return false
+
+      rows[i].add(val)
+      cols[j].add(val)
+      boxes[boxIdx].add(val)
     }
   }
 

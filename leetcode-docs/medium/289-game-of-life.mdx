@@ -8,14 +8,14 @@ sidebar_label: 289. 生命游戏
 
 根据[维基百科](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life), **生命游戏**, 简称为**生命**, 是英国数学家 John Horton Conway 在 1970 年发明的细胞自动机.
 
-给定一个包含 `m x n` 个格子的面板, 每一个格子都可以看成是一个细胞. 每个细胞都具有一个初始状态: `1` 即为**活细胞 (live)**, 或 `0` 即为**死细胞 (dead)**. 每个细胞与其八个相邻位置(水平, 垂直, 对角线)的细胞都遵循以下四条生存定律:
+给定一个包含 `m i n` 个格子的面板, 每一个格子都可以看成是一个细胞. 每个细胞都具有一个初始状态: `1` 即为**活细胞 (live)**, 或 `0` 即为**死细胞 (dead)**. 每个细胞与其八个相邻位置(水平, 垂直, 对角线)的细胞都遵循以下四条生存定律:
 
 1. 如果活细胞周围八个位置的活细胞数少于两个, 则该位置活细胞死亡;
 2. 如果活细胞周围八个位置有两个或三个活细胞, 则该位置活细胞仍然存活;
 3. 如果活细胞周围八个位置有超过三个活细胞, 则该位置活细胞死亡;
 4. 如果死细胞周围正好有三个活细胞, 则该位置死细胞复活;
 
-下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的, 其中细胞的出生和死亡是**同时**发生的. 给你 `m x n` 网格面板 board 的当前状态, 返回下一个状态.
+下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的, 其中细胞的出生和死亡是**同时**发生的. 给你 `m i n` 网格面板 board 的当前状态, 返回下一个状态.
 
 给定当前 `board` 的状态, 更新 `board` 到下一个状态.
 
@@ -24,9 +24,9 @@ sidebar_label: 289. 生命游戏
 :::note 提示:
 
 - `m == board.length`
-- `n == board[i].length`
+- `n == board[row].length`
 - `1 <= m, n <= 25`
-- `board[i][j]` 为 `0` 或 `1`
+- `board[row][col]` 为 `0` 或 `1`
 
 :::
 
@@ -57,82 +57,15 @@ sidebar_label: 289. 生命游戏
 
 ## 题解
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-
-<Tabs>
-  <TabItem value="JavaScript - 辅助数组" label="JavaScript - 辅助数组" default>
-
 因为**你不能先更新某些格子, 然后使用它们的更新后的值再更新其他格子**, 所以可以先把要处理的节点记录下来. 具体来讲:
 
 1. 遍历每个元素, 找到所有包围它的周边元素, 统计是 `1` 的个数
-2. 根据题目要求模拟, 决定该元素需要:
+2. 第二次遍历, 根据题目要求模拟, 决定该元素需要:
 
    - 从生存到死亡
    - 从死亡到复活
    - 不处理
 
-3. 分别遍历 `liveToDead` 和 `deadToLive` 两个数组, 原地修改 `board`
-
-```ts
-/**
- * @param {number[][]} board
- * @return {void} Do not return anything, modify board in-place instead.
- */
-var gameOfLife = function (board) {
-  const m = board.length
-  const n = board[0].length
-  const liveToDead = []
-  const deadToLive = []
-
-  for (let i = 0; i < m; i++) {
-    for (let j = 0; j < n; j++) {
-      let count = 0
-      for (let x = Math.max(0, i - 1); x <= Math.min(m - 1, i + 1); x++) {
-        for (let y = Math.max(0, j - 1); y <= Math.min(n - 1, j + 1); y++) {
-          if (x === i && y === j) continue
-          count += board[x][y] === 1 ? 1 : 0
-        }
-      }
-
-      if (board[i][j] === 1) {
-        if (count < 2 || count > 3) {
-          liveToDead.push([i, j])
-        }
-      } else {
-        if (count === 3) {
-          deadToLive.push([i, j])
-        }
-      }
-    }
-  }
-
-  for (const [i, j] of liveToDead) {
-    board[i][j] = 0
-  }
-
-  for (const [i, j] of deadToLive) {
-    board[i][j] = 1
-  }
-}
-```
-
-</TabItem>
-<TabItem value="JavaScript - 原地算法" label="JavaScript - 原地算法">
-
-1. **遍历数组**: 遍历二维数组 `board`, 对于每个细胞, 统计其周围八个位置的活细胞数.
-
-2. **更新细胞状态**: 根据生命游戏的规则, 更新当前细胞的状态. 为了实现原地更新, 我们需要使用一些编码技巧来区分细胞的当前状态和下一轮的状态:
-
-   - `0`: 死细胞, 下一轮仍然是死细胞.
-   - `1`: 活细胞, 下一轮仍然是活细胞.
-   - `2`: 活细胞, 下一轮变为死细胞.
-   - `3`: 死细胞, 下一轮变为活细胞.
-
-   通过这种编码方式, 我们可以在同一个数组中存储细胞的当前状态和下一轮的状态, 而不会互相干扰.
-
-3. **再次遍历数组**: 再次遍历数组, 将细胞状态恢复为 `0` 或 `1`. 具体做法是, 将每个细胞的值对 `2` 取模, 即 `board[i][j] %= 2`. 这样就可以将 `2` 变为 `0`, 将 `3` 变为 `1`, 从而得到最终的细胞状态.
-
 ```ts
 /**
  * @param {number[][]} board
@@ -142,45 +75,33 @@ var gameOfLife = function (board) {
   const m = board.length
   const n = board[0].length
 
-  // 第一次遍历, 更新细胞状态
-  for (let i = 0; i < m; i++) {
-    for (let j = 0; j < n; j++) {
-      let liveNeighbors = 0
-      // 统计周围活细胞数
-      for (let x = Math.max(0, i - 1); x <= Math.min(m - 1, i + 1); x++) {
-        for (let y = Math.max(0, j - 1); y <= Math.min(n - 1, j + 1); y++) {
-          if (x === i && y === j) continue
+  const lives = new Array(m).fill().map(() => new Array(n).fill(0))
+  for (let row = 0; row < m; row++) {
+    for (let col = 0; col < n; col++) {
+      for (let i = Math.max(row - 1, 0); i <= Math.min(row + 1, m - 1); i++) {
+        for (let j = Math.max(col - 1, 0); j <= Math.min(col + 1, n - 1); j++) {
+          if (i === row && j === col) continue
 
-          // 巧妙运用二进制:
-          // 0 & 1 为 0
-          // 1 & 1 为 1
-          // 2 & 1 为 0
-          // 3 & 1 为 1
-          liveNeighbors += board[x][y] & 1
-        }
-      }
-
-      // 根据规则更新细胞状态
-      if (board[i][j] === 1) {
-        if (liveNeighbors < 2 || liveNeighbors > 3) {
-          board[i][j] = 2 // 活细胞变为死细胞
-        }
-      } else {
-        if (liveNeighbors === 3) {
-          board[i][j] = 3 // 死细胞变为活细胞
+          if (board[i][j] === 1) {
+            lives[row][col] += 1
+          }
         }
       }
     }
   }
 
-  // 第二次遍历, 恢复细胞状态
-  for (let i = 0; i < m; i++) {
-    for (let j = 0; j < n; j++) {
-      board[i][j] %= 2 // 将 2 变为 0, 将 3 变为 1
+  for (let row = 0; row < m; row++) {
+    for (let col = 0; col < n; col++) {
+      if (board[row][col] === 1) {
+        if (lives[row][col] < 2 || lives[row][col] > 3) {
+          board[row][col] = 0
+        }
+      } else {
+        if (lives[row][col] === 3) {
+          board[row][col] = 1
+        }
+      }
     }
   }
 }
 ```
-
-</TabItem>
-</Tabs>

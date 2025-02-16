@@ -37,20 +37,7 @@ keywords:
 
 ## 题解
 
-:::success Tip
-涉及连续子数组的问题, 通常有两种思路: 一是滑动窗口, 二是前缀和(TODO:).
-:::
-
-使用滑动窗口来解决:
-
-1. 初始化时让 start 和 end 都置为 0, 维护一个左闭右开的区间 `[left, right)`
-2. 先让 nums[end] 累加到 sum
-3. 如果 sum < target, 那继续让 end 指针往右滑
-4. 直到 sum >= target
-   1. 找到当前 min 跟 end - start + 1 哪个更小, 将更小的那个值设为 min
-   2. 然后让 sum 尝试减去 nums[start]
-   3. 将 start++
-5. 将 end++
+标准的滑动窗口模版.
 
 ```ts
 /**
@@ -59,24 +46,18 @@ keywords:
  * @return {number}
  */
 var minSubArrayLen = function (target, nums) {
-  const n = nums.length
-  if (n === 0) return 0
+  let min = Number.MAX_SAFE_INTEGER
 
   let start = 0
   let end = 0
-  let min = Number.MAX_SAFE_INTEGER
   let sum = 0
-
-  while (end < n) {
-    sum += nums[end]
+  while (end < nums.length) {
+    sum += nums[end++]
 
     while (sum >= target) {
-      min = Math.min(min, end - start + 1)
-      sum -= nums[start]
-      start++
+      min = Math.min(min, end - start)
+      sum -= nums[start++]
     }
-
-    end++
   }
 
   return min === Number.MAX_SAFE_INTEGER ? 0 : min
