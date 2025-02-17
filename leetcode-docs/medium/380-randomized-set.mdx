@@ -30,7 +30,7 @@ var RandomizedSet = function () {
   // 维护一个 map, key 是 val, value 为 idx
   this.map = new Map()
   // 将数据存储到一个数组, 便于随机获取.
-  this.nums = []
+  this.arr = []
 }
 
 /**
@@ -40,8 +40,8 @@ var RandomizedSet = function () {
 RandomizedSet.prototype.insert = function (val) {
   if (this.map.has(val)) return false
 
-  this.map.set(val, this.nums.length)
-  this.nums.push(val)
+  this.map.set(val, this.arr.length)
+  this.arr.push(val)
   return true
 }
 
@@ -54,13 +54,13 @@ RandomizedSet.prototype.remove = function (val) {
 
   const idx = this.map.get(val)
   // 将数组的最后一个元素复写到 idx 的位置, 这样保证在数组中把 val 删除掉了
-  this.nums[idx] = this.nums[this.nums.length - 1]
+  this.arr[idx] = this.arr[this.arr.length - 1]
   // 此时数组最后一个元素没用了, pop 掉
-  this.nums.pop()
+  this.arr.pop()
   // 在 map 中将 val 移除
   this.map.delete(val)
-  // 由于最后一个元素改变了位置(this.nums.length - 1 -> idx), 需要更新最后一个元素在 map 中的 value
-  this.map.set(this.nums[idx], idx)
+  // 由于最后一个元素改变了位置(this.arr.length - 1 -> idx), 需要更新最后一个元素在 map 中的 value
+  this.map.set(this.arr[idx], idx)
 
   return true
 }
@@ -69,8 +69,8 @@ RandomizedSet.prototype.remove = function (val) {
  * @return {number}
  */
 RandomizedSet.prototype.getRandom = function () {
-  const randomIdx = Math.floor(Math.random() * this.nums.length)
-  return this.nums[randomIdx]
+  const randomIdx = Math.floor(Math.random() * this.arr.length)
+  return this.arr[randomIdx]
 }
 
 /**
@@ -92,7 +92,7 @@ use std::collections::HashMap;
 #[derive(Debug)]
 struct RandomizedSet {
     map: HashMap<i32, usize>,
-    nums: Vec<i32>,
+    arr: Vec<i32>,
 }
 
 /**
@@ -104,7 +104,7 @@ impl RandomizedSet {
     fn new() -> Self {
         RandomizedSet {
             map: HashMap::new(),
-            nums: Vec::new(),
+            arr: Vec::new(),
         }
     }
 
@@ -114,8 +114,8 @@ impl RandomizedSet {
             return false;
         }
 
-        self.map.insert(val, self.nums.len());
-        self.nums.push(val);
+        self.map.insert(val, self.arr.len());
+        self.arr.push(val);
         true
     }
 
@@ -126,9 +126,9 @@ impl RandomizedSet {
         }
 
         let idx = self.map.remove(&val).unwrap();
-        let last = self.nums.pop().unwrap();
-        if idx != self.nums.len() {
-            self.nums[idx] = last;
+        let last = self.arr.pop().unwrap();
+        if idx != self.arr.len() {
+            self.arr[idx] = last;
             self.map.insert(last, idx);
         }
         true
@@ -136,7 +136,7 @@ impl RandomizedSet {
 
     /** Get a random element from the set. */
     fn get_random(&self) -> i32 {
-        self.nums[rand::thread_rng().gen_range(0..self.nums.len())]
+        self.arr[rand::thread_rng().gen_range(0..self.arr.len())]
     }
 }
 

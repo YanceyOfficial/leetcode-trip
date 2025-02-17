@@ -52,9 +52,7 @@ var hIndex = function (citations) {
 
   for (let i = 0; i < citations.length; i++) {
     // 至少有 i + 1 篇论文的引用次数大于等于 i + 1
-    if (citations[i] < i + 1) {
-      return i
-    }
+    if (citations[i] < i + 1) return i
   }
 
   return citations.length
