@@ -40,7 +40,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript" label="JavaScript" default>
+  <TabItem value="JavaScript - 排序法" label="JavaScript - 排序法" default>
 
 ```ts
 /**
@@ -51,6 +51,7 @@ var hIndex = function (citations) {
   citations.sort((a, b) => b - a)
 
   for (let i = 0; i < citations.length; i++) {
+    // 至少有 i + 1 篇论文的引用次数大于等于 i + 1
     if (citations[i] < i + 1) {
       return i
     }
@@ -60,8 +61,11 @@ var hIndex = function (citations) {
 }
 ```
 
+- 时间复杂度: `O(nlogn)`
+- 空间复杂度: `O(1)`
+
 </TabItem>
-<TabItem value="朴素解法" label="朴素解法">
+<TabItem value="JavaScript - 计数法" label="JavaScript - 计数法">
 
 ```ts
 /**
@@ -70,17 +74,27 @@ var hIndex = function (citations) {
  */
 var hIndex = function (citations) {
   const n = citations.length
-  let h = n
-
-  while (h >= 0) {
-    const { length } = citations.filter((citation) => citation >= h)
-    if (length >= h) break
-    h--
+  const count = new Array(n + 1).fill(0)
+  for (let i = 0; i < n; i++) {
+    if (citations[i] >= n) {
+      count[n]++
+    } else {
+      count[citations[i]]++
+    }
   }
-
-  return h
+  let sum = 0
+  for (let i = n; i >= 0; i--) {
+    sum += count[i]
+    if (sum >= i) {
+      return i
+    }
+  }
+  return 0
 }
 ```
+
+- 时间复杂度: `O(n)`
+- 空间复杂度: `O(n)`
 
 </TabItem>
 </Tabs>

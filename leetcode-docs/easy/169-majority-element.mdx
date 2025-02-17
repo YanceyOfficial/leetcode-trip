@@ -28,18 +28,30 @@ sidebar_label: 169. 多数元素
  * @return {number}
  */
 var majorityElement = function (nums) {
-  let candidate = null
-  let count = 0
+  // 初始化第一个 num 为候选
+  let cadidate = nums[0]
+  // 那么初始化候选 num 的数量就是 1
+  let count = 1
 
-  for (const num of nums) {
-    if (count === 0) candidate = num
-    count += num === candidate ? 1 : -1
+  for (let i = 1; i < nums.length; i++) {
+    // 如果当前 num 是候选数字, 计数加一
+    if (nums[i] === cadidate) {
+      count++
+    } else {
+      // 如果 count 为 0, 说明候选数字要换了
+      if (count === 0) {
+        cadidate = nums[i]
+
+        // 如果当前 num 是候选数字, 计数减一
+      } else {
+        count--
+      }
+    }
   }
 
-  return candidate
+  return cadidate
 }
 ```
 
-时间复杂度 O(n)
-
-空间复杂度 O(1)
+- 时间复杂度: `O(n)`
+- 空间复杂度: `O(1)`
