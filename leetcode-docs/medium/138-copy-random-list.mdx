@@ -76,22 +76,22 @@ var copyRandomList = function (head) {
   if (!head) return null
 
   const map = new Map()
-  let current = head
+  let curr = head
 
   // 复制节点并存储映射关系
-  while (current) {
-    map.set(current, new Node(current.val))
-    current = current.next
+  while (curr) {
+    map.set(curr, new Node(curr.val))
+    curr = curr.next
   }
 
-  current = head
+  curr = head
 
   // 设置 next 指针和 random 指针
-  while (current) {
-    const newNode = map.get(current)
-    newNode.next = map.get(current.next) || null
-    newNode.random = map.get(current.random) || null
-    current = current.next
+  while (curr) {
+    const copyNode = map.get(curr)
+    copyNode.next = map.get(curr.next) ?? null
+    copyNode.random = map.get(curr.random) ?? null
+    curr = curr.next
   }
 
   return map.get(head)

@@ -53,25 +53,25 @@ keywords:
  * @return {ListNode}
  */
 var reverseBetween = function (head, m, n) {
-  const dummyHead = new ListNode(0)
-  dummyHead.next = head
+  const dummy = new ListNode(0)
+  dummy.next = head
 
-  let g = dummyHead,
-    p = dummyHead.next
+  let prev = dummy,
+    curr = dummy.next
 
   // 先找到需要反转的起点
   for (let i = 0; i < m - 1; i++) {
-    g = g.next
-    p = p.next
+    prev = prev.next
+    curr = curr.next
   }
 
   for (let i = 0; i < n - m; i++) {
-    const removed = p.next
-    p.next = p.next.next
-    removed.next = g.next
-    g.next = removed
+    const removed = curr.next
+    curr.next = curr.next.next
+    removed.next = prev.next
+    prev.next = removed
   }
 
-  return dummyHead.next
+  return dummy.next
 }
 ```
