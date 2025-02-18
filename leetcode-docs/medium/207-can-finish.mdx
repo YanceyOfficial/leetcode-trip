@@ -44,23 +44,10 @@ keywords:
 
 ## 题解
 
-1. 构建邻接表
+这道题本质上是一个**有向图**的**环检测**问题.
 
-2. 访问状态: 使用一个数组 `visited` 记录每个课程的访问状态.
-
-- `0`: 未访问.
-- `1`: 正在访问(即在当前递归路径上).
-- `2`: 已完成访问.
-
-3. DFS 遍历:
-
-- 对于每个未访问的课程 u, 进行 DFS 遍历.
-- 如果遇到正在访问的课程, 则说明存在环, 返回 false.
-- 将当前课程 u 的状态标记为正在访问.
-- 递归访问 u 的所有后继课程 v.
-- 将当前课程 u 的状态标记为已完成访问.
-
-4. 判断: 如果所有课程都遍历完成且没有发现环, 则返回 true.
+- **课程**可以看作**图中的节点**.
+- **课程之间的依赖关系**可以看作**图中的有向边**.
 
 ```ts
 /**
@@ -69,31 +56,44 @@ keywords:
  * @return {boolean}
  */
 var canFinish = function (numCourses, prerequisites) {
-  const adj = new Array(numCourses).fill(null).map(() => [])
+  const graph = Array(numCourses)
+    .fill(null)
+    .map(() => [])
+  const inDegree = Array(numCourses).fill(0)
+
+  // 构建邻接表
   for (const [course, pre] of prerequisites) {
-    adj[pre].push(course)
+    graph[pre].push(course)
+    inDegree[course]++
   }
 
-  const visited = new Array(numCourses).fill(0)
+  const queue = []
 
-  const dfs = (u) => {
-    if (visited[u] === 1) return false // 存在环
-    if (visited[u] === 2) return true // 已完成访问
-
-    visited[u] = 1 // 标记为正在访问
-    for (const v of adj[u]) {
-      if (!dfs(v)) return false
-    }
-    visited[u] = 2 // 标记为已完成访问
-    return true
-  }
-
+  // 将入度为 0 的课程加入队列
   for (let i = 0; i < numCourses; i++) {
-    if (!visited[i] && !dfs(i)) {
-      return false
+    if (inDegree[i] === 0) {
+      queue.push(i)
     }
   }
 
-  return true
+  let count = 0
+
+  // 拓扑排序
+  while (queue.length > 0) {
+    const course = queue.shift()!
+    count++
+
+    for (const nextCourse of graph[course]) {
+      inDegree[nextCourse]--
+      if (inDegree[nextCourse] === 0) {
+        queue.push(nextCourse)
+      }
+    }
+  }
+
+  return count === numCourses
 }
 ```
+
+- 时间复杂度： `O(V + E)`, 其中 `V` 是课程数量, `E` 是依赖关系数量.
+- 空间复杂度： `O(V)`, 用于存储邻接表和访问标记数组.
