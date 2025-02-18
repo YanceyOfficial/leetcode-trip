@@ -14,33 +14,33 @@ var solve = function (board) {
   const n = board[0].length
 
   const dfs = (i, j) => {
-    if (i < 1 || i >= m - 1 || j < 1 || j >= n - 1) return false
-    if (board[i][j] === 'X') return true
+    if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] !== 'O') return
 
-    const hasX =
-      dfs(i + 1, j) || dfs(i - 1, j) || dfs(i, j + 1) || dfs(i, j - 1)
-
-    if (hasX) {
-      board[i][j] = 'X'
-    }
-
-    return hasX
+    board[i][j] = '#'
+    dfs(i + 1, j)
+    dfs(i - 1, j)
+    dfs(i, j + 1)
+    dfs(i, j - 1)
   }
 
-  for (let i = 1; i < m - 1; i++) {
-    for (let j = 1; j < n - 1; j++) {
+  for (let i = 0; i < m; i++) {
+    dfs(i, 0)
+    dfs(i, n - 1)
+  }
+
+  for (let j = 0; j < n; j++) {
+    dfs(0, j)
+    dfs(m - 1, j)
+  }
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
       if (board[i][j] === 'O') {
-        dfs(i, j)
+        board[i][j] = 'X'
+      } else if (board[i][j] === '#') {
+        board[i][j] = 'O'
       }
     }
   }
-
-  console.log(board)
 }
 // @lc code=end
-solve([
-  ['X', 'X', 'X', 'X'],
-  ['X', 'O', 'O', 'X'],
-  ['X', 'X', 'O', 'X'],
-  ['X', 'O', 'X', 'X'],
-])

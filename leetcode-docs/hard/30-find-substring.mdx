@@ -24,7 +24,7 @@ sidebar_label: 30. 串联所有单词的子串
 
 :::info 示例
 
-```ts
+```bash
 输入: s = "barfoothefoobarman", words = ["foo", "bar"]
 输出: [0, 9]
 解释: 因为 words.length == 2 同时 words[i].length == 3, 连接的子字符串的长度必须为 6.
@@ -33,7 +33,7 @@ sidebar_label: 30. 串联所有单词的子串
 输出顺序无关紧要. 返回 [9,0] 也是可以的.
 ```
 
-```ts
+```bash
 输入: s = "wordgoodgoodgoodbestword", words = ["word", "good", "best", "word"]
 输出: []
 解释: 因为 words.length == 4 并且 words[i].length == 4, 所以串联子串的长度必须为 16.
@@ -41,7 +41,7 @@ s 中没有子串长度为 16 并且等于 words 的任何顺序排列的连接.
 所以我们返回一个空数组.
 ```
 
-```ts
+```bash
 输入: s = "barfoofoobarthefoobarman", words = ["bar", "foo", "the"]
 输出: [6, 9, 12]
 解释: 因为 words.length == 3 并且 words[i].length == 3, 所以串联子串的长度必须为 9.
