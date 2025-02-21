@@ -35,7 +35,7 @@ keywords:
 
 :::info 示例
 
-```ts
+```bash
 输入: 1 -> 2 -> 3 -> 4 -> 5 -> NULL, k = 2
 输出: 4 -> 5 -> 1 -> 2 -> 3 -> NULL
 解释:
@@ -43,7 +43,7 @@ keywords:
 向右旋转 2 步: 4 -> 5 -> 1 -> 2 -> 3 -> NULL
 ```
 
-```ts
+```bash
 输入: 0 -> 1 -> 2 -> NULL, k = 4
 输出: 2 -> 0 -> 1 -> NULL
 解释:
@@ -94,12 +94,12 @@ var rotateRight = function (head, k) {
 
   let fast = head,
     slow = head
-  while (k) {
+  while (k > 0) {
     fast = fast.next
     k--
   }
 
-  while (fast.next) {
+  while (fast && fast.next) {
     fast = fast.next
     slow = slow.next
   }

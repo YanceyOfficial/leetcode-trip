@@ -18,21 +18,21 @@ keywords:
 
 ## 题目
 
-反转从位置 `m` 到 `n` 的链表. 请使用一趟扫描完成反转.
+反转从位置 `left` 到 `right` 的链表. 请使用一趟扫描完成反转.
 
 :::info 示例
 
-输入: 1 -> 2 -> 3 -> 4 -> 5 -> NULL, m = 2, n = 4
+输入: 1 -> 2 -> 3 -> 4 -> 5 -> NULL, left = 2, right = 4
 
 输出: 1 -> 4 -> 3 -> 2 -> 5 -> NULL
 :::
 
 :::note 提示:
 
-- 链表中节点数目为 `n`
-- `1 <= n <= 500`
+- 链表中节点数目为 `right`
+- `1 <= right <= 500`
 - `-500 <= Node.val <= 500`
-- `1 <= left <= right <= n`
+- `1 <= left <= right <= right`
 
 :::
 
@@ -48,11 +48,11 @@ keywords:
  */
 /**
  * @param {ListNode} head
- * @param {number} m
- * @param {number} n
+ * @param {number} left
+ * @param {number} right
  * @return {ListNode}
  */
-var reverseBetween = function (head, m, n) {
+var reverseBetween = function (head, left, right) {
   const dummy = new ListNode(0)
   dummy.next = head
 
@@ -60,12 +60,12 @@ var reverseBetween = function (head, m, n) {
     curr = dummy.next
 
   // 先找到需要反转的起点
-  for (let i = 0; i < m - 1; i++) {
+  for (let i = 0; i < left - 1; i++) {
     prev = prev.next
     curr = curr.next
   }
 
-  for (let i = 0; i < n - m; i++) {
+  for (let i = 0; i < right - left; i++) {
     const removed = curr.next
     curr.next = curr.next.next
     removed.next = prev.next
