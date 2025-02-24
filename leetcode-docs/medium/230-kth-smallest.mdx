@@ -36,13 +36,6 @@ keywords:
 
 ## 题解
 
-:::success review
-
-- 若任意节点的左子树不空, 则左子树上所有节点的值均小于它的根节点的值;
-- 若任意节点的右子树不空, 则右子树上所有节点的值均大于它的根节点的值;
-- 任意节点的左、右子树也分别为二叉查找树;
-- **BST 的中序遍历结果是有序的(升序).**
-
 :::
 
 利用中序遍历去遍历 BST 到 k 次, 返回 root.val 即可.
@@ -65,7 +58,7 @@ var kthSmallest = function (root, k) {
   let num = null
 
   let inOrderTraverse = function (node) {
-    if (node !== null && k > 0) {
+    if (node !== null) {
       // 先遍历左子树
       inOrderTraverse(node.left)
 

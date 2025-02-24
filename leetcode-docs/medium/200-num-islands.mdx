@@ -66,7 +66,7 @@ var numIslands = function (grid) {
       return
     }
 
-    grid[i][j] = '0' // 标记为已访问
+    grid[i][j] = '0'
 
     dfs(i + 1, j)
     dfs(i - 1, j)

@@ -1,0 +1,124 @@
+---
+id: 212-find-words
+title: 单词搜索-ii
+sidebar_label: 212. 单词搜索-ii
+keywords:
+  - Backtracking
+  - Trie
+---
+
+:::success Tips
+题目类型: Backtracking, Trie
+
+相关题目:
+
+- [79. 单词搜索](/leetcode/medium/79-exist)
+
+:::
+
+## 题目
+
+给定一个 `m x n` 二维字符网格 `board` 和一个单词(字符串)列表 `words`, 返回所有二维网格上的单词.
+
+单词必须按照字母顺序，通过**相邻的单元格**内的字母构成，
+其中"相邻"单元格是那些水平相邻或垂直相邻的单元格. 同一个单元格内的字母在一个单词中不允许被重复使用.
+
+:::note 提示:
+
+- `m == board.length`
+- `n == board[i].length`
+- `1 <= m, n <= 12`
+- `board[i][j]` 是一个小写英文字母
+- `1 <= words.length <= 3 * 10⁴`
+- `1 <= words[i].length <= 10`
+- `words[i]` 由小写英文字母组成
+- `words` 中的所有字符串互不相同
+
+:::
+
+:::info 示例
+
+![212-find-words](../../static/img/212-find-words-1.jpg)
+
+```bash
+输入: board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]
+输出: ["eat","oath"]
+```
+
+![212-find-words](../../static/img/212-find-words-2.jpg)
+
+```bash
+输入: board = [["a","b"],["c","d"]], words = ["abcb"]
+输出: []
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {chacter[][]} board
+ * @param {string[]} words
+ * @return {string[]}
+ */
+var findWords = function (board, words) {
+  const trie = buildTrie(words)
+  const result = []
+  const m = board.length
+  const n = board[0].length
+  const visited = new Array(m).fill(false).map(() => new Array(n).fill(false))
+
+  const dfs = (i, j, word, node) => {
+    if (
+      i < 0 ||
+      i >= m ||
+      j < 0 ||
+      j >= n ||
+      !node[board[i][j]] ||
+      visited[i][j]
+    ) {
+      return
+    }
+
+    const ch = board[i][j]
+    node = node[ch]
+    word += ch
+
+    if (node.isWord) {
+      result.push(word)
+      node.isWord = false
+    }
+
+    visited[i][j] = true
+    dfs(i - 1, j, word, node)
+    dfs(i + 1, j, word, node)
+    dfs(i, j - 1, word, node)
+    dfs(i, j + 1, word, node)
+    visited[i][j] = false
+  }
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      dfs(i, j, '', trie)
+    }
+  }
+
+  return result
+}
+
+var buildTrie = function (words) {
+  const root = {}
+  for (const word of words) {
+    let node = root
+    for (const ch of word) {
+      if (!node[ch]) {
+        node[ch] = {}
+      }
+      node = node[ch]
+    }
+    node.isWord = true
+  }
+  return root
+}
+```

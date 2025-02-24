@@ -41,7 +41,7 @@ keywords:
 
 ## 题解
 
-因为 BST 的中序遍历是**有序的**, 所以只要保证**当前节点的值大于前一个节点的值**即可. 因此可以先创建一个 prevNode 节点初始为 null, 走中序遍历即可.
+因为 BST 的中序遍历是**有序的**, 所以只要保证**当前节点的值大于前一个节点的值**即可. 因此可以先创建一个 `preVal` 节点初始为 `null`, 走中序遍历即可.
 
 ```ts
 /**
@@ -57,25 +57,24 @@ keywords:
  * @return {boolean}
  */
 var isValidBST = function (root) {
-  const arr = []
-  inOrderTraverse(root, arr)
-  return isAscending(arr)
-}
+  let result = true
+  let preVal = null
 
-var inOrderTraverse = function (root, arr) {
-  if (!root) return null
+  var inorder = function (node) {
+    if (node) {
+      inorder(node.left)
 
-  inOrderTraverse(root.left, arr)
-  arr.push(root.val)
-  inOrderTraverse(root.right, arr)
-}
+      if (preVal !== null && node.val <= preVal) {
+        result = false
+        return
+      }
+      preVal = node.val
 
-var isAscending = function (arr) {
-  const n = arr.length
-  for (let i = 0; i < n - 1; i++) {
-    if (arr[i] >= arr[i + 1]) return false
+      inorder(node.right)
+    }
   }
 
-  return true
+  inorder(root)
+  return result
 }
 ```
