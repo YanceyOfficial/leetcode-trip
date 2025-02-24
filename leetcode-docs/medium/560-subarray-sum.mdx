@@ -118,23 +118,21 @@ var subarraySum = function (nums, k) {
 
 上面这个图就很清晰, `presum - k` 其实就是子串的和, 我们的目的是计算 `pre[i] - k` 是否等于 `presum - k`. 换句话说, 就是在总和里减去 k 是否存在, 如果存在, 那么这就是一个和为 k 的子数组. 因此我们可以通过建立一个 hash 表, 将 `pre[i] - k` 设为 key, 而这个 key **出现的次数**作为 val, 而我们最终的目的是统计 val.
 
-import Carousel from 'nuka-carousel'
-import useBaseUrl from '@docusaurus/useBaseUrl'
+import Carousel from '../../src/components/carousel'
 
 <Carousel
-  style={{ margin: '48px 0', padding: '24px 0' }}
-  renderBottomCenterControls={null}
->
-  <img src={useBaseUrl(`/img/560-subarray-sum-1.png`)} />
-  <img src={useBaseUrl(`/img/560-subarray-sum-2.png`)} />
-  <img src={useBaseUrl(`/img/560-subarray-sum-3.png`)} />
-  <img src={useBaseUrl(`/img/560-subarray-sum-4.png`)} />
-  <img src={useBaseUrl(`/img/560-subarray-sum-5.png`)} />
-  <img src={useBaseUrl(`/img/560-subarray-sum-6.png`)} />
-  <img src={useBaseUrl(`/img/560-subarray-sum-7.png`)} />
-  <img src={useBaseUrl(`/img/560-subarray-sum-8.png`)} />
-  <img src={useBaseUrl(`/img/560-subarray-sum-9.png`)} />
-</Carousel>
+  images={[
+    '/img/560-subarray-sum-1.png',
+    '/img/560-subarray-sum-2.png',
+    '/img/560-subarray-sum-3.png',
+    '/img/560-subarray-sum-4.png',
+    '/img/560-subarray-sum-5.png',
+    '/img/560-subarray-sum-6.png',
+    '/img/560-subarray-sum-7.png',
+    '/img/560-subarray-sum-8.png',
+    '/img/560-subarray-sum-9.png',
+  ]}
+/>
 
 ```ts
 /**

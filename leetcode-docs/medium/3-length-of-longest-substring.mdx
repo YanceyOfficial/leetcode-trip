@@ -53,24 +53,22 @@ keywords:
 
 ## 题解
 
-import Carousel from 'nuka-carousel'
-import useBaseUrl from '@docusaurus/useBaseUrl'
+import Carousel from '../../src/components/carousel'
 
 <Carousel
-  style={{ margin: '48px 0', border: '1px solid #ccc' }}
-  renderBottomCenterControls={null}
->
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-1.png`)} />
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-2.png`)} />
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-3.png`)} />
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-4.png`)} />
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-5.png`)} />
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-6.png`)} />
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-7.png`)} />
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-8.png`)} />
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-9.png`)} />
-  <img src={useBaseUrl(`/img/3-length-of-longest-substring-10.png`)} />
-</Carousel>
+  images={[
+    '/img/3-length-of-longest-substring-1.png',
+    '/img/3-length-of-longest-substring-2.png',
+    '/img/3-length-of-longest-substring-3.png',
+    '/img/3-length-of-longest-substring-4.png',
+    '/img/3-length-of-longest-substring-5.png',
+    '/img/3-length-of-longest-substring-6.png',
+    '/img/3-length-of-longest-substring-7.png',
+    '/img/3-length-of-longest-substring-8.png',
+    '/img/3-length-of-longest-substring-9.png',
+    '/img/3-length-of-longest-substring-10.png',
+  ]}
+/>
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'

@@ -74,3 +74,15 @@ div[class^='announcementBar_'] {
   );
   font-weight: 700;
 }
+
+.embla {
+  overflow: hidden;
+  margin: 24px 0;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
