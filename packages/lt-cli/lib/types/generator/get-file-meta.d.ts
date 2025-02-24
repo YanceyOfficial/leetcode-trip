@@ -1,4 +1,4 @@
-export declare const getFileMeta: (dirName: string, fileName: string, isValidate?: boolean) => true | "文件已存在, 请重新选择." | {
+export declare const getFileMeta: (dirName: string, fileName: string) => {
     outPath: string;
     meta: {
         serial: string;

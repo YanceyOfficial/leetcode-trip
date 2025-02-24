@@ -1,4 +1,4 @@
-import { paramCase } from 'param-case'
+import { kebabCase } from 'change-case'
 
 export const parseFile = (content: string) => {
   const functionBodyMatcher = content.match(
@@ -11,7 +11,7 @@ export const parseFile = (content: string) => {
 
     if (Array.isArray(functionNameMatcher)) {
       const functionName = functionNameMatcher[1].trim()
-      return { functionBody, functionName: paramCase(functionName) }
+      return { functionBody, functionName: kebabCase(functionName) }
     }
     throw new Error('Can not get the function name string.')
   } else {

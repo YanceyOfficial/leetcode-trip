@@ -1,19 +1,14 @@
-import inquirer, { ChoiceOptions } from 'inquirer'
-import iap from 'inquirer-autocomplete-prompt'
-import { getFileMeta } from './get-file-meta'
+import { search } from '@inquirer/prompts'
+import { getFileList } from './get-file-list'
+import { validateFilename } from './validata-filename'
 
-inquirer.registerPrompt('autocomplete', iap)
-
-export const fileSelect = (dir: string, choices: string[]) =>
-  inquirer.prompt([
-    {
-      type: 'autocomplete',
-      message: '请选择文件: ',
-      name: 'file',
-      pageSize: 20,
-      source: (answersSoFar: string, input: string) =>
-        choices.filter((choice) => choice.includes(input || '')),
-      validate: (input: ChoiceOptions) =>
-        getFileMeta(dir, input.name || '', true),
-    },
-  ])
+export const fileSelect = (
+  dir: string,
+  choices: ReturnType<typeof getFileList>,
+) =>
+  search({
+    message: '请选择文件: ',
+    source: async (input) =>
+      choices.filter((choice) => choice.name.includes(input || '')),
+    validate: (filename) => validateFilename(dir, filename),
+  })

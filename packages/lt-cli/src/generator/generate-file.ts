@@ -9,6 +9,7 @@ import { rustPath } from '../shared/constants'
 
 export const generateFile = async (dirName: string, fileName: string) => {
   const fileMeta = getFileMeta(dirName, fileName)
+  console.log(dirName, fileName,fileMeta)
   if (typeof fileMeta !== 'object') return
 
   const {

@@ -1,1 +1,4 @@
-export declare const getFileList: (dirName: string) => string[];
+export declare const getFileList: (dirName: string) => {
+    name: string;
+    value: string;
+}[];

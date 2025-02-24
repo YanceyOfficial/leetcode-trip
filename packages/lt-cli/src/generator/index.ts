@@ -17,9 +17,16 @@ export const bootstrap = async () => {
       }),
     ),
   )
-  const { dir } = await dirSelect()
-  const files = getFileList(dir)
-  const { file } = await fileSelect(dir, files)
 
-  await generateFile(dir, file)
+  try {
+    const dir = await dirSelect()
+    const files = getFileList(dir)
+    const file = await fileSelect(dir, files)
+
+    await generateFile(dir, file)
+  } catch (e) {
+    if (e instanceof Error && e.name === 'ExitPromptError') {
+      console.log('Goodbye~')
+    }
+  }
 }

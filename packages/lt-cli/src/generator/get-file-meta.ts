@@ -1,23 +1,13 @@
-import { readFileSync, existsSync } from 'fs'
+import { readFileSync } from 'fs'
 import { parseFile } from './parse-file'
 import { javascriptPath, docPath } from '../shared/constants'
 
-export const getFileMeta = (
-  dirName: string,
-  fileName: string,
-  isValidate?: boolean,
-) => {
+export const getFileMeta = (dirName: string, fileName: string) => {
   const path = `${javascriptPath}/${dirName}/${fileName}`
   const file = readFileSync(path, { encoding: 'utf-8' })
   const [serial, title] = fileName.split('.')
   const { functionName, functionBody } = parseFile(file)
   const outPath = `${docPath}/${dirName.toLowerCase()}/${serial}-${functionName}.mdx`
 
-  if (existsSync(outPath)) {
-    return '文件已存在, 请重新选择.'
-  }
-
-  return isValidate
-    ? true
-    : { outPath, meta: { serial, title, functionName, functionBody } }
+  return { outPath, meta: { serial, title, functionName, functionBody } }
 }

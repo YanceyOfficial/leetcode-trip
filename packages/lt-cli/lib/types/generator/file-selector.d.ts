@@ -1,4 +1,4 @@
-import inquirer from 'inquirer';
-export declare const fileSelect: (dir: string, choices: string[]) => Promise<any> & {
-    ui: inquirer.ui.Prompt<any>;
+import { getFileList } from './get-file-list';
+export declare const fileSelect: (dir: string, choices: ReturnType<typeof getFileList>) => Promise<string> & {
+    cancel: () => void;
 };
