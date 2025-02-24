@@ -49,13 +49,13 @@ keywords:
  * @return {number}
  */
 var sumNumbers = function (root) {
-  if (root === null) return 0
-
   // root.val 要作为初始值
   return dfs(root, root.val)
 }
 
 var dfs = function (root, sum) {
+  if (root === null) return 0
+
   // 到了叶子节点返回
   if (root.left === null && root.right === null) return sum
 

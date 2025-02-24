@@ -57,32 +57,29 @@ bSTIterator.hasNext(); // 返回 False
  * @param {TreeNode} root
  */
 var BSTIterator = function (root) {
-  this.idx = 0
-  this.arr = []
-  this.inorderTraversal(root, this.arr)
+  this.inorderArr = []
+
+  var inorder = (root) => {
+    if (!root) return root
+    inorder(root.left)
+    this.inorderArr.push(root.val)
+    inorder(root.right)
+  }
+  inorder(root)
 }
 
 /**
  * @return {number}
  */
 BSTIterator.prototype.next = function () {
-  return this.arr[this.idx++]
+  return this.inorderArr.shift()
 }
 
 /**
  * @return {boolean}
  */
 BSTIterator.prototype.hasNext = function () {
-  return this.idx < this.arr.length
-}
-
-BSTIterator.prototype.inorderTraversal = function (root, arr) {
-  if (!root) {
-    return
-  }
-  this.inorderTraversal(root.left, arr)
-  arr.push(root.val)
-  this.inorderTraversal(root.right, arr)
+  return this.inorderArr.length > 0
 }
 
 /**

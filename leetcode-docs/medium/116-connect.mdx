@@ -57,7 +57,11 @@ struct Node {
 
 ## 题解
 
-### 解法一
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="层序遍历" label="层序遍历">
 
 最朴素的解法, 使用层序遍历, 让每层的元素逐一连接起来, 但这样时间复杂度和空间复杂度均为 O(n)
 
@@ -81,14 +85,14 @@ var connect = function (root) {
     const queue = [root]
 
     while (queue.length !== 0) {
-      const len = queue.length
+      const n = queue.length
 
       // 遍历这一层的所有节点
-      for (let i = 0; i < len; i++) {
+      for (let i = 0; i < n; i++) {
         const curr = queue.shift()
 
         // 连接
-        if (i < len - 1) {
+        if (i < n - 1) {
           curr.next = queue[0]
         }
 
@@ -107,7 +111,50 @@ var connect = function (root) {
 }
 ```
 
-### 解法二
+</TabItem>
+<TabItem value="递归" label="递归">
+
+![116-connect-3](../../static/img/116-connect-3.gif)
+
+以当前节 root 点为起始, 左右节点不断的深入下面, **left 节点不断往右走, right 节点不断往左走, 当这两个节点走到底后, 单个纵深就完成了串联**.
+
+递归函数实现如下:
+
+终止条件: 当前节点为空时
+
+函数内: 以当前节点为起始, 完成从上往下的纵深串联, 再递归的调用当前节点 left 和 right
+
+```ts
+function connect(root) {
+  dfs(root)
+  return root
+}
+
+function dfs(root) {
+  if (root == null) {
+    return
+  }
+  let left = root.left
+  let right = root.right
+
+  // 以 root 为起点, 将单个纵深这段串联起来
+  while (left != null) {
+    left.next = right
+    left = left.right
+    right = right.left
+  }
+
+  // 递归的调用左右节点, 完成同样的纵深串联
+  dfs(root.left)
+  dfs(root.right)
+}
+```
+
+时间复杂度: O(n)
+空间复杂度: O(h), h 是树的高度
+
+</TabItem>
+<TabItem value="最优解法" label="最优解法" default>
 
 一棵树中存在两种 next 类型(下面以 node 为 2 那个节点说明):
 
@@ -159,43 +206,5 @@ var connect = function (root) {
 
 空间复杂度: O(1), 不需要存储额外的节点
 
-### 解法三
-
-![116-connect-3](../../static/img/116-connect-3.gif)
-
-以当前节 root 点为起始, 左右节点不断的深入下面, **left 节点不断往右走, right 节点不断往左走, 当这两个节点走到底后, 单个纵深就完成了串联**.
-
-递归函数实现如下:
-
-终止条件: 当前节点为空时
-
-函数内: 以当前节点为起始, 完成从上往下的纵深串联, 再递归的调用当前节点 left 和 right
-
-```ts
-function connect(root) {
-  dfs(root)
-  return root
-}
-
-function dfs(root) {
-  if (root == null) {
-    return
-  }
-  let left = root.left
-  let right = root.right
-
-  // 以 root 为起点, 将单个纵深这段串联起来
-  while (left != null) {
-    left.next = right
-    left = left.right
-    right = right.left
-  }
-
-  // 递归的调用左右节点, 完成同样的纵深串联
-  dfs(root.left)
-  dfs(root.right)
-}
-```
-
-时间复杂度: O(n)
-空间复杂度: O(h), h 是树的高度
+</TabItem>
+</Tabs>

@@ -33,6 +33,12 @@ keywords:
 
 ## 题解
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="暴力递归" label="暴力递归">
+
 最暴力的就写个递归, 这个方法不管你是什么二叉树, 一把梭, 把所有节点撸一遍, 返回总长度即可.
 
 ```ts
@@ -40,6 +46,9 @@ var countNodes = function (root) {
   return root !== null ? 1 + countNodes(root.left) + countNodes(root.right) : 0
 }
 ```
+
+</TabItem>
+<TabItem value="最优解法" label="最优解法" default>
 
 当然人家都说了是个完全二叉树, 不然只用暴力法就 too young, too simple, sometimes naive 了 🐸.
 稍微复习下, 完美二叉树一定是完全二叉树, 但完全二叉树不一定是完美二叉树, 而完美二叉树可以用 **2<sup>n</sup> - 1** 直接算出总长度.
@@ -61,7 +70,7 @@ var countNodes = function (root) {
 var countNodes = function (root) {
   let hLeft = 0,
     hRight = 0
-  const pLeft = root,
+  let pLeft = root,
     pRight = root
 
   while (pLeft) {
@@ -80,6 +89,9 @@ var countNodes = function (root) {
   return countNodes(root.left) + countNodes(root.right) + 1
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ## 复习各种二叉树
 
