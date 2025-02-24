@@ -1,6 +1,5 @@
 # lt-cli
 
-[![Build Status](https://travis-ci.com/YanceyOfficial/leetcode-trip.svg?branch=master)](https://travis-ci.com/YanceyOfficial/leetcode-trip)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-green.svg)](https://github.com/YanceyOfficial/leetcode-trip/pulls)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)

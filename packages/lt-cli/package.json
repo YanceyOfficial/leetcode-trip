@@ -1,6 +1,6 @@
 {
   "name": "@yancey-inc/lt-cli",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "main": "lib/index.js",
   "typings": "lib/types/index.d.ts",
   "author": "Yancey Leo",

@@ -15,7 +15,7 @@ const execCommand = async () => {
     )
     ora().succeed('升级成功!')
   } catch (e) {
-    console.log(chalk.red(e))
+    console.log(chalk.red(e instanceof Error ? e.message : 'Unknown Error'))
   } finally {
     upgradeSpinner.stop()
   }
