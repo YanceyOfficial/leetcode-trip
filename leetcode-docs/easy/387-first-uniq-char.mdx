@@ -1,0 +1,61 @@
+---
+id: 387-first-uniq-char
+title: 字符串中的第一个唯一字符
+sidebar_label: 387. 字符串中的第一个唯一字符
+---
+
+## 题目
+
+给定一个字符串 `s`, 找到**它的第一个不重复的字符, 并返回它的索引**.如果不存在, 则返回 `-1`.
+
+:::note 提示:
+
+- `1 <= s.length <= 10⁵`
+- `s` 只包含小写字母
+
+:::
+
+:::info 示例
+
+```bash
+输入: s = "leetcode"
+输出: 0
+```
+
+```bash
+输入: s = "loveleetcode"
+输出: 2
+```
+
+```bash
+输入: s = "aabb"
+输出: -1
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var firstUniqChar = function (s) {
+  const map = new Map()
+
+  // 统计字符次数
+  for (const char of s) {
+    map.set(char, (map.get(char) || 0) + 1)
+  }
+
+  // 查找唯一字符
+  for (let i = 0; i < s.length; i++) {
+    if (map.get(s[i]) === 1) {
+      return i
+    }
+  }
+
+  return -1
+}
+```
