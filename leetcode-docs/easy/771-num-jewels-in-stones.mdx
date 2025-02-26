@@ -1,0 +1,56 @@
+---
+id: 771-num-jewels-in-stones
+title: 宝石与石头
+sidebar_label: 771. 宝石与石头
+---
+
+## 题目
+
+给你一个字符串 `jewels` 代表石头中宝石的类型, 另有一个字符串 `stones` 代表你拥有的石头. `stones` 中每个字符代表了一种你拥有的石头的类型, 你想知道你拥有的石头中有多少是宝石.
+
+字母区分大小写, 因此 `"a"` 和 `"A"` 是不同类型的石头.
+
+:::note 提示:
+
+- `1 <= jewels.length, stones.length <= 50`
+- `jewels` 和 `stones` 仅由英文字母组成
+- `jewels` 中的所有字符都是**唯一的**
+
+:::
+
+:::info 示例
+
+```bash
+输入: jewels = "aA", stones = "aAAbbbb"
+输出: 3
+```
+
+```bash
+输入: jewels = "z", stones = "ZZ"
+输出: 0
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {string} J
+ * @param {string} S
+ * @return {number}
+ */
+var numJewelsInStones = function (J, S) {
+  const set = new Set([...J])
+
+  let count = 0
+
+  for (let i = 0; i < S.length; i++) {
+    if (set.has(S[i])) {
+      count++
+    }
+  }
+
+  return count
+}
+```

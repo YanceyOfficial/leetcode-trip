@@ -1,0 +1,63 @@
+---
+id: 389-find-the-difference
+title: 找不同
+sidebar_label: 389. 找不同
+---
+
+## 题目
+
+给定两个字符串 `s` 和 `t`, 它们只包含小写字母.
+
+字符串 `t` 由字符串 `s` 随机重排, 然后在随机位置添加一个字母.
+
+请找出在 `t` 中被添加的字母.
+
+:::note 提示:
+
+- `0 <= s.length <= 1000`
+- `t.length == s.length + 1`
+- `s` 和 `t` 只包含小写字母
+
+:::
+
+:::info 示例
+
+```bash
+输入: s = "abcd", t = "abcde"
+输出: "e"
+解释: 'e' 是那个被添加的字母.
+```
+
+```bash
+输入: s = "", t = "y"
+输出: "y"
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {character}
+ */
+var findTheDifference = function (s, t) {
+  const map = new Map()
+
+  for (let i = 0; i < s.length; i++) {
+    const val = map.get(s[i])
+    map.set(s[i], val === undefined ? 1 : val + 1)
+  }
+
+  for (let i = 0; i < t.length; i++) {
+    const val = map.get(t[i])
+    if (val === 0 || val === undefined) {
+      return t[i]
+    } else {
+      map.set(t[i], val - 1)
+    }
+  }
+}
+```
