@@ -1,0 +1,87 @@
+---
+id: 918-max-subarray-sum-circular
+title: 环形子数组的最大和
+sidebar_label: 918. 环形子数组的最大和
+---
+
+## 题目
+
+给定一个长度为 `n` 的环形整数数组 `nums`, 返回 `nums` 的非空**子数组**的最大可能和.
+
+**环形数组**意味着数组的末端将会与开头相连呈环状. 形式上, `nums[i]` 的下一个元素是 `nums[(i + 1) % n]`, `nums[i]` 的前一个元素是 `nums[(i - 1 + n) % n]`.
+
+**子数组**最多只能包含固定缓冲区 `nums` 中的每个元素一次. 形式上, 对于子数组 `nums[i], nums[i + 1], ..., nums[j]`, 不存在` i <= k1, k2 <= j` 其中 `k1 % n == k2 % n`.
+
+:::note 提示:
+
+- `n == nums.length`
+- `1 <= n <= 3 * 10⁴`
+- `-3 * 10⁴ <= nums[i] <= 3 * 10⁴`
+
+:::
+
+:::info 示例
+
+```bash
+输入: nums = [1,-2,3,-2]
+输出: 3
+解释: 从子数组 [3] 得到最大和 3
+```
+
+```bash
+输入: nums = [5,-3,5]
+输出: 10
+解释: 从子数组 [5,5] 得到最大和 5 + 5 = 10
+```
+
+```bash
+输入: nums = [3,-2,2,-3]
+输出: 3
+解释: 从子数组 [3] 和 [3,-2,2] 都可以得到最大和 3
+```
+
+:::
+
+## 题解
+
+1. **子数组没有跨越环形边界**:
+
+   - 这种情况与 [53. 最大子序和](/leetcode/medium/53-max-sub-array)相同, 可以使用 Kadane 算法求解.
+
+2. **子数组跨越环形边界**:
+
+   - 这种情况下的最大和等于数组的总和减去数组的最小子数组和.
+   - 可以使用 Kadane 算法的变体求解最小子数组和.
+
+```ts
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubarraySumCircular = function (nums) {
+  const n = nums.length
+  let maxSoFar = nums[0]
+  let maxEndingHere = nums[0]
+  let minSoFar = nums[0]
+  let minEndingHere = nums[0]
+  let totalSum = nums[0]
+
+  for (let i = 1; i < nums.length; i++) {
+    maxEndingHere = Math.max(nums[i], maxEndingHere + nums[i])
+    maxSoFar = Math.max(maxSoFar, maxEndingHere)
+
+    minEndingHere = Math.min(nums[i], minEndingHere + nums[i])
+    minSoFar = Math.min(minSoFar, minEndingHere)
+
+    totalSum += nums[i]
+  }
+
+  // 如果 maxSum <= 0, 说明数组中所有子数组的和都是非正数, 那么跨越环形边界的子数组和也不会更大.
+  // 只有当 maxSum > 0 时, 才有可能出现跨越环形边界的子数组和更大的情况.
+  if (maxSoFar > 0) {
+    return Math.max(maxSoFar, totalSum - minSoFar)
+  } else {
+    return maxSoFar
+  }
+}
+```
