@@ -54,6 +54,29 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
+  <TabItem value="JavaScript - Kadane" label="JavaScript - Kadane" default>
+
+> Kadane 算法(Kadane's algorithm)是一种用于解决最大子数组和问题的动态规划算法.
+
+```ts
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
+  let maxEndingHere = nums[0]
+  let maxSoFar = nums[0]
+
+  for (let i = 1; i < nums.length; i++) {
+    maxEndingHere = Math.max(nums[i], maxEndingHere + nums[i])
+    maxSoFar = Math.max(maxSoFar, maxEndingHere)
+  }
+
+  return maxSoFar
+}
+```
+
+</TabItem>
   <TabItem value="JavaScript - 动态规划" label="JavaScript - 动态规划" default>
 
 - `dp[i - 1] + nums[i]`, 即 `nums[i]` 加入当前连续子序列和

@@ -17,32 +17,32 @@
  * @param {_Node} node
  * @return {_Node}
  */
-var cloneGraph = function(node) {
-    if (!node) {
-        return null;
-      }
-    
-      const visited = new Map();
-    
-      function dfs(curr) {
-        if (!curr) {
-          return null;
-        }
-    
-        if (visited.has(curr)) {
-          return visited.get(curr);
-        }
-    
-        const copyNode = { val: curr.val, neighbors: [] };
-        visited.set(curr, copyNode);
-    
-        for (const neighbor of curr.neighbors) {
-          copyNode.neighbors.push(dfs(neighbor));
-        }
-    
-        return copyNode;
-      }
-    
-      return dfs(node);
-};
+var cloneGraph = function (node) {
+  if (!node) {
+    return null
+  }
+
+  const visited = new Map()
+
+  function dfs(curr) {
+    if (!curr) {
+      return null
+    }
+
+    if (visited.has(curr)) {
+      return visited.get(curr)
+    }
+
+    const copyNode = { val: curr.val, neighbors: [] }
+    visited.set(curr, copyNode)
+
+    for (const neighbor of curr.neighbors) {
+      copyNode.neighbors.push(dfs(neighbor))
+    }
+
+    return copyNode
+  }
+
+  return dfs(node)
+}
 // @lc code=end

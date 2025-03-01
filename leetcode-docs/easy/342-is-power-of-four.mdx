@@ -1,0 +1,80 @@
+---
+id: 342-is-power-of-four
+title: 4-的幂
+sidebar_label: 342. 4-的幂
+---
+
+## 题目
+
+给定一个整数, 写一个函数来判断它是否是 `4` 的幂次方. 如果是, 返回 `true`; 否则, 返回 `false`.
+
+整数 `n` 是 `4` 的幂次方需满足: 存在整数 `x` 使得 `n == 4ˣ`
+
+`进阶`: 你能不使用循环或者递归来完成本题吗?
+
+:::note 提示:
+
+- `-2³¹ <= n <= 2³¹ - 1`
+
+:::
+
+:::info 示例
+
+```bash
+输入: n = 16
+输出: true
+```
+
+```bash
+输入: n = 5
+输出: false
+```
+
+```bash
+输入: n = 1
+输出: true
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="循环" label="循环" default>
+
+```ts
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isPowerOfFour = function (n) {
+  if (n < 1) {
+    return false
+  }
+
+  while (n % 4 === 0) {
+    n /= 4
+  }
+
+  return n === 1
+}
+```
+
+</TabItem>
+<TabItem value="数学法" label="数学法">
+
+```ts
+/**
+ * @param {number} num
+ * @return {boolean}
+ */
+var isPowerOfFour = function (num) {
+  return (Math.log10(num) / Math.log10(4)) % 1 === 0
+}
+```
+
+</TabItem>
+</Tabs>

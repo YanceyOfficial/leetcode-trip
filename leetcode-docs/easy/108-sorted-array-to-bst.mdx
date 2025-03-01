@@ -12,7 +12,7 @@ keywords:
 
 ## 题目
 
-给你一个升序排列的整数数组 nums, 请你将其转换为一棵**高度平衡**二叉搜索树. 高度平衡二叉树是一棵满足**每个节点的左右两个子树的高度差的绝对值不超过 1** 的二叉树.
+给你一个升序排列的整数数组 `nums`, 请你将其转换为一棵**高度平衡**二叉搜索树. 高度平衡二叉树是一棵满足**每个节点的左右两个子树的高度差的绝对值不超过 1** 的二叉树.
 
 :::info 示例
 
@@ -32,6 +32,8 @@ keywords:
 
 ## 题解
 
+由于数组是升序排列的, 为了保证二叉搜索树的高度平衡, 我们可以选择数组的中间元素作为根节点. 然后, 递归地构建左右子树.
+
 ```ts
 /**
  * Definition for a binary tree node.
@@ -46,18 +48,18 @@ keywords:
  * @return {TreeNode}
  */
 var sortedArrayToBST = function (nums) {
-  return helper(nums, 0, nums.length - 1)
+  return buildBST(nums, 0, nums.length - 1)
 }
 
-var helper = function (nums, left, right) {
-  // 左边·索引不能大于右边索引
+var buildBST = function (nums, left, right) {
+  // 左边索引不能大于右边索引
   if (left > right) return null
 
-  const midIdx = Math.floor((startIdx + endIdx) / 2) // 求中间索引
+  const midIdx = Math.floor((left + right) / 2) // 求中间索引
   const root = new TreeNode(nums[midIdx]) // 构建当前节点
 
-  root.left = buildBST(nums, startIdx, midIdx - 1) // 构建左子树
-  root.right = buildBST(nums, midIdx + 1, endIdx) // 构建右子树
+  root.left = buildBST(nums, left, midIdx - 1) // 构建左子树
+  root.right = buildBST(nums, midIdx + 1, right) // 构建右子树
 
   return root
 }

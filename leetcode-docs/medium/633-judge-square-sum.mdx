@@ -1,0 +1,54 @@
+---
+id: 633-judge-square-sum
+title: 平方数之和
+sidebar_label: 633. 平方数之和
+---
+
+## 题目
+
+给定一个非负整数 `c`, 你要判断是否存在两个整数 `a` 和 `b`, 使得 `a² + b² = c`.
+
+:::note 提示:
+
+- `0 <= c <= 2³¹ - 1`
+
+:::
+
+:::info 示例
+
+```bash
+输入: c = 5
+输出: true
+解释: 1 * 1 + 2 * 2 = 5
+```
+
+```bash
+输入: c = 3
+输出: false
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {number} c
+ * @return {boolean}
+ */
+var judgeSquareSum = function (c) {
+  let a = 0
+  let b = Math.sqrt(c) | 0
+  while (a <= b) {
+    const res = a * a + b * b
+    if (res < c) {
+      a++
+    } else if (res > c) {
+      b--
+    } else {
+      return true
+    }
+  }
+  return false
+}
+```

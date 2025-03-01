@@ -1,0 +1,62 @@
+---
+id: 345-reverse-vowels
+title: 反转字符串中的元音字母
+sidebar_label: 345. 反转字符串中的元音字母
+---
+
+## 题目
+
+给你一个字符串 `s`, 仅反转字符串中的所有元音字母, 并返回结果字符串.
+
+元音字母包括 `'a'`, `'e'`, `'i'`, `'o'`, `'u'`, 且可能以大小写两种形式出现不止一次.
+
+:::note 提示:
+
+- `1 <= s.length <= 3 * 10⁵`
+- `s` 由**可打印的 ASCII** 字符组成
+
+:::
+
+:::info 示例
+
+```bash
+输入: s = "IceCreAm"
+输出: "AceCreIm"
+解释: s 中的元音是 ['I', 'e', 'e', 'A']. 反转这些元音, s 变为 "AceCreIm".
+```
+
+```bash
+输入: s = "leetcode"
+输出: "leotcede"
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseVowels = function (s) {
+  const vowels = 'aeiouAEIOU'
+  let left = 0
+  let right = s.length - 1
+  let arr = s.split('')
+
+  while (left < right) {
+    if (!vowels.includes(arr[left])) {
+      left++
+    } else if (!vowels.includes(arr[right])) {
+      right--
+    } else {
+      ;[arr[left], arr[right]] = [arr[right], arr[left]]
+      left++
+      right--
+    }
+  }
+
+  return arr.join('')
+}
+```

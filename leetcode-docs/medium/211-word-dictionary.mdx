@@ -1,0 +1,129 @@
+---
+id: 211-word-dictionary
+title: 添加与搜索单词-数据结构设计
+sidebar_label: 211. 添加与搜索单词-数据结构设计
+keywords:
+  - Trie
+---
+
+:::success Tips
+题目类型: Trie
+:::
+
+## 题目
+
+请你设计一个数据结构, 支持添加新单词和查找字符串是否与任何先前添加的字符串匹配.
+
+实现词典类 `WordDictionary`:
+
+- `WordDictionary()` 初始化词典对象
+- `void addWord(word)` 将 `word` 添加到数据结构中, 之后可以对它进行匹配
+- `bool search(word)` 如果数据结构中存在字符串与 `word` 匹配, 则返回 `true`; 否则, 返回 `false`. `word` 中可能包含一些 `'.'`, 每个 `.` 都可以表示任何一个字母.
+
+:::note 提示:
+
+- `1 <= word.length <= 25`
+- `addWord` 中的 `word` 由小写英文字母组成
+- `search` 中的 `word` 由 `'.'` 或小写英文字母组成
+- 最多调用 `10⁴` 次 `addWord` 和 `search`
+
+:::
+
+:::info 示例
+
+```bash
+输入:
+["WordDictionary","addWord","addWord","addWord","search","search","search","search"]
+[[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+输出:
+[null,null,null,null,false,true,true,true]
+
+解释:
+WordDictionary wordDictionary = new WordDictionary();
+wordDictionary.addWord("bad");
+wordDictionary.addWord("dad");
+wordDictionary.addWord("mad");
+wordDictionary.search("pad"); // 返回 False
+wordDictionary.search("bad"); // 返回 True
+wordDictionary.search(".ad"); // 返回 True
+wordDictionary.search("b.."); // 返回 True
+```
+
+:::
+
+## 题解
+
+```ts
+var WordDictionary = function () {
+  this.root = {}
+}
+
+/**
+ * @param {string} word
+ * @return {void}
+ */
+WordDictionary.prototype.addWord = function (word) {
+  let node = this.root
+  for (const ch of word) {
+    if (!node[ch]) {
+      node[ch] = {}
+    }
+
+    node = node[ch]
+  }
+
+  node.isEnd = true
+}
+
+/**
+ * @param {string} word
+ * @return {boolean}
+ */
+WordDictionary.prototype.search = function (word) {
+  return this.dfs(word, 0, this.root)
+}
+
+/**
+ * @param {string} word
+ * @param {number} idx
+ * @param {Object} node
+ * @return {boolean}
+ */
+WordDictionary.prototype.dfs = function (word, idx, node) {
+  // 如果已经处理完所有字符, 检查当前节点是否是单词结束
+  if (idx === word.length) {
+    return !!node.isEnd
+  }
+
+  const ch = word[idx]
+
+  // 如果当前字符是通配符 '.'
+  if (ch === '.') {
+    // 尝试所有可能的字符
+    for (const key in node) {
+      if (key !== 'isEnd' && this.dfs(word, idx + 1, node[key])) {
+        return true
+      }
+    }
+
+    return false
+  }
+  // 如果是普通字符
+  else {
+    // 如果当前字符不存在于节点中, 返回 false
+    if (!node[ch]) {
+      return false
+    }
+
+    // 继续搜索下一个字符
+    return this.dfs(word, idx + 1, node[ch])
+  }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * var obj = new WordDictionary()
+ * obj.addWord(word)
+ * var param_2 = obj.search(word)
+ */
+```

@@ -1,0 +1,87 @@
+---
+id: 326-is-power-of-three
+title: 3-的幂
+sidebar_label: 326. 3-的幂
+---
+
+## 题目
+
+给定一个整数, 写一个函数来判断它是否是 `3` 的幂次方. 如果是, 返回 `true`; 否则, 返回 `false`.
+
+整数 `n` 是 `3` 的幂次方需满足: 存在整数 `x` 使得 `n == 3ˣ`
+
+`进阶`: 你能不使用循环或者递归来完成本题吗?
+
+:::note 提示:
+
+- `-2³¹ <= n <= 2³¹ - 1`
+
+:::
+
+:::info 示例
+
+```bash
+输入: n = 27
+输出: true
+```
+
+```bash
+输入: n = 0
+输出: false
+```
+
+```bash
+输入: n = 9
+输出: true
+```
+
+```bash
+输入: n = 45
+输出: false
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="循环" label="循环" default>
+
+```ts
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isPowerOfThree = function (n) {
+  if (n < 1) {
+    return false
+  }
+
+  while (n % 3 === 0) {
+    n /= 3
+  }
+
+  return n === 1
+}
+```
+
+</TabItem>
+<TabItem value="数学法" label="数学法">
+
+在 `32` 位整数范围内, `3` 的最大幂为 `3^19 = 1162261467`. 如果 `n` 是 `3` 的幂, 那么 `1162261467` 除以 `n` 的余数一定为 `0`.
+
+```ts
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isPowerOfThree = function (n) {
+  return n > 0 && 1162261467 % n === 0
+}
+```
+
+</TabItem>
+</Tabs>

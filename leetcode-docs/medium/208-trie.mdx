@@ -40,7 +40,7 @@ trie.search("app");     // 返回 True
  * Initialize your data structure here.
  */
 var Trie = function () {
-  this.children = {}
+  this.root = {}
 }
 
 /**
@@ -49,7 +49,7 @@ var Trie = function () {
  * @return {void}
  */
 Trie.prototype.insert = function (word) {
-  let node = this.children
+  let node = this.root
 
   for (const ch of word) {
     if (!node[ch]) {
@@ -57,7 +57,7 @@ Trie.prototype.insert = function (word) {
     }
     node = node[ch]
   }
-  node.isEnd = true
+  node.isWord = true
 }
 
 /**
@@ -67,7 +67,7 @@ Trie.prototype.insert = function (word) {
  */
 Trie.prototype.search = function (word) {
   const node = this.searchPrefix(word)
-  return node && node.isEnd === true
+  return node && node.isWord === true
 }
 
 /**
@@ -80,7 +80,7 @@ Trie.prototype.startsWith = function (prefix) {
 }
 
 Trie.prototype.searchPrefix = function (prefix) {
-  let node = this.children
+  let node = this.root
   for (const ch of prefix) {
     if (!node[ch]) {
       return false

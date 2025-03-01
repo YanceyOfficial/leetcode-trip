@@ -17,8 +17,28 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-var averageOfLevels = function(root) {
-    
-};
-// @lc code=end
+var averageOfLevels = function (root) {
+  if (!root) return []
+  const result = []
+  const queue = [root]
 
+  while (queue.length > 0) {
+    const n = queue.length
+
+    let ans = 0
+    let count = 0
+    for (let i = 0; i < n; i++) {
+      const node = queue.shift()
+      ans += node.val
+      count++
+
+      if (node.left) queue.push(node.left)
+      if (node.right) queue.push(node.right)
+    }
+
+    result.push(ans / count)
+  }
+
+  return result
+}
+// @lc code=end

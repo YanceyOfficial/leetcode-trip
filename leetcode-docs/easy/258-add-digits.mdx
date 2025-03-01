@@ -1,0 +1,79 @@
+---
+id: 258-add-digits
+title: 各位相加
+sidebar_label: 258. 各位相加
+---
+
+## 题目
+
+给定一个非负整数 `num`, 反复将各个位上的数字相加, 直到结果为一位数. 返回这个结果.
+
+**进阶**: 你可以不使用循环或者递归, 在 `O(1)` 时间复杂度内解决这个问题吗?
+
+:::note 提示:
+
+- `0 <= num <= 2³¹ - 1`
+
+:::
+
+:::info 示例
+
+```bash
+输入: num = 38
+输出: 2
+解释: 各位相加的过程为:
+38 --> 3 + 8 --> 11
+11 --> 1 + 1 --> 2
+由于 2 是一位数, 所以返回 2.
+```
+
+```bash
+输入: num = 0
+输出: 0
+```
+
+:::
+
+## 题解
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="常规循环" label="常规循环" default>
+
+```ts
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var addDigits = function (num) {
+  while (num >= 10) {
+    let sum = 0
+    while (num > 0) {
+      sum += num % 10
+      num = Math.floor(num / 10)
+    }
+    num = sum
+  }
+  return num
+}
+```
+
+</TabItem>
+<TabItem value="数字根" label="数字根">
+
+```ts
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var addDigits = function (num) {
+  if (num === 0) return 0
+
+  return ((num - 1) % 9) + 1
+}
+```
+
+</TabItem>
+</Tabs>
