@@ -1,0 +1,89 @@
+---
+id: 227-calculate
+title: 基本计算器-ii
+sidebar_label: 227. 基本计算器-ii
+keywords:
+  - Stack
+---
+
+## 题目
+
+给你一个字符串表达式 `s`, 请你实现一个基本计算器来计算并返回它的值.
+
+整数除法仅保留整数部分.
+
+你可以假设给定的表达式总是有效的. 所有中间结果将在 `[-2³¹, 2³¹ - 1]` 的范围内.
+
+**注意**: 不允许使用任何将字符串作为数学表达式计算的内置函数, 比如 `eval()`.
+
+:::note 提示:
+
+- `1 <= s.length <= 3 * 10⁵`
+- `s` 由整数和算符 `('+', '-', '*', '/')` 组成，中间由一些空格隔开
+- `s` 表示一个 有效表达式
+- 表达式中的所有整数都是非负整数，且在范围 `[0, 2³¹ - 1]` 内
+- 题目数据保证答案是一个 **32-bit** 整数
+
+:::
+
+:::info 示例
+
+```bash
+输入：s = "3+2*2"
+输出：7
+```
+
+```bash
+输入：s = " 3/2 "
+输出：1
+```
+
+```bash
+输入：s = " 3+5 / 2 "
+输出：5
+```
+
+:::
+
+## 题解
+
+```ts
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var calculate = function (s) {
+  const n = s.length
+  let num = 0
+  let sign = '+'
+  const stack = []
+
+  for (let i = 0; i < n; i++) {
+    const ch = s[i]
+
+    if (/\d/.test(ch)) {
+      num = num * 10 + Number(ch)
+    }
+
+    if (['+', '-', '*', '/'].includes(ch) || i === n - 1) {
+      if (sign === '+') {
+        stack.push(num)
+      }
+      if (sign === '-') {
+        stack.push(-num)
+      }
+      if (sign === '*') {
+        stack.push(stack.pop() * num)
+      }
+      if (sign === '/') {
+        stack.push((stack.pop() / num) | 0)
+      }
+
+      sign = ch
+      num = 0
+    }
+  }
+
+  return stack.reduce((acc, val) => acc + val)
+}
+```
