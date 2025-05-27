@@ -22,7 +22,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" \"__tests__/**/*.ts\" \"leetcode-docs/**/*.mdx\" \"algorithm-design-docs/**/*.mdx\" \"data-structure-docs/**/*.mdx\""
   },
   "dependencies": {
-    "@docusaurus/core": "^3.7.0",
+    "@docusaurus/core": "^3.8.0",
     "@docusaurus/plugin-content-docs": "^3.7.0",
     "@docusaurus/plugin-ideal-image": "^3.7.0",
     "@docusaurus/preset-classic": "^3.7.0",
