@@ -20,7 +20,7 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --unsafe-perm
 
       - name: Compilation
         run: pnpm run build
