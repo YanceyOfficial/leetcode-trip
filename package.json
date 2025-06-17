@@ -22,12 +22,12 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\" \"__tests__/**/*.ts\" \"leetcode-docs/**/*.mdx\" \"algorithm-design-docs/**/*.mdx\" \"data-structure-docs/**/*.mdx\""
   },
   "dependencies": {
-    "@docusaurus/core": "^3.7.0",
-    "@docusaurus/plugin-content-docs": "^3.7.0",
-    "@docusaurus/plugin-ideal-image": "^3.7.0",
-    "@docusaurus/preset-classic": "^3.7.0",
-    "@docusaurus/theme-live-codeblock": "^3.7.0",
-    "@docusaurus/types": "^3.7.0",
+    "@docusaurus/core": "^3.8.1",
+    "@docusaurus/plugin-content-docs": "^3.8.1",
+    "@docusaurus/plugin-ideal-image": "^3.8.1",
+    "@docusaurus/preset-classic": "^3.8.1",
+    "@docusaurus/theme-live-codeblock": "^3.8.1",
+    "@docusaurus/types": "^3.8.1",
     "@mdx-js/react": "^3.1.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.5.2",
@@ -37,8 +37,8 @@
     "yancey-js-util": "^3.2.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.7.0",
-    "@docusaurus/tsconfig": "3.7.0",
+    "@docusaurus/module-type-aliases": "3.8.1",
+    "@docusaurus/tsconfig": "3.8.1",
     "@docusaurus/types": "3.0.1",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
