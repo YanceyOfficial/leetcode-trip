@@ -8,7 +8,7 @@ const config: Config = {
   url: 'https://algorithm.yanceyleo.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'throw',
+  markdown: { hooks: { onBrokenMarkdownLinks: 'throw' } },
   favicon: 'img/favicon.ico',
   organizationName: 'Yancey Inc.',
   projectName: 'leetcode-trip',
