@@ -25,12 +25,14 @@ keywords:
 输入: 'abc'
 输出: 3
 解释: 三个回文子串: 'a', 'b', 'c'
+
 ```
 
 ```ts
 输入: 'aaa'
 输出: 6
 解释: 六个回文子串: 'a', 'a', 'a', 'aa', 'aa', 'aaa'
+
 ```
 
 :::
@@ -47,14 +49,14 @@ import TabItem from '@theme/TabItem'
 
 ```ts
 var countSubstrings = function (s) {
-  let n = s.length
+  const n = s.length
   let ans = 0
 
   for (let i = 0; i < 2 * n - 1; i++) {
-    let left = (i / 2) | 0
+    let left = Math.floor(i / 2)
     let right = left + (i % 2)
 
-    while (left < n && right < n && s[left] === s[right]) {
+    while (left >= 0 && right < n && s[left] === s[right]) {
       left--
       right++
       ans++
@@ -80,10 +82,7 @@ pub fn count_substrings(s: String) -> i32 {
         let mut left = i / 2;
         let mut right = left + i % 2;
 
-        // let left_el = s.chars().nth(left).unwrap();
-        // let right_el = s.chars().nth(right).unwrap();
-
-        while left < len && right < len && s_byte[left] == s_byte[right] {
+        while left >= 0 && right < len && s_byte[left] == s_byte[right] {
             left -= 1;
             right += 1;
             ans += 1;

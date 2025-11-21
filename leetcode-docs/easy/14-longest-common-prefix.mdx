@@ -39,15 +39,11 @@ import TabItem from '@theme/TabItem'
  * @return {string}
  */
 var longestCommonPrefix = function (strs) {
-  strs.sort((a, b) => a.length - b.length)
+  strs.sort((a, b) => a - b)
   let lcp = strs[0]
 
-  while (true) {
-    if (strs.every((str) => str.startsWith(lcp))) {
-      break
-    } else {
-      lcp = lcp.slice(0, -1)
-    }
+  while (!strs.every((str) => str.startsWith(lcp))) {
+    lcp = lcp.slice(0, -1)
   }
 
   return lcp

@@ -61,19 +61,19 @@ import TabItem from '@theme/TabItem'
  */
 var longestPalindrome = function (s) {
   const n = s.length
-  let max = ''
+  let maxStr = ''
 
   for (let i = 0; i < 2 * n - 1; i++) {
     // 上面说到中心点可能有一个(i 为偶数), 也可能为两个(i 为奇数)
     // 故通过如下代码找到中心点
-    let left = (i / 2) | 0
+    let left = Math.floor(i / 2)
     let right = left + (i % 2)
 
     // 要保证中心点不越界, 并且要从中心点起, 判断左右字符是否相等
     while (left >= 0 && right < n && s[left] === s[right]) {
-      // 取当前子回文串跟 max 对比即可
-      const curr = s.slice(left, right + 1)
-      max = curr.length > max.length ? curr : max
+      // 取当前子回文串跟 maxStr 对比即可
+      const currStr = s.slice(left, right + 1)
+      maxStr = currStr.length > maxStr.length ? currStr : maxStr
 
       // 往两边扩散
       left--
@@ -81,7 +81,7 @@ var longestPalindrome = function (s) {
     }
   }
 
-  return max
+  return maxStr
 }
 ```
 
@@ -97,16 +97,16 @@ var longestPalindrome = function (s) {
 pub fn longest_palindrome(s: String) -> String {
     let n = s.len();
     let s_byte = s.as_bytes();
-    let mut max = "";
+    let mut max_str = "";
 
     for i in 0..(n * 2 - 1) {
         let mut left = i / 2;
         let mut right = left + i % 2;
 
         while left >= 0 && right < n && s_byte[left] == s_byte[right] {
-            let curr = &s[left..=right];
-            if curr.len() > max.len() {
-                max = curr;
+            let curr_str = &s[left..=right];
+            if curr_str.len() > max_str.len() {
+                max_str = curr_str;
             }
 
             left -= 1;
@@ -114,7 +114,7 @@ pub fn longest_palindrome(s: String) -> String {
         }
     }
 
-    max.to_string()
+    max_str.to_string()
 }
 ```
 

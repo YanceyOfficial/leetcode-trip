@@ -114,7 +114,7 @@ var removeNthFromEnd = function (head, n) {
   }
 
   // 让慢指针和快指针同步向前
-  while (!fast && !fast.next) {
+  while (fast && fast.next) {
     fast = fast.next
     slow = slow.next
   }

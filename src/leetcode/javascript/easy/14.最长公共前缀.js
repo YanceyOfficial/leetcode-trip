@@ -10,17 +10,13 @@
  * @return {string}
  */
 var longestCommonPrefix = function (strs) {
-  let prefix = strs[0]
-  let hasFound = false
+  strs.sort((a, b) => a - b)
+  let lcp = strs[0]
 
-  while (!hasFound) {
-    hasFound = strs.every((str) => str.startsWith(prefix))
-
-    if (!hasFound) {
-      prefix = prefix.slice(0, -1)
-    }
+  while (!strs.every((str) => str.startsWith(lcp))) {
+    lcp = lcp.slice(0, -1)
   }
 
-  return prefix
+  return lcp
 }
 // @lc code=end

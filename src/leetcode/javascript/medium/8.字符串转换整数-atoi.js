@@ -10,35 +10,31 @@
  * @return {number}
  */
 var myAtoi = function (s) {
-  const INT_MAX = 2 ** 31 - 1
-  const INT_MIN = (-2) ** 31
-  const n = s.length
-  let res = 0
+  const MIN = (-2) ** 31
+  const MAX = 2 ** 31 - 1
+  let n = 0
+  let idx = 0
   let sign = 1
-  let i = 0
-
-  while (s[i] === ' ') {
-    i++
+  while (s[idx] === ' ') {
+    idx++
   }
 
-  if (s[i] === '-') sign = -1
-  if (s[i] === '+' || s[i] === '-') i++
-
-  while (i < n && /[0-9]/.test(s[i])) {
-    const num = Number(s[i])
-
-    if (
-      res > INT_MAX / 10 ||
-      (res === ((INT_MAX / 10) | 0) && num > INT_MAX % 10)
-    ) {
-      return sign > 0 ? INT_MAX : INT_MIN
-    }
-
-    res = res * 10 + num
-    i++
+  if (s[idx] === '+') {
+    idx++
+  } else if (s[idx] === '-') {
+    idx++
+    sign = -1
   }
 
-  return sign > 0 ? res : -res
+  while (/\d/.test(s[idx])) {
+    if (sign === 1 && (MAX - Number(s[idx])) / 10 < n) return MAX
+    if (sign === -1 && (-MIN - Number(s[idx])) / 10 < n) return MIN
+
+    n = n * 10 + Number(s[idx])
+    idx++
+  }
+
+  return sign === -1 ? -1 * n : n
 }
 // @lc code=end
-console.log(myAtoi('2147483646'))
+console.log(myAtoi('   -042'))

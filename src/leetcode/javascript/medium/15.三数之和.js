@@ -9,48 +9,34 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var nSumTarget = function (nums, n, start, target) {
-  const len = nums.length
-  const res = []
+var threeSum = function (nums) {
+  nums.sort((a, b) => a - b)
+  const result = []
+  const n = nums.length
 
-  if (n < 2 || len < n) return res
+  for (let i = 0; i < n - 2; i++) {
+    if (i > 0 && nums[i - 1] === nums[i]) continue
 
-  if (n === 2) {
-    let lo = start,
-      hi = len - 1
+    let left = i + 1
+    let right = n - 1
+    while (left < right) {
+      const sum = nums[i] + nums[left] + nums[right]
 
-    while (lo < hi) {
-      const sum = nums[lo] + nums[hi]
-      const left = nums[lo]
-      const right = nums[hi]
-
-      if (sum < target) {
-        while (lo < hi && nums[lo] === left) lo++
-      } else if (sum > target) {
-        while (lo < hi && nums[hi] === right) hi--
+      if (sum === 0) {
+        result.push([nums[i], nums[left], nums[right]])
+        while (left < right && nums[left] === nums[left + 1]) left++
+        while (left < right && nums[right] === nums[right - 1]) right--
+        left++
+        right--
+      } else if (sum < 0) {
+        left++
       } else {
-        res.push([left, right])
-        while (lo < hi && nums[lo] === left) lo++
-        while (lo < hi && nums[hi] === right) hi--
+        right--
       }
-    }
-  } else {
-    for (let i = start; i < len; i++) {
-      const items = nSumTarget(nums, n - 1, i + 1, target - nums[i])
-      for (const item of items) {
-        item.push(nums[i])
-        res.push(item)
-      }
-
-      while (i < len - 1 && nums[i] === nums[i + 1]) i++
     }
   }
 
-  return res
+  return result
 }
 
-var threeSum = function (nums) {
-  nums.sort((a, b) => a - b)
-  return nSumTarget(nums, 3, 0, 0)
-}
 // @lc code=end

@@ -10,54 +10,38 @@
  * @param {number} target
  * @return {number[][]}
  */
-var nSumTarget = function (nums, n, start, target) {
-  const len = nums.length
-  const res = []
+var fourSum = function (nums, target) {
+  const n = nums.length
+  nums.sort((a, b) => a - b)
+  const results = []
 
-  // 提前过滤掉一些不可能的情况
-  // 至少是 2Sum, 且数组大小不应该小于 n
-  if (n < 2 || len < n) return res
+  for (let i = 0; i < n - 3; i++) {
+    if (i > 0 && nums[i - 1] === nums[i]) continue
+    for (let j = i + 1; j < n - 2; j++) {
+      if (j > i + 1 && nums[j - 1] === nums[j]) continue
 
-  if (n === 2) {
-    let lo = start,
-      hi = len - 1
-    while (lo < hi) {
-      const sum = nums[lo] + nums[hi]
-      const left = nums[lo],
-        right = nums[hi]
+      let left = j + 1
+      let right = n - 1
 
-      if (sum < target) {
-        while (lo < hi && nums[lo] === left) lo++
-      } else if (sum > target) {
-        while (lo < hi && nums[hi] === right) hi--
-      } else {
-        res.push([left, right])
-        while (lo < hi && nums[lo] === left) lo++
-        while (lo < hi && nums[hi] === right) hi--
+      while (left < right) {
+        const sum = nums[i] + nums[j] + nums[left] + nums[right]
+
+        if (sum === target) {
+          results.push([nums[i], nums[j], nums[left], nums[right]])
+          while (left < right && nums[left] === nums[left + 1]) left++
+          while (left < right && nums[right] === nums[right - 1]) right--
+
+          left++
+          right--
+        } else if (sum < target) {
+          left++
+        } else {
+          right--
+        }
       }
-    }
-  } else {
-    // n > 2 时, 递归计算 (n-1)Sum 的结果
-    for (let i = start; i < len; i++) {
-      const items = nSumTarget(nums, n - 1, i + 1, target - nums[i])
-      for (const item of items) {
-        // (n-1)Sum 加上 nums[i] 就是 nSum
-        item.push(nums[i])
-        res.push(item)
-      }
-      while (i < len - 1 && nums[i] === nums[i + 1]) i++
     }
   }
 
-  return res
-}
-
-var fourSum = function (nums, target) {
-  nums.sort((a, b) => a - b)
-  return nSumTarget(nums, 4, 0, target)
+  return results
 }
 // @lc code=end
-
-console.log(
-  fourSum([1000000000, 1000000000, 1000000000, 1000000000], -294967296),
-)

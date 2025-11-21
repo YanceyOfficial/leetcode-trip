@@ -48,8 +48,8 @@ var threeSumClosest = function (nums, target) {
   // 先给数组排序, 便于后面使用双指针
   nums.sort((a, b) => a - b)
 
-  // 初始化一个 ans
-  let ans = nums[0] + nums[1] + nums[2]
+  // 初始化一个 closest
+  let closest = nums[0] + nums[1] + nums[2]
 
   // 固定住 i
   for (let i = 0; i < n; i += 1) {
@@ -61,8 +61,8 @@ var threeSumClosest = function (nums, target) {
       const sum = nums[i] + nums[start] + nums[end]
 
       // 说明 sum 这一组值的和更接近 target
-      if (Math.abs(target - sum) < Math.abs(target - ans)) {
-        ans = sum
+      if (Math.abs(target - sum) < Math.abs(target - closest)) {
+        closest = sum
       }
 
       if (sum > target) {
@@ -70,12 +70,12 @@ var threeSumClosest = function (nums, target) {
       } else if (sum < target) {
         start++
       } else {
-        return ans
+        return closest
       }
     }
   }
 
-  return ans
+  return closest
 }
 ```
 
@@ -89,7 +89,7 @@ pub fn three_sum_closest(nums: Vec<i32>, target: i32) -> i32 {
     let mut nums = nums;
     nums.sort();
 
-    let mut ans = nums[0] + nums[1] + nums[2];
+    let mut closest = nums[0] + nums[1] + nums[2];
 
     for i in 0..n {
         let (mut start, mut end) = (i + 1, n - 1);
@@ -97,8 +97,8 @@ pub fn three_sum_closest(nums: Vec<i32>, target: i32) -> i32 {
         while start < end {
             let sum = nums[i] + nums[start] + nums[end];
 
-            if (target - sum).abs() < (target - ans).abs() {
-                ans = sum;
+            if (target - sum).abs() < (target - closest).abs() {
+                closest = sum;
             }
 
             if sum < target {
@@ -106,12 +106,12 @@ pub fn three_sum_closest(nums: Vec<i32>, target: i32) -> i32 {
             } else if sum > target {
                 end -= 1;
             } else {
-                return ans;
+                return closest;
             }
         }
     }
 
-    ans
+    closest
 }
 ```
 
