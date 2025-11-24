@@ -52,40 +52,40 @@ keywords:
  * @param {ListNode[]} lists
  * @return {ListNode}
  */
-var mergeKLists = function(lists) {
-    if (!lists || lists.length === 0) {
-        return null;
+var mergeKLists = function (lists) {
+  if (!lists || lists.length === 0) {
+    return null
+  }
+
+  // 引入递归函数 merge, 处理 lists[start] 到 lists[end] 范围内的合并
+  const merge = (start, end) => {
+    // 1. 基本情况 (Base Case)
+    // 当范围缩小到只有一个链表时, 直接返回该链表
+    if (start === end) {
+      return lists[start]
+    }
+    // 当范围无效时, 返回 null
+    if (start > end) {
+      return null
     }
 
-    // 引入递归函数 merge, 处理 lists[start] 到 lists[end] 范围内的合并
-    const merge = (listArray, start, end) => {
-        // 1. 基本情况 (Base Case)
-        // 当范围缩小到只有一个链表时, 直接返回该链表
-        if (start === end) {
-            return listArray[start];
-        }
-        // 当范围无效时, 返回 null
-        if (start > end) {
-            return null;
-        }
+    // 2. 分解 (Divide)
+    const mid = Math.floor((start + end) / 2)
 
-        // 2. 分解 (Divide)
-        const mid = Math.floor((start + end) / 2);
+    // 递归合并左半部分
+    const left = merge(start, mid)
 
-        // 递归合并左半部分
-        const left = merge(listArray, start, mid);
-        
-        // 递归合并右半部分
-        const right = merge(listArray, mid + 1, end);
+    // 递归合并右半部分
+    const right = merge(mid + 1, end)
 
-        // 3. 合并 (Conquer)
-        // 将左右两部分的结果使用 mergeTwoLists 函数进行合并
-        return mergeTwoLists(left, right);
-    };
+    // 3. 合并 (Conquer)
+    // 将左右两部分的结果使用 mergeTwoLists 函数进行合并
+    return mergeTwoLists(left, right)
+  }
 
-    // 从整个链表数组的范围 [0, lists.length - 1] 开始递归
-    return merge(lists, 0, lists.length - 1);
-};
+  // 从整个链表数组的范围 [0, lists.length - 1] 开始递归
+  return merge(0, lists.length - 1)
+}
 
 /**
  * Definition for singly-linked list.
