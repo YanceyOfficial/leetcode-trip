@@ -64,10 +64,6 @@ var mergeKLists = function (lists) {
     if (start === end) {
       return lists[start]
     }
-    // 当范围无效时, 返回 null
-    if (start > end) {
-      return null
-    }
 
     // 2. 分解 (Divide)
     const mid = Math.floor((start + end) / 2)
