@@ -1,5 +1,5 @@
 import { select } from '@inquirer/prompts'
-import { Category } from '../shared/constants'
+import { Category } from '../shared/constants.js'
 
 const choices = [
   { name: Category.Easy, value: Category.Easy },
@@ -9,6 +9,6 @@ const choices = [
 
 export const dirSelect = async () =>
   select({
-    message: '请选择难度: ',
+    message: 'Select difficulty: ',
     choices,
   })

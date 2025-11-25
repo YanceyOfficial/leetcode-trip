@@ -1,5 +1,5 @@
 import { readdirSync, writeFileSync } from 'fs'
-import { rustPath } from '../shared/constants'
+import { rustPath } from '../shared/constants.js'
 
 export const updateRustModeFile = (dirName: string) => {
   const files = readdirSync(`${rustPath}/src/${dirName}`)

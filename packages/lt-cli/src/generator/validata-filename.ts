@@ -1,11 +1,11 @@
 import { existsSync } from 'fs'
-import { getFileMeta } from './get-file-meta'
+import { getFileMeta } from './get-file-meta.js'
 
 export const validateFilename = (dir: string, filename: string) => {
   const { outPath } = getFileMeta(dir, filename)
 
   if (existsSync(outPath)) {
-    return '文件已存在, 请重新选择.'
+    return 'File already exists, please select another.'
   }
 
   return true

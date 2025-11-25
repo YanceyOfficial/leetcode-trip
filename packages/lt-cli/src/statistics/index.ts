@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs'
-import { javascriptPath, Category } from '../shared/constants'
+import { javascriptPath, Category } from '../shared/constants.js'
 
 const easyCount = readdirSync(`${javascriptPath}/${Category.Easy}`).length
 const mediumCount = readdirSync(`${javascriptPath}/${Category.Medium}`).length

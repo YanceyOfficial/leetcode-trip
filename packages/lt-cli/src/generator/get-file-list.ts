@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs'
-import { javascriptPath } from '../shared/constants'
+import { javascriptPath } from '../shared/constants.js'
 
 export const getFileList = (dirName: string) =>
   readdirSync(`${javascriptPath}/${dirName}`)

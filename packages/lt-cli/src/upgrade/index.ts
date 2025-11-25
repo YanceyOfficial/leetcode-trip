@@ -1,10 +1,10 @@
 import { execa } from 'execa'
 import chalk from 'chalk'
 import ora from 'ora'
-import { needUpgrade } from '../shared/get-latest-version'
+import { needUpgrade } from '../shared/get-latest-version.js'
 
 const execCommand = async () => {
-  const upgradeSpinner = ora('正在升级...').start()
+  const upgradeSpinner = ora('Upgrading...').start()
   try {
     await execa(
       'pnpm',
@@ -13,7 +13,7 @@ const execCommand = async () => {
         stdio: 'inherit',
       },
     )
-    ora().succeed('升级成功!')
+    ora().succeed('Upgrade successful!')
   } catch (e) {
     console.log(chalk.red(e instanceof Error ? e.message : 'Unknown Error'))
   } finally {
@@ -22,7 +22,7 @@ const execCommand = async () => {
 }
 
 export const upgrade = async (currVersion: string) => {
-  const searchSpinner = ora('正在检索最新版本...').start()
+  const searchSpinner = ora('Checking for latest version...').start()
   const shouldUpgrade = await needUpgrade(currVersion)
   searchSpinner.stop()
 

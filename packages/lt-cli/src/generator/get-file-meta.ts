@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
-import { parseFile } from './parse-file'
-import { javascriptPath, docPath } from '../shared/constants'
+import { parseFile } from './parse-file.js'
+import { javascriptPath, docPath } from '../shared/constants.js'
 
 export const getFileMeta = (dirName: string, fileName: string) => {
   const path = `${javascriptPath}/${dirName}/${fileName}`

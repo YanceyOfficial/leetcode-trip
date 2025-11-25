@@ -2,7 +2,7 @@
 import fetch from 'node-fetch'
 import { compareVersions } from 'compare-versions'
 import chalk from 'chalk'
-import { npmAPI } from './constants'
+import { npmAPI } from './constants.js'
 
 interface Tag {
   'dist-tags': {
@@ -25,11 +25,11 @@ export const needUpgrade = async (currVersion: string) => {
   if (shouldUpgrade) {
     console.log(
       chalk.red(
-        `\n最新版本为 v${latestVersion}, 你的版本 v${currVersion} 已落后, 正在升级中.`,
+        `\nLatest version is v${latestVersion}. Your version v${currVersion} is out-of-date and will be upgraded.`,
       ),
     )
   } else {
-    console.log(chalk.green(`\n已经是最新版本 v${latestVersion}, 无需升级.`))
+    console.log(chalk.green(`\nAlready the latest version v${latestVersion}, no upgrade needed.`))
   }
 
   return shouldUpgrade

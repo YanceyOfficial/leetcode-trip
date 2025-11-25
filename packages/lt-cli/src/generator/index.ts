@@ -1,10 +1,10 @@
 import chalk from 'chalk'
 import clear from 'clear'
 import figlet from 'figlet'
-import { dirSelect } from './dir-selector'
-import { getFileList } from './get-file-list'
-import { fileSelect } from './file-selector'
-import { generateFile } from './generate-file'
+import { dirSelect } from './dir-selector.js'
+import { getFileList } from './get-file-list.js'
+import { fileSelect } from './file-selector.js'
+import { generateFile } from './generate-file.js'
 
 export const bootstrap = async () => {
   clear()
