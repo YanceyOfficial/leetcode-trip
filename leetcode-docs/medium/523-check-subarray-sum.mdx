@@ -53,11 +53,11 @@ keywords:
  * @return {boolean}
  */
 var checkSubarraySum = function (nums, k) {
-  const len = nums.length
+  const n = nums.length
 
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < n; i++) {
     let sum = 0
-    for (let j = i; j < len; j++) {
+    for (let j = i; j < n; j++) {
       sum += nums[j]
 
       // 是 k 的倍数, 且长度大于等于 2, 返回 true
@@ -75,12 +75,12 @@ var checkSubarraySum = function (nums, k) {
 
 ```ts
 var checkSubarraySum = function (nums, k) {
-  const len = nums.length
+  const n = nums.length
   let preSum = 0
   // 初始化的索引为 -1
   const map = new Map([[0, -1]])
 
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < n; i++) {
     preSum += nums[i]
 
     // 这里要小心 k 为 0 的情况, 因为 0 不能做除数

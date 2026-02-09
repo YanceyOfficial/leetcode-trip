@@ -1,7 +1,7 @@
 ---
 id: 974-subarrays-div-by-k
-title: 和可被-k-整除的子数组
-sidebar_label: 974. 和可被-k-整除的子数组
+title: Subarray Sums Divisible by K
+sidebar_label: 974. Subarray Sums Divisible by K
 keywords:
   - 前缀和
 ---
@@ -19,53 +19,112 @@ keywords:
 - [1248. 统计「优美子数组」](/leetcode/medium/1248-number-of-subarrays)
   :::
 
-## 题目
+## Problem
 
-给定一个整数数组 A, 返回其中元素之和可被 K 整除的(连续, 非空)子数组的数目.
+Given an integer array `nums` and an integer `k`, return the number of non-empty **subarrays** that have a sum divisible by `k`.
 
-:::info 示例
+A **subarray** is a **contiguous** part of an array.
 
-输入: `A = [4, 5, 0, -2, -3, 1]`, `K = 5`
+:::note Constraints:
 
-输出: `7`
+- `1 <= nums.length <= 3 * 10⁴`
+- `-10⁴ <= nums[i] <= 10⁴`
+- `2 <= k <= 10⁴`
 
-解释:
-
-有 7 个子数组满足其元素之和可被 K = 5 整除:
-
-`[4, 5, 0, -2, -3, 1]`, `[5]`, `[5, 0]`, `[5, 0, -2, -3]`, `[0]`, `[0, -2, -3]`, `[-2, -3]`
 :::
 
-## 题解
+:::info Examples
 
-这道跟 [560. 和为 k 的子数组](/leetcode/medium/560-subarray-sum) 如出一辙, 需要注意的是 `const key = ((preSum % K) + K) % K`, 这是要保证余数不能为负数.
+```bash
+Input: nums = [4,5,0,-2,-3,1], k = 5
+Output: 7
+Explanation: There are 7 subarrays with a sum divisible by k = 5:
+[4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]
+```
+
+```bash
+Input: nums = [5], k = 9
+Output: 0
+```
+
+:::
+
+## Solution
+
+This problem is very similar to [560. Subarray Sum Equals K](/leetcode/medium/560-subarray-sum-equals-k). The r difference is that we're looking for subarrays whose sum is divisible by `k`, rather than equal to `k`.
+
+**Key Insight:**
+
+If two prefix sums have the same remainder when divided by `k`, then the subarray between them has a sum divisible by `k`.
+
+**Why?**
+- If `preSum[i] % k = r` and `preSum[j] % k = r` (where `j > i`)
+- Then `(preSum[j] - preSum[i]) % k = 0`
+- This means the subarray from `i+1` to `j` has sum divisible by `k`
+
+**Important Detail:**
+
+We need to handle negative remainders correctly using: `r = Math.abs(preSum % k)`
+
+This ensures the remainder is always non-negative (0 to k-1).
+
+**Algorithm:**
+
+1. Initialize a HashMap with `{0: 1}` (base case: empty prefix has remainder 0)
+2. Iterate through the array:
+   - Calculate running prefix sum
+   - Calculate remainder: `r = Math.abs(preSum % k)`
+   - If this remainder exists in the map, add its frequency to count
+   - Update the frequency of this remainder in the map
+3. Return the total count
+
+**Time Complexity**: O(n) - single pass through the array
+**Space Complexity**: O(k) - at most k different remainders in the HashMap
 
 ```ts
-/**
- * @param {number[]} A
- * @param {number} K
- * @return {number}
- */
-var subarraysDivByK = function (A, K) {
-  const len = A.length
-  const map = new Map([[0, 1]])
+function subarraysDivByK(nums: number[], k: number): number {
+  const map = new Map([[0, 1]]) // Initialize with remainder 0
   let preSum = 0
   let count = 0
 
-  for (let i = 0; i < len; i++) {
-    preSum += A[i]
-    const key = ((preSum % K) + K) % K
-    if (map.has(key)) {
-      count += map.get(key)
+  for (const num of nums) {
+    preSum += num
+    // Ensure remainder is non-negative
+    const r = Math.abs(preSum % k)
+
+    if (map.has(r)) {
+      count += map.get(r)
     }
 
-    if (map.has(key)) {
-      map.set(key, map.get(key) + 1)
-    } else {
-      map.set(key, 1)
-    }
+    map.set(r, (map.get(r) || 0) + 1)
   }
 
   return count
 }
+```
+
+**Example walkthrough:**
+
+For `nums = [4, 5, 0, -2, -3, 1], k = 5`:
+
+```
+Initial: map = {0: 1}, preSum = 0, count = 0
+
+i=0, num=4:
+  preSum = 4, r = 4 % 5 = 4
+  map = {0: 1, 4: 1}
+
+i=1, num=5:
+  preSum = 9, r = 9 % 5 = 4
+  4 exists! count += 1 (found [5])
+  map = {0: 1, 4: 2}
+
+i=2, num=0:
+  preSum = 9, r = 9 % 5 = 4
+  4 exists! count += 2 (found [5,0] and [4,5,0])
+  map = {0: 1, 4: 3}
+
+... (continues)
+
+Result: count = 7
 ```

@@ -1,0 +1,110 @@
+---
+id: 1991-find-the-middle-index-in-array
+title: Find the Middle Index in Array
+sidebar_label: 1991. Find the Middle Index in Array
+---
+
+## Problem
+
+Given a **0-indexed** integer array `nums`, find the **leftmost** middle index (i.e., the smallest amongst all the possible ones).
+
+A **middle index** is an index where the sum of all elements **strictly to the left** of the index is equal to the sum of all elements **strictly to the right** of the index.
+
+If the index is on the left edge of the array, then the left sum is `0` because there are no elements to the left. This also applies to the right edge of the array.
+
+Return the **leftmost middle index** that satisfies the condition, or `-1` if there is no such index.
+
+:::note Constraints:
+
+- `1 <= nums.length <= 100`
+- `-1000 <= nums[i] <= 1000`
+
+:::
+
+:::info Examples
+
+```bash
+Input: nums = [2,3,-1,8,4]
+Output: 3
+Explanation:
+The middle index is 3.
+Left sum = nums[0] + nums[1] + nums[2] = 2 + 3 + (-1) = 4
+Right sum = nums[4] = 4
+```
+
+```bash
+Input: nums = [1,-1,4]
+Output: 2
+Explanation:
+The middle index is 2.
+Left sum = nums[0] + nums[1] = 1 + (-1) = 0
+Right sum = 0 (no elements to the right of index 2)
+```
+
+```bash
+Input: nums = [2,5]
+Output: -1
+Explanation: There is no valid middle index.
+```
+
+:::
+
+## Solution
+
+This problem is essentially the same as [LeetCode 724 - Find Pivot Index](/leetcode/easy/724-find-pivot-index). The only difference is the problem statement wording - both ask to find an index where the sum of elements on the left equals the sum of elements on the right.
+
+The solution uses the **prefix sum** technique:
+
+**Key Insight:**
+- For any index `i`, if `leftSum` is the sum of all elements to its left, and `total` is the sum of all elements in the array, then:
+  - `rightSum = total - leftSum - nums[i]`
+- We want to find where `leftSum === rightSum`
+
+**Algorithm:**
+
+1. Calculate the total sum of all elements in the array
+2. Initialize `leftSum = 0`
+3. Iterate through the array:
+   - Calculate `rightSum = total - leftSum - nums[i]`
+   - If `leftSum === rightSum`, return the current index `i`
+   - Update `leftSum` by adding `nums[i]`
+4. If no middle index is found, return `-1`
+
+**Example walkthrough:**
+
+For `nums = [2, 3, -1, 8, 4]`, total = 16:
+
+```
+i=0: leftSum=0, rightSum=16-0-2=14, 0≠14, leftSum becomes 2
+i=1: leftSum=2, rightSum=16-2-3=11, 2≠11, leftSum becomes 5
+i=2: leftSum=5, rightSum=16-5-(-1)=12, 5≠12, leftSum becomes 4
+i=3: leftSum=4, rightSum=16-4-8=4, 4===4 ✓ return 3
+```
+
+**Time Complexity**: O(n) - one pass to calculate total sum, one pass to find middle index
+**Space Complexity**: O(1) - only using constant extra space
+
+```ts
+function findMiddleIndex(nums: number[]): number {
+  // Calculate total sum of the array
+  const total = nums.reduce((sum, num) => sum + num, 0)
+
+  let leftSum = 0
+
+  for (let i = 0; i < nums.length; i++) {
+    // Right sum = total - leftSum - nums[i]
+    const rightSum = total - leftSum - nums[i]
+
+    // If left sum equals right sum, we found the middle index
+    if (leftSum === rightSum) {
+      return i
+    }
+
+    // Add current element to left sum for next iteration
+    leftSum += nums[i]
+  }
+
+  // No middle index found
+  return -1
+}
+```

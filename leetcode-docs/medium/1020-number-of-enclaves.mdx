@@ -1,0 +1,99 @@
+---
+id: 1020-number-of-enclaves
+title: Number of Enclaves
+sidebar_label: 1020. Number of Enclaves
+---
+
+## Problem
+
+You are given an `m x n` binary matrix `grid`, where `0` represents a sea cell and `1` represents a land cell.
+
+A move consists of walking from one land cell to another adjacent (4-directionally) land cell or walking off the boundary of the grid.
+
+Return the number of land cells in `grid` for which we cannot walk off the boundary of the grid in any number of moves.
+
+:::note Constraints:
+
+- `m == grid.length`
+- `n == grid[i].length`
+- `1 <= m, n <= 500`
+- `grid[i][j]` is either `0` or `1`
+
+:::
+
+:::info Examples
+
+```bash
+Input: grid = [[0,0,0,0],[1,0,1,0],[0,1,1,0],[0,0,0,0]]
+Output: 3
+Explanation: There are three 1s that are enclosed by 0s, and one 1 that is not enclosed because its on the boundary.
+```
+
+```bash
+Input: grid = [[0,1,1,0],[0,0,1,0],[0,0,1,0],[0,0,0,0]]
+Output: 0
+Explanation: All 1s are either on the boundary or can reach the boundary.
+```
+
+:::
+
+## Solution
+
+The key insight is to identify all land cells that can reach the boundary, and then count the remaining land cells that cannot.
+
+**Algorithm:**
+
+1. **Mark boundary-connected lands**: Start from all land cells on the grid boundaries (top, bottom, left, right edges)
+2. **DFS traversal**: From each boundary land cell, perform depth-first search to mark all connected land cells
+3. **Count enclaves**: After marking all boundary-connected lands, count the remaining land cells - these are the enclaves
+
+This approach works because any land cell that can eventually walk off the boundary must be connected (directly or indirectly) to a boundary land cell. By eliminating all such cells, we're left with only the enclaves.
+
+**Time Complexity**: O(m × n) - We visit each cell at most once during DFS
+**Space Complexity**: O(m × n) - The recursion stack in worst case (when all cells are land)
+
+```ts
+function numEnclaves(grid: number[][]): number {
+  const m = grid.length
+  const n = grid[0].length
+
+  // DFS to mark all land cells connected to the boundary
+  const dfs = (i: number, j: number): void => {
+    if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] === 0) {
+      return
+    }
+
+    grid[i][j] = 0 // Mark as visited by changing to water
+
+    // Explore all 4 directions
+    dfs(i + 1, j)
+    dfs(i - 1, j)
+    dfs(i, j + 1)
+    dfs(i, j - 1)
+  }
+
+  // Mark all land cells connected to the top and bottom boundaries
+  for (let j = 0; j < n; j++) {
+    if (grid[0][j] === 1) dfs(0, j)
+    if (grid[m - 1][j] === 1) dfs(m - 1, j)
+  }
+
+  // Mark all land cells connected to the left and right boundaries
+  for (let i = 0; i < m; i++) {
+    if (grid[i][0] === 1) dfs(i, 0)
+    if (grid[i][n - 1] === 1) dfs(i, n - 1)
+  }
+
+  // Count remaining land cells (enclaves)
+  let count = 0
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] === 1) {
+        count++
+      }
+    }
+  }
+
+  return count
+}
+```

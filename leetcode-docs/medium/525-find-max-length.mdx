@@ -1,7 +1,7 @@
 ---
 id: 525-find-max-length
-title: 连续数组
-sidebar_label: 525. 连续数组
+title: Contiguous Array
+sidebar_label: 525. Contiguous Array
 keywords:
   - 前缀和 + HashMap
 ---
@@ -21,48 +21,131 @@ keywords:
 
 :::
 
-## 题目
+## Problem
 
-给定一个二进制数组 nums, 找到含有相同数量的 0 和 1 的最长连续子数组, 并返回该子数组的长度.
+Given a binary array `nums`, return the maximum length of a contiguous subarray with an **equal number of** `0` and `1`.
 
-:::info 示例
+:::note Constraints:
 
-输入: nums = [0, 1, 0]
-
-输出: 2
-
-说明: [0, 1] (或 [1, 0]) 是具有相同数量 0 和 1 的最长连续子数组.
+- `1 <= nums.length <= 10⁵`
+- `nums[i]` is either `0` or `1`
 
 :::
 
-## 题解
+:::info Examples
 
-找出 nums 中的某个连续子数组, 使得这个子数组中有相同数量的 0 和 1. 不妨把 0 看作 -1, 这就变成了**找出某个子数组的和为 0**.
+```bash
+Input: nums = [0,1]
+Output: 2
+Explanation: [0, 1] is the longest contiguous subarray with an equal number of 0 and 1.
+```
+
+```bash
+Input: nums = [0,1,0]
+Output: 2
+Explanation: [0, 1] (or [1, 0]) is a longest contiguous subarray with equal number of 0 and 1.
+```
+
+```bash
+Input: nums = [0,0,1,0,0,0,1,1]
+Output: 6
+Explanation: [0,0,1,0,0,0,1,1] is the longest contiguous subarray with equal number of 0 and 1.
+```
+
+:::
+
+## Solution
+
+The key insight is to **transform** the problem: treat `0` as `-1`. Then finding a subarray with equal numbers of `0` and `1` becomes finding a subarray with sum equal to `0`.
+
+**Why does this work?**
+- If we have equal numbers of `0` and `1`, say `x` zeros and `x` ones
+- Treating `0` as `-1`: sum = `x * (-1) + x * 1 = 0`
+
+**Algorithm:**
+
+1. Transform `0` to `-1` while building the prefix sum array
+2. Use a HashMap to store the **first occurrence** of each prefix sum
+3. When we see the same prefix sum again, it means the subarray between these two positions has sum `0` (equal `0`s and `1`s)
+4. Track the maximum length
+
+**Key Points:**
+- Initialize map with `{0: 0}` to handle subarrays starting from index 0
+- Only store the **first** occurrence of each prefix sum to maximize length
+- When we see a repeated prefix sum, calculate the distance: `i - map.get(sum)`
+
+**Time Complexity**: O(n) - single pass through the array
+**Space Complexity**: O(n) - HashMap storage and prefix sum array
 
 ```ts
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var findMaxLength = function (nums) {
+function findMaxLength(nums: number[]): number {
   const n = nums.length
   const preSum = new Array(n + 1).fill(0)
-  const map = new Map([[0, 0]])
+  const map = new Map([[0, 0]]) // sum: first index
   let max = 0
 
+  // Build prefix sum, treating 0 as -1
   for (let i = 0; i < n; i++) {
-    // 把 0 看作 -1, 加入到前缀和中
     preSum[i + 1] = preSum[i] + (nums[i] === 0 ? -1 : 1)
   }
 
   for (let i = 1; i <= n; i++) {
     const sum = preSum[i]
     if (map.has(sum)) {
-      // 当再次出现该前缀和时, 说明和前面那个前缀和之间 0 和 1 的数目相同
-      // 遂计算间距大小, 取最大值
+      // Same prefix sum means equal 0s and 1s between these positions
+      // Calculate the distance and update max
       max = Math.max(max, i - map.get(sum))
     } else {
-      // 记录前缀和下标
+      // Record the first occurrence of this prefix sum
+      map.set(sum, i)
+    }
+  }
+
+  return max
+}
+```
+
+**Example walkthrough:**
+
+For `nums = [0, 1, 0]`:
+
+Transform to: `[-1, 1, -1]`
+
+```
+Build prefix sum:
+preSum = [0, -1, 0, -1]
+
+Initial: map = {0: 0}, max = 0
+
+i=1, sum=-1:
+  Not in map, store it
+  map = {0: 0, -1: 1}
+
+i=2, sum=0:
+  0 exists at index 0! max = max(0, 2-0) = 2
+  Found subarray [0,1] with length 2
+
+i=3, sum=-1:
+  -1 exists at index 1! max = max(2, 3-1) = 2
+  Found subarray [1,0] with length 2
+
+Result: max = 2
+```
+
+**Optimization:** You can combine the prefix sum calculation with the map lookup in a single loop:
+
+```ts
+function findMaxLength(nums: number[]): number {
+  const map = new Map([[0, -1]]) // sum: first index (use -1 for empty prefix)
+  let sum = 0
+  let max = 0
+
+  for (let i = 0; i < nums.length; i++) {
+    sum += nums[i] === 0 ? -1 : 1
+
+    if (map.has(sum)) {
+      max = Math.max(max, i - map.get(sum))
+    } else {
       map.set(sum, i)
     }
   }

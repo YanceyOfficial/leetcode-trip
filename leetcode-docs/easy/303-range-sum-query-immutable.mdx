@@ -1,0 +1,98 @@
+---
+id: 303-range-sum-query-immutable
+title: Range Sum Query - Immutable
+sidebar_label: 303. Range Sum Query - Immutable
+---
+
+## Problem
+
+Given an integer array `nums`, handle multiple queries of the following type: Calculate the **sum** of the elements of `nums` between indices `left` and `right` **inclusive** where `left <= right`.
+
+Implement the `NumArray` class:
+
+- `NumArray(int[] nums)` - Initializes the object with the integer array `nums`
+- `int sumRange(int left, int right)` - Returns the sum of the elements of `nums` between indices `left` and `right` inclusive (i.e., `nums[left] + nums[left + 1] + ... + nums[right]`)
+
+:::note Constraints:
+
+- `1 <= nums.length <= 10⁴`
+- `-10⁵ <= nums[i] <= 10⁵`
+- `0 <= left <= right < nums.length`
+- At most `10⁴` calls will be made to `sumRange`
+
+:::
+
+:::info Examples
+
+```bash
+Input:
+["NumArray", "sumRange", "sumRange", "sumRange"]
+[[[-2, 0, 3, -5, 2, -1]], [0, 2], [2, 5], [0, 5]]
+
+Output:
+[null, 1, -1, -3]
+
+Explanation:
+NumArray numArray = new NumArray([-2, 0, 3, -5, 2, -1]);
+numArray.sumRange(0, 2); // return (-2) + 0 + 3 = 1
+numArray.sumRange(2, 5); // return 3 + (-5) + 2 + (-1) = -1
+numArray.sumRange(0, 5); // return (-2) + 0 + 3 + (-5) + 2 + (-1) = -3
+```
+
+:::
+
+## Solution
+
+This problem is a classic application of the **prefix sum** technique. Since the array is immutable and `sumRange` will be called multiple times, we can precompute prefix sums to answer each query in constant time.
+
+**Algorithm:**
+
+1. **Precompute prefix sums**: Create an array `preSum` where `preSum[i]` represents the sum of all elements from index `0` to `i-1` in the original array
+   - `preSum[0] = 0` (no elements)
+   - `preSum[i] = preSum[i-1] + nums[i-1]` for `i >= 1`
+
+2. **Answer queries in O(1)**: To find the sum from `left` to `right`, use the formula:
+   - `sumRange(left, right) = preSum[right + 1] - preSum[left]`
+
+**Why this works:**
+- `preSum[right + 1]` contains the sum from index `0` to `right`
+- `preSum[left]` contains the sum from index `0` to `left - 1`
+- Subtracting these gives us the sum from `left` to `right`
+
+**Example visualization:**
+```
+nums    = [-2,  0,  3, -5,  2, -1]
+preSum  = [0, -2, -2,  1, -4, -2, -3]
+
+sumRange(2, 5) = preSum[6] - preSum[2] = -3 - (-2) = -1
+```
+
+**Time Complexity**:
+- Constructor: O(n) - to build the prefix sum array
+- sumRange: O(1) - constant time lookup and subtraction
+
+**Space Complexity**: O(n) - to store the prefix sum array
+
+```ts
+class NumArray {
+  private preSum: number[]
+
+  constructor(nums: number[]) {
+    this.preSum = new Array(nums.length + 1).fill(0)
+
+    for (let i = 0; i < nums.length; i++) {
+      this.preSum[i + 1] = this.preSum[i] + nums[i]
+    }
+  }
+
+  sumRange(left: number, right: number): number {
+    return this.preSum[right + 1] - this.preSum[left]
+  }
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * var obj = new NumArray(nums)
+ * var param_1 = obj.sumRange(left,right)
+ */
+```

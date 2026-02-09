@@ -1,0 +1,193 @@
+---
+id: 304-range-sum-query-2d-immutable
+title: Range Sum Query 2D - Immutable
+sidebar_label: 304. Range Sum Query 2D - Immutable
+---
+
+## Problem
+
+Given a 2D matrix `matrix`, handle multiple queries of the following type:
+
+- Calculate the **sum** of the elements of `matrix` inside the rectangle defined by its **upper left corner** `(row1, col1)` and **lower right corner** `(row2, col2)`.
+
+Implement the `NumMatrix` class:
+
+- `NumMatrix(int[][] matrix)` - Initializes the object with the integer matrix `matrix`
+- `int sumRegion(int row1, int col1, int row2, int col2)` - Returns the sum of the elements of `matrix` inside the rectangle defined by its upper left corner `(row1, col1)` and lower right corner `(row2, col2)`
+
+**You must design an algorithm where `sumRegion` works in O(1) time complexity.**
+
+:::note Constraints:
+
+- `m == matrix.length`
+- `n == matrix[i].length`
+- `1 <= m, n <= 200`
+- `-10⁴ <= matrix[i][j] <= 10⁴`
+- `0 <= row1 <= row2 < m`
+- `0 <= col1 <= col2 < n`
+- At most `10⁴` calls will be made to `sumRegion`
+
+:::
+
+:::info Examples
+
+```bash
+Input:
+["NumMatrix", "sumRegion", "sumRegion", "sumRegion"]
+[[[[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]], [2, 1, 4, 3], [1, 1, 2, 2], [1, 2, 2, 4]]
+
+Output:
+[null, 8, 11, 12]
+
+Explanation:
+NumMatrix numMatrix = new NumMatrix([[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]);
+numMatrix.sumRegion(2, 1, 4, 3); // return 8 (sum of the red rectangle)
+numMatrix.sumRegion(1, 1, 2, 2); // return 11 (sum of the green rectangle)
+numMatrix.sumRegion(1, 2, 2, 4); // return 12 (sum of the blue rectangle)
+```
+
+:::
+
+## Solution
+
+This problem extends the 1D prefix sum concept (like [LeetCode 303](/leetcode/easy/303-range-sum-query-immutable)) to 2D. The key is to build a **2D prefix sum array** where each cell stores the sum of all elements in the rectangle from `(0, 0)` to `(i, j)`.
+
+### Building the 2D Prefix Sum
+
+For a 2D prefix sum array `preSum[i][j]`, it represents the sum of all elements in the rectangle from `(0, 0)` to `(i-1, j-1)` in the original matrix.
+
+**Formula to build prefix sum:**
+```
+preSum[i][j] = preSum[i-1][j] + preSum[i][j-1] - preSum[i-1][j-1] + matrix[i-1][j-1]
+```
+
+**Why this formula?**
+- `preSum[i-1][j]`: sum of rectangle above current cell
+- `preSum[i][j-1]`: sum of rectangle to the left of current cell
+- `preSum[i-1][j-1]`: overlapping area (subtracted because it's counted twice)
+- `matrix[i-1][j-1]`: current cell value
+
+**Visual representation:**
+
+```
+preSum[i-1][j-1]  preSum[i-1][j]
+      ┌─────────┬─────────┐
+      │    A    │    B    │
+      ├─────────┼─────────┤
+      │    C    │    D    │  ← matrix[i-1][j-1] is in area D
+      └─────────┴─────────┘
+preSum[i][j-1]   preSum[i][j]
+
+preSum[i][j] = A + B + C + D
+             = (A + B) + (A + C) - A + D
+             = preSum[i-1][j] + preSum[i][j-1] - preSum[i-1][j-1] + matrix[i-1][j-1]
+```
+
+### Querying a Rectangle Sum
+
+To find the sum of rectangle from `(row1, col1)` to `(row2, col2)`:
+
+```
+sum = preSum[row2+1][col2+1] - preSum[row1][col2+1] - preSum[row2+1][col1] + preSum[row1][col1]
+```
+
+**Visual representation:**
+
+```
+         col1      col2
+         ┌─────────────┐
+         │      A      │
+row1 ────┼─────┬───────┤
+         │  B  │   C   │  ← Target region C
+row2 ────┼─────┴───────┤
+         │      D      │
+         └─────────────┘
+
+Target C = (A + B + C + D) - (A + B) - (A + D) + A
+         = preSum[row2+1][col2+1] - preSum[row1][col2+1] - preSum[row2+1][col1] + preSum[row1][col1]
+```
+
+### Implementation Details
+
+**Key Points:**
+- Create prefix sum array with dimensions `(m+1) × (n+1)` to avoid boundary checks
+- The extra row and column are initialized to 0
+- This allows us to use 1-indexed prefix sum array while keeping the original matrix 0-indexed
+
+**Time Complexity**:
+- Constructor: O(m × n) - build the prefix sum array
+- sumRegion: O(1) - constant time lookup
+
+**Space Complexity**: O(m × n) - store the prefix sum array
+
+```ts
+class NumMatrix {
+  private preSum: number[][]
+
+  constructor(matrix: number[][]) {
+    const m = matrix.length
+    const n = matrix[0].length
+
+    // Create (m+1) × (n+1) array, initialized to 0
+    this.preSum = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0))
+
+    // Build 2D prefix sum array
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        this.preSum[i][j] =
+          this.preSum[i - 1][j] +
+          this.preSum[i][j - 1] -
+          this.preSum[i - 1][j - 1] +
+          matrix[i - 1][j - 1]
+      }
+    }
+  }
+
+  sumRegion(row1: number, col1: number, row2: number, col2: number): number {
+    return (
+      this.preSum[row2 + 1][col2 + 1] -
+      this.preSum[row1][col2 + 1] -
+      this.preSum[row2 + 1][col1] +
+      this.preSum[row1][col1]
+    )
+  }
+}
+
+/**
+ * Your NumMatrix object will be instantiated and called as such:
+ * var obj = new NumMatrix(matrix)
+ * var param_1 = obj.sumRegion(row1,col1,row2,col2)
+ */
+```
+
+**Example walkthrough:**
+
+For matrix:
+```
+[
+  [3, 0, 1, 4, 2],
+  [5, 6, 3, 2, 1],
+  [1, 2, 0, 1, 5],
+  [4, 1, 0, 1, 7],
+  [1, 0, 3, 0, 5]
+]
+```
+
+The prefix sum array would be:
+```
+[
+  [0,  0,  0,  0,  0,  0],
+  [0,  3,  3,  4,  8, 10],
+  [0,  8, 14, 18, 24, 27],
+  [0,  9, 17, 21, 28, 36],
+  [0, 13, 22, 26, 34, 49],
+  [0, 14, 23, 30, 38, 58]
+]
+```
+
+Query `sumRegion(2, 1, 4, 3)`:
+```
+= preSum[5][4] - preSum[2][4] - preSum[5][1] + preSum[2][1]
+= 38 - 24 - 14 + 14
+= 8
+```

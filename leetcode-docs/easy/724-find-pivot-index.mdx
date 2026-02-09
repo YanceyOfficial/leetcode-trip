@@ -1,0 +1,100 @@
+---
+id: 724-find-pivot-index
+title: Find Pivot Index
+sidebar_label: 724. Find Pivot Index
+---
+
+## Problem
+
+Given an array of integers `nums`, calculate the **pivot index** of this array.
+
+The pivot index is the index where the sum of all the numbers **strictly to the left** of the index is equal to the sum of all the numbers **strictly to the right** of the index.
+
+If the index is on the left edge of the array, then the left sum is `0` because there are no elements to the left. This also applies to the right edge of the array.
+
+Return the **leftmost pivot index**. If no such index exists, return `-1`.
+
+:::note Constraints:
+
+- `1 <= nums.length <= 10⁴`
+- `-1000 <= nums[i] <= 1000`
+
+:::
+
+:::info Examples
+
+```bash
+Input: nums = [1,7,3,6,5,6]
+Output: 3
+Explanation:
+The pivot index is 3.
+Left sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11
+Right sum = nums[4] + nums[5] = 5 + 6 = 11
+```
+
+```bash
+Input: nums = [1,2,3]
+Output: -1
+Explanation: There is no index that satisfies the conditions in the problem statement.
+```
+
+```bash
+Input: nums = [2,1,-1]
+Output: 0
+Explanation:
+The pivot index is 0.
+Left sum = 0 (no elements to the left of index 0)
+Right sum = nums[1] + nums[2] = 1 + (-1) = 0
+```
+
+:::
+
+## Solution
+
+This problem can be efficiently solved using the **prefix sum** technique. Instead of calculating left and right sums repeatedly for each index, we can compute them smartly in a single pass.
+
+**Key Insight:**
+- For any index `i`, if `leftSum` is the sum of all elements to its left, and `total` is the sum of all elements in the array, then:
+  - `rightSum = total - leftSum - nums[i]`
+- We want to find where `leftSum === rightSum`
+
+**Algorithm:**
+
+1. Calculate the total sum of all elements in the array
+2. Initialize `leftSum = 0`
+3. Iterate through the array:
+   - Calculate `rightSum = total - leftSum - nums[i]`
+   - If `leftSum === rightSum`, return the current index `i`
+   - Update `leftSum` by adding `nums[i]`
+4. If no pivot index is found, return `-1`
+
+**Example walkthrough:**
+
+For `nums = [1, 7, 3, 6, 5, 6]`, total = 28:
+
+```
+i=0: leftSum=0, rightSum=28-0-1=27, 0≠27, leftSum becomes 1
+i=1: leftSum=1, rightSum=28-1-7=20, 1≠20, leftSum becomes 8
+i=2: leftSum=8, rightSum=28-8-3=17, 8≠17, leftSum becomes 11
+i=3: leftSum=11, rightSum=28-11-6=11, 11===11 ✓ return 3
+```
+
+**Time Complexity**: O(n) - one pass to calculate total sum, one pass to find pivot
+**Space Complexity**: O(1) - only using constant extra space
+
+```ts
+function pivotIndex(nums: number[]): number {
+  const len = nums.length
+  const sum = nums.reduce((acc, val) => acc + val)
+  let leftSum = 0
+
+  for (let i = 0; i < len; i++) {
+    if (sum - nums[i] - leftSum === leftSum) {
+      return i
+    }
+    leftSum += nums[i]
+  }
+
+  return -1
+}
+```

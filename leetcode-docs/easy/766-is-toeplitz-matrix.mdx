@@ -1,0 +1,70 @@
+---
+id: 766-is-toeplitz-matrix
+title: Toeplitz Matrix
+sidebar_label: 766. Toeplitz Matrix
+---
+
+## Problem
+
+Given an `m x n` matrix, return `true` if the matrix is Toeplitz. Otherwise, return `false`.
+
+A matrix is **Toeplitz** if every diagonal from top-left to bottom-right has the same elements.
+
+:::note Constraints:
+
+- `m == matrix.length`
+- `n == matrix[i].length`
+- `1 <= m, n <= 20`
+- `0 <= matrix[i][j] <= 99`
+
+:::
+
+:::info Examples
+
+```bash
+Input: matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]
+Output: true
+Explanation:
+In the above grid, the diagonals are:
+"[9]", "[5, 5]", "[1, 1, 1]", "[2, 2, 2]", "[3, 3]", "[4]".
+In each diagonal all elements are the same, so the answer is true.
+```
+
+```bash
+Input: matrix = [[1,2],[2,2]]
+Output: false
+Explanation:
+The diagonal "[1, 2]" has different elements.
+```
+
+:::
+
+## Solution
+
+Iterate through each element in the matrix (starting from the second row and second column) and compare it with its top-left neighbor. If the matrix is Toeplitz, every element must equal its top-left neighbor along the same diagonal.
+
+This approach requires only a single pass through the matrix to determine if it's a Toeplitz matrix.
+
+**Time Complexity**: O(m × n), where m and n are the number of rows and columns.
+**Space Complexity**: O(1), using only constant extra space.
+
+```ts
+/**
+ * @param {number[][]} matrix
+ * @return {boolean}
+ */
+var isToeplitzMatrix = function (matrix) {
+  const m = matrix.length
+  const n = matrix[0].length
+
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      if (matrix[i][j] !== matrix[i - 1][j - 1]) {
+        return false
+      }
+    }
+  }
+
+  return true
+}
+```
