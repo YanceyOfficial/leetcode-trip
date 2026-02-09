@@ -1,7 +1,7 @@
 ---
 id: 974-subarrays-div-by-k
-title: Subarray Sums Divisible by K
-sidebar_label: 974. Subarray Sums Divisible by K
+title: Subarray Sums Divisible by k
+sidebar_label: 974. Subarray Sums Divisible by k
 keywords:
   - 前缀和
 ---
@@ -51,7 +51,7 @@ Output: 0
 
 ## Solution
 
-This problem is very similar to [560. Subarray Sum Equals K](/leetcode/medium/560-subarray-sum-equals-k). The r difference is that we're looking for subarrays whose sum is divisible by `k`, rather than equal to `k`.
+This problem is very similar to [560. Subarray Sum Equals k](/leetcode/medium/560-subarray-sum-equals-k). The r difference is that we're looking for subarrays whose sum is divisible by `k`, rather than equal to `k`.
 
 **Key Insight:**
 
@@ -64,7 +64,7 @@ If two prefix sums have the same remainder when divided by `k`, then the subarra
 
 **Important Detail:**
 
-We need to handle negative remainders correctly using: `r = Math.abs(preSum % k)`
+We need to handle negative remainders correctly using: `r = ((preSum % k) + k) % k`
 
 This ensures the remainder is always non-negative (0 to k-1).
 
@@ -73,7 +73,7 @@ This ensures the remainder is always non-negative (0 to k-1).
 1. Initialize a HashMap with `{0: 1}` (base case: empty prefix has remainder 0)
 2. Iterate through the array:
    - Calculate running prefix sum
-   - Calculate remainder: `r = Math.abs(preSum % k)`
+   - Calculate remainder: `r = ((preSum % k) + k) % k`
    - If this remainder exists in the map, add its frequency to count
    - Update the frequency of this remainder in the map
 3. Return the total count
@@ -90,7 +90,7 @@ function subarraysDivByK(nums: number[], k: number): number {
   for (const num of nums) {
     preSum += num
     // Ensure remainder is non-negative
-    const r = Math.abs(preSum % k)
+    const r = ((preSum % k) + k) % k
 
     if (map.has(r)) {
       count += map.get(r)
