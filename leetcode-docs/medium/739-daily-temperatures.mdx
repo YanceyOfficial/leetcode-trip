@@ -1,37 +1,37 @@
 ---
 id: 739-daily-temperatures
-title: 每日温度
-sidebar_label: 739. 每日温度
+title: Daily Temperatures
+sidebar_label: 739. Daily Temperatures
 keywords:
   - Stack
 ---
 
 :::success Tips
-题目类型: 单调栈
+Problem Type: Monotonic Stack
 
-相关题目:
+Related Problems:
 
-- [84. 柱状图中最大的矩形](/leetcode/hard/84-largest-rectangle-area)
-- [85. 最大矩形](/leetcode/hard/85-maximal-rectangle)
-- [316. 去除重复字母](/leetcode/medium/316-remove-duplicate-letters)
-- [402. 移掉 k 位数字](/leetcode/medium/402-remove-kdigits)
-- [496. 下一个更大元素-i](/leetcode/easy/496-next-greater-element)
-- [503. 下一个更大元素-ii](/leetcode/medium/503-next-greater-elements)
+- [84. Largest Rectangle in Histogram](/leetcode/hard/84-largest-rectangle-area)
+- [85. Maximal Rectangle](/leetcode/hard/85-maximal-rectangle)
+- [316. Remove Duplicate Letters](/leetcode/medium/316-remove-duplicate-letters)
+- [402. Remove K Digits](/leetcode/medium/402-remove-kdigits)
+- [496. Next Greater Element I](/leetcode/easy/496-next-greater-element)
+- [503. Next Greater Element II](/leetcode/medium/503-next-greater-elements)
 
 :::
 
-## 题目
+## Problem
 
-请根据每日气温列表, 重新生成一个列表. 对应位置的输出为: 要想观测到更高的气温, 至少需要等待的天数. 如果气温在这之后都不会升高, 请在该位置用 0 来代替.
+Given an array of integers `temperatures` representing the daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after the `ith` day to get a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0` instead.
 
-:::info 示例
+:::info Example
 
-输入: temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
+Input: temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
 
-输出: [1, 1, 4, 2, 1, 1, 0, 0]
+Output: [1, 1, 4, 2, 1, 1, 0, 0]
 :::
 
-## 题解
+## Solution
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -39,7 +39,7 @@ import TabItem from '@theme/TabItem'
 <Tabs>
   <TabItem value="JavaScript" label="JavaScript" default>
 
-使用单调栈, `i - prevIndex` 即是距离.
+Use a monotonic stack, where `i - prevIndex` gives us the distance.
 
 ```ts
 /**
@@ -92,6 +92,6 @@ pub fn daily_temperatures(temperatures: Vec<i32>) -> Vec<i32> {
 </TabItem>
 </Tabs>
 
-时间复杂度: O(n), 其中 n 是温度列表的长度. 正向遍历温度列表一遍, 对于温度列表中的每个下标. 最多有一次进栈和出栈的操作.
+**Time Complexity**: O(n), where n is the length of the temperatures array. We traverse the temperatures array once, and for each index in the array, there is at most one push and one pop operation.
 
-空间复杂度: O(n), 其中 n 是温度列表的长度. 需要维护一个单调栈存储温度列表中的下标.
+**Space Complexity**: O(n), where n is the length of the temperatures array. We need to maintain a monotonic stack to store the indices of the temperatures array.

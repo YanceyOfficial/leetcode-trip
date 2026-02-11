@@ -1,73 +1,73 @@
 ---
 id: 84-largest-rectangle-area
-title: 柱状图中最大的矩形
-sidebar_label: 84. 柱状图中最大的矩形
+title: Largest Rectangle in Histogram
+sidebar_label: 84. Largest Rectangle in Histogram
 keywords:
   - Stack
 ---
 
 :::success Tips
-题目类型: 单调栈
+Problem Type: Monotonic Stack
 
-相关题目:
+Related Problems:
 
-- [85. 最大矩形](/leetcode/hard/85-maximal-rectangle)
-- [316. 去除重复字母](/leetcode/medium/316-remove-duplicate-letters)
-- [402. 移掉 k 位数字](/leetcode/medium/402-remove-kdigits)
-- [496. 下一个更大元素-i](/leetcode/easy/496-next-greater-element)
-- [503. 下一个更大元素-ii](/leetcode/medium/503-next-greater-elements)
-- [739. 每日温度](/leetcode/medium/739-daily-temperatures)
+- [85. Maximal Rectangle](/leetcode/hard/85-maximal-rectangle)
+- [316. Remove Duplicate Letters](/leetcode/medium/316-remove-duplicate-letters)
+- [402. Remove K Digits](/leetcode/medium/402-remove-kdigits)
+- [496. Next Greater Element I](/leetcode/easy/496-next-greater-element)
+- [503. Next Greater Element II](/leetcode/medium/503-next-greater-elements)
+- [739. Daily Temperatures](/leetcode/medium/739-daily-temperatures)
 
 :::
 
-## 题目
+## Problem
 
-给定非负整数数组 `heights`, 数组中的数字用来表示柱状图中各个柱子的高度. 每个柱子彼此相邻, 且宽度为 `1`. 求在该柱状图中, 能够勾勒出来的矩形的最大面积.
+Given an array of integers `heights` representing the histogram's bar height where the width of each bar is `1`, return the area of the largest rectangle in the histogram.
 
-:::note 提示:
+:::note Constraints:
 
-- `1 <= heights.length <=10⁵`
+- `1 <= heights.length <= 10⁵`
 - `0 <= heights[i] <= 10⁴`
 
 :::
 
-:::info 示例
+:::info Examples
 
 ```bash
-输入: heights = [2, 1, 5, 6, 2, 3]
-输出: 10
-解释: 最大的矩形为图中红色区域, 面积为 10
+Input: heights = [2, 1, 5, 6, 2, 3]
+Output: 10
+Explanation: The largest rectangle is shown in the red area, which has an area of 10 units.
 ```
 
 ![84-largest-rectangle-area](../../static/img/84-largest-rectangle-area-1.jpg)
 
 ```bash
-输入: heights = [2, 4]
-输出: 4
-解释: 最大的矩形为图中红色区域, 面积为 4
+Input: heights = [2, 4]
+Output: 4
+Explanation: The largest rectangle is shown in the red area, which has an area of 4 units.
 ```
 
 ![84-largest-rectangle-area](../../static/img/84-largest-rectangle-area-2.jpg)
 :::
 
-## 题解
+## Solution
 
-不管是暴力解法还是单调栈. 思路都是根据某个 `height`, 比如示例一中 `heights[2]` 这个柱子, 也就是 `5`, 然后往两边扩散, 找到**离这个柱子最近的比它小的柱子**:
+Whether using brute force or monotonic stack, the idea is to take a specific `height`, for example `heights[2]` (which is `5`) in the first example, then expand in both directions to find the **nearest bars that are shorter than it**:
 
-- 往左扩散: `heights[1]` 比 `heights[2]` 小, 说明要想维持 `heights[2]` 这个高度, 左边的阈值就得是索引 `1`
-- 往右扩散: `heights[4]` 比 `heights[2]` 小, 说明要想维持 `heights[2]` 这个高度, 右边的阈值就得是索引 `4`
+- Expand left: `heights[1]` is less than `heights[2]`, meaning to maintain the height of `heights[2]`, the left boundary must be at index `1`
+- Expand right: `heights[4]` is less than `heights[2]`, meaning to maintain the height of `heights[2]`, the right boundary must be at index `4`
 
-这样一来, 维持高度为 `heights[2]` 的最大宽度就是 `4 - 1 - 1 = 2`.
+Thus, the maximum width maintaining the height `heights[2]` is `4 - 1 - 1 = 2`.
 
 ![84-largest-rectangle-area](../../static/img/84-largest-rectangle-area.png)
 
-对于暴力解法, 需要遍历每个高度, 然后以此为节点, 再往左往右遍历, 找到左右边界的阈值. 但这会导致 `O(n²)` 的时间复杂度. 因此可以通过空间换时间的策略, 使用单调栈, 来预先找到每个节点左右边界的阈值. 具体原理看注释.
+For the brute force approach, we need to iterate through each height, then use it as a pivot and expand left and right to find the left and right boundaries. However, this results in `O(n²)` time complexity. Therefore, we can use a space-for-time strategy with a monotonic stack to pre-calculate the left and right boundaries for each bar. See the code comments for the specific implementation.
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 <Tabs>
-  <TabItem value="JavaScript - 暴力解法" label="JavaScript - 暴力解法">
+  <TabItem value="JavaScript - Brute Force" label="JavaScript - Brute Force">
 
 ```ts
 /**
@@ -98,11 +98,11 @@ var largestRectangleArea = function (heights) {
 }
 ```
 
-- 时间复杂度: `O(n²)`
-- 空间复杂度: `O(1)`
+- **Time Complexity**: `O(n²)`
+- **Space Complexity**: `O(1)`
 
 </TabItem>
-<TabItem value="JavaScript - 单调栈" label="JavaScript - 单调栈" default>
+<TabItem value="JavaScript - Monotonic Stack" label="JavaScript - Monotonic Stack" default>
 
 ```ts
 /**
@@ -112,21 +112,21 @@ var largestRectangleArea = function (heights) {
 var largestRectangleArea = function (heights) {
   const n = heights.length
 
-  // 从右往左, 找到比当前元素小的左边界
-  // 需要理解为什么默认值为 -1, 比如一个元素左边所有元素都比它大,
-  // 这就导致从当前高度往左, 一定是可以拉满当前高度的, 那么左边界就是 -1
+  // Find the left boundary (smaller than current element) for each bar
+  // Default is -1: if all elements to the left are taller,
+  // we can extend the current height all the way to the left, so the boundary is -1
   //
-  // PS: 一开始没想明白为什么是 -1, 而不是 0, 因为存储的是索引, 所以左边界值就要是 -1
+  // Note: We use -1 instead of 0 because we're storing indices
   const lefts = new Array(n).fill(-1)
 
-  // 从左往右, 找到比当前元素小的右边界
-  // 需要理解为什么默认值为 n, 比如一个元素右边所有元素都比它大,
-  // 这就导致从当前高度往右, 一定是可以拉满当前高度的, 那么右边界就是 n
+  // Find the right boundary (smaller than current element) for each bar
+  // Default is n: if all elements to the right are taller,
+  // we can extend the current height all the way to the right, so the boundary is n
   const rights = new Array(n).fill(n)
 
   const stack = []
 
-  // 标准的单调栈框架, 找到比当前元素小的右边界
+  // Standard monotonic stack: find the right boundary (smaller element) for each bar
   for (let i = 0; i < n; i++) {
     while (stack.length > 0 && heights[stack[stack.length - 1]] > heights[i]) {
       rights[stack.pop()] = i
@@ -135,7 +135,7 @@ var largestRectangleArea = function (heights) {
     stack.push(i)
   }
 
-  // 标准的单调栈框架, 找到比当前元素小的左边界
+  // Standard monotonic stack: find the left boundary (smaller element) for each bar
   for (let i = n - 1; i >= 0; i--) {
     while (stack.length > 0 && heights[stack[stack.length - 1]] > heights[i]) {
       lefts[stack.pop()] = i
@@ -146,7 +146,7 @@ var largestRectangleArea = function (heights) {
 
   let max = 0
 
-  // 根据左右边界和当前柱子的高度, 来找到最大值
+  // Calculate the maximum area using left/right boundaries and current bar height
   for (let i = 0; i < n; i++) {
     max = Math.max(max, (rights[i] - lefts[i] - 1) * heights[i])
   }
@@ -155,8 +155,8 @@ var largestRectangleArea = function (heights) {
 }
 ```
 
-- 时间复杂度: `O(n)`
-- 空间复杂度: `O(n)`
+- **Time Complexity**: `O(n)`
+- **Space Complexity**: `O(n)`
 
 </TabItem>
 <TabItem value="Rust" label="Rust">
